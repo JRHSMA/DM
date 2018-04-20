@@ -4,11 +4,11 @@ public class Student extends Person {
 
 	private int matrikelNr; // mit inc-methode wie person_ID?
 	private int semester;
-	private String studiengang; // wie ist das mit der ID, statt studiengang,
+	private Studiengang studiengang; // wie ist das mit der ID, statt studiengang,
 								// hier Studiengang_ID?
 
 	public Student(String vorname, String nachname, Date geburtsdatum, boolean maennlich, int matrikelNr, int semester,
-			String studiengang) {
+			Studiengang studiengang) {
 		super(vorname, nachname, geburtsdatum, maennlich);
 		setMatrikelNr(matrikelNr);
 		setSemester(semester);
@@ -33,11 +33,11 @@ public class Student extends Person {
 		return semester;
 	}
 
-	public void setStudiengang(String studiengang) {
+	public void setStudiengang(Studiengang studiengang) {
 		this.studiengang = studiengang;
 	}
 
-	public String getStudiengang() {
+	public Studiengang getStudiengang() {
 		return studiengang;
 	}
 

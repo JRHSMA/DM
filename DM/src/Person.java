@@ -40,7 +40,7 @@ public abstract class Person {
 	}
 
 	public void setVorname(String vorname) {
-		if (vorname.length() < 3)
+		if (vorname.length() < 2)
 			throw new RuntimeException("Vorname ungültig.");
 		this.vorname = vorname;
 	}
@@ -50,7 +50,7 @@ public abstract class Person {
 	}
 
 	public void setNachname(String nachname) {
-		if (nachname.length() < 3)
+		if (nachname.length() < 2)
 			throw new RuntimeException("Nachname ungültig.");
 		this.nachname = nachname;
 	}

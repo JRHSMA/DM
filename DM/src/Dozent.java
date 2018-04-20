@@ -1,12 +1,12 @@
 import java.sql.Date;
 
-public class Dozent extends Person{
+public class Dozent extends Person {
 
 	private int personalNr; // mit inc-methode wie person_ID?
-	private String fakultaet; // ID?
+	private Fakultaet fakultaet; // ID?
 	private String kuerzel;
-	
-	public Dozent(String vorname, String nachname, Date geburtsdatum, boolean maennlich){
+
+	public Dozent(String vorname, String nachname, Date geburtsdatum, boolean maennlich, Fakultaet fakultaet, String kuerzel) {
 		super(vorname, nachname, geburtsdatum, maennlich);
 		setPersonalNr(personalNr);
 		setFakultaet(fakultaet);
@@ -16,26 +16,30 @@ public class Dozent extends Person{
 	private void setPersonalNr(int personalNr) {
 		this.personalNr = personalNr;
 	}
-	public int getPersonalNr(){
+
+	public int getPersonalNr() {
 		return personalNr;
 	}
 
-	public void setFakultaet(String fakultaet) {
+	public void setFakultaet(Fakultaet fakultaet) {
 		this.fakultaet = fakultaet;
 	}
-	public String getFakultaet(){
+
+	public Fakultaet getFakultaet() {
 		return fakultaet;
 	}
 
 	private void setKuerzel(String kuerzel) {
 		this.kuerzel = kuerzel;
 	}
-	public String getKuerzel(){
+
+	public String getKuerzel() {
 		return kuerzel;
 	}
-	
+
 	@Override
-	public String toString(){
-		return super.toString() + ", Status: Dozent, PersonalNr: " + personalNr + ", Fakultät: " + fakultaet + ", Kürzel: " + kuerzel;
+	public String toString() {
+		return super.toString() + ", Status: Dozent, PersonalNr: " + personalNr + ", Fakultät: " + fakultaet
+				+ ", Kürzel: " + kuerzel;
 	}
 }
