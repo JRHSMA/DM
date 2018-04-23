@@ -5,9 +5,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -32,6 +34,7 @@ public class GUI implements ActionListener {
 	private JMenuItem mItem5;
 	private JButton m4Buttons[];
 	private JTextArea m4Text[];
+	private JTextArea m4Parameter[];
 	private JTextArea m5Text[];
 	private JButton m5Buttons[];
 	private JMenuItem mItemsM4[];
@@ -41,8 +44,12 @@ public class GUI implements ActionListener {
 	private JPanel jpCenter;
 	private JPanel eA;
 	private JPanel kA;
-	private int einAnfparameterAnzahl[]=new int[10];
-	
+	private int einAnfparameterAnzahl[] = new int[10];
+	private int kompAnfparameterAnzahl[] = new int[15];
+	private Object allLabelsAndButtons[][] = new Object[25][6];
+	// /InnerCenter Abfragen///
+	private JPanel innerCenter;
+
 	public GUI() {
 		LayoutGUI("test");
 	}
@@ -172,6 +179,50 @@ public class GUI implements ActionListener {
 
 	}
 
+	private void giveRightLnB(boolean einfach, int abfrage) {
+		if (einfach == true) {
+			// add einfache abfrage buttons und labels
+		} else {
+			// add komplexe buttons und labels
+		}
+	}
+
+	private void allLnB() {
+		for (int i = 0; i < allLabelsAndButtons.length; i++) {
+			if (i < 10) {
+				if (einAnfparameterAnzahl[i] == 1) {
+					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
+				}
+				if (einAnfparameterAnzahl[i] == 2) {
+					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
+					allLabelsAndButtons[i][2] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][3] = "hier richtiges JTextArea";
+				}
+			} else {
+				if (kompAnfparameterAnzahl[i - 10] == 1) {
+					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
+				}
+				if (kompAnfparameterAnzahl[i - 10] == 2) {
+					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
+					allLabelsAndButtons[i][2] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][3] = "hier richtiges JTextArea";
+				}
+				if (kompAnfparameterAnzahl[i - 10] == 3) {
+					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
+					allLabelsAndButtons[i][2] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][3] = "hier richtiges JTextArea";
+					allLabelsAndButtons[i][4] = "hier richtiger JLabel";
+					allLabelsAndButtons[i][5] = "hier richtiges JTextArea";
+				}
+			}
+		}
+	}
+
 	private void einAbf(int i) {
 		clear();
 		JTextArea abfrage = new JTextArea();
@@ -180,12 +231,10 @@ public class GUI implements ActionListener {
 		abfrage.setLineWrap(true);
 		abfrage.setWrapStyleWord(true);
 		abfrage.setEditable(false);
-		if(einAnfparameterAnzahl[i]==1){
-			//TODO 1 eingabe feld
-		}
-		if(einAnfparameterAnzahl[i]==2){
-			//TODO 2 eingabe felder
-		}
+		innerCenter = new JPanel();
+		jpCenter.add(innerCenter, BorderLayout.CENTER);
+		innerCenter.setLayout(new GridLayout(2, 10));
+		allLnB();
 		jpCenter.add(abfrage, BorderLayout.NORTH);
 		jf.setSize(960, 720);
 	}
@@ -207,6 +256,21 @@ public class GUI implements ActionListener {
 	}
 
 	private void menuT5() {
+		kompAnfparameterAnzahl[0] = 2;
+		kompAnfparameterAnzahl[1] = 2;
+		kompAnfparameterAnzahl[2] = 2;
+		kompAnfparameterAnzahl[3] = 1;
+		kompAnfparameterAnzahl[4] = 3;
+		kompAnfparameterAnzahl[5] = 2;
+		kompAnfparameterAnzahl[6] = 3;
+		kompAnfparameterAnzahl[7] = 2;
+		kompAnfparameterAnzahl[8] = 3;
+		kompAnfparameterAnzahl[9] = 2;
+		kompAnfparameterAnzahl[10] = 3;
+		kompAnfparameterAnzahl[11] = 3;
+		kompAnfparameterAnzahl[12] = 3;
+		kompAnfparameterAnzahl[13] = 2;
+		kompAnfparameterAnzahl[14] = 2;
 		clear();
 		kA = new JPanel();
 		kA.setLayout(new GridLayout(15, 2));
@@ -220,8 +284,9 @@ public class GUI implements ActionListener {
 			m5Text[i].setLineWrap(true);
 			m5Text[i].setWrapStyleWord(true);
 		}
-		m5Text[0].setText(
-				"testtesttesttesttesttesttesttesttesttesttesttesaaaaaaaaaaaaaaaaaaaaaattesttesttesttesttes\nasdasdasd	");
+		// TODO text schreiben
+		m5Text[0]
+				.setText("testtesttesttesttesttesttesttesttesttesttesttesaaaaaaaaaaaaaaaaaaaaaattesttesttesttesttes\nasdasdasd	");
 		m5Text[1].setText("test0");
 		m5Text[2].setText("test0");
 		m5Text[3].setText("test0");
@@ -249,17 +314,18 @@ public class GUI implements ActionListener {
 
 	// einfache abfragen
 	private void menuT2() {
-		for(int i=0;i<einAnfparameterAnzahl.length;i++){
-			einAnfparameterAnzahl[i]=1;
+		for (int i = 0; i < einAnfparameterAnzahl.length; i++) {
+			einAnfparameterAnzahl[i] = 1;
 		}
-		einAnfparameterAnzahl[5]=2;
-		einAnfparameterAnzahl[6]=2;
+		einAnfparameterAnzahl[5] = 2;
+		einAnfparameterAnzahl[6] = 2;
 		clear();
 		eA = new JPanel();
 		eA.setLayout(new GridLayout(10, 2));
 		jpCenter.add(eA, BorderLayout.CENTER);
 		m4Buttons = new JButton[10];
 		m4Text = new JTextArea[10];
+		m4Parameter = new JTextArea[10];
 		for (int i = 0; i < m4Text.length; i++) {
 			m4Text[i] = new JTextArea();
 			m4Text[i].setEditable(false);
@@ -267,17 +333,26 @@ public class GUI implements ActionListener {
 			m4Text[i].setLineWrap(true);
 			m4Text[i].setWrapStyleWord(true);
 		}
-		m4Text[0].setText(
-				"Zeige den Studiereden mit der Matrikelnummer |_____|.");
+		m4Text[0]
+				.setText("Zeige den Studiereden mit der Matrikelnummer |_____|.");
 		m4Text[1].setText("Zeige alle Studierenden aus dem |_____| Semester.");
-		m4Text[2].setText("Zeige alle männlichen Studierenden aus dem Studiengang |_____|.");
-		m4Text[3].setText("Zeige alle weiblichen Studierenden aus dem Studiengang |_____|.");
-		m4Text[4].setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[5].setText("Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[6].setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
+		m4Text[2]
+				.setText("Zeige alle männlichen Studierenden aus dem Studiengang |_____|.");
+		m4Text[3]
+				.setText("Zeige alle weiblichen Studierenden aus dem Studiengang |_____|.");
+		m4Text[4]
+				.setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[5]
+				.setText("Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[6]
+				.setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
 		m4Text[7].setText("Zeige alle Dozenten der Fakultät |_____|.");
-		m4Text[8].setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
-		m4Text[9].setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
+		m4Text[8]
+				.setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
+		m4Text[9]
+				.setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
+		// /parameter
+
 		for (int i = 0; i < m4Buttons.length; i++) {
 			int c = i + 1;
 			m4Buttons[i] = new JButton("Abfrage " + c);
