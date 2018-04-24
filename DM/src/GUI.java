@@ -1,13 +1,14 @@
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -34,7 +35,8 @@ public class GUI implements ActionListener {
 	private JMenuItem mItem5;
 	private JButton m4Buttons[];
 	private JTextArea m4Text[];
-	private JTextArea m4Parameter[];
+	private JLabel m4Labels[][];
+	private JTextField m4Parameter[][];
 	private JTextArea m5Text[];
 	private JButton m5Buttons[];
 	private JMenuItem mItemsM4[];
@@ -46,7 +48,8 @@ public class GUI implements ActionListener {
 	private JPanel kA;
 	private int einAnfparameterAnzahl[] = new int[10];
 	private int kompAnfparameterAnzahl[] = new int[15];
-	private Object allLabelsAndButtons[][] = new Object[25][6];
+	private JLabel	 allLabels[] ;
+	private JCheckBox computerRaum ;
 	// /InnerCenter Abfragen///
 	private JPanel innerCenter;
 
@@ -68,6 +71,7 @@ public class GUI implements ActionListener {
 		jpCenter = new JPanel();
 		jpCenter.setLayout(new BorderLayout());
 		jp.add(jpCenter, BorderLayout.CENTER);
+		
 
 		fusszeile[0] = new JButton("Abbrechen");
 		fusszeile[0].addActionListener(this);
@@ -88,6 +92,7 @@ public class GUI implements ActionListener {
 		for (int i = 0; i < fusszeile.length; i++) {
 			jp2.add(fusszeile[i]);
 		}
+		allLabels();
 		subMenuDB();
 		subMenuAbfragen();
 
@@ -119,29 +124,6 @@ public class GUI implements ActionListener {
 		menuT1.add(mItem5);
 	}
 
-	/*
-	 * private void subMenuEA() { einfacheAbfragen = new String[10]; mItemsM4 =
-	 * new JMenuItem[10]; einfacheAbfragen[1] = "test1"; einfacheAbfragen[2] =
-	 * "test2"; einfacheAbfragen[3] = "test3"; einfacheAbfragen[4] = "test4";
-	 * einfacheAbfragen[5] = "test5"; einfacheAbfragen[6] = "test6";
-	 * einfacheAbfragen[7] = "test7"; einfacheAbfragen[8] = "test8";
-	 * einfacheAbfragen[9] = "test9"; einfacheAbfragen[0] = "test0"; for (int i
-	 * = 0; i < mItemsM4.length; i++) { mItemsM4[i] = new
-	 * JMenuItem(einfacheAbfragen[i]); mItemsM4[i].addActionListener(this);
-	 * menuT2.add(mItemsM4[i]); } }
-	 * 
-	 * private void subMenuKA() { komplexeAbfragen = new String[15]; mItemsM5 =
-	 * new JMenuItem[15]; komplexeAbfragen[0] = "test0"; komplexeAbfragen[1] =
-	 * "test1"; komplexeAbfragen[2] = "test2"; komplexeAbfragen[3] = "test3";
-	 * komplexeAbfragen[4] = "test4"; komplexeAbfragen[5] = "test5";
-	 * komplexeAbfragen[6] = "test6"; komplexeAbfragen[7] = "test7";
-	 * komplexeAbfragen[8] = "test8"; komplexeAbfragen[9] = "test9";
-	 * komplexeAbfragen[10] = "test10"; komplexeAbfragen[11] = "test11";
-	 * komplexeAbfragen[12] = "test12"; komplexeAbfragen[13] = "test13";
-	 * komplexeAbfragen[14] = "test14"; for (int i = 0; i < mItemsM5.length;
-	 * i++) { mItemsM5[i] = new JMenuItem(komplexeAbfragen[i]);
-	 * mItemsM5[i].addActionListener(this); menuT5.add(mItemsM5[i]); } }
-	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		Object quelle = ev.getSource();
@@ -166,6 +148,21 @@ public class GUI implements ActionListener {
 			for (int j = 0; j < m4Buttons.length; j++) {
 				if (m4Buttons[j] == quelle) {
 					einAbf(j);
+					switch(einAnfparameterAnzahl[j]){
+					case 1:
+						innerCenter.add(m4Labels[j][0]);
+						innerCenter.add(m4Parameter[j][0]);
+						break;
+					case 2:
+						innerCenter.add(m4Labels[j][0]);
+						innerCenter.add(m4Parameter[j][0]);
+						
+						innerCenter.add(m4Labels[j][1]);
+						innerCenter.add(m4Parameter[j][1]);
+						break;
+					default:
+					}
+					
 				}
 			}
 		}
@@ -187,41 +184,6 @@ public class GUI implements ActionListener {
 		}
 	}
 
-	private void allLnB() {
-		for (int i = 0; i < allLabelsAndButtons.length; i++) {
-			if (i < 10) {
-				if (einAnfparameterAnzahl[i] == 1) {
-					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
-				}
-				if (einAnfparameterAnzahl[i] == 2) {
-					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
-					allLabelsAndButtons[i][2] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][3] = "hier richtiges JTextArea";
-				}
-			} else {
-				if (kompAnfparameterAnzahl[i - 10] == 1) {
-					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
-				}
-				if (kompAnfparameterAnzahl[i - 10] == 2) {
-					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
-					allLabelsAndButtons[i][2] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][3] = "hier richtiges JTextArea";
-				}
-				if (kompAnfparameterAnzahl[i - 10] == 3) {
-					allLabelsAndButtons[i][0] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][1] = "hier richtiges JTextArea";
-					allLabelsAndButtons[i][2] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][3] = "hier richtiges JTextArea";
-					allLabelsAndButtons[i][4] = "hier richtiger JLabel";
-					allLabelsAndButtons[i][5] = "hier richtiges JTextArea";
-				}
-			}
-		}
-	}
 
 	private void einAbf(int i) {
 		clear();
@@ -233,8 +195,7 @@ public class GUI implements ActionListener {
 		abfrage.setEditable(false);
 		innerCenter = new JPanel();
 		jpCenter.add(innerCenter, BorderLayout.CENTER);
-		innerCenter.setLayout(new GridLayout(2, 10));
-		allLnB();
+		innerCenter.setLayout(new GridLayout(10,1));
 		jpCenter.add(abfrage, BorderLayout.NORTH);
 		jf.setSize(960, 720);
 	}
@@ -285,8 +246,8 @@ public class GUI implements ActionListener {
 			m5Text[i].setWrapStyleWord(true);
 		}
 		// TODO text schreiben
-		m5Text[0]
-				.setText("testtesttesttesttesttesttesttesttesttesttesttesaaaaaaaaaaaaaaaaaaaaaattesttesttesttesttes\nasdasdasd	");
+		m5Text[0].setText(
+				"testtesttesttesttesttesttesttesttesttesttesttesaaaaaaaaaaaaaaaaaaaaaattesttesttesttesttes\nasdasdasd	");
 		m5Text[1].setText("test0");
 		m5Text[2].setText("test0");
 		m5Text[3].setText("test0");
@@ -325,7 +286,6 @@ public class GUI implements ActionListener {
 		jpCenter.add(eA, BorderLayout.CENTER);
 		m4Buttons = new JButton[10];
 		m4Text = new JTextArea[10];
-		m4Parameter = new JTextArea[10];
 		for (int i = 0; i < m4Text.length; i++) {
 			m4Text[i] = new JTextArea();
 			m4Text[i].setEditable(false);
@@ -333,25 +293,18 @@ public class GUI implements ActionListener {
 			m4Text[i].setLineWrap(true);
 			m4Text[i].setWrapStyleWord(true);
 		}
-		m4Text[0]
-				.setText("Zeige den Studiereden mit der Matrikelnummer |_____|.");
+		m4Text[0].setText("Zeige den Studiereden mit der Matrikelnummer |_____|.");
 		m4Text[1].setText("Zeige alle Studierenden aus dem |_____| Semester.");
-		m4Text[2]
-				.setText("Zeige alle männlichen Studierenden aus dem Studiengang |_____|.");
-		m4Text[3]
-				.setText("Zeige alle weiblichen Studierenden aus dem Studiengang |_____|.");
-		m4Text[4]
-				.setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[5]
-				.setText("Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[6]
-				.setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
+		m4Text[2].setText("Zeige alle männlichen Studierenden aus dem Studiengang |_____|.");
+		m4Text[3].setText("Zeige alle weiblichen Studierenden aus dem Studiengang |_____|.");
+		m4Text[4].setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[5].setText(
+				"Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[6].setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
 		m4Text[7].setText("Zeige alle Dozenten der Fakultät |_____|.");
-		m4Text[8]
-				.setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
-		m4Text[9]
-				.setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
-		// /parameter
+		m4Text[8].setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
+		m4Text[9].setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
+		giveRightLabels();
 
 		for (int i = 0; i < m4Buttons.length; i++) {
 			int c = i + 1;
@@ -362,6 +315,53 @@ public class GUI implements ActionListener {
 		}
 		jf.setSize(960, 720);
 
+	}
+	private void giveRightLabels(){
+		m4Labels=new JLabel[10][2];
+		m4Parameter=new JTextField[10][2];
+		for(int i=0;i<m4Parameter.length;i++){
+			m4Parameter[i][0]=new JTextField(30);
+			m4Parameter[i][1]=new JTextField(30);
+		}
+		m4Labels[0][0]=allLabels[0];
+		m4Labels[1][0]=allLabels[1];
+		m4Labels[2][0]=allLabels[2];
+		m4Labels[3][0]=allLabels[2];
+		m4Labels[4][0]=allLabels[3];
+		m4Labels[5][0]=allLabels[1];
+		m4Labels[5][1]=allLabels[3];
+		m4Labels[6][0]=allLabels[2];
+		m4Labels[6][1]=allLabels[1];
+		m4Labels[7][0]=allLabels[4];
+		m4Labels[8][0]=allLabels[5];
+		m4Labels[9][0]=allLabels[1];
+		
+		//computerRaum= new JCheckBox("Ist Computerraum");
+		//jpCenter.add(computerRaum);
+	}
+
+	private void allLabels() {
+		allLabels=new JLabel[14];
+		for(int i=0;i<allLabels.length;i++){
+			allLabels[i]=new JLabel();
+		}
+		allLabels[0].setText("Bitte die Matrikelnummer eingeben");
+		allLabels[1].setText("Bitte das Semester eingeben");
+		allLabels[2].setText("Bitte den Studiengang eingeben");
+		allLabels[3].setText("Bitte den Vorlesungskürzel eingeben");
+		allLabels[4].setText("Bitte die Fakultät eingeben");
+		allLabels[5].setText("Bitte Nachname des Professors/Dozenten eingeben");
+		allLabels[6].setText("Bitte Professor/Dozent Kürzel eingeben");
+		allLabels[7].setText("Bitte Raumnummer eingeben");
+		allLabels[8].setText("Bitte den Tag eingeben");
+		allLabels[9].setText("Bitte den Slot eingeben");
+		allLabels[10].setText("Bitte die Personalnummer eingeben");
+		allLabels[11].setText("Bitte das Geschlecht angeben");
+		allLabels[12].setText("Bitte den Veranstaltungskürzel eingeben");
+		allLabels[13].setText("");
+		for(int k=0;k<allLabels.length;k++){
+			allLabels[k].setFont(new Font("Serif", Font.ITALIC, 18));
+		}
 	}
 
 	private void menuT1() {
