@@ -8,7 +8,7 @@ public abstract class Person {
 	// Wie auto-increment lösen? bzw. überhaupt notwendig hier?
 
 	private static int anzPersonen;
-	private int person_ID;
+	private int id;
 	private String vorname;
 	private String nachname;
 	private Date geburtsdatum;
@@ -31,18 +31,23 @@ public abstract class Person {
 		return anzPersonen;
 	}
 
-	private void setPerson_ID(int person_ID) {
-		this.person_ID = person_ID;
+	private void setPerson_ID(int id) {
+		this.id = id;
 	}
 
-	public int getPerson_ID() {
-		return person_ID;
+	public int getId() {
+		return id;
 	}
 
 	public void setVorname(String vorname) {
-		if (vorname.length() < 2)
-			throw new RuntimeException("Vorname ungültig.");
-		this.vorname = vorname;
+		if (vorname.length() < 2) {
+			throw new RuntimeException("Name muss mindestens drei Buchstaben besitzen");
+		}
+		
+		if (vorname.matches(".*[0-9].*"))
+			throw new RuntimeException("Name darf keine Zahl enthalten");
+		else
+			this.vorname = vorname;
 	}
 
 	public String getVorname() {
@@ -50,9 +55,14 @@ public abstract class Person {
 	}
 
 	public void setNachname(String nachname) {
-		if (nachname.length() < 2)
-			throw new RuntimeException("Nachname ungültig.");
-		this.nachname = nachname;
+		if (nachname.length() < 2) {
+			throw new RuntimeException("Name muss mindestens drei Buchstaben besitzen");
+		}
+		
+		if (nachname.matches(".*[0-9].*"))
+			throw new RuntimeException("Name darf keine Zahl enthalten");
+		else
+			this.nachname = nachname;
 	}
 
 	public String getNachname() {
@@ -60,6 +70,7 @@ public abstract class Person {
 	}
 
 	private void setGeburtsdatum(Date geburtsdatum) {
+		//TODO
 		// Gültigkeitsprüfungen?
 		this.geburtsdatum = geburtsdatum;
 	}
@@ -78,7 +89,7 @@ public abstract class Person {
 
 	@Override
 	public String toString() {
-		return "Person_ID: " + person_ID + ", Vorname: " + vorname + ", Nachname: " + nachname + ", Geburtsdatum: "
+		return "Person_ID: " + id + ", Vorname: " + vorname + ", Nachname: " + nachname + ", Geburtsdatum: "
 				+ geburtsdatum + ", Männlich: " + maennlich;
 	}
 }

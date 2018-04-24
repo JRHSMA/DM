@@ -1,13 +1,13 @@
 import java.sql.Date; // oder java.util.Date ?
 
-public class Student extends Person {
+public class Studierender extends Person {
 
 	private int matrikelNr; // mit inc-methode wie person_ID?
 	private int semester;
 	private Studiengang studiengang; // wie ist das mit der ID, statt studiengang,
 								// hier Studiengang_ID?
 
-	public Student(String vorname, String nachname, Date geburtsdatum, boolean maennlich, int matrikelNr, int semester,
+	public Studierender(String vorname, String nachname, Date geburtsdatum, boolean maennlich, int matrikelNr, int semester,
 			Studiengang studiengang) {
 		super(vorname, nachname, geburtsdatum, maennlich);
 		setMatrikelNr(matrikelNr);
