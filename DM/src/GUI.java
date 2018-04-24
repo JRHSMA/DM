@@ -36,7 +36,9 @@ public class GUI implements ActionListener {
 	private JButton m4Buttons[];
 	private JTextArea m4Text[];
 	private JLabel m4Labels[][];
+	private JLabel m5Labels[][];
 	private JTextField m4Parameter[][];
+	private JTextField m5Parameter[][];
 	private JTextArea m5Text[];
 	private JButton m5Buttons[];
 	private JMenuItem mItemsM4[];
@@ -50,7 +52,7 @@ public class GUI implements ActionListener {
 	private int kompAnfparameterAnzahl[] = new int[15];
 	private JLabel	 allLabels[] ;
 	private JCheckBox computerRaum ;
-	// /InnerCenter Abfragen///
+	private int abfragenCounter;
 	private JPanel innerCenter;
 
 	public GUI() {
@@ -132,10 +134,10 @@ public class GUI implements ActionListener {
 			menuT1();
 		}
 		if (menuT2 == quelle) {
-			menuT2();
+			menuT4();
 		}
 		if (mItem1 == quelle) {
-			menuT2();
+			menuT4();
 		}
 		if (mItem2 == quelle) {
 			menuT5();
@@ -162,7 +164,7 @@ public class GUI implements ActionListener {
 						break;
 					default:
 					}
-					
+					abfragenCounter=j;
 				}
 			}
 		}
@@ -170,19 +172,37 @@ public class GUI implements ActionListener {
 			for (int j = 0; j < m5Buttons.length; j++) {
 				if (m5Buttons[j] == quelle) {
 					komAbf(j);
+					switch(kompAnfparameterAnzahl[j]){
+					case 1:
+						innerCenter.add(m5Labels[j][0]);
+						innerCenter.add(m5Parameter[j][0]);
+						break;
+					case 2:
+						innerCenter.add(m5Labels[j][0]);
+						innerCenter.add(m5Parameter[j][0]);
+						
+						innerCenter.add(m5Labels[j][1]);
+						innerCenter.add(m5Parameter[j][1]);
+						break;
+					case 3:
+						innerCenter.add(m5Labels[j][0]);
+						innerCenter.add(m5Parameter[j][0]);
+						
+						innerCenter.add(m5Labels[j][1]);
+						innerCenter.add(m5Parameter[j][1]);
+						
+						innerCenter.add(m5Labels[j][2]);
+						innerCenter.add(m5Parameter[j][2]);
+						break;
+					default:
+					}
+					abfragenCounter=j;
 				}
 			}
 		}
 
 	}
 
-	private void giveRightLnB(boolean einfach, int abfrage) {
-		if (einfach == true) {
-			// add einfache abfrage buttons und labels
-		} else {
-			// add komplexe buttons und labels
-		}
-	}
 
 
 	private void einAbf(int i) {
@@ -195,7 +215,7 @@ public class GUI implements ActionListener {
 		abfrage.setEditable(false);
 		innerCenter = new JPanel();
 		jpCenter.add(innerCenter, BorderLayout.CENTER);
-		innerCenter.setLayout(new GridLayout(10,1));
+		innerCenter.setLayout(new GridLayout(15,1));
 		jpCenter.add(abfrage, BorderLayout.NORTH);
 		jf.setSize(960, 720);
 	}
@@ -203,18 +223,17 @@ public class GUI implements ActionListener {
 	private void komAbf(int i) {
 		clear();
 		JTextArea abfrage = new JTextArea();
-		JTextField test = new JTextField("test", 10);
-
 		abfrage.setText(m5Text[i].getText());
 		abfrage.setFont(new Font("Serif", Font.ITALIC, 18));
 		abfrage.setLineWrap(true);
 		abfrage.setWrapStyleWord(true);
 		abfrage.setEditable(false);
+		innerCenter = new JPanel();
+		jpCenter.add(innerCenter, BorderLayout.CENTER);
+		innerCenter.setLayout(new GridLayout(15,1));
 		jpCenter.add(abfrage, BorderLayout.NORTH);
-		jpCenter.add(test, BorderLayout.CENTER);
-
 		jf.setSize(960, 720);
-	}
+			}
 
 	private void menuT5() {
 		kompAnfparameterAnzahl[0] = 2;
@@ -241,27 +260,27 @@ public class GUI implements ActionListener {
 		for (int i = 0; i < m5Text.length; i++) {
 			m5Text[i] = new JTextArea();
 			m5Text[i].setEditable(false);
-			m5Text[i].setFont(new Font("Serif", Font.ITALIC, 18));
+			m5Text[i].setFont(new Font("Serif", Font.ITALIC, 15));
 			m5Text[i].setLineWrap(true);
 			m5Text[i].setWrapStyleWord(true);
 		}
-		// TODO text schreiben
 		m5Text[0].setText(
-				"testtesttesttesttesttesttesttesttesttesttesttesaaaaaaaaaaaaaaaaaaaaaattesttesttesttesttes\nasdasdasd	");
-		m5Text[1].setText("test0");
-		m5Text[2].setText("test0");
-		m5Text[3].setText("test0");
-		m5Text[4].setText("test0");
-		m5Text[5].setText("test0");
-		m5Text[6].setText("test0");
-		m5Text[7].setText("test0");
-		m5Text[8].setText("test0");
-		m5Text[9].setText("test0");
-		m5Text[10].setText("test0");
-		m5Text[11].setText("test0");
-		m5Text[12].setText("test0");
-		m5Text[13].setText("test0");
-		m5Text[14].setText("test0");
+				"Zeige den Dozenten, der die Veranstaltung |_____| im Raum |_____| hält.	");
+		m5Text[1].setText("Zeige alle Veranstaltungen von dem Studierenden mit der MatrikelNr |_____| , die im Raum |_____| stattfinden.");
+		m5Text[2].setText("Zeige alle Veranstaltungen der Studierenden vom Studiengang |_____|, die am |_____| stattfinden.");
+		m5Text[3].setText("Zeige die Bezeichnung aller Räume in denen Veranstaltungen vom Dozenten mit der Personalnummer |_____| stattfinden.");
+		m5Text[4].setText("Zeige den Namen des Dozenten, der die Veranstaltung mit dem Veranstaltungskuerzel |_____| am |_____| im Slot |_____| hält.");
+		m5Text[5].setText("Zeige den Stundenplan des Dozenten, den der Student mit der MatrikelNr |_____| in der Veranstaltung |_____| hat.");
+		m5Text[6].setText("Zeige den Raum, in der die Veranstaltung vom Dozenten/Professor |_____| am |_____| im Slot |_____| gehalten wird.");
+		m5Text[7].setText("Zeige alle Räume, die durch den Dozent/Professor |_____| am |_____| belegt sind.");
+		m5Text[8].setText("Zeige alle Studierenden, die am |_____| eine Veranstaltung in einem Computerraum haben/nicht haben.");
+		m5Text[9].setText("Zeige alle |_____| Studierenden, die die Veranstaltung |_____| im Raum |_____| besuchen.");
+		m5Text[10].setText("Zeige die Tage an denen die Veranstaltung mit dem Veranstaltungskuerzel |_____|, die im Studiengang |_____| vom Dozenten/Professor |_____| gehalten wird, stattfindet.");
+		m5Text[11].setText("Zeige die Matrikelnummer aller Studierenden, die die Veranstaltung |_____| beim Dozenten/Professor |_____| im Raum |_____| besuchen.");
+		m5Text[12].setText("Zeige alle Dozenten der Fakultät |_____|, die eine Veranstaltung am |_____| halten und einen Computerraum belegen/nicht belegen.");
+		m5Text[13].setText("Zeige alle Vorlesungen, die am |_____| von dem Dozenten/Professor mit dem Kuerzel |_____| gehalten werden.");
+		m5Text[14].setText("Zeige alle Dozenten, die am |_____| im Slot |_____| eine Veranstaltung halten.");
+		giveRightLabels();
 		for (int i = 0; i < m5Buttons.length; i++) {
 			int c = i + 1;
 			m5Buttons[i] = new JButton("Abfrage " + c);
@@ -274,7 +293,7 @@ public class GUI implements ActionListener {
 	}
 
 	// einfache abfragen
-	private void menuT2() {
+	private void menuT4() {
 		for (int i = 0; i < einAnfparameterAnzahl.length; i++) {
 			einAnfparameterAnzahl[i] = 1;
 		}
@@ -323,6 +342,13 @@ public class GUI implements ActionListener {
 			m4Parameter[i][0]=new JTextField(30);
 			m4Parameter[i][1]=new JTextField(30);
 		}
+		m5Labels=new JLabel[15][3];
+		m5Parameter=new JTextField[15][3];
+		for(int i=0;i<m5Parameter.length;i++){
+			m5Parameter[i][0]=new JTextField(30);
+			m5Parameter[i][1]=new JTextField(30);
+			m5Parameter[i][2]=new JTextField(30);
+		}
 		m4Labels[0][0]=allLabels[0];
 		m4Labels[1][0]=allLabels[1];
 		m4Labels[2][0]=allLabels[2];
@@ -336,7 +362,42 @@ public class GUI implements ActionListener {
 		m4Labels[8][0]=allLabels[5];
 		m4Labels[9][0]=allLabels[1];
 		
-		//computerRaum= new JCheckBox("Ist Computerraum");
+		m5Labels[0][0]=allLabels[3];
+		m5Labels[0][1]=allLabels[7];
+		m5Labels[1][0]=allLabels[0];
+		m5Labels[1][1]=allLabels[8];
+		m5Labels[2][0]=allLabels[2];
+		m5Labels[2][1]=allLabels[8];
+		m5Labels[3][0]=allLabels[10];
+		m5Labels[4][0]=allLabels[3];
+		m5Labels[4][1]=allLabels[8];
+		m5Labels[4][2]=allLabels[9];
+		m5Labels[5][0]=allLabels[0];
+		m5Labels[5][1]=allLabels[3];
+		m5Labels[6][0]=allLabels[5];
+		m5Labels[6][1]=allLabels[8];
+		m5Labels[6][2]=allLabels[9];
+		m5Labels[7][0]=allLabels[5];
+		m5Labels[7][1]=allLabels[8];
+		m5Labels[8][0]=allLabels[8];
+		m5Labels[8][1]=allLabels[13];
+		m5Labels[9][0]=allLabels[11];
+		m5Labels[9][1]=allLabels[12];
+		m5Labels[9][2]=allLabels[7];
+		m5Labels[10][0]=allLabels[3];
+		m5Labels[10][1]=allLabels[2];
+		m5Labels[10][2]=allLabels[5];
+		m5Labels[11][0]=allLabels[12];
+		m5Labels[11][1]=allLabels[5];
+		m5Labels[11][2]=allLabels[7];
+		m5Labels[12][0]=allLabels[4];
+		m5Labels[12][1]=allLabels[8];
+		m5Labels[12][2]=allLabels[13];
+		m5Labels[13][0]=allLabels[8];
+		m5Labels[13][1]=allLabels[6];
+		m5Labels[14][0]=allLabels[8];
+		m5Labels[14][1]=allLabels[9];
+		//computeraum= new JCheckBox("Ist Computerraum");
 		//jpCenter.add(computerRaum);
 	}
 
@@ -357,7 +418,7 @@ public class GUI implements ActionListener {
 		allLabels[9].setText("Bitte den Slot eingeben");
 		allLabels[10].setText("Bitte die Personalnummer eingeben");
 		allLabels[11].setText("Bitte das Geschlecht angeben");
-		allLabels[12].setText("Bitte den Veranstaltungskürzel eingeben");
+		allLabels[12].setText("Bitte den Veranstaltungsname eingeben");
 		allLabels[13].setText("");
 		for(int k=0;k<allLabels.length;k++){
 			allLabels[k].setFont(new Font("Serif", Font.ITALIC, 18));
