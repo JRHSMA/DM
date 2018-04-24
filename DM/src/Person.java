@@ -41,13 +41,16 @@ public abstract class Person {
 
 	public void setVorname(String vorname) {
 		if (vorname.length() < 2) {
-			throw new RuntimeException("Name muss mindestens drei Buchstaben besitzen");
+			throw new RuntimeException("Der Vorname muss mindestens drei Buchstaben besitzen");
 		}
-		
+		if (vorname.length() > 50) {
+			throw new RuntimeException("Der Vorname darf nicht mehr als 50 Buchstaben besitzen");
+		}
+
 		if (vorname.matches(".*[0-9].*"))
-			throw new RuntimeException("Name darf keine Zahl enthalten");
-		else
-			this.vorname = vorname;
+			throw new RuntimeException("Vorname darf keine Zahl enthalten");
+
+		this.vorname = vorname;
 	}
 
 	public String getVorname() {
@@ -56,13 +59,16 @@ public abstract class Person {
 
 	public void setNachname(String nachname) {
 		if (nachname.length() < 2) {
-			throw new RuntimeException("Name muss mindestens drei Buchstaben besitzen");
+			throw new RuntimeException("Der Nachname muss mindestens drei Buchstaben besitzen");
 		}
-		
+		if (nachname.length() > 50) {
+			throw new RuntimeException("Der Nachname darf nicht mehr als 50 Buchstaben besitzen");
+		}
+
 		if (nachname.matches(".*[0-9].*"))
-			throw new RuntimeException("Name darf keine Zahl enthalten");
-		else
-			this.nachname = nachname;
+			throw new RuntimeException("Nachname darf keine Zahl enthalten");
+
+		this.nachname = nachname;
 	}
 
 	public String getNachname() {
@@ -70,7 +76,7 @@ public abstract class Person {
 	}
 
 	private void setGeburtsdatum(Date geburtsdatum) {
-		//TODO
+		// TODO
 		// Gültigkeitsprüfungen?
 		this.geburtsdatum = geburtsdatum;
 	}
