@@ -147,6 +147,7 @@ public class DB {
 	
 	/**
 	 * Einfache Abfragen
+	 * Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	 */
 	
 	//TODO Datenbank verbindung schließen (offen noch wo genau)
@@ -167,7 +168,6 @@ public class DB {
 		}
 	}
 	
-	//Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach02(int semester) {
 		try {
 			ps = con.prepareStatement("SELECT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich "
@@ -183,7 +183,6 @@ public class DB {
 		}
 	}
 	
-	//Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach03(boolean maennlich, String Studiengang) {
 		try {
 			ps = con.prepareStatement("SELECT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich "
@@ -200,7 +199,6 @@ public class DB {
 		}
 	}
 	
-	//Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach04(boolean maennlich, String Studiengang) {
 		try {
 			ps = con.prepareStatement("SELECT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich "
@@ -217,7 +215,6 @@ public class DB {
 		}
 	}
 	
-	//Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach05(String vKuerzel) {
 		try {
 			ps = con.prepareStatement("SELECT DISTINCT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, vn.Name, vn.Kuerzel "
@@ -236,7 +233,6 @@ public class DB {
 		}
 	}
 	
-	//Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach06(String vKuerzel, int semester) {
 		try {
 			ps = con.prepareStatement("SELECT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, vn.Name, vn.Kuerzel "
@@ -256,7 +252,6 @@ public class DB {
 		}
 	}
 	
-	//Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach07(String studiengang, int semester) {
 		try {
 			ps = con.prepareStatement("SELECT tag.Tag ,sl.Slot, vn.Name "
@@ -276,7 +271,6 @@ public class DB {
 		}
 	}
 	
-	//Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach08(String fakultaet) {
 		try {
 			ps = con.prepareStatement("SELECT p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, d.PersonalNr, d.Kuerzel, f.Name "
