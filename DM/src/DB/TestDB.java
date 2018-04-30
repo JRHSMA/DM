@@ -1,12 +1,14 @@
 package DB;
 
 import java.sql.PreparedStatement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class TestDB {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		DB db = new DB("studierendenverwaltung", "root", "");
 		/*
 		 * db.setSQL("SELECT s.matrikelNr, s.semester, sg.name, p.vorname, p.nachname, p.geburtsdatum, p.maennlich"
@@ -42,9 +44,24 @@ public class TestDB {
 		//db.abfrageKomplex14("HSF", "Freitag");
 		//db.abfrageKomplex15("Freitag",1);
 		
-		ArrayList<LinkedHashMap<String, String>> daten = db.lesenjava();
+		//db.insertPerson("testvorname03","testnachname03", "2011-09-08" , true);
+		//db.insertDozent("tst", 4, 25);
+		//db.insertStudierender(1833157, 4, 1, 30);
+		//db.insertFakultaet("Test Fakultät");
+		//db.insertStudiengang("Test Studiengang");
+		//db.insertVeranstaltungsname("test Veranstaltung", "TS");
+		//db.insertVeranstaltung(1, 90, 1, 58, 15);
+		//db.insertRaum("t001", true);
+		//db.insertHoert(30, 1833157);
+		//db.insertHat("t001", 58);
+		db.insertErhaelt(10, 58);
+		
+		db.close();
+		
+		/*ArrayList<LinkedHashMap<String, String>> daten = db.lesenjava();
 		for (LinkedHashMap<String, String> datensatz : daten) {
 			System.out.println(datensatz);
 		}
+		*/
 	}
 }

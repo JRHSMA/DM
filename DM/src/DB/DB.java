@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class DB {
@@ -630,5 +631,149 @@ public class DB {
 		}
 	}
 	
+	/**
+	 * Insert-Into
+	 */
+	public void insertPerson(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+		try {
+			ps = con.prepareStatement("INSERT INTO person (id, vorname, nachname, geburtsdatum, maennlich) "
+					+ "VALUES (NULL, ?, ?, ?, ?);");
+			ps.setString(1, vorname);
+			ps.setString(2, nachname);
+			ps.setString(3, geburtsdatum);
+			ps.setBoolean(4, maennlich);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
 	
+	public void insertDozent(String kuerzel, int idFakultaet, int idPerson) {
+		try {
+			ps = con.prepareStatement("INSERT INTO Dozent (personalNr, kuerzel, idFakultaet, idPerson) "
+					+ "VALUES (NULL, ?, ?,?);");
+			ps.setString(1, kuerzel);
+			ps.setInt(2, idFakultaet);
+			ps.setInt(3, idPerson);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void insertFakultaet(String name) {
+		try {
+			ps = con.prepareStatement("INSERT INTO fakultaet (id, name) "
+					+ "VALUES (NULL, ?);");
+			ps.setString(1, name);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void insertStudierender(int matrikelNr, int semester, int idStudiengang, int idPerson) {
+		try {
+			ps = con.prepareStatement("INSERT INTO studierender (matrikelNr, semester, idStudiengang, idPerson) "
+					+ "VALUES (?, ?, ?, ?);");
+			ps.setInt(1, matrikelNr);
+			ps.setInt(2, semester);
+			ps.setInt(3, idStudiengang);
+			ps.setInt(4, idPerson);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void insertStudiengang(String name) {
+		try {
+			ps = con.prepareStatement("INSERT INTO Studiengang (id, name) "
+					+ "VALUES (NULL, ?);");
+			ps.setString(1, name);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void insertVeranstaltung(int semester, int dauer, int personalNr, int idStundenplan, int idvName) {
+		try {
+			ps = con.prepareStatement("INSERT INTO veranstaltung (id, semester, dauer, personalNr, idStundenplan, idvName) "
+					+ "VALUES (NULL,?,?,?,?,?);");
+			ps.setInt(1, semester);
+			ps.setInt(2, dauer);
+			ps.setInt(3, personalNr);
+			ps.setInt(4, idStundenplan);
+			ps.setInt(5, idvName);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void insertVeranstaltungsname(String name, String kuerzel) {
+		try {
+			ps = con.prepareStatement("INSERT INTO veranstaltungsname (id, name, kuerzel) "
+					+ "VALUES (NULL,?,?);");
+			ps.setString(1, name);
+			ps.setString(2, kuerzel);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void insertRaum(String bezeichnung, boolean computerraum) {
+		try {
+			ps = con.prepareStatement("INSERT INTO raum (bezeichnung, computerraum) "
+					+ "VALUES (?,?);");
+			ps.setString(1, bezeichnung);
+			ps.setBoolean(2, computerraum);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void insertHoert(int id, int matrikelNr) {
+		try {
+			ps = con.prepareStatement("INSERT INTO hoert (id, matrikelNr) "
+					+ "VALUES (?,?);");
+			ps.setInt(1, id);
+			ps.setInt(2, matrikelNr);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void insertHat(String bezeichnung, int id) {
+		try {
+			ps = con.prepareStatement("INSERT INTO hat (bezeichnung, id) "
+					+ "VALUES (?,?);");
+			ps.setString(1, bezeichnung);
+			ps.setInt(2, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void insertErhaelt(int personalNr, int id) {
+		try {
+			ps = con.prepareStatement("INSERT INTO erhaelt (personalNr, id) "
+					+ "VALUES (?,?);");
+			ps.setInt(1, personalNr);
+			ps.setInt(2, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
 }
