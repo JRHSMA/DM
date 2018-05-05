@@ -44,17 +44,37 @@ public class TestDB {
 		//db.abfrageKomplex14("HSF", "Freitag");
 		//db.abfrageKomplex15("Freitag",1);
 		
-		//db.insertPerson("testvorname03","testnachname03", "2011-09-08" , true);
+		//db.insertPerson("testvorname07","testnachname03", "2011-09-08" , true);
 		//db.insertDozent("tst", 4, 25);
 		//db.insertStudierender(1833157, 4, 1, 30);
-		//db.insertFakultaet("Test Fakultät");
+		//db.insertFakultaet("Test Fakultät01");
 		//db.insertStudiengang("Test Studiengang");
-		//db.insertVeranstaltungsname("test Veranstaltung", "TS");
+		//db.insertVeranstaltungsname("test Veranstaltung01", "T1");
 		//db.insertVeranstaltung(1, 90, 1, 58, 15);
 		//db.insertRaum("t001", true);
 		//db.insertHoert(30, 1833157);
 		//db.insertHat("t001", 58);
-		db.insertErhaelt(10, 58);
+		//db.insertErhaelt(10, 58);
+		//db.insertBesitzt(99, 1644557);
+		//db.insertSlot(7);
+		//db.insertTag("Sonntag");
+		//db.insertStundenplan(1, 9, 7, 8);
+		
+		//db.deletePerson(36);
+		//db.deleteDozent(10);
+		//db.deleteFakultaet(13);
+		//db.deleteStudierender(1833157);
+		//db.deleteStudiengang(9);
+		//db.deleteVeranstaltung(30);
+		//db.deleteHoert(10, 1712189);
+		//db.deleteVeranstaltungsname(15);
+		//db.deleteRaum("t001");
+		//db.deleteHat("t001", 58);
+		//db.deleteErhaelt(10, 58);
+		//db.deleteBesitzt(99, 1644557);
+		//db.deleteSlot(8);
+		//db.deleteTag(7);
+		//db.deleteStundenplan(104);
 		
 		db.close();
 		

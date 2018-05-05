@@ -776,4 +776,222 @@ public class DB {
 			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
 		}
 	}
+	
+	public void insertBesitzt(int id, int matrikelNr) {
+		try {
+			ps = con.prepareStatement("INSERT INTO besitzt (id, matrikelNr) "
+					+ "VALUES (?,?);");
+			ps.setInt(1, id);
+			ps.setInt(2, matrikelNr);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void insertSlot(int slot) {
+		try {
+			ps = con.prepareStatement("INSERT INTO slot (id, slot) "
+					+ "VALUES (Null,?);");
+			ps.setInt(1, slot);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void insertTag(String tag) {
+		try {
+			ps = con.prepareStatement("INSERT INTO tag (id, tag) "
+					+ "VALUES (Null,?);");
+			ps.setString(1, tag);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void insertStundenplan(int semester, int idStudiengang, int idTag, int idSlot) {
+		try {
+			ps = con.prepareStatement("INSERT INTO stundenplan (id, semester, idStudiengang, idTag, idSlot) "
+					+ "VALUES (Null,?,?,?,?);");
+			ps.setInt(1, semester);
+			ps.setInt(2, idStudiengang);
+			ps.setInt(3, idTag);
+			ps.setInt(4, idSlot);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Delete
+	 */
+	public void deletePerson(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM person WHERE id = ?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteDozent(int personalNr) {
+		try {
+			ps = con.prepareStatement("DELETE FROM dozent WHERE personalNr = ?;");
+			ps.setInt(1, personalNr);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void deleteFakultaet(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM fakultaet WHERE id = ?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void deleteStudierender(int matrikelNr) {
+		try {
+			ps = con.prepareStatement("DELETE FROM studierender WHERE matrikelNr = ?;");
+			ps.setInt(1, matrikelNr);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void deleteStudiengang(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM studiengang WHERE id = ?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteVeranstaltung(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM veranstaltung WHERE id = ?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void deleteVeranstaltungsname(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM veranstaltungsname WHERE id = ?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteRaum(String bezeichnung) {
+		try {
+			ps = con.prepareStatement("DELETE FROM raum WHERE bezeichnung = ?;");
+			ps.setString(1, bezeichnung);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void deleteHoert(int id, int matrikelNr) {
+		try {
+			ps = con.prepareStatement("DELETE FROM hoert WHERE id =? AND matrikelNr =?;");
+			ps.setInt(1, id);
+			ps.setInt(2, matrikelNr);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	public void deleteHat(String bezeichnung, int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM hat WHERE bezeichnung =? AND id =?;");
+			ps.setString(1, bezeichnung);
+			ps.setInt(2, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteErhaelt(int personalNr, int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM erhaelt WHERE personalNr =? AND id =?;");
+			ps.setInt(1, personalNr);
+			ps.setInt(2, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteBesitzt(int id, int matrikelNr) {
+		try {
+			ps = con.prepareStatement("DELETE FROM besitzt WHERE id =? AND matrikelNr =?;");
+			ps.setInt(1, id);
+			ps.setInt(2, matrikelNr);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteSlot(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM slot WHERE id =?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteTag(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM tag WHERE id =?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public void deleteStundenplan(int id) {
+		try {
+			ps = con.prepareStatement("DELETE FROM stundenplan WHERE id =?;");
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
 }
