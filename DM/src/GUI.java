@@ -973,10 +973,10 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownFakultät(int i, int j, boolean istEinfach) {
-		String fakultätenListe[] = { "Fakultät für Biotechnologie", "Fakultät für Elektrotechnik",
-				"Fakultät für Gestaltung", "Fakultät für Informatik", "Fakultät für Informationstechnik",
-				"Fakultät für Maschinenbau", "Fakultät für Sozialwesen", "Fakultät für Verfahrens- und Chemietechnik",
-				"Fakultät für Wirtschaftsingenieurwesen" };
+		String fakultätenListe[] = { "Biotechnologie", "Elektrotechnik",
+				"Gestaltung", "Informatik", "Informationstechnik",
+				"Maschinenbau", "Sozialwesen", "Verfahrens- und Chemietechnik",
+				"Wirtschaftsingenieurwesen" };
 		fakultätAuswahl = new JComboBox(fakultätenListe);
 		fakultätAuswahl.addActionListener(this);
 		if (istEinfach) {
