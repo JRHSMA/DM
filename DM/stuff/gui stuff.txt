@@ -1,0 +1,114 @@
+allLabels[0].setText("Bitte die Matrikelnummer eingeben");
+allLabels[1].setText("Bitte das Semester eingeben");			dropdown
+allLabels[2].setText("Bitte den Studiengang auswählen");		dropdown
+allLabels[3].setText("Bitte den Vorlesungskürzel eingeben");
+allLabels[4].setText("Bitte die Fakultät eingeben");			dropdown
+allLabels[5].setText("Bitte Nachname des Professors/Dozenten eingeben");
+allLabels[6].setText("Bitte Professor/Dozent Kürzel eingeben");
+allLabels[7].setText("Bitte Raumnummer eingeben");
+allLabels[8].setText("Bitte den Tag eingeben");				dropdown
+allLabels[9].setText("Bitte den Slot eingeben");			dropdown
+allLabels[10].setText("Bitte die Personalnummer eingeben");
+allLabels[11].setText("Bitte das Geschlecht angeben");			dropdown
+allLabels[12].setText("Bitte den Veranstaltungsname eingeben");
+allLabels[13].setText("");						checkbox
+
+text : 3 , 5 , 6 , 7  , 12
+			
+X	private int matrikelNr;			
+X	private int semester;			
+X	private String studiengang;		
+	private String vorlesungsKrzl;		
+X	private String fakultät;		
+	private String profName;
+	private String profKrzl;
+	private String raumName;
+X	private String tag;
+X	private int slot;
+X	private int persoNr;
+X	private boolean istMännlich;
+	private String veranstaltungsname;
+X	private boolean istCompRaum;
+
+
+allLabels[13].setText("");
+------------------------------------------------
+STUDIENGÄNGE
+"Biologische Chemie (Bachelor)",
+"Biotechnology - Biomedical Science and Technology (Master)",
+"Biotechnology - Bioprocess Development (Master)",
+"Automation Technology (Bachelor)",
+"Automatisierungs und Energiesysteme (Master)",
+"Automatisierungstechnik (Bachelor)",
+"Elektro und Informationstechnik für das höhere Lehramt (Bachelor)",
+"Elektro und Informationstechnik für das höhere Lehramt (Master)",
+"Elektro und Informationstechnik für das höhere Lehramt - Zweitfach Mathematik (Master)",
+"Energietechnik und erneuerbare Energien (Bachelor)",
+"Power Engineering and Renewable Energies (Bachelor)",
+"Translation Studies for IT (Bachelor)",
+"Informatik (Bachelor)",
+"Informatik (Master)",
+"Informatik - Vertiefungsrichtung Medizin (Master)",
+"Medizinische Informatik (Bachelor)",
+"Unternehmens- und Wirtschaftsinformatik (Bachelor)",
+"Maschinenbau (Bacheor)",
+"Maschinenbau (Master)",
+"Maschinenbau / Konstruktion (Bachelor)",
+"Maschinenbau / Produktion (Bachelor)",
+"Informationstechnik (Master)",
+"Informationstechnik / Elektronik (Bachelor)",
+"Medizintechnik (Bachelor)",
+"Medizintechnik (Master)",
+"Nachrichtentechnik / Elektronik (Bachelor)",
+"Technische Informatik (Bachelor)",
+"Soziale Arbeit (Bachelor)",
+"Soziale Arbeit (Master)",
+"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)",
+"Chemical Engineering French (Master)",
+"Chemieingenieurwesen (Master)",
+"Chemische Technik (Bachelor)",
+"Verfahrenstechnik (Bachelor)",
+Wirtschaftsingenieurwesen (Bachelor),
+Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master),
+Wirtschaftsingenieurwesen - Vorqualifikation ING (Master),
+Wirtschaftsingenieurwesen - Vorqualifikation WI (Master),
+Wirtschaftsingenieurwesen International (Bachelor),
+-----------------------------
+help
+----
+0 JComboBox geschAuswahl	boolean
+1 JComboBox slotAuswahl		int
+2 JComboBox tagAuswahl		sting
+3 JComboBox semesterAuswahl 	int
+4 JComboBox fakultätAuswahl 	string
+5 JComboBox studiengangAuswahl 	string
+
+private int matrikelNr;
+	private int semester;
+	private String studiengang;
+	private String vorlesungsKrzl;
+	private String fakultät;
+	private String profName;
+	private String profKrzl;
+	private String raumName;
+	private String tag;
+	private int slot;
+	private int persoNr;
+	private boolean istMännlich;
+	private String veranstaltungsname;
+	private boolean istCompRaum;
+
+----
+FAKULTÄTEN
+--------------------------------------
+
+"Fakultät für Biotechnologie",
+"Fakultät für Elektrotechnik",
+"Fakultät für Gestaltung",
+"Fakultät für Informatik",
+"Fakultät für Informationstechnik",
+"Fakultät für Maschinenbau",
+"Fakultät für Sozialwesen",
+"Fakultät für Verfahrens- und Chemietechnik",
+"Fakultät für Wirtschaftsingenieurwesen"
+-----------------------------
