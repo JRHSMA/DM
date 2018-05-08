@@ -234,10 +234,10 @@ public class DB {
 		}
 	}
 
-	public void abfrageEinfach06(String vKuerzel, int semester) {
+	public void abfrageEinfach06(int semester, String vKuerzel) {
 		try {
 			ps = con.prepareStatement(
-					"SELECT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, vn.Name, vn.Kuerzel "
+					"SELECT DISTINCT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, vn.Name, vn.Kuerzel "
 							+ "FROM studierender s " + "INNER JOIN person p ON s.idPerson = p.ID "
 							+ "INNER JOIN studiengang sg ON s.idStudiengang = sg.ID "
 							+ "INNER JOIN hoert h ON s.MatrikelNr = h.MatrikelNr "
