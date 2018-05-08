@@ -373,26 +373,30 @@ public class GUI implements ActionListener {
 					if (!zahl) {
 						stringEingaben(einAbNr, 0, true);
 					}
-					// TODO Beispiel Aufruf
+
+					//////////////////////
+					// Abfragen
+					//////////////////////
 					switch (einAbNr) {
 					case 0: // Abfrage 1
 						// Übergabeparameter
 						db.abfrageEinfach01(matrikelNr);
 						break;
 					case 1:
-						db.abfrageEinfach02(3);
+						db.abfrageEinfach02(semester);
 						break;
-					case 4:
-						db.abfrageEinfach05("DM");
+					case 4: // TODO es wird nichts übergeben (ist leer)
+						db.abfrageEinfach05(vorlesungsKrzl);
 						break;
-					case 7:
-						db.abfrageEinfach08("Informatik");
+					case 7: // TODO es wird Fakultät für Informatik -> müsste
+							// aber nur Informatik sein
+						db.abfrageEinfach08(fakultät);
 						break;
 					case 8:
-						db.abfrageEinfach09("Frank");
+						db.abfrageEinfach09(profName);
 						break;
 					case 9:
-						db.abfrageEinfach10(3);
+						db.abfrageEinfach10(semester);
 						break;
 					default:
 						System.out.println(einAbNr);
@@ -411,6 +415,9 @@ public class GUI implements ActionListener {
 							stringEingaben(einAbNr, 1, true);
 						}
 
+						//////////////////////
+						// Abfragen
+						//////////////////////
 						switch (einAbNr) {
 						case 0: // Abfrage 1
 							// Übergabeparameter
@@ -444,6 +451,18 @@ public class GUI implements ActionListener {
 					if (!zahl) {
 						stringEingaben(kompAbNr, 0, false);
 					}
+
+					//////////////////////
+					// Abfragen
+					//////////////////////
+					switch (kompAbNr) {
+					case 3:
+						db.abfrageKomplex04(persoNr);
+						break;
+					default:
+						System.out.println(kompAbNr);
+					}
+
 					break;
 				case 2:
 					if (m5Labels[kompAbNr][0] == allLabels[0] || m5Labels[kompAbNr][0] == allLabels[10]) {
@@ -457,6 +476,39 @@ public class GUI implements ActionListener {
 							stringEingaben(kompAbNr, 1, false);
 						}
 					}
+
+					//////////////////////
+					// Abfragen
+					//////////////////////
+					switch (kompAbNr) {
+					case 0:
+						db.abfrageKomplex01(veranstaltungsname, raumName);
+						break;
+					case 1:
+						db.abfrageKomplex02(matrikelNr, raumName);
+						break;
+					case 2:
+						db.abfrageKomplex03(studiengang, tag);
+						break;
+					case 5:
+						db.abfrageKomplex06(veranstaltungsname, matrikelNr);
+						break;
+					case 7:
+						db.abfrageKomplex08(profName, tag);
+						break;
+					case 8:
+						db.abfrageKomplex09(istCompRaum, tag);
+						break;
+					case 13:
+						db.abfrageKomplex14(profKrzl, tag);
+						break;
+					case 14:
+						db.abfrageKomplex15(tag, slot);
+						break;
+					default:
+						System.out.println(kompAbNr);
+					}
+
 					break;
 				case 3:
 					if (m5Labels[kompAbNr][0] == allLabels[0] || m5Labels[kompAbNr][0] == allLabels[10]) {
@@ -476,6 +528,32 @@ public class GUI implements ActionListener {
 								stringEingaben(kompAbNr, 2, false);
 							}
 						}
+						//////////////////////
+						// Abfragen
+						//////////////////////
+						switch (kompAbNr) {
+						case 4:
+							db.abfrageKomplex05(vorlesungsKrzl, tag, slot);
+							break;
+						case 6:
+							db.abfrageKomplex07(profName, slot, tag);
+							break;
+						case 9:
+							db.abfrageKomplex10(istMännlich, veranstaltungsname, raumName);
+							break;
+						case 10:
+							db.abfrageKomplex11(vorlesungsKrzl, studiengang, profName);
+							break;
+						case 11:
+							db.abfrageKomplex12(veranstaltungsname, profName, raumName);
+							break;
+						case 12:
+							db.abfrageKomplex13(tag, istCompRaum, fakultät);
+							break;
+						default:
+							System.out.println(kompAbNr);
+						}
+
 					}
 					break;
 				default:
