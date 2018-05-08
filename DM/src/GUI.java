@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -16,7 +15,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -28,13 +26,11 @@ public class GUI implements ActionListener {
 	private JMenuBar menuBar;
 	private JMenu menuT1;
 	private JMenu menuT2;
-	private JMenu menuT5;
-	private JMenu subMenu1;
+	private JMenuItem m2Item1;
+	private JMenuItem m2Item2;
 	private JMenuItem mItem1;
 	private JMenuItem mItem2;
 	private JMenuItem mItem3;
-	private JMenuItem mItem4;
-	private JMenuItem mItem5;
 	private JButton m4Buttons[];
 	private JTextArea m4Text[];
 	private JLabel m4Labels[][];
@@ -72,7 +68,7 @@ public class GUI implements ActionListener {
 	private JComboBox fakultätAuswahl;
 	@SuppressWarnings("rawtypes")
 	private JComboBox studiengangAuswahl;
-	// Parameters--------------------
+	// Parameters-------------------
 	private int matrikelNr;
 	private int semester;
 	private String studiengang;
@@ -82,7 +78,6 @@ public class GUI implements ActionListener {
 	private String profKrzl;
 	private String raumName;
 	private String tag;
-	
 
 	private int slot;
 	private int persoNr;
@@ -91,6 +86,14 @@ public class GUI implements ActionListener {
 	private boolean istCompRaum;
 
 	// -----------------------------
+	// DB bearbeiten variablen -----
+	// TODO variablen db
+	private int allgDB;
+	private String pKListe[] = new String[8];
+	private JLabel überschrift;
+	private JButton tabellen[] = new JButton[8];
+	JPanel innerCenter2;
+	// ------------------------------
 
 	public GUI() {
 		LayoutGUI("test");
@@ -131,6 +134,7 @@ public class GUI implements ActionListener {
 			jp2.add(fusszeile[i]);
 		}
 		allLabels();
+		primeKeyTab();
 		subMenuDB();
 		subMenuAbfragen();
 
@@ -142,41 +146,43 @@ public class GUI implements ActionListener {
 	}
 
 	private void subMenuAbfragen() {
-		mItem1 = new JMenuItem("Einfache Abfragen");
-		mItem1.addActionListener(this);
-		mItem2 = new JMenuItem("Komplexe Abfragen");
-		mItem2.addActionListener(this);
-		menuT2.add(mItem1);
-		menuT2.add(mItem2);
+		m2Item1 = new JMenuItem("Einfache Abfragen");
+		m2Item1.addActionListener(this);
+		m2Item2 = new JMenuItem("Komplexe Abfragen");
+		m2Item2.addActionListener(this);
+		menuT2.add(m2Item1);
+		menuT2.add(m2Item2);
 	}
 
 	private void subMenuDB() {
-		mItem3 = new JMenuItem("Hinzufügen");
+		mItem1 = new JMenuItem("Hinzufügen");
+		mItem1.addActionListener(this);
+		mItem2 = new JMenuItem("Ändern");
+		mItem2.addActionListener(this);
+		mItem3 = new JMenuItem("Löschen");
 		mItem3.addActionListener(this);
-		mItem4 = new JMenuItem("Ändern");
-		mItem4.addActionListener(this);
-		mItem5 = new JMenuItem("Löschen");
-		mItem5.addActionListener(this);
+		menuT1.add(mItem1);
+		menuT1.add(mItem2);
 		menuT1.add(mItem3);
-		menuT1.add(mItem4);
-		menuT1.add(mItem5);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		Object quelle = ev.getSource();
-		if (menuT1 == quelle) {
-
-			menuT1();
-		}
-		if (menuT2 == quelle) {
+		if (m2Item1 == quelle) {
 			menuT4();
+		}
+		if (m2Item2 == quelle) {
+			menuT5();
 		}
 		if (mItem1 == quelle) {
-			menuT4();
+			menuT1();
 		}
 		if (mItem2 == quelle) {
-			menuT5();
+			menuT2();
+		}
+		if (mItem3 == quelle) {
+			menuT3();
 		}
 
 		if (fusszeile[0] == quelle) {
@@ -429,6 +435,215 @@ public class GUI implements ActionListener {
 		if (ev.getSource() == computerRaum) {
 			istCompRaum = computerRaum.getModel().isSelected();
 		}
+		for (int i = 0; i < tabellen.length; i++) {
+			if (tabellen[i] == quelle) {
+				allgTab(i);
+			}
+		}
+
+	}
+
+	// TODO
+
+	private void primeKeyTab() {
+		pKListe[0] = "Personen-ID";
+		pKListe[1] = "PersonalNr";
+		pKListe[2] = "MatrikelNr";
+		pKListe[3] = "Fakultät-ID";
+		pKListe[4] = "Studiengang-ID";
+		pKListe[5] = "Veranstaltung-ID";
+		pKListe[6] = "Veranstaltungsname-ID";
+		pKListe[7] = "Raum-Bezeichnung";
+	}
+
+	private void allgTab(int i) {
+		innerCenter2 = new JPanel();
+		innerCenter2.setLayout(new GridLayout(10, 1));
+		if (allgDB == 2 || allgDB == 3) {
+			clear();
+			JLabel pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
+			pK.setFont(new Font("Serif", Font.PLAIN, 18));
+			jpCenter.add(pK, BorderLayout.NORTH);	
+			JTextField iD = new JTextField();
+			innerCenter2.add(iD);
+			jpCenter.add(innerCenter2, BorderLayout.CENTER);
+		}
+		if (allgDB == 1) {
+			switch (i) {
+			case 0: //person
+				clear();
+				JLabel personenAttribute[] = new JLabel[4];
+				JTextField personEingabe [] = new JTextField[3];
+				for (int j = 0; j < personenAttribute.length; j++) {
+					personenAttribute[j] = new JLabel();
+					personenAttribute[j].setFont(new Font("Serif", Font.PLAIN, 18));
+				}
+				personEingabe[0]=new JTextField();
+				personEingabe[1]=new JTextField();
+				personEingabe[2]=new JTextField();
+				JCheckBox istPMännlich = new JCheckBox();
+				istPMännlich.setText("Männlich");
+				personenAttribute[0].setText("Bitte Vorname eingeben.");
+				personenAttribute[1].setText("Bitte Nachname eingeben.");
+				personenAttribute[2].setText("Bitte Geburtsdatum auswählen.");
+				personenAttribute[3].setText("Wenn männlich, bitte ankreuzen.");
+				for (int k= 0; k < personEingabe.length; k++) {
+					innerCenter2.add(personenAttribute[k]);
+					innerCenter2.add(personEingabe[k]);
+				}
+				innerCenter2.add(personenAttribute[3]);
+				innerCenter2.add(istPMännlich);
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+			case 1: // dozent
+				clear();
+				JLabel profAttribute[] = new JLabel[3];
+				JTextField profEingabe[]= new JTextField[3];
+				for(int m=0;m<profAttribute.length;m++){
+					profAttribute[m]=new JLabel();
+					profEingabe[m]=new JTextField();
+					profAttribute[m].setFont(new Font("Serif", Font.PLAIN, 18));
+				}
+				profAttribute[0].setText("Bitte Professor/Dozent-Kürzel eingeben.");
+				profAttribute[1].setText("Bitte Fakultät-ID eingeben.");
+				profAttribute[2].setText("Bitte Person-ID eingeben");
+				for(int n=0;n<profAttribute.length;n++){
+					innerCenter2.add(profAttribute[n]);
+					innerCenter2.add(profEingabe[n]);
+				}
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+			case 2://student
+				clear();
+				JLabel studAttribute[] = new JLabel[3];
+				JTextField studEingabe[]= new JTextField[3];
+				for(int m=0;m<studAttribute.length;m++){
+					studAttribute[m]=new JLabel();
+					studEingabe[m]=new JTextField();
+					studAttribute[m].setFont(new Font("Serif", Font.PLAIN, 18));
+				}
+				//TODO semester dropdown
+				studAttribute[0].setText("Bitte Semester eingeben.");
+				studAttribute[1].setText("Bitte Studiengang-ID eingeben.");
+				studAttribute[2].setText("Bitte Person-ID eingeben");
+				for(int n=0;n<studAttribute.length;n++){
+					innerCenter2.add(studAttribute[n]);
+					innerCenter2.add(studEingabe[n]);
+				}
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+			case 3://fakultät
+				clear();
+				JLabel fakAttribut = new JLabel();
+				fakAttribut.setFont(new Font("Serif", Font.PLAIN, 18));
+				JTextField fakEingabe = new JTextField();
+				fakAttribut.setText("Bitte Fakultät-Name eingeben.");
+				innerCenter2.add(fakAttribut);
+				innerCenter2.add(fakEingabe);
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+			case 4://Studiengang
+				clear();
+				JLabel studiengangAttribut = new JLabel();
+				studiengangAttribut.setFont(new Font("Serif", Font.PLAIN, 18));
+				JTextField studiengangEingabe = new JTextField();
+				studiengangAttribut.setText("Bitte Studiengang-Name eingeben.");
+				innerCenter2.add(studiengangAttribut);
+				innerCenter2.add(studiengangEingabe);
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+			case 5://Veranstaltung
+				clear();
+				JLabel veranstaltungAttribute[]	= new JLabel[5];
+				JTextField veranstaltungEingabe[]	= new JTextField[5];
+				for(int j=0;j<veranstaltungAttribute.length;j++){
+					veranstaltungAttribute[j]=new JLabel();
+					veranstaltungAttribute[j].setFont(new Font("Serif", Font.PLAIN, 18));
+					veranstaltungEingabe[j]=new JTextField();
+				}
+				//TODO semester dropdown
+				veranstaltungAttribute[0].setText("Bitte Semester auswählen.");
+				veranstaltungAttribute[1].setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
+				veranstaltungAttribute[2].setText("Bitte Personal-Nr. eingeben.");
+				veranstaltungAttribute[3].setText("Bitte Studenplan-ID eingeben.");
+				veranstaltungAttribute[4].setText("Bitte Vorlesungsnamen-ID eingeben.");
+				for(int h=0;h<veranstaltungAttribute.length;h++){
+					innerCenter2.add(veranstaltungAttribute[h]);
+					innerCenter2.add(veranstaltungEingabe[h]);
+				}
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+				
+			case 6: //veranstaltungsname
+				clear();
+				JLabel vNameAttribute[]=new JLabel[2];
+				JTextField vNameEingabe[]=new JTextField[2];
+				for(int r=0;r<vNameAttribute.length;r++){
+					vNameAttribute[r]=new JLabel();
+					vNameAttribute[r].setFont(new Font("Serif", Font.PLAIN, 18));
+					vNameEingabe[r]=new JTextField();
+				}
+				vNameAttribute[0].setText("Bitte Vorlesungs-Name eingeben.");
+				vNameAttribute[1].setText("Bitte Vorlesungs-Kürzel eingeben.");
+				for(int t=0;t<vNameAttribute.length;t++){
+					innerCenter2.add(vNameAttribute[t]);
+					innerCenter2.add(vNameEingabe[t]);
+				}
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+			case 7://raum
+				clear();
+				JLabel raumName = new JLabel("Bitte Raum-Bezeichnung eingeben.");
+				JLabel raumIstPc = new JLabel("Wenn PC-Raum, bitte ankreuzen.");
+				raumName.setFont(new Font("Serif", Font.PLAIN, 18));
+				raumIstPc.setFont(new Font("Serif", Font.PLAIN, 18));
+				JCheckBox istPcRaum = new JCheckBox();
+				istPcRaum.setText("PcRaum");
+				JTextField raumEingabe = new JTextField();
+				innerCenter2.add(raumName);
+				innerCenter2.add(raumEingabe);
+				innerCenter2.add(raumIstPc);
+				innerCenter2.add(istPcRaum);
+				jpCenter.add(innerCenter2, BorderLayout.CENTER);
+				break;
+				
+			default:
+			}
+		}
+
+	}
+
+	private void veranstaltungNameTab() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void veranstaltungTab() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void studiengangTab() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void fakultätTab() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void studentTab() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void dozentTab() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void personTab() {
 
 	}
 
@@ -868,6 +1083,54 @@ public class GUI implements ActionListener {
 
 	}
 
+	// TODO dbs
+	// db löschen
+	private void menuT3() {
+		menuDB("löschen");
+	}
+
+	// db ändern
+	private void menuT2() {
+		menuDB("ändern");
+	}
+
+	// db hinzufügen
+	private void menuT1() {
+		menuDB("hinzufügen");
+	}
+
+	// db allgemein frame
+	private void menuDB(String db) {
+		if (db == "hinzufügen")
+			allgDB = 1;
+		if (db == "ändern")
+			allgDB = 2;
+		if (db == "löschen")
+			allgDB = 3;
+		clear();
+		überschrift = new JLabel("Bitte Tabelle auswählen");
+		überschrift.setFont(new Font("Serif", Font.PLAIN, 18));
+		innerCenter = new JPanel();
+		jpCenter.add(innerCenter, BorderLayout.CENTER);
+		innerCenter.setLayout(new GridLayout(8, 1));
+		for (int i = 0; i < tabellen.length; i++) {
+			tabellen[i] = new JButton();
+			tabellen[i].addActionListener(this);
+			innerCenter.add(tabellen[i]);
+		}
+		tabellen[0].setText("Person");
+		tabellen[1].setText("Dozent");
+		tabellen[2].setText("Studierender");
+		tabellen[3].setText("Fakuktät");
+		tabellen[4].setText("Studiengang");
+		tabellen[5].setText("Veranstaltung");
+		tabellen[6].setText("Veranstaltungsname");
+		tabellen[7].setText("Raum");
+
+		jpCenter.add(überschrift, BorderLayout.NORTH);
+		jf.setSize(960, 720);
+	}
+
 	private void giveRightLabels() {
 		m4Labels = new JLabel[10][2];
 		m4Parameter = new JTextField[10][2];
@@ -960,23 +1223,13 @@ public class GUI implements ActionListener {
 		}
 	}
 
-	private void menuT1() {
-		clear();
-		JTabbedPane tabbedPane = new JTabbedPane();
-
-		JPanel panel1 = new JPanel();
-
-		tabbedPane.addTab("Tab 1", panel1);
-		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-		jpCenter.add(tabbedPane, BorderLayout.NORTH);
-	};
-
 	private void clear() {
 		jpCenter.removeAll();
 		jpCenter.revalidate();
 		jpCenter.repaint();
 
 	}
+
 	public int getMatrikelNr() {
 		return matrikelNr;
 	}
