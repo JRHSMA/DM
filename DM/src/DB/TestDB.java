@@ -10,6 +10,7 @@ public class TestDB {
 
 	public static void main(String[] args) throws ParseException {
 		DB db = new DB("studierendenverwaltung", "root", "");
+		db.abfrageEinfach01(1712189);
 		/*
 		 * db.
 		 * setSQL("SELECT s.matrikelNr, s.semester, sg.name, p.vorname, p.nachname, p.geburtsdatum, p.maennlich"
@@ -101,12 +102,11 @@ public class TestDB {
 		// db.updateTag("Samstag", 6);
 		// db.updateStundenplan(2, 1, 5, 6, 103);
 
-		db.close();
+		
 
-		/*
-		 * ArrayList<LinkedHashMap<String, String>> daten = db.lesenjava(); for
-		 * (LinkedHashMap<String, String> datensatz : daten) {
-		 * System.out.println(datensatz); }
-		 */
+		 ArrayList<LinkedHashMap<String, String>> daten = db.lesenjava(); for
+		 (LinkedHashMap<String, String> datensatz : daten) {
+		 System.out.println(datensatz); }
+		 db.close();
 	}
 }

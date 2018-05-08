@@ -364,7 +364,7 @@ public class GUI implements ActionListener {
 			JTextArea bspTextArea = new JTextArea();
 			jpCenter.add(bspTextArea);
 			ArrayList<LinkedHashMap<String, String>> daten;
-			
+
 			if (istEinfach) {
 				boolean zahl;
 				switch (einAnfparameterAnzahl[einAbNr]) {
@@ -373,12 +373,11 @@ public class GUI implements ActionListener {
 					if (!zahl) {
 						stringEingaben(einAbNr, 0, true);
 					}
-
 					// TODO Beispiel Aufruf
 					switch (einAbNr) {
 					case 0: // Abfrage 1
 						// Übergabeparameter
-						db.abfrageEinfach01(1712189);
+						db.abfrageEinfach01(matrikelNr);
 						break;
 					case 1:
 						db.abfrageEinfach02(3);
@@ -415,7 +414,7 @@ public class GUI implements ActionListener {
 						switch (einAbNr) {
 						case 0: // Abfrage 1
 							// Übergabeparameter
-							db.abfrageEinfach01(1712189);
+							db.abfrageEinfach01(matrikelNr);
 							break;
 						case 2:
 							db.abfrageEinfach03(true, "Unternehmens- und Wirtschaftsinformatik");
@@ -432,7 +431,7 @@ public class GUI implements ActionListener {
 						default:
 							System.out.println(einAbNr);
 						}
-						
+
 					}
 					break;
 				default:
@@ -483,7 +482,7 @@ public class GUI implements ActionListener {
 				}
 
 			}
-			
+
 			daten = db.lesenjava();
 			for (LinkedHashMap<String, String> datensatz : daten) {
 				bspTextArea.setText(bspTextArea.getText() + "\n" + datensatz.toString());
@@ -784,7 +783,7 @@ public class GUI implements ActionListener {
 				}
 
 			} else {
-				if (helpString.length() != 9) {
+				if (helpString.length() != 7) {
 					JOptionPane.showMessageDialog(jf, "Ihre eingegebene Zahl war nicht 9-stellig",
 							"Zahl nicht 9-stellig", JOptionPane.WARNING_MESSAGE);
 					if (istEinfach) {
