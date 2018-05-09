@@ -1,19 +1,28 @@
 import java.sql.Date; // oder java.util.Date ?
+import java.util.LinkedHashMap;
 
-public class Studierender extends Person {
+public class Studierender {
 
-	private int matrikelNr; // mit inc-methode wie person_ID?
+	private int matrikelNr;
 	private int semester;
-	private Studiengang studiengang; // wie ist das mit der ID, statt studiengang,
-								// hier Studiengang_ID?
+	private Studiengang studiengang;
+	private int idPerson;
 
-	public Studierender(String vorname, String nachname, Date geburtsdatum, boolean maennlich, int matrikelNr, int semester,
-			Studiengang studiengang) {
-		super(vorname, nachname, geburtsdatum, maennlich);
+	public Studierender(int matrikelNr, int semester, Studiengang studiengang){//, int idPerson) {
 		setMatrikelNr(matrikelNr);
 		setSemester(semester);
 		setStudiengang(studiengang);
+		//setIdPerson(idPerson);
 	}
+	
+//	public Studierender(LinkedHashMap<String, String> datensatz){
+//		this(
+//		Integer.parseInt(datensatz.get("matrikelNr")),
+//		Integer.parseInt(datensatz.get("semester")),
+//		Integer.parseInt(datensatz.get("idStudiengang"))
+//		//Integer.parseInt(datensatz.get("idPerson"))
+//		);
+//	}
 
 	private void setMatrikelNr(int matrikelNr) {
 		this.matrikelNr = matrikelNr;
@@ -33,17 +42,24 @@ public class Studierender extends Person {
 		return semester;
 	}
 
-	public void setStudiengang(Studiengang studiengang) {
-		this.studiengang = studiengang;
-	}
-
 	public Studiengang getStudiengang() {
 		return studiengang;
 	}
 
+	public void setStudiengang(Studiengang studiengang) {
+		this.studiengang = studiengang;
+	}
+
+	public int getIdPerson() {
+		return idPerson;
+	}
+
+	public void setIdPerson(int idPerson) {
+		this.idPerson = idPerson;
+	}
+
 	@Override
 	public String toString() {
-		return super.toString() + ", Status: Student, MatrikelNr: " + matrikelNr + ", Semester: " + semester
-				+ ", Studiengang: " + studiengang;
+		return ", Status: Student, MatrikelNr: " + matrikelNr + ", Semester: " + semester;
 	}
 }

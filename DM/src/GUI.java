@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import DB.DB;
+import db.DB;
 
 public class GUI implements ActionListener {
 

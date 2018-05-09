@@ -1,4 +1,4 @@
-package DB;
+package db;
 
 import java.sql.PreparedStatement;
 import java.text.ParseException;

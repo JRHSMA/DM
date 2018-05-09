@@ -1,16 +1,18 @@
 import java.sql.Date;
+import java.util.LinkedHashMap;
 
-public class Dozent extends Person {
+public class Dozent {
 
 	private int personalNr; // mit inc-methode wie person_ID?
-	private Fakultaet fakultaet; // ID?
 	private String kuerzel;
+	//private Person person;
+	private Fakultaet fakultaet;
 
-	public Dozent(String vorname, String nachname, Date geburtsdatum, boolean maennlich, Fakultaet fakultaet, String kuerzel) {
-		super(vorname, nachname, geburtsdatum, maennlich);
+	public Dozent(int personalNr, String kuerzel, Fakultaet fakultaet) {
 		setPersonalNr(personalNr);
-		setFakultaet(fakultaet);
 		setKuerzel(kuerzel);
+		setFakultaet(fakultaet);
+		//setPerson(person);
 	}
 
 	private void setPersonalNr(int personalNr) {
@@ -21,14 +23,6 @@ public class Dozent extends Person {
 		return personalNr;
 	}
 
-	public void setFakultaet(Fakultaet fakultaet) {
-		this.fakultaet = fakultaet;
-	}
-
-	public Fakultaet getFakultaet() {
-		return fakultaet;
-	}
-
 	private void setKuerzel(String kuerzel) {
 		this.kuerzel = kuerzel;
 	}
@@ -36,10 +30,24 @@ public class Dozent extends Person {
 	public String getKuerzel() {
 		return kuerzel;
 	}
+	
 
+//	public Person getPerson() {
+//		return person;
+//	}
+//
+//	public void setPerson(Person person) {
+//		this.person = person;
+//	}
+
+	public Fakultaet getFakultaet() {
+		return fakultaet;
+	}
+	public void setFakultaet(Fakultaet fakultaet) {
+		this.fakultaet = fakultaet;
+	}
 	@Override
 	public String toString() {
-		return super.toString() + ", Status: Dozent, PersonalNr: " + personalNr + ", Fakultät: " + fakultaet
-				+ ", Kürzel: " + kuerzel;
+		return "Status: Dozent, PersonalNr: " + personalNr + " Kürzel: " + kuerzel;
 	}
 }

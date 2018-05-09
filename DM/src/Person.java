@@ -1,37 +1,32 @@
 import java.sql.Date; // oder java.util.Date ?
+import java.util.LinkedHashMap;
 
 public abstract class Person {
 
-	// TODO
-	// Setter z.T. private?
-	// Gültigkeitsprüfungen in Settern
-	// Wie auto-increment lösen? bzw. überhaupt notwendig hier?
-
-	private static int anzPersonen;
 	private int id;
 	private String vorname;
 	private String nachname;
-	private Date geburtsdatum;
+	private String geburtsdatum;
 	private boolean maennlich;
 
-	public Person(String vorname, String nachname, Date geburtsdatum, boolean maennlich) {
-		incAnzPersonen();
-		setPerson_ID(getAnzPersonen());
+	public Person(int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {		
 		setVorname(vorname);
 		setNachname(nachname);
 		setGeburtsdatum(geburtsdatum);
 		setMaennlich(maennlich);
 	}
-
-	private static void incAnzPersonen() {
-		anzPersonen++;
+	
+	public Person(LinkedHashMap<String, String> datensatz){
+		this(
+		Integer.parseInt(datensatz.get("id")),
+		datensatz.get("vorname"),
+		datensatz.get("nachname"),
+		datensatz.get("geburtsdatum"),
+		Boolean.parseBoolean(datensatz.get("maennlich"))
+		);
 	}
 
-	public static int getAnzPersonen() {
-		return anzPersonen;
-	}
-
-	private void setPerson_ID(int id) {
+	private void setId(int id) {
 		this.id = id;
 	}
 
@@ -75,13 +70,11 @@ public abstract class Person {
 		return nachname;
 	}
 
-	private void setGeburtsdatum(Date geburtsdatum) {
-		// TODO
-		// Gültigkeitsprüfungen?
+	private void setGeburtsdatum(String geburtsdatum) {
 		this.geburtsdatum = geburtsdatum;
 	}
 
-	public Date getGeburtsdatum() {
+	public String getGeburtsdatum() {
 		return geburtsdatum;
 	}
 

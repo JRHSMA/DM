@@ -4,13 +4,12 @@ public class Veranstaltung {
 	private String name;
 	private int semester;
 	private int dauer;
-	private String kuerzel;
+	private Veranstaltungsname veranstaltungsname;
 
-	public Veranstaltung(String name, int semester, int dauer, String kuerzel) {
+	public Veranstaltung(String name, int semester, int dauer) {
 		setName(name);
 		setSemester(semester);
 		setDauer(dauer);
-		setKuerzel(kuerzel);
 	}
 
 	public void setName(String name) {
@@ -41,16 +40,19 @@ public class Veranstaltung {
 
 	public int getDauer() {
 		return dauer;
+	}	
+
+	public Veranstaltungsname getVeranstaltungsname() {
+		return veranstaltungsname;
 	}
 
-	public void setKuerzel(String kuerzel) {
-		if (kuerzel.length() < 2 || kuerzel.length() > 4) // TODO stimmt?
-			throw new RuntimeException("Kürzel ungültig.");
-		this.kuerzel = kuerzel;
+	public void setVeranstaltungsname(Veranstaltungsname veranstaltungsname) {
+		this.veranstaltungsname = veranstaltungsname;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Veranstaltungsname: " + name + ", Semester: " + semester + ", Dauer: " + dauer + ", Kürzel: " + kuerzel;
+		return "Veranstaltungsname: " + name + ", Semester: " + semester + ", Dauer: " + dauer;
 	}
 }
