@@ -3,16 +3,16 @@ import java.util.LinkedHashMap;
 
 public class Dozent {
 
-	private int personalNr; // mit inc-methode wie person_ID?
+	private int personalNr;
 	private String kuerzel;
-	//private Person person;
+	private Person person;
 	private Fakultaet fakultaet;
 
-	public Dozent(int personalNr, String kuerzel, Fakultaet fakultaet) {
+	public Dozent(int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
 		setPersonalNr(personalNr);
 		setKuerzel(kuerzel);
 		setFakultaet(fakultaet);
-		//setPerson(person);
+		setPerson(person);
 	}
 
 	private void setPersonalNr(int personalNr) {
@@ -32,13 +32,13 @@ public class Dozent {
 	}
 	
 
-//	public Person getPerson() {
-//		return person;
-//	}
-//
-//	public void setPerson(Person person) {
-//		this.person = person;
-//	}
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
 	public Fakultaet getFakultaet() {
 		return fakultaet;
@@ -48,6 +48,6 @@ public class Dozent {
 	}
 	@Override
 	public String toString() {
-		return "Status: Dozent, PersonalNr: " + personalNr + " Kürzel: " + kuerzel;
+		return "Status: Dozent, PersonalNr: " + personalNr + " Kürzel: " + kuerzel +" Fakultät: "+ fakultaet +" Person: "+person;
 	}
 }

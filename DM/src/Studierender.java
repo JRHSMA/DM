@@ -6,13 +6,13 @@ public class Studierender {
 	private int matrikelNr;
 	private int semester;
 	private Studiengang studiengang;
-	private int idPerson;
+	private Person person;
 
-	public Studierender(int matrikelNr, int semester, Studiengang studiengang){//, int idPerson) {
+	public Studierender(int matrikelNr, int semester, Studiengang studiengang, Person person) {
 		setMatrikelNr(matrikelNr);
 		setSemester(semester);
 		setStudiengang(studiengang);
-		//setIdPerson(idPerson);
+		setPerson(person);
 	}
 	
 //	public Studierender(LinkedHashMap<String, String> datensatz){
@@ -50,12 +50,12 @@ public class Studierender {
 		this.studiengang = studiengang;
 	}
 
-	public int getIdPerson() {
-		return idPerson;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	@Override

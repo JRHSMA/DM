@@ -1,25 +1,29 @@
 
 public class Veranstaltung {
 
-	private String name;
+	private int id;
 	private int semester;
 	private int dauer;
 	private Veranstaltungsname veranstaltungsname;
+	private Dozent dozent;
+	private Stundenplan stundenplan;
 
-	public Veranstaltung(String name, int semester, int dauer) {
-		setName(name);
+	public Veranstaltung(int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+		setId(id);
 		setSemester(semester);
 		setDauer(dauer);
+		setDozent(dozent);
+		setStundenplan(stundenplan);
+		setVeranstaltungsname(veranstaltungsname);
+	}
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		if (name.length() < 3)
-			throw new RuntimeException("Name ungültig.");
-		this.name = name;
-	}
 
-	public String getName() {
-		return name;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setSemester(int semester) {
@@ -49,10 +53,26 @@ public class Veranstaltung {
 	public void setVeranstaltungsname(Veranstaltungsname veranstaltungsname) {
 		this.veranstaltungsname = veranstaltungsname;
 	}
+	
+	
+	public Dozent getDozent() {
+		return dozent;
+	}
 
+	public void setDozent(Dozent dozent) {
+		this.dozent = dozent;
+	}
+
+	public Stundenplan getStundenplan() {
+		return stundenplan;
+	}
+
+	public void setStundenplan(Stundenplan stundenplan) {
+		this.stundenplan = stundenplan;
+	}
 
 	@Override
 	public String toString() {
-		return "Veranstaltungsname: " + name + ", Semester: " + semester + ", Dauer: " + dauer;
+		return "VeranstaltungsID: " + id + ", Semester: " + semester + ", Dauer: " + dauer;
 	}
 }

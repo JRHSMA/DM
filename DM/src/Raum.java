@@ -1,3 +1,4 @@
+import java.util.LinkedHashMap;
 
 public class Raum {
 
@@ -7,6 +8,12 @@ public class Raum {
 	public Raum(String bezeichnung, boolean computerraum) {
 		setBezeichnung(bezeichnung);
 		setComputerraum(computerraum);
+	}
+	public Raum(LinkedHashMap<String, String> datensatz){
+		this(
+		datensatz.get("bezeichnung"),
+		Boolean.parseBoolean(datensatz.get("computerraum"))
+		);
 	}
 
 	public void setBezeichnung(String bezeichnung) {

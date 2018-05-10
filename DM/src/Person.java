@@ -1,7 +1,7 @@
 import java.sql.Date; // oder java.util.Date ?
 import java.util.LinkedHashMap;
 
-public abstract class Person {
+public class Person {
 
 	private int id;
 	private String vorname;
@@ -9,7 +9,8 @@ public abstract class Person {
 	private String geburtsdatum;
 	private boolean maennlich;
 
-	public Person(int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {		
+	public Person(int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+		setId(id);
 		setVorname(vorname);
 		setNachname(nachname);
 		setGeburtsdatum(geburtsdatum);
@@ -88,7 +89,7 @@ public abstract class Person {
 
 	@Override
 	public String toString() {
-		return "Person_ID: " + id + ", Vorname: " + vorname + ", Nachname: " + nachname + ", Geburtsdatum: "
+		return "idPerson: " + id + ", Vorname: " + vorname + ", Nachname: " + nachname + ", Geburtsdatum: "
 				+ geburtsdatum + ", Männlich: " + maennlich;
 	}
 }
