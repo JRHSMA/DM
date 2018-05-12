@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -7,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -89,6 +91,7 @@ public class GUI implements ActionListener {
 	private String veranstaltungsname;
 	private boolean istCompRaum;
 
+	private int tabellenNummer = -1;
 	// -----------------------------
 	// DB bearbeiten variablen -----
 	// TODO variablen db
@@ -97,6 +100,7 @@ public class GUI implements ActionListener {
 	private JLabel überschrift;
 	private JButton tabellen[] = new JButton[8];
 	JPanel innerCenter2;
+
 	// ------------------------------
 
 	public GUI() {
@@ -120,11 +124,15 @@ public class GUI implements ActionListener {
 
 		fusszeile[0] = new JButton("Abbrechen");
 		fusszeile[0].addActionListener(this);
-		fusszeile[1] = new JButton("...");
+		fusszeile[1] = new JButton("Senden");
+		fusszeile[1].setVisible(false);
+		fusszeile[1].addActionListener(this);
 		menuBar = new JMenuBar();
 
 		menuT1 = new JMenu("DatenBank bearbeiten");
+		menuT1.setFont(new Font("Serif", Font.PLAIN, 25));
 		menuT2 = new JMenu("Abfragen");
+		menuT2.setFont(new Font("Serif", Font.PLAIN, 25));
 		menuT1.addActionListener(this);
 		menuT2.addActionListener(this);
 
@@ -151,8 +159,10 @@ public class GUI implements ActionListener {
 
 	private void subMenuAbfragen() {
 		m2Item1 = new JMenuItem("Einfache Abfragen");
+		m2Item1.setFont(new Font("Serif", Font.PLAIN, 18));
 		m2Item1.addActionListener(this);
 		m2Item2 = new JMenuItem("Komplexe Abfragen");
+		m2Item2.setFont(new Font("Serif", Font.PLAIN, 18));
 		m2Item2.addActionListener(this);
 		menuT2.add(m2Item1);
 		menuT2.add(m2Item2);
@@ -160,10 +170,13 @@ public class GUI implements ActionListener {
 
 	private void subMenuDB() {
 		mItem1 = new JMenuItem("Hinzufügen");
+		mItem1.setFont(new Font("Serif", Font.PLAIN, 18));
 		mItem1.addActionListener(this);
 		mItem2 = new JMenuItem("Ändern");
+		mItem2.setFont(new Font("Serif", Font.PLAIN, 18));
 		mItem2.addActionListener(this);
 		mItem3 = new JMenuItem("Löschen");
+		mItem3.setFont(new Font("Serif", Font.PLAIN, 18));
 		mItem3.addActionListener(this);
 		menuT1.add(mItem1);
 		menuT1.add(mItem2);
@@ -174,23 +187,34 @@ public class GUI implements ActionListener {
 	public void actionPerformed(ActionEvent ev) {
 		Object quelle = ev.getSource();
 		if (m2Item1 == quelle) {
+			fusszeile[1].setVisible(false);
 			menuT4();
 		}
 		if (m2Item2 == quelle) {
+			fusszeile[1].setVisible(false);
 			menuT5();
 		}
 		if (mItem1 == quelle) {
+			fusszeile[1].setVisible(false);
 			menuT1();
 		}
 		if (mItem2 == quelle) {
+			fusszeile[1].setVisible(false);
 			menuT2();
 		}
 		if (mItem3 == quelle) {
+			fusszeile[1].setVisible(false);
 			menuT3();
 		}
 
 		if (fusszeile[0] == quelle) {
+			tabellenNummer = -1;
+			fusszeile[1].setVisible(false);
 			clear();
+		}
+		if (fusszeile[1] == quelle) {
+			System.out.println(tabellenNummer);
+
 		}
 		if (m4Buttons != null) {
 			for (int j = 0; j < m4Buttons.length; j++) {
@@ -374,9 +398,9 @@ public class GUI implements ActionListener {
 						stringEingaben(einAbNr, 0, true);
 					}
 
-					//////////////////////
+					// ////////////////////
 					// Abfragen
-					//////////////////////
+					// ////////////////////
 					switch (einAbNr) {
 					case 0: // Abfrage 1
 						// Übergabeparameter
@@ -385,7 +409,7 @@ public class GUI implements ActionListener {
 					case 1:
 						db.abfrageEinfach02(semester);
 						break;
-					case 4: // TODO es wird nichts übergeben (ist leer)
+					case 4: // TODO sollte funktionieren
 						db.abfrageEinfach05(vorlesungsKrzl);
 						break;
 					case 7: // TODO es wird Fakultät für Informatik -> müsste
@@ -399,12 +423,12 @@ public class GUI implements ActionListener {
 						db.abfrageEinfach10(semester);
 						break;
 					default:
-						System.out.println(einAbNr);
 					}
 
 					break;
 				case 2:
-					if (m4Labels[einAbNr][0] == allLabels[0] || m4Labels[kompAbNr][0] == allLabels[10]) {
+					if (m4Labels[einAbNr][0] == allLabels[0]
+							|| m4Labels[kompAbNr][0] == allLabels[10]) {
 						zahl = istPersOderMatNr(einAbNr, 0, true);
 						if (!zahl) {
 							stringEingaben(einAbNr, 0, true);
@@ -415,25 +439,27 @@ public class GUI implements ActionListener {
 							stringEingaben(einAbNr, 1, true);
 						}
 
-						//////////////////////
+						// ////////////////////
 						// Abfragen
-						//////////////////////
+						// ////////////////////
 						switch (einAbNr) {
-						case 0: // Abfrage 1
+						case 2: // Abfrage 1
 							// Übergabeparameter
-							db.abfrageEinfach01(matrikelNr);
-							break;
-						case 2:
-							db.abfrageEinfach03(true, "Unternehmens- und Wirtschaftsinformatik");
+							db.abfrageEinfach03(true,
+									"Unternehmens- und Wirtschaftsinformatik");
 							break;
 						case 3:
-							db.abfrageEinfach04(false, "Unternehmens- und Wirtschaftsinformatik");
+							db.abfrageEinfach04(false,
+									"Unternehmens- und Wirtschaftsinformatik");
 							break;
 						case 5:
 							db.abfrageEinfach06(3, "DM");
 							break;
 						case 6:
-							db.abfrageEinfach07("Unternehmens- und Wirtschaftsinformatik", 3);
+							db.abfrageEinfach07(
+									"Unternehmens- und Wirtschaftsinformatik",
+									3);
+
 							break;
 						default:
 							System.out.println(einAbNr);
@@ -452,9 +478,9 @@ public class GUI implements ActionListener {
 						stringEingaben(kompAbNr, 0, false);
 					}
 
-					//////////////////////
+					// ////////////////////
 					// Abfragen
-					//////////////////////
+					// ////////////////////
 					switch (kompAbNr) {
 					case 3:
 						db.abfrageKomplex04(persoNr);
@@ -465,7 +491,8 @@ public class GUI implements ActionListener {
 
 					break;
 				case 2:
-					if (m5Labels[kompAbNr][0] == allLabels[0] || m5Labels[kompAbNr][0] == allLabels[10]) {
+					if (m5Labels[kompAbNr][0] == allLabels[0]
+							|| m5Labels[kompAbNr][0] == allLabels[10]) {
 						zahl = istPersOderMatNr(kompAbNr, 0, false);
 						if (!zahl) {
 							stringEingaben(kompAbNr, 0, false);
@@ -477,9 +504,9 @@ public class GUI implements ActionListener {
 						}
 					}
 
-					//////////////////////
+					// ////////////////////
 					// Abfragen
-					//////////////////////
+					// ////////////////////
 					switch (kompAbNr) {
 					case 0:
 						db.abfrageKomplex01(veranstaltungsname, raumName);
@@ -511,13 +538,15 @@ public class GUI implements ActionListener {
 
 					break;
 				case 3:
-					if (m5Labels[kompAbNr][0] == allLabels[0] || m5Labels[kompAbNr][0] == allLabels[10]) {
+					if (m5Labels[kompAbNr][0] == allLabels[0]
+							|| m5Labels[kompAbNr][0] == allLabels[10]) {
 						zahl = istPersOderMatNr(kompAbNr, 0, false);
 						if (!zahl) {
 							stringEingaben(kompAbNr, 0, false);
 						}
 					} else {
-						if (m5Labels[kompAbNr][1] == allLabels[0] || m5Labels[kompAbNr][1] == allLabels[10]) {
+						if (m5Labels[kompAbNr][1] == allLabels[0]
+								|| m5Labels[kompAbNr][1] == allLabels[10]) {
 							zahl = istPersOderMatNr(kompAbNr, 1, false);
 							if (!zahl) {
 								stringEingaben(kompAbNr, 1, false);
@@ -528,9 +557,9 @@ public class GUI implements ActionListener {
 								stringEingaben(kompAbNr, 2, false);
 							}
 						}
-						//////////////////////
+						// ////////////////////
 						// Abfragen
-						//////////////////////
+						// ////////////////////
 						switch (kompAbNr) {
 						case 4:
 							db.abfrageKomplex05(vorlesungsKrzl, tag, slot);
@@ -539,13 +568,16 @@ public class GUI implements ActionListener {
 							db.abfrageKomplex07(profName, slot, tag);
 							break;
 						case 9:
-							db.abfrageKomplex10(istMännlich, veranstaltungsname, raumName);
+							db.abfrageKomplex10(istMännlich,
+									veranstaltungsname, raumName);
 							break;
 						case 10:
-							db.abfrageKomplex11(vorlesungsKrzl, studiengang, profName);
+							db.abfrageKomplex11(vorlesungsKrzl, studiengang,
+									profName);
 							break;
 						case 11:
-							db.abfrageKomplex12(veranstaltungsname, profName, raumName);
+							db.abfrageKomplex12(veranstaltungsname, profName,
+									raumName);
 							break;
 						case 12:
 							db.abfrageKomplex13(tag, istCompRaum, fakultät);
@@ -563,7 +595,8 @@ public class GUI implements ActionListener {
 
 			daten = db.lesenjava();
 			for (LinkedHashMap<String, String> datensatz : daten) {
-				bspTextArea.setText(bspTextArea.getText() + "\n" + datensatz.toString());
+				bspTextArea.setText(bspTextArea.getText() + "\n"
+						+ datensatz.toString());
 				System.out.println(datensatz);
 			}
 			try {
@@ -578,13 +611,13 @@ public class GUI implements ActionListener {
 		}
 		for (int i = 0; i < tabellen.length; i++) {
 			if (tabellen[i] == quelle) {
+				tabellenNummer = i;
 				allgTab(i);
+				fusszeile[1].setVisible(true);
 			}
 		}
 
 	}
-
-	// TODO
 
 	private void primeKeyTab() {
 		pKListe[0] = "Personen-ID";
@@ -617,7 +650,8 @@ public class GUI implements ActionListener {
 				JTextField personEingabe[] = new JTextField[3];
 				for (int j = 0; j < personenAttribute.length; j++) {
 					personenAttribute[j] = new JLabel();
-					personenAttribute[j].setFont(new Font("Serif", Font.PLAIN, 18));
+					personenAttribute[j].setFont(new Font("Serif", Font.PLAIN,
+							18));
 				}
 				personEingabe[0] = new JTextField();
 				personEingabe[1] = new JTextField();
@@ -645,7 +679,8 @@ public class GUI implements ActionListener {
 					profEingabe[m] = new JTextField();
 					profAttribute[m].setFont(new Font("Serif", Font.PLAIN, 18));
 				}
-				profAttribute[0].setText("Bitte Professor/Dozent-Kürzel eingeben.");
+				profAttribute[0]
+						.setText("Bitte Professor/Dozent-Kürzel eingeben.");
 				profAttribute[1].setText("Bitte Fakultät-ID eingeben.");
 				profAttribute[2].setText("Bitte Person-ID eingeben");
 				for (int n = 0; n < profAttribute.length; n++) {
@@ -699,15 +734,20 @@ public class GUI implements ActionListener {
 				JTextField veranstaltungEingabe[] = new JTextField[5];
 				for (int j = 0; j < veranstaltungAttribute.length; j++) {
 					veranstaltungAttribute[j] = new JLabel();
-					veranstaltungAttribute[j].setFont(new Font("Serif", Font.PLAIN, 18));
+					veranstaltungAttribute[j].setFont(new Font("Serif",
+							Font.PLAIN, 18));
 					veranstaltungEingabe[j] = new JTextField();
 				}
 				// TODO semester dropdown
 				veranstaltungAttribute[0].setText("Bitte Semester auswählen.");
-				veranstaltungAttribute[1].setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
-				veranstaltungAttribute[2].setText("Bitte Personal-Nr. eingeben.");
-				veranstaltungAttribute[3].setText("Bitte Studenplan-ID eingeben.");
-				veranstaltungAttribute[4].setText("Bitte Vorlesungsnamen-ID eingeben.");
+				veranstaltungAttribute[1]
+						.setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
+				veranstaltungAttribute[2]
+						.setText("Bitte Personal-Nr. eingeben.");
+				veranstaltungAttribute[3]
+						.setText("Bitte Studenplan-ID eingeben.");
+				veranstaltungAttribute[4]
+						.setText("Bitte Vorlesungsnamen-ID eingeben.");
 				for (int h = 0; h < veranstaltungAttribute.length; h++) {
 					innerCenter2.add(veranstaltungAttribute[h]);
 					innerCenter2.add(veranstaltungEingabe[h]);
@@ -721,7 +761,8 @@ public class GUI implements ActionListener {
 				JTextField vNameEingabe[] = new JTextField[2];
 				for (int r = 0; r < vNameAttribute.length; r++) {
 					vNameAttribute[r] = new JLabel();
-					vNameAttribute[r].setFont(new Font("Serif", Font.PLAIN, 18));
+					vNameAttribute[r]
+							.setFont(new Font("Serif", Font.PLAIN, 18));
 					vNameEingabe[r] = new JTextField();
 				}
 				vNameAttribute[0].setText("Bitte Vorlesungs-Name eingeben.");
@@ -788,6 +829,7 @@ public class GUI implements ActionListener {
 
 	}
 
+	
 	private void stringEingaben(int AbNr, int i, boolean istEinfach) {
 		if (istEinfach) {
 			if (m4Labels[AbNr][i] == allLabels[3]) {
@@ -804,34 +846,37 @@ public class GUI implements ActionListener {
 			}
 			if (m4Labels[AbNr][i] == allLabels[12]) {
 				veranstaltungsname = m4Parameter[AbNr][i].getText();
-			} else {
-				if (m5Labels[AbNr][i] == allLabels[3]) {
-					vorlesungsKrzl = m5Parameter[AbNr][i].getText();
-				}
-				if (m5Labels[AbNr][i] == allLabels[5]) {
-					profName = m5Parameter[AbNr][i].getText();
-				}
-				if (m5Labels[AbNr][i] == allLabels[6]) {
-					profKrzl = m5Parameter[AbNr][i].getText();
-				}
-				if (m5Labels[AbNr][i] == allLabels[7]) {
-					raumName = m5Parameter[AbNr][i].getText();
-				}
-				if (m5Labels[AbNr][i] == allLabels[12]) {
-					veranstaltungsname = m5Parameter[AbNr][i].getText();
-				}
+			}
+		} else {
+			if (m5Labels[AbNr][i] == allLabels[3]) {
+				vorlesungsKrzl = m5Parameter[AbNr][i].getText();
+			}
+			if (m5Labels[AbNr][i] == allLabels[5]) {
+				profName = m5Parameter[AbNr][i].getText();
+			}
+			if (m5Labels[AbNr][i] == allLabels[6]) {
+				profKrzl = m5Parameter[AbNr][i].getText();
+			}
+			if (m5Labels[AbNr][i] == allLabels[7]) {
+				raumName = m5Parameter[AbNr][i].getText();
+			}
+			if (m5Labels[AbNr][i] == allLabels[12]) {
+				veranstaltungsname = m5Parameter[AbNr][i].getText();
 			}
 		}
+
 	}
 
 	private boolean istPersOderMatNr(int AbNr, int i, boolean istEinfach) {
 		boolean ist0oder10 = false;
 		if (istEinfach) {
-			if (m4Labels[AbNr][i] == allLabels[0] || m4Labels[AbNr][i] == allLabels[10]) {
+			if (m4Labels[AbNr][i] == allLabels[0]
+					|| m4Labels[AbNr][i] == allLabels[10]) {
 				ist0oder10 = true;
 			}
 		} else {
-			if (m5Labels[AbNr][i] == allLabels[0] || m5Labels[AbNr][i] == allLabels[10]) {
+			if (m5Labels[AbNr][i] == allLabels[0]
+					|| m5Labels[AbNr][i] == allLabels[10]) {
 				ist0oder10 = true;
 			}
 		}
@@ -852,8 +897,9 @@ public class GUI implements ActionListener {
 				istZahl = false;
 			}
 			if (istZahl == false) {
-				JOptionPane.showMessageDialog(jf, "Eingabe muss eine 9-stellige Zahl sein", "Falsche Eingabe",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(jf,
+						"Eingabe muss eine 9-stellige Zahl sein",
+						"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 				if (istEinfach) {
 					m4Parameter[AbNr][0].setText("");
 				} else {
@@ -862,8 +908,12 @@ public class GUI implements ActionListener {
 
 			} else {
 				if (helpString.length() != 7) {
-					JOptionPane.showMessageDialog(jf, "Ihre eingegebene Zahl war nicht 9-stellig",
-							"Zahl nicht 9-stellig", JOptionPane.WARNING_MESSAGE);
+					JOptionPane
+							.showMessageDialog(
+									jf,
+									"Ihre eingegebene Zahl war nicht 9-stellig",
+									"Zahl nicht 9-stellig",
+									JOptionPane.WARNING_MESSAGE);
 					if (istEinfach) {
 						m4Parameter[AbNr][0].setText("");
 					} else {
@@ -933,7 +983,8 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownTag(int i, int j, boolean istEinfach) {
-		String tageListe[] = { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag" };
+		String tageListe[] = { "Montag", "Dienstag", "Mittwoch", "Donnerstag",
+				"Freitag" };
 		tagAuswahl = new JComboBox(tageListe);
 		tagAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -997,25 +1048,38 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownStudiengang(int i, int j, boolean istEinfach) {
-		String studiengängeListe[] = { "Biologische Chemie (Bachelor)",
+		String studiengängeListe[] = {
+				"Biologische Chemie (Bachelor)",
 				"Biotechnology - Biomedical Science and Technology (Master)",
-				"Biotechnology - Bioprocess Development (Master)", "Automation Technology (Bachelor)",
-				"Automatisierungs und Energiesysteme (Master)", "Automatisierungstechnik (Bachelor)",
+				"Biotechnology - Bioprocess Development (Master)",
+				"Automation Technology (Bachelor)",
+				"Automatisierungs und Energiesysteme (Master)",
+				"Automatisierungstechnik (Bachelor)",
 				"Elektro und Informationstechnik für das höhere Lehramt (Bachelor)",
 				"Elektro und Informationstechnik für das höhere Lehramt (Master)",
 				"Elektro und Informationstechnik für das höhere Lehramt - Zweitfach Mathematik (Master)",
 				"Energietechnik und erneuerbare Energien (Bachelor)",
-				"Power Engineering and Renewable Energies (Bachelor)", "Translation Studies for IT (Bachelor)",
-				"Informatik (Bachelor)", "Informatik (Master)", "Informatik - Vertiefungsrichtung Medizin (Master)",
-				"Medizinische Informatik (Bachelor)", "Unternehmens- und Wirtschaftsinformatik (Bachelor)",
-				"Maschinenbau (Bacheor)", "Maschinenbau (Master)", "Maschinenbau / Konstruktion (Bachelor)",
-				"Maschinenbau / Produktion (Bachelor)", "Informationstechnik (Master)",
-				"Informationstechnik / Elektronik (Bachelor)", "Medizintechnik (Bachelor)", "Medizintechnik (Master)",
-				"Nachrichtentechnik / Elektronik (Bachelor)", "Technische Informatik (Bachelor)",
+				"Power Engineering and Renewable Energies (Bachelor)",
+				"Translation Studies for IT (Bachelor)",
+				"Informatik (Bachelor)", "Informatik (Master)",
+				"Informatik - Vertiefungsrichtung Medizin (Master)",
+				"Medizinische Informatik (Bachelor)",
+				"Unternehmens- und Wirtschaftsinformatik (Bachelor)",
+				"Maschinenbau (Bacheor)", "Maschinenbau (Master)",
+				"Maschinenbau / Konstruktion (Bachelor)",
+				"Maschinenbau / Produktion (Bachelor)",
+				"Informationstechnik (Master)",
+				"Informationstechnik / Elektronik (Bachelor)",
+				"Medizintechnik (Bachelor)", "Medizintechnik (Master)",
+				"Nachrichtentechnik / Elektronik (Bachelor)",
+				"Technische Informatik (Bachelor)",
 				"Soziale Arbeit (Bachelor)", "Soziale Arbeit (Master)",
-				"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)", "Chemical Engineering French (Master)",
-				"Chemieingenieurwesen (Master)", "Chemische Technik (Bachelor)", "Verfahrenstechnik (Bachelor)",
-				"Wirtschaftsingenieurwesen (Bachelor)", "Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master)",
+				"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)",
+				"Chemical Engineering French (Master)",
+				"Chemieingenieurwesen (Master)",
+				"Chemische Technik (Bachelor)", "Verfahrenstechnik (Bachelor)",
+				"Wirtschaftsingenieurwesen (Bachelor)",
+				"Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master)",
 				"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
 				"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
 				"Wirtschaftsingenieurwesen International (Bachelor)" };
@@ -1106,32 +1170,36 @@ public class GUI implements ActionListener {
 			m5Text[i].setLineWrap(true);
 			m5Text[i].setWrapStyleWord(true);
 		}
-		m5Text[0].setText("Zeige den Dozenten, der die Veranstaltung |_____| im Raum |_____| hält.	");
-		m5Text[1].setText(
-				"Zeige alle Veranstaltungen von dem Studierenden mit der MatrikelNr |_____| , die im Raum |_____| stattfinden.");
-		m5Text[2].setText(
-				"Zeige alle Veranstaltungen der Studierenden vom Studiengang |_____|, die am |_____|(Tag) stattfinden.");
-		m5Text[3].setText(
-				"Zeige die Bezeichnung aller Räume in denen Veranstaltungen vom Dozenten mit der Personalnummer |_____| stattfinden.");
-		m5Text[4].setText(
-				"Zeige den Namen des Dozenten, der die Veranstaltung mit dem Veranstaltungskuerzel |_____| am |_____|(Tag) im Slot |_____| hält.");
-		m5Text[5].setText(
-				"Zeige den Stundenplan des Dozenten, den der Student mit der MatrikelNr |_____| in der Veranstaltung |_____| hat.");
-		m5Text[6].setText(
-				"Zeige den Raum, in der die Veranstaltung vom Dozenten/Professor |_____| am |_____|(Tag) im Slot |_____| gehalten wird.");
-		m5Text[7].setText("Zeige alle Räume, die durch den Dozent/Professor |_____| am |_____|(Tag) belegt sind.");
-		m5Text[8].setText(
-				"Zeige alle Studierenden, die am |_____|(Tag) eine Veranstaltung in einem Computerraum haben/nicht haben.");
-		m5Text[9].setText("Zeige alle |_____| Studierenden, die die Veranstaltung |_____| im Raum |_____| besuchen.");
-		m5Text[10].setText(
-				"Zeige die Tage an denen die Veranstaltung mit dem Veranstaltungskuerzel |_____|, die im Studiengang |_____| vom Dozenten/Professor |_____| gehalten wird, stattfindet.");
-		m5Text[11].setText(
-				"Zeige die Matrikelnummer aller Studierenden, die die Veranstaltung |_____| beim Dozenten/Professor |_____| im Raum |_____| besuchen.");
-		m5Text[12].setText(
-				"Zeige alle Dozenten der Fakultät |_____|, die eine Veranstaltung am |_____| halten und einen Computerraum belegen/nicht belegen.");
-		m5Text[13].setText(
-				"Zeige alle Vorlesungen, die am |_____|(Tag) von dem Dozenten/Professor mit dem Kuerzel |_____| gehalten werden.");
-		m5Text[14].setText("Zeige alle Dozenten, die am |_____|(Tag) im Slot |_____| eine Veranstaltung halten.");
+		m5Text[0]
+				.setText("Zeige den Dozenten, der die Veranstaltung |_____| im Raum |_____| hält.	");
+		m5Text[1]
+				.setText("Zeige alle Veranstaltungen von dem Studierenden mit der MatrikelNr |_____| , die im Raum |_____| stattfinden.");
+		m5Text[2]
+				.setText("Zeige alle Veranstaltungen der Studierenden vom Studiengang |_____|, die am |_____|(Tag) stattfinden.");
+		m5Text[3]
+				.setText("Zeige die Bezeichnung aller Räume in denen Veranstaltungen vom Dozenten mit der Personalnummer |_____| stattfinden.");
+		m5Text[4]
+				.setText("Zeige den Namen des Dozenten, der die Veranstaltung mit dem Veranstaltungskuerzel |_____| am |_____|(Tag) im Slot |_____| hält.");
+		m5Text[5]
+				.setText("Zeige den Stundenplan des Dozenten, den der Student mit der MatrikelNr |_____| in der Veranstaltung |_____| hat.");
+		m5Text[6]
+				.setText("Zeige den Raum, in der die Veranstaltung vom Dozenten/Professor |_____| am |_____|(Tag) im Slot |_____| gehalten wird.");
+		m5Text[7]
+				.setText("Zeige alle Räume, die durch den Dozent/Professor |_____| am |_____|(Tag) belegt sind.");
+		m5Text[8]
+				.setText("Zeige alle Studierenden, die am |_____|(Tag) eine Veranstaltung in einem Computerraum haben/nicht haben.");
+		m5Text[9]
+				.setText("Zeige alle |_____| Studierenden, die die Veranstaltung |_____| im Raum |_____| besuchen.");
+		m5Text[10]
+				.setText("Zeige die Tage an denen die Veranstaltung mit dem Veranstaltungskuerzel |_____|, die im Studiengang |_____| vom Dozenten/Professor |_____| gehalten wird, stattfindet.");
+		m5Text[11]
+				.setText("Zeige die Matrikelnummer aller Studierenden, die die Veranstaltung |_____| beim Dozenten/Professor |_____| im Raum |_____| besuchen.");
+		m5Text[12]
+				.setText("Zeige alle Dozenten der Fakultät |_____|, die eine Veranstaltung am |_____| halten und einen Computerraum belegen/nicht belegen.");
+		m5Text[13]
+				.setText("Zeige alle Vorlesungen, die am |_____|(Tag) von dem Dozenten/Professor mit dem Kuerzel |_____| gehalten werden.");
+		m5Text[14]
+				.setText("Zeige alle Dozenten, die am |_____|(Tag) im Slot |_____| eine Veranstaltung halten.");
 		giveRightLabels();
 		for (int i = 0; i < m5Buttons.length; i++) {
 			int c = i + 1;
@@ -1166,17 +1234,24 @@ public class GUI implements ActionListener {
 			m4Text[i].setLineWrap(true);
 			m4Text[i].setWrapStyleWord(true);
 		}
-		m4Text[0].setText("Zeige den Studiereden mit der Matrikelnummer |_____|.");
+		m4Text[0]
+				.setText("Zeige den Studiereden mit der Matrikelnummer |_____|.");
 		m4Text[1].setText("Zeige alle Studierenden aus dem |_____| Semester.");
-		m4Text[2].setText("Zeige alle |_____|Studierenden aus dem Studiengang |_____|.");
-		m4Text[3].setText("Zeige alle |_____| Studierenden aus dem Studiengang |_____|.");
-		m4Text[4].setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[5].setText(
-				"Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[6].setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
+		m4Text[2]
+				.setText("Zeige alle |_____|Studierenden aus dem Studiengang |_____|.");
+		m4Text[3]
+				.setText("Zeige alle |_____| Studierenden aus dem Studiengang |_____|.");
+		m4Text[4]
+				.setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[5]
+				.setText("Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[6]
+				.setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
 		m4Text[7].setText("Zeige alle Dozenten der Fakultät |_____|.");
-		m4Text[8].setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
-		m4Text[9].setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
+		m4Text[8]
+				.setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
+		m4Text[9]
+				.setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
 		giveRightLabels();
 
 		for (int i = 0; i < m4Buttons.length; i++) {
