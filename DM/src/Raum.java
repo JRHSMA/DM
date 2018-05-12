@@ -15,6 +15,15 @@ public class Raum {
 		Boolean.parseBoolean(datensatz.get("computerraum"))
 		);
 	}
+	
+	public boolean aendern(boolean computerraum) {
+		try {
+			setComputerraum(computerraum);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;

@@ -28,7 +28,16 @@ public class Fakultaet{
 		datensatz.get("name")
 		);
 	}
-
+	
+	public boolean aendern(String name) {
+		try {
+			setName(name);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	public int getId() {
 		return id;
 	}

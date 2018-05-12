@@ -16,6 +16,15 @@ public class Slot {
 		datensatz.get("slot")
 		);
 	}
+	
+	public boolean aendern(String slot) {
+		try {
+			setSlot(slot);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public int getId() {
 		return id;

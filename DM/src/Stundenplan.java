@@ -15,6 +15,18 @@ public class Stundenplan {
 		setSlot(slot);
 	}
 	
+	public boolean aendern(int semester, Studiengang studiengang, Tag tag, Slot slot) {
+		try {
+			setSemester(semester);
+			setStudiengang(studiengang);
+			setTag(tag);
+			setSlot(slot);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	public int getId() {
 		return id;
 	}

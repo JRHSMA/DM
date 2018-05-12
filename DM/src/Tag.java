@@ -19,6 +19,15 @@ public class Tag{
 		datensatz.get("tag")
 		);
 	}
+	
+	public boolean aendern(String tag) {
+		try {
+			setTag(tag);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public int getId() {
 		return id;

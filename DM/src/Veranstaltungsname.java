@@ -19,6 +19,16 @@ public class Veranstaltungsname {
 		datensatz.get("kuerzel")
 		);
 	}
+	
+	public boolean aendern(String name, String kuerzel) {
+		try {
+			setName(name);
+			setKuerzel(kuerzel);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public int getId() {
 		return id;

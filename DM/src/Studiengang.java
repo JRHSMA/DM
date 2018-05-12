@@ -22,6 +22,15 @@ public class Studiengang {
 	public Studiengang(LinkedHashMap<String, String> datensatz) {
 		this(Integer.parseInt(datensatz.get("id")), datensatz.get("name"));
 	}
+	
+	public boolean aendern(String name) {
+		try {
+			setName(name);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public int getId() {
 		return id;

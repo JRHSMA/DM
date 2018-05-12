@@ -17,6 +17,19 @@ public class Veranstaltung {
 		setVeranstaltungsname(veranstaltungsname);
 	}
 	
+	public boolean aendern(int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+		try {
+			setSemester(semester);
+			setDauer(dauer);
+			setDozent(dozent);
+			setStundenplan(stundenplan);
+			setVeranstaltungsname(veranstaltungsname);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -14,6 +14,17 @@ public class Dozent {
 		setFakultaet(fakultaet);
 		setPerson(person);
 	}
+	
+	public boolean aendern(String kuerzel, Fakultaet fakultaet, Person person) {
+		try {
+			setKuerzel(kuerzel);
+			setFakultaet(fakultaet);
+			setPerson(person);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	private void setPersonalNr(int personalNr) {
 		this.personalNr = personalNr;

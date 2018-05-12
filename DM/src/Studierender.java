@@ -15,14 +15,16 @@ public class Studierender {
 		setPerson(person);
 	}
 	
-//	public Studierender(LinkedHashMap<String, String> datensatz){
-//		this(
-//		Integer.parseInt(datensatz.get("matrikelNr")),
-//		Integer.parseInt(datensatz.get("semester")),
-//		Integer.parseInt(datensatz.get("idStudiengang"))
-//		//Integer.parseInt(datensatz.get("idPerson"))
-//		);
-//	}
+	public boolean aendern(int semester, Studiengang studiengang, Person person) {
+		try {
+			setSemester(semester);
+			setStudiengang(studiengang);
+			setPerson(person);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	private void setMatrikelNr(int matrikelNr) {
 		this.matrikelNr = matrikelNr;
