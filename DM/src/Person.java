@@ -1,4 +1,5 @@
 import java.sql.Date; // oder java.util.Date ?
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class Person {
@@ -26,6 +27,54 @@ public class Person {
 		Boolean.parseBoolean(datensatz.get("maennlich"))
 		);
 	}
+	
+	public boolean hinzufuegen(ArrayList<Person>person, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich){
+		try{
+			person.add(new Person(id, vorname, nachname, geburtsdatum, maennlich));
+			return true;
+		} catch (Exception e){
+			return false;
+		}
+	}
+	
+	public boolean aendern(ArrayList<Person>person, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich){
+		try{
+			Person datensatz = null;
+			for(Person x: person){
+				if(id == x.getId()){
+					datensatz = x;
+					break;
+				}
+			}
+			if(datensatz != null){
+				datensatz.setVorname(vorname);
+				datensatz.setNachname(nachname);
+				datensatz.setGeburtsdatum(geburtsdatum);
+				datensatz.setMaennlich(maennlich);
+				return true;
+			} else{
+				System.out.println("Es wurde kein Datensatz zum Ändern gefunden");
+				return false;
+			}
+		}
+		catch(Exception e){
+			return false;
+		}
+	}
+	
+	public boolean loeschen(ArrayList<Person>person, int id){
+		try{
+			for(Person x: person){
+				if(id == x.getId()){
+					person.remove(x);
+					return true;
+				}
+			}
+		} catch (Exception e){
+			return false;
+		}
+		return false;
+	}	
 
 	private void setId(int id) {
 		this.id = id;
