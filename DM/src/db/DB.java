@@ -44,6 +44,15 @@ public class DB {
 		con = null;
 	}
 
+	public void datenzugriffSchlieﬂen(){
+		try{
+			this.close();
+		}
+		catch(Exception e){
+			
+		}
+	}
+	
 	public void setSQL(String sql) {
 		try {
 			ps = con.prepareStatement(sql);

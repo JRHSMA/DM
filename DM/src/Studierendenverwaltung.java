@@ -512,10 +512,21 @@ public class Studierendenverwaltung {
 	//person
 	public static void personHinzufuegen(ArrayList<Person> personen, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
 		// Person hinzufügen DB
-		// boolean um zu testen ob DB änderung erfolgreich (kann man auch
-		// umbenennen)
-		boolean dbEinfuegen = true;
-
+		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertPerson(vorname, nachname, geburtsdatum, maennlich);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
+		
 		// Person hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
@@ -537,11 +548,23 @@ public class Studierendenverwaltung {
 	public static void personAendern(ArrayList<Person> personen, int id, String vorname, String nachname,
 			String geburtsdatum, boolean maennlich) {
 		// Person ändern DB
-		// boolean um zu testen ob DB änderung erfolgreich
-
+		DB datenzugriff = null;
+		boolean dbAendern = false;
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updatePerson(vorname, nachname, geburtsdatum, maennlich, id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
+		
 		// Person ändern (java)
-		// boolean wenn db korrekt
-		if (true) {
+		if (dbAendern) {
 			for (Person x : personen) {
 				if (id == x.getId()) {
 					if (x.aendern(vorname, nachname, geburtsdatum, maennlich)) {
@@ -558,11 +581,23 @@ public class Studierendenverwaltung {
 
 	public static void personLoeschen(ArrayList<Person> personen, int id) {
 		// Person ändern DB
-		// boolean um zu testen ob db änderung erfolgreich
-
+		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deletePerson(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
+		
 		// Person ändern (java)
-		// boolean wenn db korrekt
-		if (true) {
+		if (dbLoeschen) {
 			try {
 				for (Person x : personen) {
 					if (id == x.getId()) {
@@ -579,12 +614,23 @@ public class Studierendenverwaltung {
 	
 	//Dozent
 	public static void dozentHinzufuegen(ArrayList<Dozent> dozenten, int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
-		// Person hinzufügen DB
-		// boolean um zu testen ob DB änderung erfolgreich (kann man auch
-		// umbenennen)
-		boolean dbEinfuegen = true;
+		// Dozent hinzufügen DB
+		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
-		// Person hinzufügen (java)
+		// Dozent hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
 				dozenten.add(new Dozent(personalNr, kuerzel, fakultaet, person));
@@ -602,15 +648,26 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void dozentAendern(ArrayList<Person> personen, int id, String vorname, String nachname,
-			String geburtsdatum, boolean maennlich) {
-		// Person ändern DB
-		// boolean um zu testen ob DB änderung erfolgreich
-
-		// Person ändern (java)
-		// boolean wenn db korrekt
+	public static void dozentAendern(ArrayList<Dozent> dozenten, int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
+		// Dozent ändern DB
+		DB datenzugriff = null;
+		boolean dbAendern = false;
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
+		
+		// Dozent ändern (java)
 		//TODO
-//		if (true) {
+//		if (dbAendern) {
 //			for (Person x : personen) {
 //				if (id == x.getId()) {
 //					if (x.aendern(vorname, nachname, geburtsdatum, maennlich)) {
@@ -626,12 +683,24 @@ public class Studierendenverwaltung {
 	}
 
 	public static void dozentLoeschen(ArrayList<Dozent> dozenten, int personalNr) {
-		// Person ändern DB
-		// boolean um zu testen ob db änderung erfolgreich
+		// Dozent löschen DB
+		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
-		// Person ändern (java)
-		// boolean wenn db korrekt
-		if (true) {
+		// Dozent löschen (java)
+		if (dbLoeschen) {
 			try {
 				for (Dozent x : dozenten) {
 					if (personalNr == x.getPersonalNr()) {
