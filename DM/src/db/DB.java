@@ -617,7 +617,7 @@ public class DB {
 	/**
 	 * Insert-Into
 	 */
-	public void insertPerson(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+	public boolean insertPerson(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
 		try {
 			ps = con.prepareStatement("INSERT INTO person (id, vorname, nachname, geburtsdatum, maennlich) "
 					+ "VALUES (NULL, ?, ?, ?, ?);");
@@ -626,13 +626,13 @@ public class DB {
 			ps.setString(3, geburtsdatum);
 			ps.setBoolean(4, maennlich);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertDozent(String kuerzel, int idFakultaet, int idPerson) {
+	public boolean insertDozent(String kuerzel, int idFakultaet, int idPerson) {
 		try {
 			ps = con.prepareStatement(
 					"INSERT INTO Dozent (personalNr, kuerzel, idFakultaet, idPerson) " + "VALUES (NULL, ?, ?,?);");
@@ -640,24 +640,24 @@ public class DB {
 			ps.setInt(2, idFakultaet);
 			ps.setInt(3, idPerson);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertFakultaet(String name) {
+	public boolean insertFakultaet(String name) {
 		try {
 			ps = con.prepareStatement("INSERT INTO fakultaet (id, name) " + "VALUES (NULL, ?);");
 			ps.setString(1, name);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertStudierender(int semester, int idStudiengang, int idPerson) {
+	public boolean insertStudierender(int semester, int idStudiengang, int idPerson) {
 		try {
 			ps = con.prepareStatement("INSERT INTO studierender (matrikelNr, semester, idStudiengang, idPerson) "
 					+ "VALUES (Null, ?, ?, ?);");
@@ -665,24 +665,24 @@ public class DB {
 			ps.setInt(2, idStudiengang);
 			ps.setInt(3, idPerson);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertStudiengang(String name) {
+	public boolean insertStudiengang(String name) {
 		try {
 			ps = con.prepareStatement("INSERT INTO Studiengang (id, name) " + "VALUES (NULL, ?);");
 			ps.setString(1, name);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertVeranstaltung(int semester, int dauer, int personalNr, int idStundenplan, int idvName) {
+	public boolean insertVeranstaltung(int semester, int dauer, int personalNr, int idStundenplan, int idvName) {
 		try {
 			ps = con.prepareStatement(
 					"INSERT INTO veranstaltung (id, semester, dauer, personalNr, idStundenplan, idvName) "
@@ -693,107 +693,107 @@ public class DB {
 			ps.setInt(4, idStundenplan);
 			ps.setInt(5, idvName);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertVeranstaltungsname(String name, String kuerzel) {
+	public boolean insertVeranstaltungsname(String name, String kuerzel) {
 		try {
 			ps = con.prepareStatement("INSERT INTO veranstaltungsname (id, name, kuerzel) " + "VALUES (NULL,?,?);");
 			ps.setString(1, name);
 			ps.setString(2, kuerzel);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertRaum(String bezeichnung, boolean computerraum) {
+	public boolean insertRaum(String bezeichnung, boolean computerraum) {
 		try {
 			ps = con.prepareStatement("INSERT INTO raum (bezeichnung, computerraum) " + "VALUES (?,?);");
 			ps.setString(1, bezeichnung);
 			ps.setBoolean(2, computerraum);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertHoert(int id, int matrikelNr) {
+	public boolean insertHoert(int id, int matrikelNr) {
 		try {
 			ps = con.prepareStatement("INSERT INTO hoert (id, matrikelNr) " + "VALUES (?,?);");
 			ps.setInt(1, id);
 			ps.setInt(2, matrikelNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertHat(String bezeichnung, int id) {
+	public boolean insertHat(String bezeichnung, int id) {
 		try {
 			ps = con.prepareStatement("INSERT INTO hat (bezeichnung, id) " + "VALUES (?,?);");
 			ps.setString(1, bezeichnung);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertErhaelt(int personalNr, int id) {
+	public boolean insertErhaelt(int personalNr, int id) {
 		try {
 			ps = con.prepareStatement("INSERT INTO erhaelt (personalNr, id) " + "VALUES (?,?);");
 			ps.setInt(1, personalNr);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertBesitzt(int id, int matrikelNr) {
+	public boolean insertBesitzt(int id, int matrikelNr) {
 		try {
 			ps = con.prepareStatement("INSERT INTO besitzt (id, matrikelNr) " + "VALUES (?,?);");
 			ps.setInt(1, id);
 			ps.setInt(2, matrikelNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertSlot(int slot) {
+	public boolean insertSlot(int slot) {
 		try {
 			ps = con.prepareStatement("INSERT INTO slot (id, slot) " + "VALUES (Null,?);");
 			ps.setInt(1, slot);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertTag(String tag) {
+	public boolean insertTag(String tag) {
 		try {
 			ps = con.prepareStatement("INSERT INTO tag (id, tag) " + "VALUES (Null,?);");
 			ps.setString(1, tag);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void insertStundenplan(int semester, int idStudiengang, int idTag, int idSlot) {
+	public boolean insertStundenplan(int semester, int idStudiengang, int idTag, int idSlot) {
 		try {
 			ps = con.prepareStatement(
 					"INSERT INTO stundenplan (id, semester, idStudiengang, idTag, idSlot) " + "VALUES (Null,?,?,?,?);");
@@ -802,188 +802,188 @@ public class DB {
 			ps.setInt(3, idTag);
 			ps.setInt(4, idSlot);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
 	/**
 	 * Delete
 	 */
-	public void deletePerson(int id) {
+	public boolean deletePerson(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM person WHERE id = ?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteDozent(int personalNr) {
+	public boolean deleteDozent(int personalNr) {
 		try {
 			ps = con.prepareStatement("DELETE FROM dozent WHERE personalNr = ?;");
 			ps.setInt(1, personalNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteFakultaet(int id) {
+	public boolean deleteFakultaet(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM fakultaet WHERE id = ?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteStudierender(int matrikelNr) {
+	public boolean deleteStudierender(int matrikelNr) {
 		try {
 			ps = con.prepareStatement("DELETE FROM studierender WHERE matrikelNr = ?;");
 			ps.setInt(1, matrikelNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteStudiengang(int id) {
+	public boolean deleteStudiengang(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM studiengang WHERE id = ?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteVeranstaltung(int id) {
+	public boolean deleteVeranstaltung(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM veranstaltung WHERE id = ?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteVeranstaltungsname(int id) {
+	public boolean deleteVeranstaltungsname(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM veranstaltungsname WHERE id = ?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteRaum(String bezeichnung) {
+	public boolean deleteRaum(String bezeichnung) {
 		try {
 			ps = con.prepareStatement("DELETE FROM raum WHERE bezeichnung = ?;");
 			ps.setString(1, bezeichnung);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteHoert(int id, int matrikelNr) {
+	public boolean deleteHoert(int id, int matrikelNr) {
 		try {
 			ps = con.prepareStatement("DELETE FROM hoert WHERE id =? AND matrikelNr =?;");
 			ps.setInt(1, id);
 			ps.setInt(2, matrikelNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteHat(String bezeichnung, int id) {
+	public boolean deleteHat(String bezeichnung, int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM hat WHERE bezeichnung =? AND id =?;");
 			ps.setString(1, bezeichnung);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteErhaelt(int personalNr, int id) {
+	public boolean deleteErhaelt(int personalNr, int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM erhaelt WHERE personalNr =? AND id =?;");
 			ps.setInt(1, personalNr);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteBesitzt(int id, int matrikelNr) {
+	public boolean deleteBesitzt(int id, int matrikelNr) {
 		try {
 			ps = con.prepareStatement("DELETE FROM besitzt WHERE id =? AND matrikelNr =?;");
 			ps.setInt(1, id);
 			ps.setInt(2, matrikelNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteSlot(int id) {
+	public boolean deleteSlot(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM slot WHERE id =?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteTag(int id) {
+	public boolean deleteTag(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM tag WHERE id =?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void deleteStundenplan(int id) {
+	public boolean deleteStundenplan(int id) {
 		try {
 			ps = con.prepareStatement("DELETE FROM stundenplan WHERE id =?;");
 			ps.setInt(1, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
 	/**
 	 * Update
 	 */
-	public void updatePerson(String vorname, String nachname, String geburtsdatum, boolean maennlich, int id) {
+	public boolean updatePerson(String vorname, String nachname, String geburtsdatum, boolean maennlich, int id) {
 		try {
 			ps = con.prepareStatement(
 					"UPDATE person SET vorname = ?, nachname = ?, geburtsdatum = ?, maennlich = ? WHERE id = ?;");
@@ -993,13 +993,13 @@ public class DB {
 			ps.setBoolean(4, maennlich);
 			ps.setInt(5, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateDozent(String kuerzel, int idFakultaet, int idPerson, int personalNr) {
+	public boolean updateDozent(String kuerzel, int idFakultaet, int idPerson, int personalNr) {
 		try {
 			ps = con.prepareStatement(
 					"UPDATE dozent SET kuerzel = ?, idFakultaet = ?, idPerson = ? WHERE personalNr = ?;");
@@ -1008,25 +1008,25 @@ public class DB {
 			ps.setInt(3, idPerson);
 			ps.setInt(4, personalNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateFakultaet(String name, int id) {
+	public boolean updateFakultaet(String name, int id) {
 		try {
 			ps = con.prepareStatement("UPDATE fakultaet SET name = ? WHERE id = ?;");
 			ps.setString(1, name);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateStudierender(int semester, int idStudiengang, int idPerson, int matrikelNr) {
+	public boolean updateStudierender(int semester, int idStudiengang, int idPerson, int matrikelNr) {
 		try {
 			ps = con.prepareStatement(
 					"UPDATE studierender SET semester = ?, idStudiengang = ?, idPerson = ? WHERE matrikelNr = ?;");
@@ -1035,25 +1035,25 @@ public class DB {
 			ps.setInt(3, idPerson);
 			ps.setInt(4, matrikelNr);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateStudiengang(String name, int id) {
+	public boolean updateStudiengang(String name, int id) {
 		try {
 			ps = con.prepareStatement("UPDATE studiengang SET name = ? WHERE id = ?;");
 			ps.setString(1, name);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateVeranstaltung(int semester, int dauer, int personalNr, int idStundenplan, int idvName, int id) {
+	public boolean updateVeranstaltung(int semester, int dauer, int personalNr, int idStundenplan, int idvName, int id) {
 		try {
 			ps = con.prepareStatement(
 					"UPDATE veranstaltung SET semester = ?, dauer = ?, personalNr = ?, idStundenplan = ?, idvName = ? WHERE id = ?;");
@@ -1064,62 +1064,62 @@ public class DB {
 			ps.setInt(5, idvName);
 			ps.setInt(6, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateVeranstaltungsname(String name, String kuerzel, int id) {
+	public boolean updateVeranstaltungsname(String name, String kuerzel, int id) {
 		try {
 			ps = con.prepareStatement("UPDATE veranstaltungsname SET name = ?, kuerzel = ? WHERE id = ?;");
 			ps.setString(1, name);
 			ps.setString(2, kuerzel);
 			ps.setInt(3, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateRaum(boolean computerraum, String bezeichnung) {
+	public boolean updateRaum(boolean computerraum, String bezeichnung) {
 		try {
 			ps = con.prepareStatement("UPDATE raum SET computerraum = ? WHERE bezeichnung = ?;");
 			ps.setBoolean(1, computerraum);
 			ps.setString(2, bezeichnung);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateSlot(int slot, int id) {
+	public boolean updateSlot(int slot, int id) {
 		try {
 			ps = con.prepareStatement("UPDATE slot SET slot = ? WHERE id = ?;");
 			ps.setInt(1, slot);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateTag(String tag, int id) {
+	public boolean updateTag(String tag, int id) {
 		try {
 			ps = con.prepareStatement("UPDATE tag SET tag = ? WHERE id = ?;");
 			ps.setString(1, tag);
 			ps.setInt(2, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void updateStundenplan(int semester, int idStudiengang, int idTag, int idSlot, int id) {
+	public boolean updateStundenplan(int semester, int idStudiengang, int idTag, int idSlot, int id) {
 		try {
 			ps = con.prepareStatement(
 					"UPDATE stundenplan SET semester = ?, idStudiengang = ?, idTag = ?, idSlot = ? WHERE id = ?;");
@@ -1129,9 +1129,9 @@ public class DB {
 			ps.setInt(4, idSlot);
 			ps.setInt(5, id);
 			ps.execute();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+			return false;
 		}
 	}
 }
