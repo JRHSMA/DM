@@ -17,55 +17,23 @@ public class Person {
 		setGeburtsdatum(geburtsdatum);
 		setMaennlich(maennlich);
 	}
-	
-	public Person(LinkedHashMap<String, String> datensatz){
-		this(
-		Integer.parseInt(datensatz.get("id")),
-		datensatz.get("vorname"),
-		datensatz.get("nachname"),
-		datensatz.get("geburtsdatum"),
-		Boolean.parseBoolean(datensatz.get("maennlich"))
-		);
+
+	public Person(LinkedHashMap<String, String> datensatz) {
+		this(Integer.parseInt(datensatz.get("id")), datensatz.get("vorname"), datensatz.get("nachname"),
+				datensatz.get("geburtsdatum"), Boolean.parseBoolean(datensatz.get("maennlich")));
 	}
-	
-	public boolean aendern(ArrayList<Person>personen, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich){
-		try{
-			Person datensatz = null;
-			for(Person x: personen){
-				if(id == x.getId()){
-					datensatz = x;
-					break;
-				}
-			}
-			if(datensatz != null){
-				datensatz.setVorname(vorname);
-				datensatz.setNachname(nachname);
-				datensatz.setGeburtsdatum(geburtsdatum);
-				datensatz.setMaennlich(maennlich);
-				return true;
-			} else{
-				System.out.println("Es wurde kein Datensatz zum Ändern gefunden");
-				return false;
-			}
-		}
-		catch(Exception e){
+
+	public boolean aendern(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+		try {
+			setVorname(vorname);
+			setNachname(nachname);
+			setGeburtsdatum(geburtsdatum);
+			setMaennlich(maennlich);
+			return true;
+		} catch (Exception e) {
 			return false;
 		}
 	}
-	
-	public boolean loeschen(ArrayList<Person>person, int id){
-		try{
-			for(Person x: person){
-				if(id == x.getId()){
-					person.remove(x);
-					return true;
-				}
-			}
-		} catch (Exception e){
-			return false;
-		}
-		return false;
-	}	
 
 	private void setId(int id) {
 		this.id = id;

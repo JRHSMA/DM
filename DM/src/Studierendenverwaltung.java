@@ -31,8 +31,20 @@ public class Studierendenverwaltung {
 		DatenAusDbEinlesen(datenzugriff, fakultaeten, personen, dozenten, studiengaenge, studierende, slots, tage,
 				stundenplaene, veranstaltungsnamen, veranstaltungen, hoeren, raeume, hatten, besitzen, erhalten);
 
-		personHinzufuegen(personen,31, "test", "TEst", "2011-09-09", true);
-		//Person hinzu = new Person(31, "test", "TEst", "2011-09-09", true);
+		//Test Person
+		personHinzufuegen(personen, 31, "test", "TEst", "2011-09-09", true);
+		personAendern(personen, 31, "tesstt", "test", "2011-09-08", false);
+		personLoeschen(personen, 31);
+		
+		//Test Dozent
+		personHinzufuegen(personen, 31, "test", "TEst", "2011-09-09", true);
+		for(Person x : personen){
+			if(31 == x.getId()){
+				dozentHinzufuegen(dozenten, 10, "OMB", fakultaeten.get(3), x);
+			}
+		}
+		dozentLoeschen(dozenten, 10);
+		
 	}
 
 	public static void DatenAusDbEinlesen(DB datenzugriff, ArrayList<Fakultaet> fakultaeten, ArrayList<Person> personen,
@@ -497,20 +509,143 @@ public class Studierendenverwaltung {
 				+ erhalten.get(1).getStundenplan());
 	}
 
-	public static void personHinzufuegen(ArrayList<Person>personen, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
-		//Person hinzufügen DB
-		
-		
+	//person
+	public static void personHinzufuegen(ArrayList<Person> personen, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+		// Person hinzufügen DB
+		// boolean um zu testen ob DB änderung erfolgreich (kann man auch
+		// umbenennen)
+		boolean dbEinfuegen = true;
+
 		// Person hinzufügen (java)
-		personen.add(new Person(id, vorname, nachname, geburtsdatum, maennlich));
-		Person datensatz = null;
-		for (Person x : personen) {
-			if (id == x.getId()) {
-				datensatz = x;
-				System.out.println("Test Ausgabe");
-				System.out.println(datensatz);
-				break;
+		if (dbEinfuegen) {
+			try {
+				personen.add(new Person(id, vorname, nachname, geburtsdatum, maennlich));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+			// Test ausgabe
+			for (Person x : personen) {
+				if (id == x.getId()) {
+					System.out.println("Test Ausgabe A1:");
+					System.out.println(x);
+					break;
+				}
 			}
 		}
 	}
+
+	public static void personAendern(ArrayList<Person> personen, int id, String vorname, String nachname,
+			String geburtsdatum, boolean maennlich) {
+		// Person ändern DB
+		// boolean um zu testen ob DB änderung erfolgreich
+
+		// Person ändern (java)
+		// boolean wenn db korrekt
+		if (true) {
+			for (Person x : personen) {
+				if (id == x.getId()) {
+					if (x.aendern(vorname, nachname, geburtsdatum, maennlich)) {
+						System.out.println("Test Ausgabe A2:");
+						System.out.println(x);
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void personLoeschen(ArrayList<Person> personen, int id) {
+		// Person ändern DB
+		// boolean um zu testen ob db änderung erfolgreich
+
+		// Person ändern (java)
+		// boolean wenn db korrekt
+		if (true) {
+			try {
+				for (Person x : personen) {
+					if (id == x.getId()) {
+						personen.remove(x);
+						for(Person i: personen)
+						System.out.println(i);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Dozent
+	public static void dozentHinzufuegen(ArrayList<Dozent> dozenten, int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
+		// Person hinzufügen DB
+		// boolean um zu testen ob DB änderung erfolgreich (kann man auch
+		// umbenennen)
+		boolean dbEinfuegen = true;
+
+		// Person hinzufügen (java)
+		if (dbEinfuegen) {
+			try {
+				dozenten.add(new Dozent(personalNr, kuerzel, fakultaet, person));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+			// Test ausgabe
+			for (Dozent x : dozenten) {
+				if (personalNr == x.getPersonalNr()) {
+					System.out.println("Test Ausgabe B1:");
+					System.out.println(x);
+					break;
+				}
+			}
+		}
+	}
+
+	public static void dozentAendern(ArrayList<Person> personen, int id, String vorname, String nachname,
+			String geburtsdatum, boolean maennlich) {
+		// Person ändern DB
+		// boolean um zu testen ob DB änderung erfolgreich
+
+		// Person ändern (java)
+		// boolean wenn db korrekt
+		//TODO
+//		if (true) {
+//			for (Person x : personen) {
+//				if (id == x.getId()) {
+//					if (x.aendern(vorname, nachname, geburtsdatum, maennlich)) {
+//						System.out.println("Test Ausgabe A1:");
+//						System.out.println(x);
+//						break;
+//					} else {
+//						// TODO Fehler Meldung schreiben
+//					}
+//				}
+//			}
+//		}
+	}
+
+	public static void dozentLoeschen(ArrayList<Dozent> dozenten, int personalNr) {
+		// Person ändern DB
+		// boolean um zu testen ob db änderung erfolgreich
+
+		// Person ändern (java)
+		// boolean wenn db korrekt
+		if (true) {
+			try {
+				for (Dozent x : dozenten) {
+					if (personalNr == x.getPersonalNr()) {
+						dozenten.remove(x);
+						for(Dozent i: dozenten)
+						System.out.println(i);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//TODO weitere klassen
+	
 }
