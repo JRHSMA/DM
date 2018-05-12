@@ -28,19 +28,10 @@ public class Person {
 		);
 	}
 	
-	public boolean hinzufuegen(ArrayList<Person>person, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich){
-		try{
-			person.add(new Person(id, vorname, nachname, geburtsdatum, maennlich));
-			return true;
-		} catch (Exception e){
-			return false;
-		}
-	}
-	
-	public boolean aendern(ArrayList<Person>person, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich){
+	public boolean aendern(ArrayList<Person>personen, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich){
 		try{
 			Person datensatz = null;
-			for(Person x: person){
+			for(Person x: personen){
 				if(id == x.getId()){
 					datensatz = x;
 					break;

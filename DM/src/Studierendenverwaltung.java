@@ -27,7 +27,21 @@ public class Studierendenverwaltung {
 		ArrayList<Hat> hatten = new ArrayList<>();
 		ArrayList<Besitzt> besitzen = new ArrayList<>();
 		ArrayList<Erhaelt> erhalten = new ArrayList<>();
-		
+
+		DatenAusDbEinlesen(datenzugriff, fakultaeten, personen, dozenten, studiengaenge, studierende, slots, tage,
+				stundenplaene, veranstaltungsnamen, veranstaltungen, hoeren, raeume, hatten, besitzen, erhalten);
+
+		personHinzufuegen(personen,31, "test", "TEst", "2011-09-09", true);
+		//Person hinzu = new Person(31, "test", "TEst", "2011-09-09", true);
+	}
+
+	public static void DatenAusDbEinlesen(DB datenzugriff, ArrayList<Fakultaet> fakultaeten, ArrayList<Person> personen,
+			ArrayList<Dozent> dozenten, ArrayList<Studiengang> studiengaenge, ArrayList<Studierender> studierende,
+			ArrayList<Slot> slots, ArrayList<Tag> tage, ArrayList<Stundenplan> stundenplaene,
+			ArrayList<Veranstaltungsname> veranstaltungsnamen, ArrayList<Veranstaltung> veranstaltungen,
+			ArrayList<Hoert> hoeren, ArrayList<Raum> raeume, ArrayList<Hat> hatten, ArrayList<Besitzt> besitzen,
+			ArrayList<Erhaelt> erhalten) {
+
 		try {
 			// referenzielle Integrität Dozent
 			// Fakultät
@@ -462,7 +476,7 @@ public class Studierendenverwaltung {
 						break;
 					}
 				}
-				
+
 				erhalten.add(new Erhaelt(dozent, stundenplan));
 			}
 			System.out.println(erhalten);
@@ -479,7 +493,24 @@ public class Studierendenverwaltung {
 			datenzugriff.close();
 		}
 
-		System.out.println("Testausgabe Erhaelt Dozent: " + erhalten.get(1).getDozent()
-				+ " Testausgabe Stundenplan: " + erhalten.get(1).getStundenplan());
+		System.out.println("Testausgabe Erhaelt Dozent: " + erhalten.get(1).getDozent() + " Testausgabe Stundenplan: "
+				+ erhalten.get(1).getStundenplan());
+	}
+
+	public static void personHinzufuegen(ArrayList<Person>personen, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+		//Person hinzufügen DB
+		
+		
+		// Person hinzufügen (java)
+		personen.add(new Person(id, vorname, nachname, geburtsdatum, maennlich));
+		Person datensatz = null;
+		for (Person x : personen) {
+			if (id == x.getId()) {
+				datensatz = x;
+				System.out.println("Test Ausgabe");
+				System.out.println(datensatz);
+				break;
+			}
+		}
 	}
 }
