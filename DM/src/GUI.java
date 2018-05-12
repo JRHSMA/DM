@@ -412,8 +412,7 @@ public class GUI implements ActionListener {
 					case 4: // TODO sollte funktionieren
 						db.abfrageEinfach05(vorlesungsKrzl);
 						break;
-					case 7: // TODO es wird Fakultät für Informatik -> müsste
-							// aber nur Informatik sein
+					case 7:
 						db.abfrageEinfach08(fakultät);
 						break;
 					case 8:
@@ -445,24 +444,23 @@ public class GUI implements ActionListener {
 						switch (einAbNr) {
 						case 2: // Abfrage 1
 							// Übergabeparameter
-							db.abfrageEinfach03(true,
-									"Unternehmens- und Wirtschaftsinformatik");
+							db.abfrageEinfach03(istMännlich,
+									studiengang);
 							break;
 						case 3:
-							db.abfrageEinfach04(false,
-									"Unternehmens- und Wirtschaftsinformatik");
+							db.abfrageEinfach04(istMännlich,
+									studiengang);
 							break;
 						case 5:
-							db.abfrageEinfach06(3, "DM");
+							db.abfrageEinfach06(semester, vorlesungsKrzl);
 							break;
 						case 6:
 							db.abfrageEinfach07(
-									"Unternehmens- und Wirtschaftsinformatik",
-									3);
+									studiengang,
+									semester);
 
 							break;
 						default:
-							System.out.println(einAbNr);
 						}
 
 					}
@@ -533,7 +531,6 @@ public class GUI implements ActionListener {
 						db.abfrageKomplex15(tag, slot);
 						break;
 					default:
-						System.out.println(kompAbNr);
 					}
 
 					break;
@@ -583,7 +580,6 @@ public class GUI implements ActionListener {
 							db.abfrageKomplex13(tag, istCompRaum, fakultät);
 							break;
 						default:
-							System.out.println(kompAbNr);
 						}
 
 					}
