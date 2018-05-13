@@ -44,15 +44,14 @@ public class DB {
 		con = null;
 	}
 
-	public void datenzugriffSchließen(){
-		try{
+	public void datenzugriffSchließen() {
+		try {
 			this.close();
-		}
-		catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
 	}
-	
+
 	public void setSQL(String sql) {
 		try {
 			ps = con.prepareStatement(sql);
@@ -228,7 +227,7 @@ public class DB {
 
 	public void abfrageEinfach05(String vKuerzel) {
 		try {
-			System.out.println("C1: "+ vKuerzel);
+			System.out.println("C1: " + vKuerzel);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, vn.Name, vn.Kuerzel "
 							+ "FROM studierender s " + "INNER JOIN person p ON s.idPerson = p.ID "
@@ -281,7 +280,7 @@ public class DB {
 
 	public void abfrageEinfach08(String fakultaet) {
 		try {
-			System.out.println("B1: "+ fakultaet);
+			System.out.println("B1: " + fakultaet);
 			ps = con.prepareStatement(
 					"SELECT p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, d.PersonalNr, d.Kuerzel, f.Name "
 							+ "FROM dozent d " + "INNER JOIN person p ON d.idPerson = p.ID "
@@ -337,7 +336,7 @@ public class DB {
 
 	public void abfrageKomplex01(String veranstaltungsname, String raum) {
 		try {
-			System.out.println("KA1: "+ veranstaltungsname +" "+ raum);
+			System.out.println("KA1: " + veranstaltungsname + " " + raum);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT d.PersonalNr,p.Vorname, p.Nachname,d.Kuerzel, p.Geburtsdatum, p.Maennlich, f.Name "
 							+ "FROM dozent d " + "INNER JOIN person p ON d.idPerson = p.ID "
@@ -359,7 +358,7 @@ public class DB {
 
 	public void abfrageKomplex02(int matrikelnr, String raum) {
 		try {
-			System.out.println("KA2: "+ matrikelnr +" "+ raum);
+			System.out.println("KA2: " + matrikelnr + " " + raum);
 			ps = con.prepareStatement("SELECT DISTINCT vn.Name, vn.Kuerzel " + "FROM veranstaltungsname vn "
 					+ "INNER JOIN veranstaltung v ON vn.ID = v.idvName " + "INNER JOIN hoert h ON v.ID = h.ID "
 					+ "INNER JOIN studierender s ON h.MatrikelNr = s.MatrikelNr "
@@ -377,7 +376,7 @@ public class DB {
 
 	public void abfrageKomplex03(String studiengang, String tag) {
 		try {
-			System.out.println("KA3: "+ studiengang +" "+ tag);
+			System.out.println("KA3: " + studiengang + " " + tag);
 			ps = con.prepareStatement("SELECT DISTINCT vn.Name, v.Semester " + "FROM veranstaltung v "
 					+ "INNER JOIN veranstaltungsname vn ON v.idvName = vn.ID "
 					+ "INNER JOIN stundenplan sp ON v.idStundenplan = sp.ID "
@@ -394,7 +393,7 @@ public class DB {
 
 	public void abfrageKomplex04(int personalnr) {
 		try {
-			System.out.println("KA4: "+ personalnr);
+			System.out.println("KA4: " + personalnr);
 			ps = con.prepareStatement("SELECT DISTINCT r.Bezeichnung " + "FROM raum r "
 					+ "INNER JOIN hat ON r.Bezeichnung = hat.Bezeichnung "
 					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID "
@@ -410,7 +409,7 @@ public class DB {
 
 	public void abfrageKomplex05(String vKuerzel, String tag, int slot) {
 		try {
-			System.out.println("KA5: "+ vKuerzel +" "+ tag +" "+ slot);
+			System.out.println("KA5: " + vKuerzel + " " + tag + " " + slot);
 			ps = con.prepareStatement("SELECT d.PersonalNr, p.Vorname, p.Nachname, f.Name " + "FROM person p "
 					+ "INNER JOIN dozent d On p.ID = d.idPerson " + "INNER JOIN fakultaet f ON d.idFakultaet = f.ID "
 					+ "INNER JOIN veranstaltung v ON d.PersonalNr = v.PersonalNr "
@@ -429,7 +428,7 @@ public class DB {
 
 	public void abfrageKomplex06(String vName, int matrikelnr) {
 		try {
-			System.out.println("KA6: "+ vName + " "+ matrikelnr);
+			System.out.println("KA6: " + vName + " " + matrikelnr);
 			ps = con.prepareStatement("SELECT tag.Tag, sl.Slot, vn.Name, vn.Kuerzel " + "FROM dozent d "
 					+ "INNER JOIN erhaelt e ON d.PersonalNr = e.PersonalNr "
 					+ "INNER JOIN stundenplan sp ON e.ID= sp.ID " + "INNER JOIN tag ON sp.idTag = tag.ID "
@@ -452,14 +451,13 @@ public class DB {
 
 	public void abfrageKomplex07(String nachname, int slot, String tag) {
 		try {
-			System.out.println("KA7: "+nachname+" "+slot+" "+tag);
-			ps = con.prepareStatement(
-					"SELECT r.Bezeichnung " + "FROM raum r " + "INNER JOIN hat ON r.Bezeichnung = hat.Bezeichnung "
-							+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID " + "INNER JOIN slot s ON sp.idSlot = s.ID "
-							+ "INNER JOIN tag ON sp.ID = tag.id "
-							+ "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
-							+ "INNER JOIN dozent d ON v.PersonalNr = d.PersonalNr "
-							+ "INNER JOIN person p ON d.idPerson = p.ID " + "WHERE p.Nachname=? AND s.Slot=? AND tag =? ;");
+			System.out.println("KA7: " + nachname + " " + slot + " " + tag);
+			ps = con.prepareStatement("SELECT r.Bezeichnung " + "FROM raum r "
+					+ "INNER JOIN hat ON r.Bezeichnung = hat.Bezeichnung "
+					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID " + "INNER JOIN slot s ON sp.idSlot = s.ID "
+					+ "INNER JOIN tag ON sp.ID = tag.id " + "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
+					+ "INNER JOIN dozent d ON v.PersonalNr = d.PersonalNr "
+					+ "INNER JOIN person p ON d.idPerson = p.ID " + "WHERE p.Nachname=? AND s.Slot=? AND tag =? ;");
 			ps.setString(1, nachname);
 			ps.setInt(2, slot);
 			ps.setString(3, tag);
@@ -472,12 +470,11 @@ public class DB {
 
 	public void abfrageKomplex08(String nachname, String tag) {
 		try {
-			System.out.println("KA8: "+nachname+" "+tag);
+			System.out.println("KA8: " + nachname + " " + tag);
 			ps = con.prepareStatement("SELECT r.Bezeichnung, s.Slot " + "FROM raum r "
 					+ "INNER JOIN hat ON r.Bezeichnung = hat.Bezeichnung "
 					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID " + "INNER JOIN slot s ON sp.idSlot = s.ID "
-					+ "INNER JOIN tag ON sp.ID = tag.id "
-					+ "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
+					+ "INNER JOIN tag ON sp.ID = tag.id " + "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
 					+ "INNER JOIN dozent d ON v.PersonalNr = d.PersonalNr "
 					+ "INNER JOIN person p ON d.idPerson = p.ID " + "WHERE p.Nachname=? AND tag =?;");
 			ps.setString(1, nachname);
@@ -491,7 +488,7 @@ public class DB {
 
 	public void abfrageKomplex09(boolean cRaum, String tag) {
 		try {
-			System.out.println("KA9: "+cRaum+" "+tag);
+			System.out.println("KA9: " + cRaum + " " + tag);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT s.MatrikelNr, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, sg.Name "
 							+ "FROM studierender s " + "INNER JOIN person p ON s.idPerson = p.ID "
@@ -514,7 +511,7 @@ public class DB {
 
 	public void abfrageKomplex10(boolean maennlich, String vName, String raum) {
 		try {
-			System.out.println("KA10: "+maennlich+" "+vName+" "+raum);
+			System.out.println("KA10: " + maennlich + " " + vName + " " + raum);
 			ps = con.prepareStatement(
 					"SELECT s.MatrikelNr, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, sg.Name "
 							+ "FROM studierender s " + "INNER JOIN person p ON s.idPerson = p.ID "
@@ -538,7 +535,7 @@ public class DB {
 
 	public void abfrageKomplex11(String vKuerzel, String studiengang, String nachname) {
 		try {
-			System.out.println("KA11: "+vKuerzel+" "+studiengang+" "+nachname);
+			System.out.println("KA11: " + vKuerzel + " " + studiengang + " " + nachname);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT t.Tag " + "FROM Tag t " + "INNER JOIN stundenplan sp ON t.ID = sp.idTag "
 							+ "INNER JOIN studiengang sg ON sp.idStudiengang = sg.ID "
@@ -559,7 +556,7 @@ public class DB {
 
 	public void abfrageKomplex12(String vName, String nachname, String raum) {
 		try {
-			System.out.println("KA12: "+vName+" "+nachname+" "+raum);
+			System.out.println("KA12: " + vName + " " + nachname + " " + raum);
 			ps = con.prepareStatement("SELECT s.MatrikelNr " + "FROM studierender s "
 					+ "INNER JOIN hoert h ON s.MatrikelNr = h.MatrikelNr "
 					+ "INNER JOIN veranstaltung v ON h.ID = v.ID "
@@ -581,7 +578,7 @@ public class DB {
 
 	public void abfrageKomplex13(String tag, boolean cRaum, String fakultaet) {
 		try {
-			System.out.println("KA13: "+tag+" "+cRaum+" "+fakultaet);
+			System.out.println("KA13: " + tag + " " + cRaum + " " + fakultaet);
 			ps = con.prepareStatement("SELECT DISTINCT p.Vorname, p.Nachname, d.Kuerzel, f.Name " + "FROM dozent d "
 					+ "INNER JOIN person p ON d.idPerson = p.ID " + "INNER JOIN fakultaet f ON d.idFakultaet = f.ID "
 					+ "INNER JOIN veranstaltung v ON d.PersonalNr = v.PersonalNr "
@@ -600,7 +597,7 @@ public class DB {
 
 	public void abfrageKomplex14(String dKuerzel, String tag) {
 		try {
-			System.out.println("KA14: "+dKuerzel+" "+tag);
+			System.out.println("KA14: " + dKuerzel + " " + tag);
 			ps = con.prepareStatement("SELECT DISTINCT vn.Name " + "FROM veranstaltungsname vn "
 					+ "INNER JOIN veranstaltung v ON vn.ID = v.idvName "
 					+ "INNER JOIN dozent d ON v.PersonalNr = d.PersonalNr "
@@ -617,7 +614,7 @@ public class DB {
 
 	public void abfrageKomplex15(String tag, int slot) {
 		try {
-			System.out.println("KA15: "+tag+" "+slot);
+			System.out.println("KA15: " + tag + " " + slot);
 			ps = con.prepareStatement("SELECT p.Vorname, p.Nachname, f.Name " + "FROM person p "
 					+ "INNER JOIN dozent d ON p.ID = d.idPerson " + "INNER JOIN fakultaet f ON d.idFakultaet = f.ID "
 					+ "INNER JOIN veranstaltung v ON d.PersonalNr = v.PersonalNr "
@@ -1071,7 +1068,8 @@ public class DB {
 		}
 	}
 
-	public boolean updateVeranstaltung(int semester, int dauer, int personalNr, int idStundenplan, int idvName, int id) {
+	public boolean updateVeranstaltung(int semester, int dauer, int personalNr, int idStundenplan, int idvName,
+			int id) {
 		try {
 			ps = con.prepareStatement(
 					"UPDATE veranstaltung SET semester = ?, dauer = ?, personalNr = ?, idStundenplan = ?, idvName = ? WHERE id = ?;");
@@ -1152,7 +1150,7 @@ public class DB {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Primärschlüssel der hinzugefügten Datensätze
 	 */
@@ -1178,5 +1176,171 @@ public class DB {
 			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
 		}
 	}
+
+	public int getDozentPersonalNr(String kuerzel){
+		try {
+			ps = con.prepareStatement("SELECT personalNr from dozent WHERE (kuerzel=?);");
+			ps.setString(1, kuerzel);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine personalNr gefunden/Mehrere personalNr gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("personalNr"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
 	
+	public int getFakultaetId(String name){
+		try {
+			ps = con.prepareStatement("SELECT id from fakultaet WHERE (name=?);");
+			ps.setString(1, name);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public int getStudierenderMatrikelNr(int semester, int idStudiengang, int idPerson){
+		try {
+			ps = con.prepareStatement("SELECT matrikelNr from studierender WHERE (semester=?) AND (idStudiengang=?) AND (idPerson=?);");
+			ps.setInt(1, semester);
+			ps.setInt(2, idStudiengang);
+			ps.setInt(3, idPerson);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine matrikelNr gefunden/Mehrere matrikelNr gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("matrikelNr"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public int getVeranstaltungId(int semester, int dauer, int personalNr, int idStundenplan, int idvName){
+		try {
+			ps = con.prepareStatement("SELECT id from veranstaltung WHERE (semester=?) AND (dauer=?) AND (personalNr=?) AND (idStundenplan=?) AND (idvName=?);");
+			ps.setInt(1, semester);
+			ps.setInt(2, dauer);
+			ps.setInt(3, personalNr);
+			ps.setInt(4, idStundenplan);
+			ps.setInt(5, idvName);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public int getVeranstaltungnameId(String name, String kuerzel){
+		try {
+			ps = con.prepareStatement("SELECT id from veranstaltungsname WHERE (name=?) AND (kuerzel=?);");
+			ps.setString(1, name);
+			ps.setString(2, kuerzel);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public int getSlotId(String slot){
+		try {
+			ps = con.prepareStatement("SELECT id from slot WHERE (slot=?);");
+			ps.setString(1, slot);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public int getTagId(String tag){
+		try {
+			ps = con.prepareStatement("SELECT id from tag WHERE (tag=?);");
+			ps.setString(1, tag);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
+	public int getStudiengangId(String name){
+		try {
+			ps = con.prepareStatement("SELECT id from studiengang WHERE (name=?);");
+			ps.setString(1, name);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
 }

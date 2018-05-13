@@ -9,9 +9,11 @@ public class Studierendenverwaltung {
 	// GUI stud = new GUI();
 	// stud.LayoutGUI("Studierendenverwaltung");
 	// }
+	
+	// TODO static wegmachen!
 	private ArrayList<Fakultaet> fakultaeten;
-	private ArrayList<Person> personen;
-	private ArrayList<Dozent> dozenten;
+	private static ArrayList<Person> personen;
+	private static ArrayList<Dozent> dozenten;
 	private ArrayList<Studiengang> studiengaenge;
 	private ArrayList<Studierender> studierende;
 	private ArrayList<Slot> slots;
@@ -47,10 +49,21 @@ public class Studierendenverwaltung {
 		
 	}
 
-
+	// TODO main löschen wenn fertig mit testen
 	public static void main(String[] args) {
 		Studierendenverwaltung s = new Studierendenverwaltung();
-		s.personHinzufuegen("test", "test", "2018-01-01", true);
+		//person hinzufügen
+		s.personHinzufuegen("testtest", "test", "2018-01-01", true);
+		for(Person p : personen){
+			System.out.println(p);
+		}
+		// dozent hinzufügen
+		Fakultaet fakultaet = new Fakultaet(1, "Biotechnologie");
+		Person person = new Person(1,"testtest", "test", "2018-01-01", true);
+		s.dozentHinzufuegen("BLA", fakultaet, person);
+		for(Dozent d : dozenten){
+			System.out.println(d);
+		}
 	}
 
 	public void DatenAusDbEinlesen() {
@@ -608,14 +621,17 @@ public class Studierendenverwaltung {
 	}
 	
 	//Dozent
-	public void dozentHinzufuegen(int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
+	// TODO keine Objekte übergeben!
+	public void dozentHinzufuegen(String kuerzel, Fakultaet fakultaet, Person person) {
 		// Dozent hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int personalNr = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+			personalNr = datenzugriff.getDozentPersonalNr(kuerzel);
 		}
 		catch(Exception e){
 			// TODO
@@ -628,6 +644,9 @@ public class Studierendenverwaltung {
 		// Dozent hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(personalNr<1){
+					throw new RuntimeException("Ungültige personalNr");
+				}
 				dozenten.add(new Dozent(personalNr, kuerzel, fakultaet, person));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
@@ -698,14 +717,16 @@ public class Studierendenverwaltung {
 	}
 	
 	//Fakultaet
-	public void fakultaetHinzufuegen(int id, String name) {
+	public void fakultaetHinzufuegen(String name) {
 		// Fakultaet hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertFakultaet(name);
+			id = datenzugriff.getFakultaetId(name);
 		}
 		catch(Exception e){
 			// TODO
@@ -718,6 +739,9 @@ public class Studierendenverwaltung {
 		// Fakultaet hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				fakultaeten.add(new Fakultaet(id, name));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
@@ -890,14 +914,17 @@ public class Studierendenverwaltung {
 	}
 	
 	//Veranstaltung
-	public void veranstaltungHinzufuegen(int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+	// TODO keine Objekte übergeben!
+	public void veranstaltungHinzufuegen(int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
 		// Veranstaltung hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertVeranstaltung(semester, dauer, dozent.getPersonalNr(), stundenplan.getId(), veranstaltungsname.getId());
+			id = datenzugriff.getVeranstaltungId(semester, dauer, dozent.getPersonalNr(), stundenplan.getId(), veranstaltungsname.getId());
 		}
 		catch(Exception e){
 			// TODO
@@ -910,6 +937,9 @@ public class Studierendenverwaltung {
 		// Veranstaltung hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				veranstaltungen.add(new Veranstaltung(id, semester,dauer, dozent, stundenplan, veranstaltungsname));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
@@ -980,14 +1010,16 @@ public class Studierendenverwaltung {
 	}
 	
 	//Veranstaltungsname
-	public void veranstaltungsnameHinzufuegen(int id, String name, String kuerzel) {
+	public void veranstaltungsnameHinzufuegen(String name, String kuerzel) {
 		// Veranstaltungsname hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertVeranstaltungsname(name, kuerzel);
+			id = datenzugriff.getVeranstaltungnameId(name, kuerzel);
 		}
 		catch(Exception e){
 			// TODO
@@ -1000,6 +1032,9 @@ public class Studierendenverwaltung {
 		// Veranstaltungsname hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				veranstaltungsnamen.add(new Veranstaltungsname(id, name, kuerzel));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
@@ -1070,14 +1105,16 @@ public class Studierendenverwaltung {
 	}
 	
 	//Slot
-	public void slotHinzufuegen(int id, String slot) {
+	public void slotHinzufuegen(String slot) {
 		// Slot hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertSlot(Integer.parseInt(slot));
+			id = datenzugriff.getSlotId(slot);
 		}
 		catch(Exception e){
 			// TODO
@@ -1090,6 +1127,9 @@ public class Studierendenverwaltung {
 		// Slot hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				slots.add(new Slot(id, slot));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
@@ -1160,14 +1200,16 @@ public class Studierendenverwaltung {
 	}
 	
 	//Tag
-	public void tagHinzufuegen(int id, String tag) {
+	public void tagHinzufuegen(String tag) {
 		// Tag hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertTag(tag);
+			id = datenzugriff.getTagId(tag);
 		}
 		catch(Exception e){
 			// TODO
@@ -1180,6 +1222,9 @@ public class Studierendenverwaltung {
 		// Tag hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				tage.add(new Tag(id, tag));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
@@ -1250,14 +1295,16 @@ public class Studierendenverwaltung {
 	}
 	
 	//Studiengang
-	public void studiengangHinzufuegen(int id, String name) {
+	public void studiengangHinzufuegen(String name) {
 		// Studiengang hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertStudiengang(name);
+			id = datenzugriff.getStudiengangId(name);
 		}
 		catch(Exception e){
 			// TODO
@@ -1270,6 +1317,9 @@ public class Studierendenverwaltung {
 		// Studiengang hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				studiengaenge.add(new Studiengang(id, name));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
