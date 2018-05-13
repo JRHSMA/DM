@@ -20,7 +20,16 @@ public class Person {
 
 	public Person(LinkedHashMap<String, String> datensatz) {
 		this(Integer.parseInt(datensatz.get("id")), datensatz.get("vorname"), datensatz.get("nachname"),
-				datensatz.get("geburtsdatum"), Boolean.parseBoolean(datensatz.get("maennlich")));
+				datensatz.get("geburtsdatum"), booleanFuerJavaDatenstrucktur(datensatz.get("maennlich")));
+	}
+	
+	public static boolean booleanFuerJavaDatenstrucktur(String computerraum){
+		int i = Integer.parseInt((computerraum));
+		if(i>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public boolean aendern(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
