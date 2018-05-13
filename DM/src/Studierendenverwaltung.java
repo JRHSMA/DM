@@ -47,10 +47,13 @@ public class Studierendenverwaltung {
 		
 	}
 
+<<<<<<< HEAD
 	public static void main(String[] args) {
 		Studierendenverwaltung s = new Studierendenverwaltung();
 		s.personHinzufuegen("test", "test", "2018-01-01", true);
 	}
+=======
+>>>>>>> cacb8a53660bd6f6dc91db8a28022b87e3ae61a2
 
 	public void DatenAusDbEinlesen() {
 
