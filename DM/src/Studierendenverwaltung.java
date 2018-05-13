@@ -77,6 +77,15 @@ public class Studierendenverwaltung {
 //		tagAendern(tage, 7, "Testtag");
 //		tagLoeschen(tage, 7);
 		
+//		studiengangHinzufuegen(studiengaenge, 8, "StudTest");
+//		studiengangAendern(studiengaenge, 8, "TestStud");
+//		studiengangLoeschen(studiengaenge, 8);
+		
+//		stundenplanHinzufuegen(stundenplaene, 104, 5, studiengaenge.get(1), tage.get(0), slots.get(1));
+//		stundenplanAendern(stundenplaene, 104, 3, studiengaenge.get(0), tage.get(2), slots.get(3));
+//		stundenplanLoeschen(stundenplaene, 104);
+		
+		
 		
 	}
 
@@ -1294,8 +1303,8 @@ public class Studierendenverwaltung {
 	}
 	
 	//Studiengang
-	public static void studiengangHinzufuegen(ArrayList<Tag>tage, int id, String tag) {
-		// Tag hinzufügen DB
+	public static void studiengangHinzufuegen(ArrayList<Studiengang>studiengaenge, int id, String name) {
+		// Studiengang hinzufügen DB
 //		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 //		try{
@@ -1311,27 +1320,19 @@ public class Studierendenverwaltung {
 //			datenzugriff = null;
 //		}
 
-		// Tag hinzufügen (java)
+		// Studiengang hinzufügen (java)
 		//TODO ändern (true setzen weg machen)
 		if (dbEinfuegen=true) {
 			try {
-				tage.add(new Tag(id, tag));
+				studiengaenge.add(new Studiengang(id, name));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
-			}
-			// Test ausgabe
-			for (Tag x : tage) {
-				if (id == x.getId()) {
-					System.out.println("Test Ausgabe Hinzufuegen H1:");
-					System.out.println(x);
-					break;
-				}
 			}
 		}
 	}
 
-	public static void studiengangAendern(ArrayList<Tag>tage, int id, String tag) {
-		// Tag ändern DB
+	public static void studiengangAendern(ArrayList<Studiengang>studiengaenge, int id, String name) {
+		// Studiengang ändern DB
 //		DB datenzugriff = null;
 		boolean dbAendern = false;
 //		try{
@@ -1347,14 +1348,12 @@ public class Studierendenverwaltung {
 //			datenzugriff = null;
 //		}
 		
-		// Tag ändern (java)
+		// Studiengang ändern (java)
 		//TODO ändern (true setzen weg machen)
 		if (dbAendern=true) {
-			for (Tag x : tage) {
+			for (Studiengang x : studiengaenge) {
 				if (id == x.getId()) {
-					if (x.aendern(tag)) {
-						System.out.println("Test Ausgabe Aendern H2:");
-						System.out.println(x);
+					if (x.aendern(name)) {
 						break;
 					} else {
 						// TODO Fehler Meldung schreiben
@@ -1364,8 +1363,8 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void studiengangLoeschen(ArrayList<Tag>tage, int id) {
-		// Tag löschen DB
+	public static void studiengangLoeschen(ArrayList<Studiengang>studiengaenge, int id) {
+		// Studiengang löschen DB
 //		DB datenzugriff = null;
 		boolean dbLoeschen = false;
 //		try{
@@ -1381,16 +1380,125 @@ public class Studierendenverwaltung {
 //			datenzugriff = null;
 //		}
 
-		// Tag löschen (java)
+		// Studiengang löschen (java)
 		//TODO ändern (true setzen weg machen)
 		if (dbLoeschen=true) {
 			try {
-				for(Tag i: tage)
-					System.out.println(i);
-				for (Tag x : tage) {
+				for (Studiengang x : studiengaenge) {
 					if (id == x.getId()) {
-						tage.remove(x);
-						for(Tag i: tage)
+						studiengaenge.remove(x);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Stundenplan
+	public static void stundenplanHinzufuegen(ArrayList<Stundenplan>stundenplaene, int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
+		// Stundenplan hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Stundenplan hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				stundenplaene.add(new Stundenplan(id, semester, studiengang, tag, slot));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+			// Test ausgabe
+			for (Stundenplan x : stundenplaene) {
+				if (id == x.getId()) {
+					System.out.println("Test Ausgabe Hinzufuegen J1:");
+					System.out.println(x);
+					System.out.println(x.getStudiengang());
+					System.out.println(x.getTag());
+					System.out.println(x.getSlot());
+					break;
+				}
+			}
+		}
+	}
+
+	public static void stundenplanAendern(ArrayList<Stundenplan>stundenplaene, int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
+		// Stundenplan ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Stundenplan ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Stundenplan x : stundenplaene) {
+				if (id == x.getId()) {
+					if (x.aendern(semester, studiengang, tag, slot)) {
+						System.out.println("Test Ausgabe Aendern J2:");
+						System.out.println(x);
+						System.out.println(x.getStudiengang());
+						System.out.println(x.getTag());
+						System.out.println(x.getSlot());
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void stundenplanLoeschen(ArrayList<Stundenplan>stundenplaene, int id) {
+		// Stundenplan löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Stundenplan löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for(Stundenplan i: stundenplaene)
+					System.out.println(i);
+				for (Stundenplan x : stundenplaene) {
+					if (id == x.getId()) {
+						stundenplaene.remove(x);
+						for(Stundenplan i: stundenplaene)
 						System.out.println(i);
 					}
 				}
