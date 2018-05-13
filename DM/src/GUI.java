@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.basic.BasicScrollPaneUI.VSBChangeListener;
 
 import db.DB;
 
@@ -69,7 +70,11 @@ public class GUI implements ActionListener {
 	@SuppressWarnings("rawtypes")
 	private JComboBox fakultätAuswahl;
 	@SuppressWarnings("rawtypes")
+	private JComboBox fakultätAuswahl2;
+	@SuppressWarnings("rawtypes")
 	private JComboBox studiengangAuswahl;
+	@SuppressWarnings("rawtypes")
+	private JComboBox studiengangAuswahl2;
 	// Parameters-------------------
 	private int matrikelNr;
 	private int semester;
@@ -83,13 +88,14 @@ public class GUI implements ActionListener {
 
 	private int slot;
 	private int persoNr;
-	private boolean istMännlich=true;
+	private boolean istMännlich = true;
 	private String veranstaltungsname;
-	private boolean istCompRaum=false;
+	private boolean istCompRaum = false;
 
 	private int tabellenNummer = -1;
 	// -----------------------------
-	//  TODO DB bearbeiten variablen -----
+	// TODO DB bearbeiten variablen -----
+	private Studierendenverwaltung sv;
 	// variablen db
 	private int allgDB;
 	JLabel inDieserTabelle = new JLabel();
@@ -97,6 +103,9 @@ public class GUI implements ActionListener {
 	private JLabel überschrift;
 	private JButton tabellen[] = new JButton[8];
 	JPanel innerCenter2;
+	private String semesterListe[] = { "1. Semester", "2. Semester",
+			"3. Semester", "4. Semester", "5. Semester", "6. Semester",
+			"7. Semester" };
 	private String tageListe[] = { "Montag", "Dienstag", "Mittwoch",
 			"Donnerstag", "Freitag" };
 	private String fakultätenListe[] = { "Biotechnologie", "Elektrotechnik",
@@ -138,12 +147,22 @@ public class GUI implements ActionListener {
 			"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
 			"Wirtschaftsingenieurwesen International (Bachelor)" };
-	private String semesterListe1[] = { "1. Semester", "2. Semester", "3. Semester",
-		"4. Semester", "5. Semester", "6. Semester", "7. Semester" };
-	//----------------------------
-	
-	
+
+	// ----------------------------
+	// neue Daten hinzufügen
+	private JTextField personEingabe[] = new JTextField[4];
+	private JTextField profEingabe[] = new JTextField[3];
+	private JTextField studEingabe[] = new JTextField[4];
+	JTextField veranstaltungEingabe[] = new JTextField[5];
+	JTextField vNameEingabe[] = new JTextField[2];
+	private JTextField fakEingabe = new JTextField();
+	private JTextField studiengangEingabe = new JTextField();
+	private boolean rIstPcRaum=false;
+	private JCheckBox istPcRaum = new JCheckBox();
+	private JTextField raumEingabe = new JTextField();
+
 	public GUI() {
+		sv = new Studierendenverwaltung();
 		LayoutGUI("test");
 	}
 
@@ -254,9 +273,170 @@ public class GUI implements ActionListener {
 			tabellenNummer = -1;
 			fusszeile[1].setVisible(false);
 			clear();
-		}
+		}// TODO WORK part 1
 		if (fusszeile[1] == quelle) {
-			
+			switch (tabellenNummer) {
+			case 0: // person funkt
+				boolean pIsMännlich = false;
+				if (personEingabe[3].getText().equals("true")) {
+					pIsMännlich = true;
+				}
+				String pVorname = personEingabe[0].getText();
+				String pNachname = personEingabe[1].getText();
+				String pBday = personEingabe[2].getText();
+				sv.personHinzufuegen(pVorname, pNachname, pBday, pIsMännlich);
+			case 1:// dozent funkt
+				int helpInt=-1;
+				boolean istZahl=false;
+				try {
+					helpInt = Integer.parseInt(profEingabe[2].getText());
+					istZahl = true;
+				} catch (NumberFormatException e) {
+					istZahl = false;
+				}
+				if (istZahl == false) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+							profEingabe[1].setText("");
+				}else{
+				String profKürzel = profEingabe[0].getText();
+				
+				String profFakultät = fakultätenListe[Integer.parseInt(profEingabe[1].getText())];
+				int profPersonalID = helpInt;
+				// sv.dozentHinzufuegen(profKürzel, Fakultät, personalID);
+				}
+				break;
+				
+			case 2: // Studierender funkt
+				int sHelpInt1=-1;
+				boolean sIstZahl1=false;
+				int sHelpInt2=-1;
+				boolean sIstZahl2=false;
+				try {
+					sHelpInt1 = Integer.parseInt(studEingabe[0].getText());
+					sIstZahl1 = true;
+				} catch (NumberFormatException e) {
+					sIstZahl1 = false;
+				}
+				if (sIstZahl1 == false) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+					studEingabe[0].setText("");
+				}
+				try {
+					sHelpInt2 = Integer.parseInt(studEingabe[1].getText());
+					sIstZahl2 = true;
+				} catch (NumberFormatException e) {
+					sIstZahl2 = false;
+				}
+				if (sIstZahl2 == false) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+					studEingabe[1].setText("");
+				}
+				if(sIstZahl1==true && sIstZahl2==true){
+					int sMatrikelNr=sHelpInt1;
+					int sPersonID=sHelpInt2;
+					int sSemester;
+					String sStudiengang;
+					if(studEingabe[3].getText().equals("")||studEingabe[3].getText()==null){
+						sSemester=1;
+					}else{
+						sSemester= Integer.parseInt(studEingabe[3].getText())+1;
+					}
+					if(studEingabe[2].getText()==null||studEingabe[2].getText().equals("")){
+						sStudiengang="Biologische Chemie (Bachelor)";
+					}else{
+						sStudiengang=studiengängeListe[Integer.parseInt(studEingabe[2].getText())];
+					}
+					
+					//System.out.println(sMatrikelNr+" "+sSemester+" "+sStudiengang+" "+sPersonID);
+					// sv.studierenderHinzufuegen(sMatrikelNr,sSemester, sStudiengang, sPersonID)	
+				}
+				break;
+			case 3:
+				String fakName = fakEingabe.getText();
+				//sv.fakultaetHinzufuegen(fakName)
+				break;
+			case 4:
+				String studiengangName =studiengangEingabe.getText();
+				//sv.studiengangHinzufuegen(studiengangName);
+				break;
+			case 5:
+				int vSemester;
+				int vHelpInt1=-1;
+				boolean vIstZahl1=false;
+				int vHelpInt2=-1;
+				boolean vIstZahl2=false;
+				int vHelpInt3=-1;
+				boolean vIstZahl3=false;
+				try {
+					vHelpInt1 = Integer.parseInt(veranstaltungEingabe[1].getText());
+					vIstZahl1 = true;
+				} catch (NumberFormatException e) {
+					vIstZahl1 = false;
+				}
+				if (vIstZahl1 == false) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+					veranstaltungEingabe[1].setText("");
+				}
+				try {
+					vHelpInt2 = Integer.parseInt(veranstaltungEingabe[2].getText());
+					vIstZahl2 = true;
+				} catch (Exception e) {
+					vIstZahl2 = false;
+				}
+				if (vIstZahl2 == false) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+					veranstaltungEingabe[2].setText("");
+				}
+				try {
+					vHelpInt3 = Integer.parseInt(veranstaltungEingabe[3].getText());
+					vIstZahl3 = true;
+				} catch (NumberFormatException e) {
+					vIstZahl3 = false;
+				}
+				if (vIstZahl3 == false) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+					veranstaltungEingabe[3].setText("");
+				}
+				if(vIstZahl1==true&&vIstZahl2==true&&vIstZahl3==true){
+					if(veranstaltungEingabe[4].getText().equals("")||veranstaltungEingabe[4].getText()==null){
+						vSemester=1;
+					}else{
+						vSemester=Integer.parseInt(veranstaltungEingabe[4].getText())+1;
+					}
+					int vDauer=Integer.parseInt(veranstaltungEingabe[1].getText());
+					int vPersonalNr=Integer.parseInt(veranstaltungEingabe[2].getText());
+					int vStundenplanNr=Integer.parseInt(veranstaltungEingabe[3].getText());
+					String vVorlesungsname=veranstaltungEingabe[0].getText();
+					System.out.println(vSemester+" "+vDauer+" "+vPersonalNr+" "+vStundenplanNr+" "+vVorlesungsname);
+				}
+				
+				//veranstaltungHinzufuegen(vSemester,vDauer, vPersonalNr, vStundenplanNr,  vVorlesungsname)
+				break;
+			case 6:
+				//TODO
+				String vnName = vNameEingabe[0].getText();
+				String vnKürzel = vNameEingabe[1].getText();
+				//veranstaltungsnameHinzufuegen(String name, String kuerzel)
+				break;
+			case 7:
+				boolean isPcRaum=rIstPcRaum;
+				String rName = raumEingabe.getText();
+				//raumHinzufuegen(rName, isPcRaum)
+				break;
+			default:
+			}
 
 		}
 		if (m4Buttons != null) {
@@ -443,7 +623,7 @@ public class GUI implements ActionListener {
 					case 1:
 						db.abfrageEinfach02(semester);
 						break;
-					case 4: 
+					case 4:
 						db.abfrageEinfach05(vorlesungsKrzl);
 						break;
 					case 7:
@@ -542,7 +722,6 @@ public class GUI implements ActionListener {
 						db.abfrageKomplex01(veranstaltungsname, raumName);
 						break;
 					case 1:
-						System.out.println(matrikelNr);
 						db.abfrageKomplex02(matrikelNr, raumName);
 						break;
 					case 2:
@@ -580,7 +759,7 @@ public class GUI implements ActionListener {
 							tag = "Montag";
 						}
 						if (slot == 0) {
-							slot=1;
+							slot = 1;
 						}
 						db.abfrageKomplex15(tag, slot);
 						break;
@@ -592,29 +771,27 @@ public class GUI implements ActionListener {
 					if (m5Labels[kompAbNr][0] == allLabels[0]
 							|| m5Labels[kompAbNr][0] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 0, false, true);
-						
+
 					} else {
 						stringEingaben(kompAbNr, 0, false);
-						
+
 					}
 
 					if (m5Labels[kompAbNr][1] == allLabels[0]
 							|| m5Labels[kompAbNr][1] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 1, false, true);
-						
 
 					} else {
 						stringEingaben(kompAbNr, 1, false);
-						
+
 					}
 					if (m5Labels[kompAbNr][2] == allLabels[0]
 							|| m5Labels[kompAbNr][2] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 2, false, true);
-						
 
 					} else {
 						stringEingaben(kompAbNr, 2, false);
-						
+
 					}
 
 					// ////////////////////
@@ -626,7 +803,7 @@ public class GUI implements ActionListener {
 							tag = "Montag";
 						}
 						if (slot == 0) {
-							slot=1;
+							slot = 1;
 						}
 						db.abfrageKomplex05(vorlesungsKrzl, tag, slot);
 						break;
@@ -635,12 +812,11 @@ public class GUI implements ActionListener {
 							tag = "Montag";
 						}
 						if (slot == 0) {
-							slot=1;
+							slot = 1;
 						}
 						db.abfrageKomplex07(profName, slot, tag);
 						break;
 					case 9:
-						System.out.println(veranstaltungsname);
 						db.abfrageKomplex10(istMännlich, veranstaltungsname,
 								raumName);
 						break;
@@ -660,7 +836,7 @@ public class GUI implements ActionListener {
 							tag = "Montag";
 						}
 						if (fakultät == null) {
-							fakultät="Biotechnologie";
+							fakultät = "Biotechnologie";
 						}
 						db.abfrageKomplex13(tag, istCompRaum, fakultät);
 						break;
@@ -713,14 +889,14 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void allgTab(int i) {
-				
+
 		innerCenter2 = new JPanel();
 		innerCenter2.setLayout(new GridLayout(15, 1));
 		// 2 means ändern , 3 means löschen
 		if (allgDB == 2 || allgDB == 3) {
 			cleanAndTitel();
 			inDieserTabelle.setText(tabellen[tabellenNummer].getText());
-			jpCenter.add(inDieserTabelle,BorderLayout.NORTH);
+			jpCenter.add(inDieserTabelle, BorderLayout.NORTH);
 			JLabel pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
 			pK.setFont(new Font("Serif", Font.PLAIN, 18));
 			jpCenter.add(pK, BorderLayout.NORTH);
@@ -728,22 +904,29 @@ public class GUI implements ActionListener {
 			innerCenter2.add(iD);
 			jpCenter.add(innerCenter2, BorderLayout.CENTER);
 		}
-		// 1 means hinzufügen
+			// 1 means hinzufügen
 		if (allgDB == 1) {
 			switch (i) {
 			case 0: // person
 				cleanAndTitel();
 				JLabel personenAttribute[] = new JLabel[4];
-				JTextField personEingabe[] = new JTextField[3];
 				for (int j = 0; j < personenAttribute.length; j++) {
 					personenAttribute[j] = new JLabel();
+					personEingabe[j] = new JTextField();
 					personenAttribute[j].setFont(new Font("Serif", Font.PLAIN,
 							18));
 				}
-				personEingabe[0] = new JTextField();
-				personEingabe[1] = new JTextField();
-				personEingabe[2] = new JTextField();
 				JCheckBox istPMännlich = new JCheckBox();
+				istPMännlich.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getSource() == istPMännlich) {
+							personEingabe[3].setText("true");
+						}
+
+					}
+				});
 				istPMännlich.setText("Männlich");
 				personenAttribute[0].setText("Bitte Vorname eingeben.");
 				personenAttribute[1].setText("Bitte Nachname eingeben.");
@@ -753,14 +936,30 @@ public class GUI implements ActionListener {
 					innerCenter2.add(personenAttribute[k]);
 					innerCenter2.add(personEingabe[k]);
 				}
+				innerCenter2.remove(personEingabe[3]);
 				innerCenter2.add(personenAttribute[3]);
 				innerCenter2.add(istPMännlich);
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
-			case 1: // dozent
+			case 1: // dozent// TODO more WORK
 				cleanAndTitel();
 				JLabel profAttribute[] = new JLabel[3];
-				JTextField profEingabe[] = new JTextField[3];
+				fakultätAuswahl2 = new JComboBox(fakultätenListe);
+				fakultätAuswahl2.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getSource() == fakultätAuswahl2) {
+							for (int i = 0; i < fakultätenListe.length; i++) {
+								if (fakultätAuswahl2.getSelectedItem() == fakultätenListe[i]) {
+									profEingabe[2].setText(""+i);
+								}
+							}
+
+						}
+
+					}
+				});
 				for (int m = 0; m < profAttribute.length; m++) {
 					profAttribute[m] = new JLabel();
 					profEingabe[m] = new JTextField();
@@ -768,43 +967,74 @@ public class GUI implements ActionListener {
 				}
 				profAttribute[0]
 						.setText("Bitte Professor/Dozent-Kürzel eingeben.");
-				profAttribute[1].setText("Bitte Fakultät-ID eingeben.");
-				profAttribute[2].setText("Bitte Person-ID eingeben");
+				profAttribute[2].setText("Bitte Fakultät auswählen.");
+				profAttribute[1].setText("Bitte Personen-ID eingeben");
 				for (int n = 0; n < profAttribute.length; n++) {
 					innerCenter2.add(profAttribute[n]);
 					innerCenter2.add(profEingabe[n]);
 				}
+				innerCenter2.remove(profEingabe[2]);
+				innerCenter2.add(fakultätAuswahl2);
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 			case 2:// student
 				cleanAndTitel();
-				JLabel studAttribute[] = new JLabel[3];
-				JTextField studEingabe[] = new JTextField[3];
+				JLabel studAttribute[] = new JLabel[4];
+
 				for (int m = 0; m < studAttribute.length; m++) {
 					studAttribute[m] = new JLabel();
 					studEingabe[m] = new JTextField();
 					studAttribute[m].setFont(new Font("Serif", Font.PLAIN, 18));
 				}
-				
-				semesterAuswahl2 = new JComboBox(semesterListe1);
-				semesterAuswahl2.addActionListener(this);
-				studAttribute[0].setText("Bitte Semester eingeben.");
+				semesterAuswahl2 = new JComboBox(semesterListe);
+				semesterAuswahl2.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getSource() == semesterAuswahl2) {
+							for (int i = 0; i < semesterListe.length; i++) {
+								if (semesterAuswahl2.getSelectedItem() == semesterListe[i]) {
+									studEingabe[3].setText("" + i);
+								}
+							}
+						}
+
+					}
+				});
+				studiengangAuswahl2 = new JComboBox(studiengängeListe);
+				studiengangAuswahl2.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getSource() == studiengangAuswahl2) {
+							for (int i = 0; i < studiengängeListe.length; i++) {
+								if (studiengangAuswahl2.getSelectedItem() == studiengängeListe[i]) {
+									studEingabe[2].setText("" + i);
+								}
+							}
+						}
+					}
+				});
+				studAttribute[0].setText("Bitte MatrikelNummer eingeben.");
 				innerCenter2.add(studAttribute[0]);
 				innerCenter2.add(semesterAuswahl2);
-				
-				studAttribute[1].setText("Bitte Studiengang-ID eingeben.");
-				studAttribute[2].setText("Bitte Person-ID eingeben");
-				for (int n = 1; n < studAttribute.length; n++) {
+				studAttribute[1].setText("Bitte Personen-ID auswählen");
+				studAttribute[2].setText("Bitte Studiengang auswählen.");
+				studAttribute[3].setText("Bitte Semester auswählen");
+				for (int n = 0; n < 2; n++) {
 					innerCenter2.add(studAttribute[n]);
 					innerCenter2.add(studEingabe[n]);
 				}
+				innerCenter2.add(studAttribute[2]);
+				innerCenter2.remove(studEingabe[2]);
+				innerCenter2.add(studiengangAuswahl2);
+				innerCenter2.add(studAttribute[3]);
+				innerCenter2.remove(studEingabe[3]);
+				innerCenter2.add(semesterAuswahl2);
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
-				break;
-			case 3:// fakultät
+				break; 
+			case 3:// fakultät 
 				cleanAndTitel();
 				JLabel fakAttribut = new JLabel();
 				fakAttribut.setFont(new Font("Serif", Font.PLAIN, 18));
-				JTextField fakEingabe = new JTextField();
 				fakAttribut.setText("Bitte Fakultät-Name eingeben.");
 				innerCenter2.add(fakAttribut);
 				innerCenter2.add(fakEingabe);
@@ -814,7 +1044,6 @@ public class GUI implements ActionListener {
 				cleanAndTitel();
 				JLabel studiengangAttribut = new JLabel();
 				studiengangAttribut.setFont(new Font("Serif", Font.PLAIN, 18));
-				JTextField studiengangEingabe = new JTextField();
 				studiengangAttribut.setText("Bitte Studiengang-Name eingeben.");
 				innerCenter2.add(studiengangAttribut);
 				innerCenter2.add(studiengangEingabe);
@@ -823,40 +1052,51 @@ public class GUI implements ActionListener {
 			case 5:// Veranstaltung
 				cleanAndTitel();
 				JLabel veranstaltungAttribute[] = new JLabel[5];
-				JTextField veranstaltungEingabe[] = new JTextField[5];
 				for (int j = 0; j < veranstaltungAttribute.length; j++) {
 					veranstaltungAttribute[j] = new JLabel();
 					veranstaltungAttribute[j].setFont(new Font("Serif",
 							Font.PLAIN, 18));
 					veranstaltungEingabe[j] = new JTextField();
 				}
-			
+				semesterAuswahl2 = new JComboBox(semesterListe);
+				semesterAuswahl2.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getSource() == semesterAuswahl2) {
+							for (int i = 0; i < semesterListe.length; i++) {
+								if (semesterAuswahl2.getSelectedItem() == semesterListe[i]) {
+									veranstaltungEingabe[4].setText("" + i);
+								}
+							}
+						}
+
+					}
+				});
 				
-				semesterAuswahl2 = new JComboBox(semesterListe1);
-				semesterAuswahl2.addActionListener(this);
-				veranstaltungAttribute[0].setText("Bitte Semester auswählen.");
+				veranstaltungAttribute[4].setText("Bitte Semester auswählen.");
 				innerCenter2.add(veranstaltungAttribute[0]);
 				innerCenter2.add(semesterAuswahl2);
-				
+
 				veranstaltungAttribute[1]
 						.setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
 				veranstaltungAttribute[2]
-						.setText("Bitte Personal-Nr. eingeben.");
+						.setText("Bitte Personal-Nr. des Professors/Dozenten eingeben.");
 				veranstaltungAttribute[3]
 						.setText("Bitte Studenplan-ID eingeben.");
-				veranstaltungAttribute[4]
-						.setText("Bitte Vorlesungsnamen-ID eingeben.");
-				for (int h = 1; h < veranstaltungAttribute.length; h++) {
+				veranstaltungAttribute[0]
+						.setText("Bitte Vorlesungsnamen eingeben.");
+				for (int h = 0; h < veranstaltungAttribute.length; h++) {
 					innerCenter2.add(veranstaltungAttribute[h]);
 					innerCenter2.add(veranstaltungEingabe[h]);
 				}
+				innerCenter2.remove(veranstaltungEingabe[4]);
+				innerCenter2.add(semesterAuswahl2);
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 
-			case 6: // veranstaltungsname
+			case 6: // veranstaltungsname // TODO more WORK
 				cleanAndTitel();
 				JLabel vNameAttribute[] = new JLabel[2];
-				JTextField vNameEingabe[] = new JTextField[2];
 				for (int r = 0; r < vNameAttribute.length; r++) {
 					vNameAttribute[r] = new JLabel();
 					vNameAttribute[r]
@@ -877,9 +1117,16 @@ public class GUI implements ActionListener {
 				JLabel raumIstPc = new JLabel("Wenn PC-Raum, bitte ankreuzen.");
 				raumName.setFont(new Font("Serif", Font.PLAIN, 18));
 				raumIstPc.setFont(new Font("Serif", Font.PLAIN, 18));
-				JCheckBox istPcRaum = new JCheckBox();
 				istPcRaum.setText("PcRaum");
-				JTextField raumEingabe = new JTextField();
+				istPcRaum.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(istPcRaum.isSelected()) {
+							rIstPcRaum=true;
+						}
+						
+					}
+				});
 				innerCenter2.add(raumName);
 				innerCenter2.add(raumEingabe);
 				innerCenter2.add(raumIstPc);
@@ -895,11 +1142,12 @@ public class GUI implements ActionListener {
 
 	private void cleanAndTitel() {
 		clear();
-		inDieserTabelle.setText("In der Tabelle: "+tabellen[tabellenNummer].getText()+"   ");
+		inDieserTabelle.setText("In der Tabelle: "
+				+ tabellen[tabellenNummer].getText() + "   ");
 		inDieserTabelle.setFont(new Font("Serif", Font.PLAIN, 15));
 		inDieserTabelle.setHorizontalAlignment(SwingConstants.RIGHT);
-		jpCenter.add(inDieserTabelle,BorderLayout.NORTH);
-		
+		jpCenter.add(inDieserTabelle, BorderLayout.NORTH);
+
 	}
 
 	/*
@@ -931,7 +1179,7 @@ public class GUI implements ActionListener {
 	 * 
 	 * }
 	 */
-	// 
+	//
 	private void stringEingaben(int AbNr, int i, boolean istEinfach) {
 		if (istEinfach) {
 			if (m4Labels[AbNr][i] == allLabels[3]) {
@@ -1096,8 +1344,6 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownSemester(int i, int j, boolean istEinfach) {
-		String semesterListe[] = { "1. Semester", "2. Semester", "3. Semester",
-				"4. Semester", "5. Semester", "6. Semester", "7. Semester" };
 		semesterAuswahl = new JComboBox(semesterListe);
 		semesterAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -1466,6 +1712,4 @@ public class GUI implements ActionListener {
 
 	}
 
-
-	
 }
