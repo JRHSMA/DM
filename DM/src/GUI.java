@@ -324,55 +324,62 @@ public class GUI implements ActionListener {
 				}
 			}
 		}
-		if (ev.getSource() == geschAuswahl) {
-			if (geschAuswahl.getSelectedItem() == "Männlich") {
-				istMännlich = true;
-
-			} else {
-				istMännlich = false;
-
-			}
+		String sourceToString = ev.getSource().toString();
+		if (sourceToString.contains("selectedItemReminder=Männlich")) {
+				istMännlich=true;
 		}
+		if (sourceToString.contains("selectedItemReminder=Weiblich")) {
+			istMännlich=false;
+		}
+		
 		if (ev.getSource() == slotAuswahl) {
-			if (slotAuswahl.getSelectedItem() == "1") {
+			if (slotAuswahl.getSelectedItem() == "1. Slot") {
 				slot = 1;
 			}
-			if (slotAuswahl.getSelectedItem() == "2") {
+			if (slotAuswahl.getSelectedItem() == "2. Slot") {
 				slot = 2;
 			}
-			if (slotAuswahl.getSelectedItem() == "3") {
+			if (slotAuswahl.getSelectedItem() == "3. Slot") {
 				slot = 3;
 			}
-			if (slotAuswahl.getSelectedItem() == "4") {
+			if (slotAuswahl.getSelectedItem() == "4. Slot") {
 				slot = 4;
 			}
-			if (slotAuswahl.getSelectedItem() == "5") {
+			if (slotAuswahl.getSelectedItem() == "5. Slot") {
 				slot = 5;
 			}
-			if (slotAuswahl.getSelectedItem() == "6") {
+			if (slotAuswahl.getSelectedItem() == "6. Slot") {
 				slot = 6;
 			}
 		}
+		for(int i=0;i<7;i++){
+			String testString = "selectedItemReminder=";
+			testString=testString+i+". Semester";
+			if(sourceToString.contains(testString)){
+				semester=i;
+			}
+		}
+		
 		if (ev.getSource() == semesterAuswahl) {
-			if (semesterAuswahl.getSelectedItem() == "1") {
+			if (semesterAuswahl.getSelectedItem() == "1. Semester") {
 				semester = 1;
 			}
-			if (semesterAuswahl.getSelectedItem() == "2") {
+			if (semesterAuswahl.getSelectedItem() == "2. Semester") {
 				semester = 2;
 			}
-			if (semesterAuswahl.getSelectedItem() == "3") {
+			if (semesterAuswahl.getSelectedItem() == "3. Semester") {
 				semester = 3;
 			}
-			if (semesterAuswahl.getSelectedItem() == "4") {
+			if (semesterAuswahl.getSelectedItem() == "4. Semester") {
 				semester = 4;
 			}
-			if (semesterAuswahl.getSelectedItem() == "5") {
+			if (semesterAuswahl.getSelectedItem() == "5. Semester") {
 				semester = 5;
 			}
-			if (semesterAuswahl.getSelectedItem() == "6") {
+			if (semesterAuswahl.getSelectedItem() == "6. Semester") {
 				semester = 6;
 			}
-			if (semesterAuswahl.getSelectedItem() == "7") {
+			if (semesterAuswahl.getSelectedItem() == "7. Semester") {
 				semester = 7;
 			}
 		}
@@ -959,7 +966,7 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownSlot(int i, int j, boolean istEinfach) {
-		String slotListe[] = { "1", "2", "3", "4", "5", "6" };
+		String slotListe[] = { "1. Slot", "2. Slot", "3. Slot", "4. Slot", "5. Slot", "6. Slot" };
 		slotAuswahl = new JComboBox(slotListe);
 		slotAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -1000,7 +1007,7 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownSemester(int i, int j, boolean istEinfach) {
-		String semesterListe[] = { "1", "2", "3", "4", "5", "6", "7" };
+		String semesterListe[] = { "1. Semester", "2. Semester", "3. Semester", "4. Semester", "5. Semester", "6. Semester", "7. Semester" };
 		semesterAuswahl = new JComboBox(semesterListe);
 		semesterAuswahl.addActionListener(this);
 		if (istEinfach) {
