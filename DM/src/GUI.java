@@ -1373,7 +1373,7 @@ public class GUI implements ActionListener {
 		m5Labels[4][1] = allLabels[8];
 		m5Labels[4][2] = allLabels[9];
 		m5Labels[5][0] = allLabels[0];
-		m5Labels[5][1] = allLabels[3];
+		m5Labels[5][1] = allLabels[12];
 		m5Labels[6][0] = allLabels[5];
 		m5Labels[6][1] = allLabels[8];
 		m5Labels[6][2] = allLabels[9];
