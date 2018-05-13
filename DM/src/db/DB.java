@@ -1152,4 +1152,31 @@ public class DB {
 			return false;
 		}
 	}
+	
+	/**
+	 * Primärschlüssel der hinzugefügten Datensätze
+	 */
+	public int getPersonId(String vorname, String nachname, String geburtsdatum, boolean maennlich){
+		try {
+			ps = con.prepareStatement("SELECT id from person WHERE (vorname=?) AND (nachname=?) AND (geburtsdatum=?) AND (maennlich=?);");
+			ps.setString(1, vorname);
+			ps.setString(2, nachname);
+			ps.setString(3, geburtsdatum);
+			ps.setBoolean(4, maennlich);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
+	
 }

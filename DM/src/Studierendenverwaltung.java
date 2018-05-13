@@ -48,7 +48,8 @@ public class Studierendenverwaltung {
 	}
 
 	public static void main(String[] args) {
-		new Studierendenverwaltung();	
+		Studierendenverwaltung s = new Studierendenverwaltung();
+		s.personHinzufuegen("test", "test", "2018-01-01", true);
 	}
 
 	public void DatenAusDbEinlesen() {
@@ -509,14 +510,17 @@ public class Studierendenverwaltung {
 	}
 
 	//person
-	public void personHinzufuegen(int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+	public void personHinzufuegen(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
 		// Person hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertPerson(vorname, nachname, geburtsdatum, maennlich);
+			// id aus DB holen
+			id = datenzugriff.getPersonId(vorname, nachname, geburtsdatum, maennlich);
 		}
 		catch(Exception e){
 			// TODO
@@ -529,6 +533,9 @@ public class Studierendenverwaltung {
 		// Person hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				personen.add(new Person(id, vorname, nachname, geburtsdatum, maennlich));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
