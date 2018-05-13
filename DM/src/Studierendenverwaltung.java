@@ -1390,14 +1390,16 @@ public class Studierendenverwaltung {
 	}
 	
 	//Stundenplan
-	public void stundenplanHinzufuegen(int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
+	public void stundenplanHinzufuegen(int semester, Studiengang studiengang, Tag tag, Slot slot) {
 		// Stundenplan hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int id = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertStundenplan(semester, studiengang.getId(), tag.getId(), slot.getId());
+			id = datenzugriff.getStundenplanId(semester, studiengang.getId(), tag.getId(), slot.getId());
 		}
 		catch(Exception e){
 			// TODO
@@ -1410,6 +1412,9 @@ public class Studierendenverwaltung {
 		// Stundenplan hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(id<1){
+					throw new RuntimeException("Ungültige id");
+				}
 				stundenplaene.add(new Stundenplan(id, semester, studiengang, tag, slot));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben

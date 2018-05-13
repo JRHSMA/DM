@@ -1343,4 +1343,27 @@ public class DB {
 			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
 		}
 	}
+	
+	public int getStundenplanId(int semester, int idStudiengang, int idTag, int idSlot){
+		try {
+			ps = con.prepareStatement("SELECT id from stundenplan WHERE (semester=?) AND (idStudiengang=?) AND (idTag=?) AND (idSlot=?);");
+			ps.setInt(1, semester);
+			ps.setInt(2, idStudiengang);
+			ps.setInt(3, idTag);
+			ps.setInt(4, idSlot);
+			ps.execute();
+			
+			ArrayList<LinkedHashMap<String, String>> ergebnisse = this.lesenjava();
+			
+			if(ergebnisse.size()!=1){
+				throw new RuntimeException("Keine id gefunden/Mehrere ids gefunden...");
+			}
+			
+			return Integer.parseInt(ergebnisse.get(0).get("id"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("SQL-Fehler: " + e.getMessage());
+		}
+	}
 }
