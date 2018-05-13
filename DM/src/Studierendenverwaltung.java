@@ -30,76 +30,6 @@ public class Studierendenverwaltung {
 
 		DatenAusDbEinlesen(datenzugriff, fakultaeten, personen, dozenten, studiengaenge, studierende, slots, tage,
 				stundenplaene, veranstaltungsnamen, veranstaltungen, hoeren, raeume, hatten, besitzen, erhalten);
-
-		//Test Person
-//		personHinzufuegen(personen, 31, "test", "TEst", "2011-09-09", true);
-//		personAendern(personen, 31, "tesstt", "test", "2011-09-08", false);
-//		personLoeschen(personen, 31);
-		
-		//Test Dozent
-//		for(Person x : personen){
-//			if(32 == x.getId()){
-//				dozentHinzufuegen(dozenten, 13, "OMB", fakultaeten.get(3), x);
-//				break;
-//			}
-//		}
-//		for(Person x : personen){
-//			if(32 == x.getId()){
-//				dozentAendern(dozenten, 13, "OOO", fakultaeten.get(3), x);
-//				break;
-//			}
-//		}
-//		dozentLoeschen(dozenten, 12);
-		
-		//Test Fakultaet
-//		fakultaetHinzufuegen(fakultaeten, 13,"TestFak");
-//		fakultaetAendern(fakultaeten, 13,"TestFakultaet");
-//		fakultaetLoeschen(fakultaeten, 13);
-		
-		//Test Studierender
-//		studierenderHinzufuegen(studierende, 1811430, 1, studiengaenge.get(3), personen.get(30));
-//		studierenderAendern(studierende, 1811430, 2, studiengaenge.get(4), personen.get(30));
-//		studierenderLoeschen(studierende, 1811430);
-		
-//		veranstaltungHinzufuegen(veranstaltungen, 30, 1, 90, dozenten.get(8), stundenplaene.get(1), veranstaltungsnamen.get(13));
-//		veranstaltungAendern(veranstaltungen, 30, 3, 91, dozenten.get(1), stundenplaene.get(0), veranstaltungsnamen.get(12));
-//		veranstaltungLoeschen(veranstaltungen, 30);
-		
-//		veranstaltungsnameHinzufuegen(veranstaltungsnamen, 15, "Testing", "TES");
-//		veranstaltungsnameAendern(veranstaltungsnamen, 15, "Gnitset", "SET");
-//		veranstaltungsnameLoeschen(veranstaltungsnamen, 15);
-		
-//		slotHinzufuegen(slots, 7, "7");
-//		slotAendern(slots, 7, "8");
-//		slotLoeschen(slots, 7);
-		
-//		tagHinzufuegen(tage, 7, "Sonntag");
-//		tagAendern(tage, 7, "Testtag");
-//		tagLoeschen(tage, 7);
-		
-//		studiengangHinzufuegen(studiengaenge, 8, "StudTest");
-//		studiengangAendern(studiengaenge, 8, "TestStud");
-//		studiengangLoeschen(studiengaenge, 8);
-		
-//		stundenplanHinzufuegen(stundenplaene, 104, 5, studiengaenge.get(1), tage.get(0), slots.get(1));
-//		stundenplanAendern(stundenplaene, 104, 3, studiengaenge.get(0), tage.get(2), slots.get(3));
-//		stundenplanLoeschen(stundenplaene, 104);
-		
-//		raumHinzufuegen(raeume,"T18", true);
-//		raumAendern(raeume,"T18", false);
-//		raumLoeschen(raeume,"T18");
-		
-//		besitztHinzufuegen(besitzen, stundenplaene.get(1), studierende.get(1));
-//		besitztLoeschen(besitzen, stundenplaene.get(1), studierende.get(1));
-		
-//		erhaeltHinzufuegen(erhalten, dozenten.get(1), stundenplaene.get(1));
-//		erhaeltLoeschen(erhalten, dozenten.get(1), stundenplaene.get(1));
-		
-//		hoertHinzufuegen(hoeren, veranstaltungen.get(1), studierende.get(1));
-//		hoertLoeschen(hoeren, veranstaltungen.get(1), studierende.get(1));
-		
-//		hatHinzufuegen(hatten, raeume.get(1), stundenplaene.get(0));
-//		hatLoeschen(hatten, raeume.get(1), stundenplaene.get(0));
 		
 	}
 
@@ -765,8 +695,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Fakultaet hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				fakultaeten.add(new Fakultaet(id, name));
 			} catch (Exception e) {
@@ -801,8 +730,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Fakultaet ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Fakultaet x : fakultaeten) {
 				if (id == x.getId()) {
 					if (x.aendern(name)) {
@@ -835,8 +763,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Dozent löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Fakultaet x : fakultaeten) {
 					if (id == x.getId()) {
@@ -870,8 +797,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Studierender hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				studierende.add(new Studierender(matrikelNr, semester, studiengang, person));
 			} catch (Exception e) {
@@ -898,8 +824,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Studierender ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Studierender x : studierende) {
 				if (matrikelNr == x.getMatrikelNr()) {
 					if (x.aendern(semester, studiengang, person)) {
@@ -930,8 +855,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Studierender löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Studierender x : studierende) {
 					if (matrikelNr == x.getMatrikelNr()) {
@@ -963,8 +887,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Veranstaltung hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				veranstaltungen.add(new Veranstaltung(id, semester,dauer, dozent, stundenplan, veranstaltungsname));
 			} catch (Exception e) {
@@ -991,8 +914,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Veranstaltung ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Veranstaltung x : veranstaltungen) {
 				if (id == x.getId()) {
 					if (x.aendern(semester, dauer, dozent, stundenplan, veranstaltungsname)) {
@@ -1023,8 +945,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Veranstaltung löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Veranstaltung x : veranstaltungen) {
 					if (id == x.getId()) {
@@ -1056,8 +977,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Veranstaltungsname hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				veranstaltungsnamen.add(new Veranstaltungsname(id, name, kuerzel));
 			} catch (Exception e) {
@@ -1084,8 +1004,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Veranstaltungsname ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Veranstaltungsname x : veranstaltungsnamen) {
 				if (id == x.getId()) {
 					if (x.aendern(name, kuerzel)) {
@@ -1116,8 +1035,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Veranstaltungsname löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Veranstaltungsname x : veranstaltungsnamen) {
 					if (id == x.getId()) {
@@ -1149,8 +1067,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Slot hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				slots.add(new Slot(id, slot));
 			} catch (Exception e) {
@@ -1177,8 +1094,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Slot ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Slot x : slots) {
 				if (id == x.getId()) {
 					if (x.aendern(slot)) {
@@ -1209,8 +1125,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Slot löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Slot x : slots) {
 					if (id == x.getId()) {
@@ -1242,8 +1157,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Tag hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				tage.add(new Tag(id, tag));
 			} catch (Exception e) {
@@ -1270,8 +1184,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Tag ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Tag x : tage) {
 				if (id == x.getId()) {
 					if (x.aendern(tag)) {
@@ -1302,8 +1215,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Tag löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Tag x : tage) {
 					if (id == x.getId()) {
@@ -1335,8 +1247,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Studiengang hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				studiengaenge.add(new Studiengang(id, name));
 			} catch (Exception e) {
@@ -1363,8 +1274,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Studiengang ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Studiengang x : studiengaenge) {
 				if (id == x.getId()) {
 					if (x.aendern(name)) {
@@ -1395,8 +1305,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Studiengang löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Studiengang x : studiengaenge) {
 					if (id == x.getId()) {
@@ -1428,8 +1337,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Stundenplan hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				stundenplaene.add(new Stundenplan(id, semester, studiengang, tag, slot));
 			} catch (Exception e) {
@@ -1456,8 +1364,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Stundenplan ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Stundenplan x : stundenplaene) {
 				if (id == x.getId()) {
 					if (x.aendern(semester, studiengang, tag, slot)) {
@@ -1488,8 +1395,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Stundenplan löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Stundenplan x : stundenplaene) {
 					if (id == x.getId()) {
@@ -1521,8 +1427,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Raum hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				raeume.add(new Raum(bezeichnung, computerraum));
 			} catch (Exception e) {
@@ -1555,8 +1460,7 @@ public class Studierendenverwaltung {
 //		}
 		
 		// Raum ändern (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbAendern=true) {
+		if (dbAendern) {
 			for (Raum x : raeume) {
 				if (bezeichnung.equals(x.getBezeichnung())) {
 					if (x.aendern(computerraum)) {
@@ -1587,8 +1491,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Raum löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Raum x : raeume) {
 					if (x.getBezeichnung().equals(bezeichnung)) {
@@ -1620,8 +1523,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Besitzt hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				besitzen.add(new Besitzt(stundenplan, studierender));
 			} catch (Exception e) {
@@ -1648,8 +1550,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Besitzt löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Besitzt x : besitzen) {
 					if (x.getStundenplan().equals(stundenplan) && x.getStudierender().equals(studierender)) {
@@ -1681,8 +1582,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Erhaelt hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				erhalten.add(new Erhaelt(dozent, stundenplan));
 			} catch (Exception e) {
@@ -1709,8 +1609,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Erhaelt löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Erhaelt x : erhalten) {
 					if (x.getDozent().equals(dozent) && x.getStundenplan().equals(stundenplan)) {
@@ -1742,8 +1641,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Hoert hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				hoeren.add(new Hoert(veranstaltung, studierender));
 			} catch (Exception e) {
@@ -1776,8 +1674,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Hoert löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Hoert x : hoeren) {
 					if (x.getVeranstaltung().equals(veranstaltung) && x.getStudierender().equals(studierender)) {
@@ -1809,8 +1706,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Hat hinzufügen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbEinfuegen=true) {
+		if (dbEinfuegen) {
 			try {
 				hatten.add(new Hat(raum, stundenplan));
 			} catch (Exception e) {
@@ -1837,8 +1733,7 @@ public class Studierendenverwaltung {
 //		}
 
 		// Hat löschen (java)
-		//TODO ändern (true setzen weg machen)
-		if (dbLoeschen=true) {
+		if (dbLoeschen) {
 			try {
 				for (Hat x : hatten) {
 					if (x.getRaum().equals(raum) && x.getStundenplan().equals(stundenplan)) {
