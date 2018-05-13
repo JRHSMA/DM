@@ -32,18 +32,29 @@ public class Studierendenverwaltung {
 				stundenplaene, veranstaltungsnamen, veranstaltungen, hoeren, raeume, hatten, besitzen, erhalten);
 
 		//Test Person
-		personHinzufuegen(personen, 31, "test", "TEst", "2011-09-09", true);
-		personAendern(personen, 31, "tesstt", "test", "2011-09-08", false);
-		personLoeschen(personen, 31);
+//		personHinzufuegen(personen, 31, "test", "TEst", "2011-09-09", true);
+//		personAendern(personen, 31, "tesstt", "test", "2011-09-08", false);
+//		personLoeschen(personen, 31);
 		
 		//Test Dozent
-		personHinzufuegen(personen, 31, "test", "TEst", "2011-09-09", true);
-		for(Person x : personen){
-			if(31 == x.getId()){
-				dozentHinzufuegen(dozenten, 10, "OMB", fakultaeten.get(3), x);
-			}
-		}
-		dozentLoeschen(dozenten, 10);
+//		for(Person x : personen){
+//			if(32 == x.getId()){
+//				dozentHinzufuegen(dozenten, 13, "OMB", fakultaeten.get(3), x);
+//				break;
+//			}
+//		}
+//		for(Person x : personen){
+//			if(32 == x.getId()){
+//				dozentAendern(dozenten, 13, "OOO", fakultaeten.get(3), x);
+//				break;
+//			}
+//		}
+//		dozentLoeschen(dozenten, 12);
+		
+		//Test Fakultaet
+		fakultaetHinzufuegen(fakultaeten, 13,"TestFak");
+		fakultaetAendern(fakultaeten, 13,"TestFakultaet");
+		fakultaetLoeschen(fakultaeten, 13);
 		
 	}
 
@@ -534,14 +545,6 @@ public class Studierendenverwaltung {
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
 			}
-			// Test ausgabe
-			for (Person x : personen) {
-				if (id == x.getId()) {
-					System.out.println("Test Ausgabe A1:");
-					System.out.println(x);
-					break;
-				}
-			}
 		}
 	}
 
@@ -568,8 +571,6 @@ public class Studierendenverwaltung {
 			for (Person x : personen) {
 				if (id == x.getId()) {
 					if (x.aendern(vorname, nachname, geburtsdatum, maennlich)) {
-						System.out.println("Test Ausgabe A2:");
-						System.out.println(x);
 						break;
 					} else {
 						// TODO Fehler Meldung schreiben
@@ -602,8 +603,6 @@ public class Studierendenverwaltung {
 				for (Person x : personen) {
 					if (id == x.getId()) {
 						personen.remove(x);
-						for(Person i: personen)
-						System.out.println(i);
 					}
 				}
 			} catch (Exception e) {
@@ -637,14 +636,6 @@ public class Studierendenverwaltung {
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
 			}
-			// Test ausgabe
-			for (Dozent x : dozenten) {
-				if (personalNr == x.getPersonalNr()) {
-					System.out.println("Test Ausgabe B1:");
-					System.out.println(x);
-					break;
-				}
-			}
 		}
 	}
 
@@ -666,20 +657,17 @@ public class Studierendenverwaltung {
 		}
 		
 		// Dozent ändern (java)
-		//TODO
-//		if (dbAendern) {
-//			for (Person x : personen) {
-//				if (id == x.getId()) {
-//					if (x.aendern(vorname, nachname, geburtsdatum, maennlich)) {
-//						System.out.println("Test Ausgabe A1:");
-//						System.out.println(x);
-//						break;
-//					} else {
-//						// TODO Fehler Meldung schreiben
-//					}
-//				}
-//			}
-//		}
+		if (dbAendern) {
+			for (Dozent x : dozenten) {
+				if (personalNr == x.getPersonalNr()) {
+					if (x.aendern(kuerzel, fakultaet, person)) {
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
 	}
 
 	public static void dozentLoeschen(ArrayList<Dozent> dozenten, int personalNr) {
@@ -705,7 +693,110 @@ public class Studierendenverwaltung {
 				for (Dozent x : dozenten) {
 					if (personalNr == x.getPersonalNr()) {
 						dozenten.remove(x);
-						for(Dozent i: dozenten)
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Fakultaet
+	public static void fakultaetHinzufuegen(ArrayList<Fakultaet> fakultaeten,int id, String name) {
+		// Fakultaet hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Fakultaet hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				fakultaeten.add(new Fakultaet(id, name));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+			// Test ausgabe
+			for (Fakultaet x : fakultaeten) {
+				if (id == x.getId()) {
+					System.out.println("Test Ausgabe C1:");
+					System.out.println(x);
+					break;
+				}
+			}
+		}
+	}
+
+	public static void fakultaetAendern(ArrayList<Fakultaet> fakultaeten,int id, String name) {
+		// Dozent ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Fakultaet ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Fakultaet x : fakultaeten) {
+				if (id == x.getId()) {
+					if (x.aendern(name)) {
+						System.out.println("Test Ausgabe C2:");
+						System.out.println(x);
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void fakultaetLoeschen(ArrayList<Fakultaet> fakultaeten, int id) {
+		// Dozent löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Dozent löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for (Fakultaet x : fakultaeten) {
+					if (id == x.getId()) {
+						fakultaeten.remove(x);
+						for(Fakultaet i: fakultaeten)
 						System.out.println(i);
 					}
 				}
