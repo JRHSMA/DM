@@ -9,36 +9,49 @@ public class Studierendenverwaltung {
 	// GUI stud = new GUI();
 	// stud.LayoutGUI("Studierendenverwaltung");
 	// }
-
-	public static void main(String[] args) {
-		DB datenzugriff = null;
-		ArrayList<Fakultaet> fakultaeten = new ArrayList<>();
-		ArrayList<Person> personen = new ArrayList<>();
-		ArrayList<Dozent> dozenten = new ArrayList<>();
-		ArrayList<Studiengang> studiengaenge = new ArrayList<>();
-		ArrayList<Studierender> studierende = new ArrayList<>();
-		ArrayList<Slot> slots = new ArrayList<>();
-		ArrayList<Tag> tage = new ArrayList<>();
-		ArrayList<Stundenplan> stundenplaene = new ArrayList<>();
-		ArrayList<Veranstaltungsname> veranstaltungsnamen = new ArrayList<>();
-		ArrayList<Veranstaltung> veranstaltungen = new ArrayList<>();
-		ArrayList<Hoert> hoeren = new ArrayList<>();
-		ArrayList<Raum> raeume = new ArrayList<>();
-		ArrayList<Hat> hatten = new ArrayList<>();
-		ArrayList<Besitzt> besitzen = new ArrayList<>();
-		ArrayList<Erhaelt> erhalten = new ArrayList<>();
-
-		DatenAusDbEinlesen(datenzugriff, fakultaeten, personen, dozenten, studiengaenge, studierende, slots, tage,
-				stundenplaene, veranstaltungsnamen, veranstaltungen, hoeren, raeume, hatten, besitzen, erhalten);
+	private ArrayList<Fakultaet> fakultaeten;
+	private ArrayList<Person> personen;
+	private ArrayList<Dozent> dozenten;
+	private ArrayList<Studiengang> studiengaenge;
+	private ArrayList<Studierender> studierende;
+	private ArrayList<Slot> slots;
+	private ArrayList<Tag> tage;
+	private ArrayList<Stundenplan> stundenplaene;
+	private ArrayList<Veranstaltungsname> veranstaltungsnamen;
+	private ArrayList<Veranstaltung> veranstaltungen;
+	private ArrayList<Hoert> hoeren;
+	private ArrayList<Raum> raeume;
+	private ArrayList<Hat> hatten;
+	private ArrayList<Besitzt> besitzen;
+	private ArrayList<Erhaelt> erhalten;
+	private DB datenzugriff = null;
+	
+	public Studierendenverwaltung(){
+		fakultaeten = new ArrayList<>();
+		personen = new ArrayList<>();
+		dozenten = new ArrayList<>();
+		studiengaenge = new ArrayList<>();
+		studierende = new ArrayList<>();
+		slots = new ArrayList<>();
+		tage = new ArrayList<>();
+		stundenplaene = new ArrayList<>();
+		veranstaltungsnamen = new ArrayList<>();
+		veranstaltungen = new ArrayList<>();
+		hoeren = new ArrayList<>();
+		raeume = new ArrayList<>();
+		hatten = new ArrayList<>();
+		besitzen = new ArrayList<>();
+		erhalten = new ArrayList<>();
+		
+		DatenAusDbEinlesen();
 		
 	}
 
-	public static void DatenAusDbEinlesen(DB datenzugriff, ArrayList<Fakultaet> fakultaeten, ArrayList<Person> personen,
-			ArrayList<Dozent> dozenten, ArrayList<Studiengang> studiengaenge, ArrayList<Studierender> studierende,
-			ArrayList<Slot> slots, ArrayList<Tag> tage, ArrayList<Stundenplan> stundenplaene,
-			ArrayList<Veranstaltungsname> veranstaltungsnamen, ArrayList<Veranstaltung> veranstaltungen,
-			ArrayList<Hoert> hoeren, ArrayList<Raum> raeume, ArrayList<Hat> hatten, ArrayList<Besitzt> besitzen,
-			ArrayList<Erhaelt> erhalten) {
+	public static void main(String[] args) {
+		new Studierendenverwaltung();	
+	}
+
+	public void DatenAusDbEinlesen() {
 
 		try {
 			// referenzielle Integrität Dozent
@@ -496,7 +509,7 @@ public class Studierendenverwaltung {
 	}
 
 	//person
-	public static void personHinzufuegen(ArrayList<Person> personen, int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+	public void personHinzufuegen(int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
 		// Person hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -523,7 +536,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void personAendern(ArrayList<Person> personen, int id, String vorname, String nachname,
+	public void personAendern( int id, String vorname, String nachname,
 			String geburtsdatum, boolean maennlich) {
 		// Person ändern DB
 		DB datenzugriff = null;
@@ -555,7 +568,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void personLoeschen(ArrayList<Person> personen, int id) {
+	public void personLoeschen(int id) {
 		// Person ändern DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -587,7 +600,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Dozent
-	public static void dozentHinzufuegen(ArrayList<Dozent> dozenten, int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
+	public void dozentHinzufuegen(int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
 		// Dozent hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -614,7 +627,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void dozentAendern(ArrayList<Dozent> dozenten, int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
+	public void dozentAendern(int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
 		// Dozent ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -645,7 +658,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void dozentLoeschen(ArrayList<Dozent> dozenten, int personalNr) {
+	public void dozentLoeschen(int personalNr) {
 		// Dozent löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -677,7 +690,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Fakultaet
-	public static void fakultaetHinzufuegen(ArrayList<Fakultaet> fakultaeten,int id, String name) {
+	public void fakultaetHinzufuegen(int id, String name) {
 		// Fakultaet hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -712,7 +725,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void fakultaetAendern(ArrayList<Fakultaet> fakultaeten, int id, String name) {
+	public void fakultaetAendern( int id, String name) {
 		// Fakultaet ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -745,7 +758,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void fakultaetLoeschen(ArrayList<Fakultaet> fakultaeten, int id) {
+	public void fakultaetLoeschen(int id) {
 		// Fakultaet löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -779,7 +792,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Studierender
-	public static void studierenderHinzufuegen(ArrayList<Studierender> studierende, int matrikelNr, int semester, Studiengang studiengang, Person person) {
+	public void studierenderHinzufuegen(int matrikelNr, int semester, Studiengang studiengang, Person person) {
 		// Studierender hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -806,7 +819,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void studierenderAendern(ArrayList<Studierender> studierende, int matrikelNr, int semester, Studiengang studiengang, Person person) {
+	public void studierenderAendern(int matrikelNr, int semester, Studiengang studiengang, Person person) {
 		// Studierender ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -837,7 +850,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void studierenderLoeschen(ArrayList<Studierender> studierende, int matrikelNr) {
+	public void studierenderLoeschen( int matrikelNr) {
 		// Studierender löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -869,7 +882,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Veranstaltung
-	public static void veranstaltungHinzufuegen(ArrayList<Veranstaltung>veranstaltungen, int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+	public void veranstaltungHinzufuegen(int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
 		// Veranstaltung hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -896,7 +909,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void veranstaltungAendern(ArrayList<Veranstaltung>veranstaltungen, int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+	public void veranstaltungAendern(int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
 		// Veranstaltung ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -927,7 +940,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void veranstaltungLoeschen(ArrayList<Veranstaltung>veranstaltungen, int id) {
+	public void veranstaltungLoeschen(int id) {
 		// Veranstaltung löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -959,7 +972,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Veranstaltungsname
-	public static void veranstaltungsnameHinzufuegen(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id, String name, String kuerzel) {
+	public void veranstaltungsnameHinzufuegen(int id, String name, String kuerzel) {
 		// Veranstaltungsname hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -986,7 +999,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void veranstaltungsnameAendern(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id, String name, String kuerzel) {
+	public void veranstaltungsnameAendern(int id, String name, String kuerzel) {
 		// Veranstaltungsname ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -1017,7 +1030,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void veranstaltungsnameLoeschen(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id) {
+	public  void veranstaltungsnameLoeschen(int id) {
 		// Veranstaltungsname löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1049,7 +1062,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Slot
-	public static void slotHinzufuegen(ArrayList<Slot>slots, int id, String slot) {
+	public void slotHinzufuegen(int id, String slot) {
 		// Slot hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1076,7 +1089,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void slotAendern(ArrayList<Slot>slots, int id, String slot) {
+	public void slotAendern(int id, String slot) {
 		// Slot ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -1107,7 +1120,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void slotLoeschen(ArrayList<Slot>slots, int id) {
+	public void slotLoeschen(int id) {
 		// Slot löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1139,7 +1152,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Tag
-	public static void tagHinzufuegen(ArrayList<Tag>tage, int id, String tag) {
+	public void tagHinzufuegen(int id, String tag) {
 		// Tag hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1166,7 +1179,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void tagAendern(ArrayList<Tag>tage, int id, String tag) {
+	public void tagAendern(int id, String tag) {
 		// Tag ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -1197,7 +1210,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void tagLoeschen(ArrayList<Tag>tage, int id) {
+	public void tagLoeschen(int id) {
 		// Tag löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1229,7 +1242,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Studiengang
-	public static void studiengangHinzufuegen(ArrayList<Studiengang>studiengaenge, int id, String name) {
+	public void studiengangHinzufuegen(int id, String name) {
 		// Studiengang hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1256,7 +1269,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void studiengangAendern(ArrayList<Studiengang>studiengaenge, int id, String name) {
+	public void studiengangAendern(int id, String name) {
 		// Studiengang ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -1287,7 +1300,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void studiengangLoeschen(ArrayList<Studiengang>studiengaenge, int id) {
+	public void studiengangLoeschen(int id) {
 		// Studiengang löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1319,7 +1332,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Stundenplan
-	public static void stundenplanHinzufuegen(ArrayList<Stundenplan>stundenplaene, int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
+	public void stundenplanHinzufuegen(int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
 		// Stundenplan hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1346,7 +1359,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void stundenplanAendern(ArrayList<Stundenplan>stundenplaene, int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
+	public void stundenplanAendern(int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
 		// Stundenplan ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -1377,7 +1390,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void stundenplanLoeschen(ArrayList<Stundenplan>stundenplaene, int id) {
+	public void stundenplanLoeschen(int id) {
 		// Stundenplan löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1409,7 +1422,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Raum
-	public static void raumHinzufuegen(ArrayList<Raum>raeume, String bezeichnung, boolean computerraum) {
+	public void raumHinzufuegen(String bezeichnung, boolean computerraum) {
 		// Raum hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1442,7 +1455,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void raumAendern(ArrayList<Raum>raeume, String bezeichnung, boolean computerraum) {
+	public void raumAendern(String bezeichnung, boolean computerraum) {
 		// Raum ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -1473,7 +1486,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void raumLoeschen(ArrayList<Raum>raeume, String bezeichnung) {
+	public void raumLoeschen(String bezeichnung) {
 		// Raum löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1505,7 +1518,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Besitzt
-	public static void besitztHinzufuegen(ArrayList<Besitzt>besitzen,Stundenplan stundenplan, Studierender studierender) {
+	public void besitztHinzufuegen(Stundenplan stundenplan, Studierender studierender) {
 		// Besitzt hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1532,7 +1545,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void besitztLoeschen(ArrayList<Besitzt>besitzen,Stundenplan stundenplan, Studierender studierender) {
+	public void besitztLoeschen(Stundenplan stundenplan, Studierender studierender) {
 		// Besitzt löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1564,7 +1577,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Erhaelt
-	public static void erhaeltHinzufuegen(ArrayList<Erhaelt>erhalten, Dozent dozent, Stundenplan stundenplan) {
+	public void erhaeltHinzufuegen(Dozent dozent, Stundenplan stundenplan) {
 		// Erhaelt hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1591,7 +1604,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void erhaeltLoeschen(ArrayList<Erhaelt>erhalten, Dozent dozent, Stundenplan stundenplan) {
+	public void erhaeltLoeschen(Dozent dozent, Stundenplan stundenplan) {
 		// Erhaelt löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1623,7 +1636,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Hoert
-	public static void hoertHinzufuegen(ArrayList<Hoert>hoeren, Veranstaltung veranstaltung, Studierender studierender) {
+	public void hoertHinzufuegen(Veranstaltung veranstaltung, Studierender studierender) {
 		// Hoert hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1656,7 +1669,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void hoertLoeschen(ArrayList<Hoert>hoeren, Veranstaltung veranstaltung, Studierender studierender) {
+	public void hoertLoeschen( Veranstaltung veranstaltung, Studierender studierender) {
 		// Hoert löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -1688,7 +1701,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Hat
-	public static void hatHinzufuegen(ArrayList<Hat>hatten, Raum raum, Stundenplan stundenplan) {
+	public void hatHinzufuegen(Raum raum, Stundenplan stundenplan) {
 		// Hat hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1715,7 +1728,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void hatLoeschen(ArrayList<Hat>hatten, Raum raum, Stundenplan stundenplan) {
+	public void hatLoeschen(Raum raum, Stundenplan stundenplan) {
 		// Hat löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
