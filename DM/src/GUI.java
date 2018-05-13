@@ -19,13 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import db.DB;
 
 public class GUI implements ActionListener {
 
 	private JFrame jf;
-	private JButton[] fusszeile = new JButton[2];
+	private JButton[] fusszeile = new JButton[3];
 	private JButton abfrageSchicken;
 	private JMenuBar menuBar;
 	private JMenu menuT1;
@@ -64,6 +65,8 @@ public class GUI implements ActionListener {
 	@SuppressWarnings("rawtypes")
 	private JComboBox semesterAuswahl;
 	@SuppressWarnings("rawtypes")
+	private JComboBox semesterAuswahl2;
+	@SuppressWarnings("rawtypes")
 	private JComboBox fakultätAuswahl;
 	@SuppressWarnings("rawtypes")
 	private JComboBox studiengangAuswahl;
@@ -86,15 +89,14 @@ public class GUI implements ActionListener {
 
 	private int tabellenNummer = -1;
 	// -----------------------------
-	// DB bearbeiten variablen -----
-	// TODO variablen db
+	//  TODO DB bearbeiten variablen -----
+	// variablen db
 	private int allgDB;
+	JLabel inDieserTabelle = new JLabel();
 	private String pKListe[] = new String[8];
 	private JLabel überschrift;
 	private JButton tabellen[] = new JButton[8];
 	JPanel innerCenter2;
-
-	// ------------------------------
 	private String tageListe[] = { "Montag", "Dienstag", "Mittwoch",
 			"Donnerstag", "Freitag" };
 	private String fakultätenListe[] = { "Biotechnologie", "Elektrotechnik",
@@ -136,7 +138,11 @@ public class GUI implements ActionListener {
 			"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
 			"Wirtschaftsingenieurwesen International (Bachelor)" };
-
+	private String semesterListe1[] = { "1. Semester", "2. Semester", "3. Semester",
+		"4. Semester", "5. Semester", "6. Semester", "7. Semester" };
+	//----------------------------
+	
+	
 	public GUI() {
 		LayoutGUI("test");
 	}
@@ -161,6 +167,9 @@ public class GUI implements ActionListener {
 		fusszeile[1] = new JButton("Senden");
 		fusszeile[1].setVisible(false);
 		fusszeile[1].addActionListener(this);
+		fusszeile[2] = new JButton("Zurück");
+		fusszeile[2].setVisible(false);
+		fusszeile[2].addActionListener(this);
 		menuBar = new JMenuBar();
 
 		menuT1 = new JMenu("DatenBank bearbeiten");
@@ -247,7 +256,7 @@ public class GUI implements ActionListener {
 			clear();
 		}
 		if (fusszeile[1] == quelle) {
-			System.out.println(tabellenNummer);
+			
 
 		}
 		if (m4Buttons != null) {
@@ -373,7 +382,7 @@ public class GUI implements ActionListener {
 				slot = i;
 			}
 		}
-		// TAGAUSWAHL //TODO TAGE
+		// TAGAUSWAHL
 		for (int i = 0; i < tageListe.length; i++) {
 			String testString = "selectedItemReminder=";
 			testString = testString + tageListe[i];
@@ -434,7 +443,7 @@ public class GUI implements ActionListener {
 					case 1:
 						db.abfrageEinfach02(semester);
 						break;
-					case 4: // TODO sollte funktionieren
+					case 4: 
 						db.abfrageEinfach05(vorlesungsKrzl);
 						break;
 					case 7:
@@ -511,7 +520,7 @@ public class GUI implements ActionListener {
 					}
 
 					break;
-				case 2:// TODO FIX THIS
+				case 2:
 					if (m5Labels[kompAbNr][0] == allLabels[0]
 							|| m5Labels[kompAbNr][0] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 0, false, true);
@@ -526,7 +535,7 @@ public class GUI implements ActionListener {
 					}
 
 					// ////////////////////
-					// Abfragen //TODO
+					// Abfragen /
 					// ////////////////////
 					switch (kompAbNr) {
 					case 0:
@@ -702,11 +711,16 @@ public class GUI implements ActionListener {
 		pKListe[7] = "Raum-Bezeichnung";
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void allgTab(int i) {
+				
 		innerCenter2 = new JPanel();
-		innerCenter2.setLayout(new GridLayout(10, 1));
+		innerCenter2.setLayout(new GridLayout(15, 1));
+		// 2 means ändern , 3 means löschen
 		if (allgDB == 2 || allgDB == 3) {
-			clear();
+			cleanAndTitel();
+			inDieserTabelle.setText(tabellen[tabellenNummer].getText());
+			jpCenter.add(inDieserTabelle,BorderLayout.NORTH);
 			JLabel pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
 			pK.setFont(new Font("Serif", Font.PLAIN, 18));
 			jpCenter.add(pK, BorderLayout.NORTH);
@@ -714,10 +728,11 @@ public class GUI implements ActionListener {
 			innerCenter2.add(iD);
 			jpCenter.add(innerCenter2, BorderLayout.CENTER);
 		}
+		// 1 means hinzufügen
 		if (allgDB == 1) {
 			switch (i) {
 			case 0: // person
-				clear();
+				cleanAndTitel();
 				JLabel personenAttribute[] = new JLabel[4];
 				JTextField personEingabe[] = new JTextField[3];
 				for (int j = 0; j < personenAttribute.length; j++) {
@@ -743,7 +758,7 @@ public class GUI implements ActionListener {
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 			case 1: // dozent
-				clear();
+				cleanAndTitel();
 				JLabel profAttribute[] = new JLabel[3];
 				JTextField profEingabe[] = new JTextField[3];
 				for (int m = 0; m < profAttribute.length; m++) {
@@ -762,7 +777,7 @@ public class GUI implements ActionListener {
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 			case 2:// student
-				clear();
+				cleanAndTitel();
 				JLabel studAttribute[] = new JLabel[3];
 				JTextField studEingabe[] = new JTextField[3];
 				for (int m = 0; m < studAttribute.length; m++) {
@@ -770,18 +785,23 @@ public class GUI implements ActionListener {
 					studEingabe[m] = new JTextField();
 					studAttribute[m].setFont(new Font("Serif", Font.PLAIN, 18));
 				}
-				// TODO semester dropdown
+				
+				semesterAuswahl2 = new JComboBox(semesterListe1);
+				semesterAuswahl2.addActionListener(this);
 				studAttribute[0].setText("Bitte Semester eingeben.");
+				innerCenter2.add(studAttribute[0]);
+				innerCenter2.add(semesterAuswahl2);
+				
 				studAttribute[1].setText("Bitte Studiengang-ID eingeben.");
 				studAttribute[2].setText("Bitte Person-ID eingeben");
-				for (int n = 0; n < studAttribute.length; n++) {
+				for (int n = 1; n < studAttribute.length; n++) {
 					innerCenter2.add(studAttribute[n]);
 					innerCenter2.add(studEingabe[n]);
 				}
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 			case 3:// fakultät
-				clear();
+				cleanAndTitel();
 				JLabel fakAttribut = new JLabel();
 				fakAttribut.setFont(new Font("Serif", Font.PLAIN, 18));
 				JTextField fakEingabe = new JTextField();
@@ -791,7 +811,7 @@ public class GUI implements ActionListener {
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 			case 4:// Studiengang
-				clear();
+				cleanAndTitel();
 				JLabel studiengangAttribut = new JLabel();
 				studiengangAttribut.setFont(new Font("Serif", Font.PLAIN, 18));
 				JTextField studiengangEingabe = new JTextField();
@@ -801,7 +821,7 @@ public class GUI implements ActionListener {
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 			case 5:// Veranstaltung
-				clear();
+				cleanAndTitel();
 				JLabel veranstaltungAttribute[] = new JLabel[5];
 				JTextField veranstaltungEingabe[] = new JTextField[5];
 				for (int j = 0; j < veranstaltungAttribute.length; j++) {
@@ -810,8 +830,14 @@ public class GUI implements ActionListener {
 							Font.PLAIN, 18));
 					veranstaltungEingabe[j] = new JTextField();
 				}
-				// TODO semester dropdown
+			
+				
+				semesterAuswahl2 = new JComboBox(semesterListe1);
+				semesterAuswahl2.addActionListener(this);
 				veranstaltungAttribute[0].setText("Bitte Semester auswählen.");
+				innerCenter2.add(veranstaltungAttribute[0]);
+				innerCenter2.add(semesterAuswahl2);
+				
 				veranstaltungAttribute[1]
 						.setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
 				veranstaltungAttribute[2]
@@ -820,7 +846,7 @@ public class GUI implements ActionListener {
 						.setText("Bitte Studenplan-ID eingeben.");
 				veranstaltungAttribute[4]
 						.setText("Bitte Vorlesungsnamen-ID eingeben.");
-				for (int h = 0; h < veranstaltungAttribute.length; h++) {
+				for (int h = 1; h < veranstaltungAttribute.length; h++) {
 					innerCenter2.add(veranstaltungAttribute[h]);
 					innerCenter2.add(veranstaltungEingabe[h]);
 				}
@@ -828,7 +854,7 @@ public class GUI implements ActionListener {
 				break;
 
 			case 6: // veranstaltungsname
-				clear();
+				cleanAndTitel();
 				JLabel vNameAttribute[] = new JLabel[2];
 				JTextField vNameEingabe[] = new JTextField[2];
 				for (int r = 0; r < vNameAttribute.length; r++) {
@@ -846,7 +872,7 @@ public class GUI implements ActionListener {
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 			case 7:// raum
-				clear();
+				cleanAndTitel();
 				JLabel raumName = new JLabel("Bitte Raum-Bezeichnung eingeben.");
 				JLabel raumIstPc = new JLabel("Wenn PC-Raum, bitte ankreuzen.");
 				raumName.setFont(new Font("Serif", Font.PLAIN, 18));
@@ -865,6 +891,15 @@ public class GUI implements ActionListener {
 			}
 		}
 
+	}
+
+	private void cleanAndTitel() {
+		clear();
+		inDieserTabelle.setText("In der Tabelle: "+tabellen[tabellenNummer].getText()+"   ");
+		inDieserTabelle.setFont(new Font("Serif", Font.PLAIN, 15));
+		inDieserTabelle.setHorizontalAlignment(SwingConstants.RIGHT);
+		jpCenter.add(inDieserTabelle,BorderLayout.NORTH);
+		
 	}
 
 	/*
@@ -896,7 +931,7 @@ public class GUI implements ActionListener {
 	 * 
 	 * }
 	 */
-	// TODO
+	// 
 	private void stringEingaben(int AbNr, int i, boolean istEinfach) {
 		if (istEinfach) {
 			if (m4Labels[AbNr][i] == allLabels[3]) {
@@ -1431,60 +1466,6 @@ public class GUI implements ActionListener {
 
 	}
 
-	public int getMatrikelNr() {
-		return matrikelNr;
-	}
 
-	public int getSemester() {
-		return semester;
-	}
-
-	public String getStudiengang() {
-		return studiengang;
-	}
-
-	public String getVorlesungsKrzl() {
-		return vorlesungsKrzl;
-	}
-
-	public String getFakultät() {
-		return fakultät;
-	}
-
-	public String getProfName() {
-		return profName;
-	}
-
-	public String getProfKrzl() {
-		return profKrzl;
-	}
-
-	public String getRaumName() {
-		return raumName;
-	}
-
-	public String getTag() {
-		return tag;
-	}
-
-	public int getSlot() {
-		return slot;
-	}
-
-	public int getPersoNr() {
-		return persoNr;
-	}
-
-	public boolean isMännlich() {
-		return istMännlich;
-	}
-
-	public String getVeranstaltungsname() {
-		return veranstaltungsname;
-	}
-
-	public boolean isCompRaum() {
-		return istCompRaum;
-	}
-
+	
 }
