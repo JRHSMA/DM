@@ -85,6 +85,9 @@ public class Studierendenverwaltung {
 //		stundenplanAendern(stundenplaene, 104, 3, studiengaenge.get(0), tage.get(2), slots.get(3));
 //		stundenplanLoeschen(stundenplaene, 104);
 		
+		raumHinzufuegen(raeume,"T18", true);
+		raumAendern(raeume,"T18", false);
+		raumLoeschen(raeume,"T18");
 		
 		
 	}
@@ -1421,17 +1424,6 @@ public class Studierendenverwaltung {
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
 			}
-			// Test ausgabe
-			for (Stundenplan x : stundenplaene) {
-				if (id == x.getId()) {
-					System.out.println("Test Ausgabe Hinzufuegen J1:");
-					System.out.println(x);
-					System.out.println(x.getStudiengang());
-					System.out.println(x.getTag());
-					System.out.println(x.getSlot());
-					break;
-				}
-			}
 		}
 	}
 
@@ -1458,11 +1450,6 @@ public class Studierendenverwaltung {
 			for (Stundenplan x : stundenplaene) {
 				if (id == x.getId()) {
 					if (x.aendern(semester, studiengang, tag, slot)) {
-						System.out.println("Test Ausgabe Aendern J2:");
-						System.out.println(x);
-						System.out.println(x.getStudiengang());
-						System.out.println(x.getTag());
-						System.out.println(x.getSlot());
 						break;
 					} else {
 						// TODO Fehler Meldung schreiben
@@ -1493,12 +1480,117 @@ public class Studierendenverwaltung {
 		//TODO ändern (true setzen weg machen)
 		if (dbLoeschen=true) {
 			try {
-				for(Stundenplan i: stundenplaene)
-					System.out.println(i);
 				for (Stundenplan x : stundenplaene) {
 					if (id == x.getId()) {
 						stundenplaene.remove(x);
-						for(Stundenplan i: stundenplaene)
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Raum
+	public static void raumHinzufuegen(ArrayList<Raum>raeume, String bezeichnung, boolean computerraum) {
+		// Raum hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Raum hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				raeume.add(new Raum(bezeichnung, computerraum));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+			// Test ausgabe
+			for (Raum x : raeume) {
+				if (bezeichnung.equals(x.getBezeichnung())) {
+					System.out.println("Test Ausgabe Hinzufuegen K1:");
+					System.out.println(x);
+					System.out.println(x.getBezeichnung());
+					break;
+				}
+			}
+		}
+	}
+
+	public static void raumAendern(ArrayList<Raum>raeume, String bezeichnung, boolean computerraum) {
+		// Raum ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Raum ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Raum x : raeume) {
+				if (bezeichnung.equals(x.getBezeichnung())) {
+					if (x.aendern(computerraum)) {
+						System.out.println("Test Ausgabe Aendern K2:");
+						System.out.println(x);
+						System.out.println(x.getBezeichnung());
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void raumLoeschen(ArrayList<Raum>raeume, String bezeichnung) {
+		// Raum löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Raum löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for(Raum i: raeume)
+					System.out.println(i);
+				for (Raum x : raeume) {
+					if (x.getBezeichnung().equals(bezeichnung)) {
+						raeume.remove(x);
+						for(Raum i: raeume)
 						System.out.println(i);
 					}
 				}
