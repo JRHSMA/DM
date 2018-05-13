@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -8,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -45,10 +43,6 @@ public class GUI implements ActionListener {
 	private JTextField m5Parameter[][];
 	private JTextArea m5Text[];
 	private JButton m5Buttons[];
-	private JMenuItem mItemsM4[];
-	private String einfacheAbfragen[];
-	private JMenuItem mItemsM5[];
-	private String komplexeAbfragen[];
 	private JPanel jpCenter;
 	private JPanel eA;
 	private JPanel kA;
@@ -56,7 +50,6 @@ public class GUI implements ActionListener {
 	private int kompAnfparameterAnzahl[] = new int[15];
 	private JLabel allLabels[];
 	private JCheckBox computerRaum;
-	private int abfragenCounter;
 	private JPanel innerCenter;
 	private int kompAbNr;
 	private int einAbNr;
@@ -87,9 +80,9 @@ public class GUI implements ActionListener {
 
 	private int slot;
 	private int persoNr;
-	private boolean istMännlich;
+	private boolean istMännlich=true;
 	private String veranstaltungsname;
-	private boolean istCompRaum;
+	private boolean istCompRaum=false;
 
 	private int tabellenNummer = -1;
 	// -----------------------------
@@ -102,9 +95,11 @@ public class GUI implements ActionListener {
 	JPanel innerCenter2;
 
 	// ------------------------------
-	private String fakultätenListe[]={ "Biotechnologie", "Elektrotechnik",
-			"Gestaltung", "Informatik", "Informationstechnik",
-			"Maschinenbau", "Sozialwesen", "Verfahrens- und Chemietechnik",
+	private String tageListe[] = { "Montag", "Dienstag", "Mittwoch",
+			"Donnerstag", "Freitag" };
+	private String fakultätenListe[] = { "Biotechnologie", "Elektrotechnik",
+			"Gestaltung", "Informatik", "Informationstechnik", "Maschinenbau",
+			"Sozialwesen", "Verfahrens- und Chemietechnik",
 			"Wirtschaftsingenieurwesen" };;
 	private String studiengängeListe[] = {
 			"Biologische Chemie (Bachelor)",
@@ -118,8 +113,8 @@ public class GUI implements ActionListener {
 			"Elektro und Informationstechnik für das höhere Lehramt - Zweitfach Mathematik (Master)",
 			"Energietechnik und erneuerbare Energien (Bachelor)",
 			"Power Engineering and Renewable Energies (Bachelor)",
-			"Translation Studies for IT (Bachelor)",
-			"Informatik (Bachelor)", "Informatik (Master)",
+			"Translation Studies for IT (Bachelor)", "Informatik (Bachelor)",
+			"Informatik (Master)",
 			"Informatik - Vertiefungsrichtung Medizin (Master)",
 			"Medizinische Informatik (Bachelor)",
 			"Unternehmens- und Wirtschaftsinformatik (Bachelor)",
@@ -130,12 +125,12 @@ public class GUI implements ActionListener {
 			"Informationstechnik / Elektronik (Bachelor)",
 			"Medizintechnik (Bachelor)", "Medizintechnik (Master)",
 			"Nachrichtentechnik / Elektronik (Bachelor)",
-			"Technische Informatik (Bachelor)",
-			"Soziale Arbeit (Bachelor)", "Soziale Arbeit (Master)",
+			"Technische Informatik (Bachelor)", "Soziale Arbeit (Bachelor)",
+			"Soziale Arbeit (Master)",
 			"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)",
 			"Chemical Engineering French (Master)",
-			"Chemieingenieurwesen (Master)",
-			"Chemische Technik (Bachelor)", "Verfahrenstechnik (Bachelor)",
+			"Chemieingenieurwesen (Master)", "Chemische Technik (Bachelor)",
+			"Verfahrenstechnik (Bachelor)",
 			"Wirtschaftsingenieurwesen (Bachelor)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
@@ -275,7 +270,6 @@ public class GUI implements ActionListener {
 						break;
 					default:
 					}
-					abfragenCounter = j;
 
 				}
 			}
@@ -359,52 +353,59 @@ public class GUI implements ActionListener {
 						break;
 					default:
 					}
-					abfragenCounter = j;
+
 				}
 			}
 		}
 		String sourceToString = ev.getSource().toString();
-		//GENDERAUSWAHL
+		// GENDERAUSWAHL
 		if (sourceToString.contains("selectedItemReminder=Männlich")) {
-				istMännlich=true;
+			istMännlich = true;
 		}
 		if (sourceToString.contains("selectedItemReminder=Weiblich")) {
-			istMännlich=false;
+			istMännlich = false;
 		}
-		//SLOTAUSWAHL
-		for(int i=0;i<7;i++){
+		// SLOTAUSWAHL
+		for (int i = 1; i < 7; i++) {
 			String testString = "selectedItemReminder=";
-			testString=testString+i+". Slot";
-			if(sourceToString.contains(testString)){
-				slot=i;
+			testString = testString + i + ". Slot";
+			if (sourceToString.contains(testString)) {
+				slot = i;
 			}
 		}
-	
-		//SEMESTERAUSWAHL
-		for(int i=0;i<8;i++){
+		// TAGAUSWAHL //TODO TAGE
+		for (int i = 0; i < tageListe.length; i++) {
 			String testString = "selectedItemReminder=";
-			testString=testString+i+". Semester";
-			if(sourceToString.contains(testString)){
-				semester=i;
+			testString = testString + tageListe[i];
+			if (sourceToString.contains(testString)) {
+				tag = tageListe[i];
 			}
 		}
-		//STUDIENGANGAUSWAHL
-		for(int i=0;i<studiengängeListe.length;i++){
+
+		// SEMESTERAUSWAHL
+		for (int i = 1; i < 8; i++) {
 			String testString = "selectedItemReminder=";
-			testString=testString+studiengängeListe[i];
-			if(sourceToString.contains(testString)){
-				studiengang=studiengängeListe[i];
+			testString = testString + i + ". Semester";
+			if (sourceToString.contains(testString)) {
+				semester = i;
 			}
 		}
-		//FAKULTÄTAUSWAHL
-		for(int i=0;i<fakultätenListe.length;i++){
+		// STUDIENGANGAUSWAHL
+		for (int i = 0; i < studiengängeListe.length; i++) {
 			String testString = "selectedItemReminder=";
-			testString=testString+fakultätenListe[i];
-			if(sourceToString.contains(testString)){
-				fakultät=fakultätenListe[i];
+			testString = testString + studiengängeListe[i];
+			if (sourceToString.contains(testString)) {
+				studiengang = studiengängeListe[i];
 			}
 		}
-		
+		// FAKULTÄTAUSWAHL
+		for (int i = 0; i < fakultätenListe.length; i++) {
+			String testString = "selectedItemReminder=";
+			testString = testString + fakultätenListe[i];
+			if (sourceToString.contains(testString)) {
+				fakultät = fakultätenListe[i];
+			}
+		}
 
 		if (abfrageSchicken == quelle) {
 			DB db = new DB("studierendenverwaltung", "root", "");
@@ -413,11 +414,12 @@ public class GUI implements ActionListener {
 			ArrayList<LinkedHashMap<String, String>> daten;
 
 			if (istEinfach) {
-				boolean zahl;
 				switch (einAnfparameterAnzahl[einAbNr]) {
 				case 1:
-					zahl = istPersOderMatNr(einAbNr, 0, true);
-					if (!zahl) {
+					if (m4Labels[einAbNr][0] == allLabels[0]
+							|| m4Labels[kompAbNr][0] == allLabels[10]) {
+						istPersOderMatNr(einAbNr, 0, true, true);
+					} else {
 						stringEingaben(einAbNr, 0, true);
 					}
 
@@ -451,51 +453,49 @@ public class GUI implements ActionListener {
 				case 2:
 					if (m4Labels[einAbNr][0] == allLabels[0]
 							|| m4Labels[kompAbNr][0] == allLabels[10]) {
-						zahl = istPersOderMatNr(einAbNr, 0, true);
-						if (!zahl) {
-							stringEingaben(einAbNr, 0, true);
-						}
+						istPersOderMatNr(einAbNr, 0, true, true);
 					} else {
-						zahl = istPersOderMatNr(einAbNr, 1, true);
-						if (!zahl) {
-							stringEingaben(einAbNr, 1, true);
-						}
-
-						// ////////////////////
-						// Abfragen
-						// ////////////////////
-						switch (einAbNr) {
-						case 2: // Abfrage 1
-							// Übergabeparameter
-							db.abfrageEinfach03(istMännlich,
-									studiengang);
-							break;
-						case 3:
-							db.abfrageEinfach04(istMännlich,
-									studiengang);
-							break;
-						case 5:
-							db.abfrageEinfach06(semester, vorlesungsKrzl);
-							break;
-						case 6:
-							db.abfrageEinfach07(
-									studiengang,
-									semester);
-
-							break;
-						default:
-						}
-
+						stringEingaben(einAbNr, 0, true);
 					}
+
+					if (m4Labels[einAbNr][1] == allLabels[0]
+							|| m4Labels[kompAbNr][1] == allLabels[10]) {
+						istPersOderMatNr(einAbNr, 1, true, true);
+					} else {
+						stringEingaben(einAbNr, 1, true);
+					}
+
+					// ////////////////////
+					// Abfragen
+					// ////////////////////
+					switch (einAbNr) {
+					case 2: // Abfrage 1
+						// Übergabeparameter
+						db.abfrageEinfach03(istMännlich, studiengang);
+						break;
+					case 3:
+						db.abfrageEinfach04(istMännlich, studiengang);
+						break;
+					case 5:
+						db.abfrageEinfach06(semester, vorlesungsKrzl);
+						break;
+					case 6:
+						db.abfrageEinfach07(studiengang, semester);
+
+						break;
+					default:
+					}
+
 					break;
 				default:
 				}
 			} else {
-				boolean zahl;
 				switch (kompAnfparameterAnzahl[kompAbNr]) {
 				case 1:
-					zahl = istPersOderMatNr(kompAbNr, 0, false);
-					if (!zahl) {
+					if (m5Labels[kompAbNr][0] == allLabels[0]
+							|| m5Labels[kompAbNr][0] == allLabels[10]) {
+						istPersOderMatNr(kompAbNr, 0, false, true);
+					} else {
 						stringEingaben(kompAbNr, 0, false);
 					}
 
@@ -511,46 +511,68 @@ public class GUI implements ActionListener {
 					}
 
 					break;
-				case 2:
+				case 2:// TODO FIX THIS
 					if (m5Labels[kompAbNr][0] == allLabels[0]
 							|| m5Labels[kompAbNr][0] == allLabels[10]) {
-						zahl = istPersOderMatNr(kompAbNr, 0, false);
-						if (!zahl) {
-							stringEingaben(kompAbNr, 0, false);
-						}
+						istPersOderMatNr(kompAbNr, 0, false, true);
 					} else {
-						zahl = istPersOderMatNr(kompAbNr, 1, false);
-						if (!zahl) {
-							stringEingaben(kompAbNr, 1, false);
-						}
+						stringEingaben(kompAbNr, 0, false);
+					}
+					if (m5Labels[kompAbNr][1] == allLabels[0]
+							|| m5Labels[kompAbNr][1] == allLabels[10]) {
+						istPersOderMatNr(kompAbNr, 1, false, true);
+					} else {
+						stringEingaben(kompAbNr, 1, false);
 					}
 
 					// ////////////////////
-					// Abfragen
+					// Abfragen //TODO
 					// ////////////////////
 					switch (kompAbNr) {
 					case 0:
 						db.abfrageKomplex01(veranstaltungsname, raumName);
 						break;
 					case 1:
+						System.out.println(matrikelNr);
 						db.abfrageKomplex02(matrikelNr, raumName);
 						break;
 					case 2:
+						if (studiengang == null) {
+							studiengang = "Biologische Chemie (Bachelor)";
+						}
+						if (tag == null) {
+							tag = "Montag";
+						}
 						db.abfrageKomplex03(studiengang, tag);
 						break;
 					case 5:
 						db.abfrageKomplex06(veranstaltungsname, matrikelNr);
 						break;
 					case 7:
+						if (tag == null) {
+							tag = "Montag";
+						}
 						db.abfrageKomplex08(profName, tag);
 						break;
 					case 8:
+						if (tag == null) {
+							tag = "Montag";
+						}
 						db.abfrageKomplex09(istCompRaum, tag);
 						break;
 					case 13:
+						if (tag == null) {
+							tag = "Montag";
+						}
 						db.abfrageKomplex14(profKrzl, tag);
 						break;
 					case 14:
+						if (tag == null) {
+							tag = "Montag";
+						}
+						if (slot == 0) {
+							slot=1;
+						}
 						db.abfrageKomplex15(tag, slot);
 						break;
 					default:
@@ -560,52 +582,82 @@ public class GUI implements ActionListener {
 				case 3:
 					if (m5Labels[kompAbNr][0] == allLabels[0]
 							|| m5Labels[kompAbNr][0] == allLabels[10]) {
-						zahl = istPersOderMatNr(kompAbNr, 0, false);
-						if (!zahl) {
-							stringEingaben(kompAbNr, 0, false);
-						}
+						istPersOderMatNr(kompAbNr, 0, false, true);
+						
 					} else {
-						if (m5Labels[kompAbNr][1] == allLabels[0]
-								|| m5Labels[kompAbNr][1] == allLabels[10]) {
-							zahl = istPersOderMatNr(kompAbNr, 1, false);
-							if (!zahl) {
-								stringEingaben(kompAbNr, 1, false);
-							}
-						} else {
-							zahl = istPersOderMatNr(kompAbNr, 2, false);
-							if (!zahl) {
-								stringEingaben(kompAbNr, 2, false);
-							}
-						}
-						// ////////////////////
-						// Abfragen
-						// ////////////////////
-						switch (kompAbNr) {
-						case 4:
-							db.abfrageKomplex05(vorlesungsKrzl, tag, slot);
-							break;
-						case 6:
-							db.abfrageKomplex07(profName, slot, tag);
-							break;
-						case 9:
-							db.abfrageKomplex10(istMännlich,
-									veranstaltungsname, raumName);
-							break;
-						case 10:
-							db.abfrageKomplex11(vorlesungsKrzl, studiengang,
-									profName);
-							break;
-						case 11:
-							db.abfrageKomplex12(veranstaltungsname, profName,
-									raumName);
-							break;
-						case 12:
-							db.abfrageKomplex13(tag, istCompRaum, fakultät);
-							break;
-						default:
-						}
-
+						stringEingaben(kompAbNr, 0, false);
+						
 					}
+
+					if (m5Labels[kompAbNr][1] == allLabels[0]
+							|| m5Labels[kompAbNr][1] == allLabels[10]) {
+						istPersOderMatNr(kompAbNr, 1, false, true);
+						
+
+					} else {
+						stringEingaben(kompAbNr, 1, false);
+						
+					}
+					if (m5Labels[kompAbNr][2] == allLabels[0]
+							|| m5Labels[kompAbNr][2] == allLabels[10]) {
+						istPersOderMatNr(kompAbNr, 2, false, true);
+						
+
+					} else {
+						stringEingaben(kompAbNr, 2, false);
+						
+					}
+
+					// ////////////////////
+					// Abfragen
+					// ////////////////////
+					switch (kompAbNr) {
+					case 4:
+						if (tag == null) {
+							tag = "Montag";
+						}
+						if (slot == 0) {
+							slot=1;
+						}
+						db.abfrageKomplex05(vorlesungsKrzl, tag, slot);
+						break;
+					case 6:
+						if (tag == null) {
+							tag = "Montag";
+						}
+						if (slot == 0) {
+							slot=1;
+						}
+						db.abfrageKomplex07(profName, slot, tag);
+						break;
+					case 9:
+						System.out.println(veranstaltungsname);
+						db.abfrageKomplex10(istMännlich, veranstaltungsname,
+								raumName);
+						break;
+					case 10:
+						if (studiengang == null) {
+							studiengang = "Biologische Chemie (Bachelor)";
+						}
+						db.abfrageKomplex11(vorlesungsKrzl, studiengang,
+								profName);
+						break;
+					case 11:
+						db.abfrageKomplex12(veranstaltungsname, profName,
+								raumName);
+						break;
+					case 12:
+						if (tag == null) {
+							tag = "Montag";
+						}
+						if (fakultät == null) {
+							fakultät="Biotechnologie";
+						}
+						db.abfrageKomplex13(tag, istCompRaum, fakultät);
+						break;
+					default:
+					}
+
 					break;
 				default:
 				}
@@ -625,7 +677,7 @@ public class GUI implements ActionListener {
 			db = null;
 
 		}
-		
+
 		if (ev.getSource() == computerRaum) {
 			istCompRaum = computerRaum.getModel().isSelected();
 		}
@@ -815,41 +867,36 @@ public class GUI implements ActionListener {
 
 	}
 
-	private void veranstaltungNameTab() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void veranstaltungTab() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void studiengangTab() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void fakultätTab() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void studentTab() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void dozentTab() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void personTab() {
-
-	}
-
-	
+	/*
+	 * private void veranstaltungNameTab() { // Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * private void veranstaltungTab() { // Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * private void studiengangTab() { // Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * private void fakultätTab() { // Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * private void studentTab() { // Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * private void dozentTab() { // Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * private void personTab() {
+	 * 
+	 * }
+	 */
+	// TODO
 	private void stringEingaben(int AbNr, int i, boolean istEinfach) {
 		if (istEinfach) {
 			if (m4Labels[AbNr][i] == allLabels[3]) {
@@ -867,7 +914,8 @@ public class GUI implements ActionListener {
 			if (m4Labels[AbNr][i] == allLabels[12]) {
 				veranstaltungsname = m4Parameter[AbNr][i].getText();
 			}
-		} else {
+		}
+		if (!istEinfach) {
 			if (m5Labels[AbNr][i] == allLabels[3]) {
 				vorlesungsKrzl = m5Parameter[AbNr][i].getText();
 			}
@@ -887,14 +935,17 @@ public class GUI implements ActionListener {
 
 	}
 
-	private boolean istPersOderMatNr(int AbNr, int i, boolean istEinfach) {
+	private void istPersOderMatNr(int AbNr, int i, boolean istEinfach,
+			boolean istAbfrage) {
 		boolean ist0oder10 = false;
+
 		if (istEinfach) {
 			if (m4Labels[AbNr][i] == allLabels[0]
 					|| m4Labels[AbNr][i] == allLabels[10]) {
 				ist0oder10 = true;
 			}
-		} else {
+		}
+		if (!istEinfach) {
 			if (m5Labels[AbNr][i] == allLabels[0]
 					|| m5Labels[AbNr][i] == allLabels[10]) {
 				ist0oder10 = true;
@@ -918,39 +969,25 @@ public class GUI implements ActionListener {
 			}
 			if (istZahl == false) {
 				JOptionPane.showMessageDialog(jf,
-						"Eingabe muss eine 9-stellige Zahl sein",
-						"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
+						"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+						JOptionPane.ERROR_MESSAGE);
 				if (istEinfach) {
 					m4Parameter[AbNr][0].setText("");
 				} else {
 					m5Parameter[AbNr][0].setText("");
 				}
 
-			} else {
-				if (helpString.length() != 7) {
-					JOptionPane
-							.showMessageDialog(
-									jf,
-									"Ihre eingegebene Zahl war nicht 9-stellig",
-									"Zahl nicht 9-stellig",
-									JOptionPane.WARNING_MESSAGE);
-					if (istEinfach) {
-						m4Parameter[AbNr][0].setText("");
-					} else {
-						m5Parameter[AbNr][0].setText("");
-					}
-				} else {
-					if (AbNr == 0) {
-						matrikelNr = helpInt;
-					} else {
-						persoNr = helpInt;
-					}
-
-				}
-				return true;
 			}
+
+			if (m4Labels[AbNr][i] == allLabels[0]
+					|| m5Labels[AbNr][i] == allLabels[0]) {
+				matrikelNr = helpInt;
+			} else {
+				persoNr = helpInt;
+			}
+
 		}
-		return false;
+
 	}
 
 	private void allDropDrowns(int i, int j, boolean istEinfach) {
@@ -983,7 +1020,8 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownSlot(int i, int j, boolean istEinfach) {
-		String slotListe[] = { "1. Slot", "2. Slot", "3. Slot", "4. Slot", "5. Slot", "6. Slot" };
+		String slotListe[] = { "1. Slot", "2. Slot", "3. Slot", "4. Slot",
+				"5. Slot", "6. Slot" };
 		slotAuswahl = new JComboBox(slotListe);
 		slotAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -1003,8 +1041,7 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownTag(int i, int j, boolean istEinfach) {
-		String tageListe[] = { "Montag", "Dienstag", "Mittwoch", "Donnerstag",
-				"Freitag" };
+
 		tagAuswahl = new JComboBox(tageListe);
 		tagAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -1024,7 +1061,8 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownSemester(int i, int j, boolean istEinfach) {
-		String semesterListe[] = { "1. Semester", "2. Semester", "3. Semester", "4. Semester", "5. Semester", "6. Semester", "7. Semester" };
+		String semesterListe[] = { "1. Semester", "2. Semester", "3. Semester",
+				"4. Semester", "5. Semester", "6. Semester", "7. Semester" };
 		semesterAuswahl = new JComboBox(semesterListe);
 		semesterAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -1324,10 +1362,10 @@ public class GUI implements ActionListener {
 		m4Labels[8][0] = allLabels[5];
 		m4Labels[9][0] = allLabels[1];
 		// Komplexe abfragen labels
-		m5Labels[0][0] = allLabels[3];
+		m5Labels[0][0] = allLabels[12];
 		m5Labels[0][1] = allLabels[7];
 		m5Labels[1][0] = allLabels[0];
-		m5Labels[1][1] = allLabels[8];
+		m5Labels[1][1] = allLabels[7];
 		m5Labels[2][0] = allLabels[2];
 		m5Labels[2][1] = allLabels[8];
 		m5Labels[3][0] = allLabels[10];
