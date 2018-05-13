@@ -88,7 +88,6 @@ public class GUI implements ActionListener {
 	private boolean istCompRaum=false;
 
 	private int tabellenNummer = -1;
-	private Studierendenverwaltung sv;
 	// -----------------------------
 	//  TODO DB bearbeiten variablen -----
 	// variablen db
@@ -142,12 +141,14 @@ public class GUI implements ActionListener {
 	private String semesterListe1[] = { "1. Semester", "2. Semester", "3. Semester",
 		"4. Semester", "5. Semester", "6. Semester", "7. Semester" };
 	//----------------------------
-	//neues Daten hinzufügen
-	private JTextField personEingabe[] = new JTextField[4];
+	
 	
 	public GUI() {
-		new Studierendenverwaltung();
 		LayoutGUI("test");
+	}
+
+	public static void main(String args[]) {
+		new GUI();
 	}
 
 	public void LayoutGUI(String titel) {
@@ -253,32 +254,9 @@ public class GUI implements ActionListener {
 			tabellenNummer = -1;
 			fusszeile[1].setVisible(false);
 			clear();
-		}//TODO
+		}
 		if (fusszeile[1] == quelle) {
-			switch(tabellenNummer){
-			case 0:
-				boolean pIsMännlich=false;
-				if(personEingabe[3].getText().equals("true")){
-					pIsMännlich=true;
-				}
-				sv.personHinzufuegen(personEingabe[0].getText() , personEingabe[0].getText(), personEingabe[0].getText(), pIsMännlich);
-				break;
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			case 6:
-				break;
-			case 7:
-				break;
-			default:
-			}
+			
 
 		}
 		if (m4Buttons != null) {
@@ -749,14 +727,14 @@ public class GUI implements ActionListener {
 			JTextField iD = new JTextField();
 			innerCenter2.add(iD);
 			jpCenter.add(innerCenter2, BorderLayout.CENTER);
-		}//TODO WORK IS HERE
+		}
 		// 1 means hinzufügen
 		if (allgDB == 1) {
 			switch (i) {
 			case 0: // person
 				cleanAndTitel();
 				JLabel personenAttribute[] = new JLabel[4];
-				
+				JTextField personEingabe[] = new JTextField[3];
 				for (int j = 0; j < personenAttribute.length; j++) {
 					personenAttribute[j] = new JLabel();
 					personenAttribute[j].setFont(new Font("Serif", Font.PLAIN,
@@ -765,19 +743,8 @@ public class GUI implements ActionListener {
 				personEingabe[0] = new JTextField();
 				personEingabe[1] = new JTextField();
 				personEingabe[2] = new JTextField();
-				personEingabe[3] = new JTextField();
 				JCheckBox istPMännlich = new JCheckBox();
 				istPMännlich.setText("Männlich");
-				istPMännlich.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if(e.getSource()==istPMännlich){
-							personEingabe[3].setText("true");
-						}
-						
-					}
-				});
 				personenAttribute[0].setText("Bitte Vorname eingeben.");
 				personenAttribute[1].setText("Bitte Nachname eingeben.");
 				personenAttribute[2].setText("Bitte Geburtsdatum auswählen.");
@@ -786,7 +753,7 @@ public class GUI implements ActionListener {
 					innerCenter2.add(personenAttribute[k]);
 					innerCenter2.add(personEingabe[k]);
 				}
-				innerCenter2.remove(personEingabe[3]);
+				innerCenter2.add(personenAttribute[3]);
 				innerCenter2.add(istPMännlich);
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;

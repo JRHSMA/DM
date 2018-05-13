@@ -47,6 +47,9 @@ public class Studierendenverwaltung {
 		
 	}
 
+	public static void main(String[] args) {
+		new Studierendenverwaltung();	
+	}
 
 	public void DatenAusDbEinlesen() {
 
@@ -506,7 +509,7 @@ public class Studierendenverwaltung {
 	}
 
 	//person
-	public void personHinzufuegen(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
+	public void personHinzufuegen(int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
 		// Person hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
