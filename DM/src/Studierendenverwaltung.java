@@ -679,20 +679,20 @@ public class Studierendenverwaltung {
 	//Fakultaet
 	public static void fakultaetHinzufuegen(ArrayList<Fakultaet> fakultaeten,int id, String name) {
 		// Fakultaet hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertFakultaet(name);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Fakultaet hinzufügen (java)
 		if (dbEinfuegen) {
@@ -712,22 +712,22 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public static void fakultaetAendern(ArrayList<Fakultaet> fakultaeten,int id, String name) {
-		// Dozent ändern DB
-//		DB datenzugriff = null;
+	public static void fakultaetAendern(ArrayList<Fakultaet> fakultaeten, int id, String name) {
+		// Fakultaet ändern DB
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateFakultaet(name, id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Fakultaet ändern (java)
 		if (dbAendern) {
@@ -746,23 +746,23 @@ public class Studierendenverwaltung {
 	}
 
 	public static void fakultaetLoeschen(ArrayList<Fakultaet> fakultaeten, int id) {
-		// Dozent löschen DB
-//		DB datenzugriff = null;
+		// Fakultaet löschen DB
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteFakultaet(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
-		// Dozent löschen (java)
+		// Fakultaet löschen (java)
 		if (dbLoeschen) {
 			try {
 				for (Fakultaet x : fakultaeten) {
@@ -781,20 +781,20 @@ public class Studierendenverwaltung {
 	//Studierender
 	public static void studierenderHinzufuegen(ArrayList<Studierender> studierende, int matrikelNr, int semester, Studiengang studiengang, Person person) {
 		// Studierender hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertStudierender(semester, studiengang.getId(), person.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Studierender hinzufügen (java)
 		if (dbEinfuegen) {
@@ -808,20 +808,20 @@ public class Studierendenverwaltung {
 
 	public static void studierenderAendern(ArrayList<Studierender> studierende, int matrikelNr, int semester, Studiengang studiengang, Person person) {
 		// Studierender ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateStudierender(semester, studiengang.getId(), person.getId(), matrikelNr);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Studierender ändern (java)
 		if (dbAendern) {
@@ -839,20 +839,20 @@ public class Studierendenverwaltung {
 
 	public static void studierenderLoeschen(ArrayList<Studierender> studierende, int matrikelNr) {
 		// Studierender löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteStudierender(matrikelNr);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Studierender löschen (java)
 		if (dbLoeschen) {
@@ -871,20 +871,20 @@ public class Studierendenverwaltung {
 	//Veranstaltung
 	public static void veranstaltungHinzufuegen(ArrayList<Veranstaltung>veranstaltungen, int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
 		// Veranstaltung hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertVeranstaltung(semester, dauer, dozent.getPersonalNr(), stundenplan.getId(), veranstaltungsname.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Veranstaltung hinzufügen (java)
 		if (dbEinfuegen) {
@@ -898,20 +898,20 @@ public class Studierendenverwaltung {
 
 	public static void veranstaltungAendern(ArrayList<Veranstaltung>veranstaltungen, int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
 		// Veranstaltung ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateVeranstaltung(semester, dauer, dozent.getPersonalNr(), stundenplan.getId(), veranstaltungsname.getId(), id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Veranstaltung ändern (java)
 		if (dbAendern) {
@@ -929,20 +929,20 @@ public class Studierendenverwaltung {
 
 	public static void veranstaltungLoeschen(ArrayList<Veranstaltung>veranstaltungen, int id) {
 		// Veranstaltung löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteVeranstaltung(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Veranstaltung löschen (java)
 		if (dbLoeschen) {
@@ -961,20 +961,20 @@ public class Studierendenverwaltung {
 	//Veranstaltungsname
 	public static void veranstaltungsnameHinzufuegen(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id, String name, String kuerzel) {
 		// Veranstaltungsname hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertVeranstaltungsname(name, kuerzel);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Veranstaltungsname hinzufügen (java)
 		if (dbEinfuegen) {
@@ -988,20 +988,20 @@ public class Studierendenverwaltung {
 
 	public static void veranstaltungsnameAendern(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id, String name, String kuerzel) {
 		// Veranstaltungsname ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateVeranstaltungsname(name, kuerzel, id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Veranstaltungsname ändern (java)
 		if (dbAendern) {
@@ -1019,20 +1019,20 @@ public class Studierendenverwaltung {
 
 	public static void veranstaltungsnameLoeschen(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id) {
 		// Veranstaltungsname löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteVeranstaltungsname(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Veranstaltungsname löschen (java)
 		if (dbLoeschen) {
@@ -1051,20 +1051,20 @@ public class Studierendenverwaltung {
 	//Slot
 	public static void slotHinzufuegen(ArrayList<Slot>slots, int id, String slot) {
 		// Slot hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertSlot(Integer.parseInt(slot));
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Slot hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1078,20 +1078,20 @@ public class Studierendenverwaltung {
 
 	public static void slotAendern(ArrayList<Slot>slots, int id, String slot) {
 		// Slot ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateSlot(Integer.parseInt(slot), id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Slot ändern (java)
 		if (dbAendern) {
@@ -1109,20 +1109,20 @@ public class Studierendenverwaltung {
 
 	public static void slotLoeschen(ArrayList<Slot>slots, int id) {
 		// Slot löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteSlot(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Slot löschen (java)
 		if (dbLoeschen) {
@@ -1141,20 +1141,20 @@ public class Studierendenverwaltung {
 	//Tag
 	public static void tagHinzufuegen(ArrayList<Tag>tage, int id, String tag) {
 		// Tag hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertTag(tag);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Tag hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1168,20 +1168,20 @@ public class Studierendenverwaltung {
 
 	public static void tagAendern(ArrayList<Tag>tage, int id, String tag) {
 		// Tag ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateTag(tag, id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Tag ändern (java)
 		if (dbAendern) {
@@ -1199,20 +1199,20 @@ public class Studierendenverwaltung {
 
 	public static void tagLoeschen(ArrayList<Tag>tage, int id) {
 		// Tag löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteTag(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Tag löschen (java)
 		if (dbLoeschen) {
@@ -1231,20 +1231,20 @@ public class Studierendenverwaltung {
 	//Studiengang
 	public static void studiengangHinzufuegen(ArrayList<Studiengang>studiengaenge, int id, String name) {
 		// Studiengang hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertStudiengang(name);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Studiengang hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1258,20 +1258,20 @@ public class Studierendenverwaltung {
 
 	public static void studiengangAendern(ArrayList<Studiengang>studiengaenge, int id, String name) {
 		// Studiengang ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateStudiengang(name, id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Studiengang ändern (java)
 		if (dbAendern) {
@@ -1289,20 +1289,20 @@ public class Studierendenverwaltung {
 
 	public static void studiengangLoeschen(ArrayList<Studiengang>studiengaenge, int id) {
 		// Studiengang löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteStudiengang(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Studiengang löschen (java)
 		if (dbLoeschen) {
@@ -1321,20 +1321,20 @@ public class Studierendenverwaltung {
 	//Stundenplan
 	public static void stundenplanHinzufuegen(ArrayList<Stundenplan>stundenplaene, int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
 		// Stundenplan hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertStundenplan(semester, studiengang.getId(), tag.getId(), slot.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Stundenplan hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1348,20 +1348,20 @@ public class Studierendenverwaltung {
 
 	public static void stundenplanAendern(ArrayList<Stundenplan>stundenplaene, int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
 		// Stundenplan ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateStundenplan(semester, studiengang.getId(), tag.getId(), slot.getId(), id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Stundenplan ändern (java)
 		if (dbAendern) {
@@ -1379,20 +1379,20 @@ public class Studierendenverwaltung {
 
 	public static void stundenplanLoeschen(ArrayList<Stundenplan>stundenplaene, int id) {
 		// Stundenplan löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteStundenplan(id);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Stundenplan löschen (java)
 		if (dbLoeschen) {
@@ -1411,20 +1411,20 @@ public class Studierendenverwaltung {
 	//Raum
 	public static void raumHinzufuegen(ArrayList<Raum>raeume, String bezeichnung, boolean computerraum) {
 		// Raum hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertRaum(bezeichnung, computerraum);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Raum hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1444,20 +1444,20 @@ public class Studierendenverwaltung {
 
 	public static void raumAendern(ArrayList<Raum>raeume, String bezeichnung, boolean computerraum) {
 		// Raum ändern DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbAendern = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB ändern erfolgreich
+			dbAendern = datenzugriff.updateRaum(computerraum, bezeichnung);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 		
 		// Raum ändern (java)
 		if (dbAendern) {
@@ -1475,20 +1475,20 @@ public class Studierendenverwaltung {
 
 	public static void raumLoeschen(ArrayList<Raum>raeume, String bezeichnung) {
 		// Raum löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteRaum(bezeichnung);
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Raum löschen (java)
 		if (dbLoeschen) {
@@ -1507,20 +1507,20 @@ public class Studierendenverwaltung {
 	//Besitzt
 	public static void besitztHinzufuegen(ArrayList<Besitzt>besitzen,Stundenplan stundenplan, Studierender studierender) {
 		// Besitzt hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertBesitzt(stundenplan.getId(), studierender.getMatrikelNr());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Besitzt hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1534,20 +1534,20 @@ public class Studierendenverwaltung {
 
 	public static void besitztLoeschen(ArrayList<Besitzt>besitzen,Stundenplan stundenplan, Studierender studierender) {
 		// Besitzt löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteBesitzt(stundenplan.getId(), studierender.getMatrikelNr());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Besitzt löschen (java)
 		if (dbLoeschen) {
@@ -1566,20 +1566,20 @@ public class Studierendenverwaltung {
 	//Erhaelt
 	public static void erhaeltHinzufuegen(ArrayList<Erhaelt>erhalten, Dozent dozent, Stundenplan stundenplan) {
 		// Erhaelt hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertErhaelt(dozent.getPersonalNr(), stundenplan.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Erhaelt hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1593,20 +1593,20 @@ public class Studierendenverwaltung {
 
 	public static void erhaeltLoeschen(ArrayList<Erhaelt>erhalten, Dozent dozent, Stundenplan stundenplan) {
 		// Erhaelt löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteErhaelt(dozent.getPersonalNr(), stundenplan.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Erhaelt löschen (java)
 		if (dbLoeschen) {
@@ -1625,20 +1625,20 @@ public class Studierendenverwaltung {
 	//Hoert
 	public static void hoertHinzufuegen(ArrayList<Hoert>hoeren, Veranstaltung veranstaltung, Studierender studierender) {
 		// Hoert hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertHoert(veranstaltung.getId(), studierender.getMatrikelNr());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Hoert hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1658,20 +1658,20 @@ public class Studierendenverwaltung {
 
 	public static void hoertLoeschen(ArrayList<Hoert>hoeren, Veranstaltung veranstaltung, Studierender studierender) {
 		// Hoert löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteHoert(veranstaltung.getId(), studierender.getMatrikelNr());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Hoert löschen (java)
 		if (dbLoeschen) {
@@ -1690,20 +1690,20 @@ public class Studierendenverwaltung {
 	//Hat
 	public static void hatHinzufuegen(ArrayList<Hat>hatten, Raum raum, Stundenplan stundenplan) {
 		// Hat hinzufügen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB einfügen erfolgreich
-//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB einfügen erfolgreich
+			dbEinfuegen = datenzugriff.insertHat(raum.getBezeichnung(), stundenplan.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Hat hinzufügen (java)
 		if (dbEinfuegen) {
@@ -1717,20 +1717,20 @@ public class Studierendenverwaltung {
 
 	public static void hatLoeschen(ArrayList<Hat>hatten, Raum raum, Stundenplan stundenplan) {
 		// Hat löschen DB
-//		DB datenzugriff = null;
+		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-//		try{
-//			datenzugriff = new DB("studierendenverwaltung", "root", "");
-//			// boolean um zu testen ob DB ändern erfolgreich
-//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-//		}
-//		catch(Exception e){
-//			// TODO
-//		}
-//		finally{
-//			datenzugriff.datenzugriffSchließen();
-//			datenzugriff = null;
-//		}
+		try{
+			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			// boolean um zu testen ob DB löschen erfolgreich
+			dbLoeschen = datenzugriff.deleteHat(raum.getBezeichnung(), stundenplan.getId());
+		}
+		catch(Exception e){
+			// TODO
+		}
+		finally{
+			datenzugriff.datenzugriffSchließen();
+			datenzugriff = null;
+		}
 
 		// Hat löschen (java)
 		if (dbLoeschen) {
