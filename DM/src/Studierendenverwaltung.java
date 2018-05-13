@@ -52,9 +52,31 @@ public class Studierendenverwaltung {
 //		dozentLoeschen(dozenten, 12);
 		
 		//Test Fakultaet
-		fakultaetHinzufuegen(fakultaeten, 13,"TestFak");
-		fakultaetAendern(fakultaeten, 13,"TestFakultaet");
-		fakultaetLoeschen(fakultaeten, 13);
+//		fakultaetHinzufuegen(fakultaeten, 13,"TestFak");
+//		fakultaetAendern(fakultaeten, 13,"TestFakultaet");
+//		fakultaetLoeschen(fakultaeten, 13);
+		
+		//Test Studierender
+//		studierenderHinzufuegen(studierende, 1811430, 1, studiengaenge.get(3), personen.get(30));
+//		studierenderAendern(studierende, 1811430, 2, studiengaenge.get(4), personen.get(30));
+//		studierenderLoeschen(studierende, 1811430);
+		
+//		veranstaltungHinzufuegen(veranstaltungen, 30, 1, 90, dozenten.get(8), stundenplaene.get(1), veranstaltungsnamen.get(13));
+//		veranstaltungAendern(veranstaltungen, 30, 3, 91, dozenten.get(1), stundenplaene.get(0), veranstaltungsnamen.get(12));
+//		veranstaltungLoeschen(veranstaltungen, 30);
+		
+//		veranstaltungsnameHinzufuegen(veranstaltungsnamen, 15, "Testing", "TES");
+//		veranstaltungsnameAendern(veranstaltungsnamen, 15, "Gnitset", "SET");
+//		veranstaltungsnameLoeschen(veranstaltungsnamen, 15);
+		
+//		slotHinzufuegen(slots, 7, "7");
+//		slotAendern(slots, 7, "8");
+//		slotLoeschen(slots, 7);
+		
+//		tagHinzufuegen(tage, 7, "Sonntag");
+//		tagAendern(tage, 7, "Testtag");
+//		tagLoeschen(tage, 7);
+		
 		
 	}
 
@@ -806,6 +828,577 @@ public class Studierendenverwaltung {
 		}
 	}
 	
+	//Studierender
+	public static void studierenderHinzufuegen(ArrayList<Studierender> studierende, int matrikelNr, int semester, Studiengang studiengang, Person person) {
+		// Studierender hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Studierender hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				studierende.add(new Studierender(matrikelNr, semester, studiengang, person));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+
+	public static void studierenderAendern(ArrayList<Studierender> studierende, int matrikelNr, int semester, Studiengang studiengang, Person person) {
+		// Studierender ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Studierender ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Studierender x : studierende) {
+				if (matrikelNr == x.getMatrikelNr()) {
+					if (x.aendern(semester, studiengang, person)) {
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void studierenderLoeschen(ArrayList<Studierender> studierende, int matrikelNr) {
+		// Studierender löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Studierender löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for (Studierender x : studierende) {
+					if (matrikelNr == x.getMatrikelNr()) {
+						studierende.remove(x);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Veranstaltung
+	public static void veranstaltungHinzufuegen(ArrayList<Veranstaltung>veranstaltungen, int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+		// Veranstaltung hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Veranstaltung hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				veranstaltungen.add(new Veranstaltung(id, semester,dauer, dozent, stundenplan, veranstaltungsname));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+
+	public static void veranstaltungAendern(ArrayList<Veranstaltung>veranstaltungen, int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+		// Veranstaltung ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Veranstaltung ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Veranstaltung x : veranstaltungen) {
+				if (id == x.getId()) {
+					if (x.aendern(semester, dauer, dozent, stundenplan, veranstaltungsname)) {
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void veranstaltungLoeschen(ArrayList<Veranstaltung>veranstaltungen, int id) {
+		// Veranstaltung löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Veranstaltung löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for (Veranstaltung x : veranstaltungen) {
+					if (id == x.getId()) {
+						veranstaltungen.remove(x);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Veranstaltungsname
+	public static void veranstaltungsnameHinzufuegen(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id, String name, String kuerzel) {
+		// Veranstaltungsname hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Veranstaltungsname hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				veranstaltungsnamen.add(new Veranstaltungsname(id, name, kuerzel));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+
+	public static void veranstaltungsnameAendern(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id, String name, String kuerzel) {
+		// Veranstaltungsname ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Veranstaltungsname ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Veranstaltungsname x : veranstaltungsnamen) {
+				if (id == x.getId()) {
+					if (x.aendern(name, kuerzel)) {
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void veranstaltungsnameLoeschen(ArrayList<Veranstaltungsname>veranstaltungsnamen, int id) {
+		// Veranstaltungsname löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Veranstaltungsname löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for (Veranstaltungsname x : veranstaltungsnamen) {
+					if (id == x.getId()) {
+						veranstaltungsnamen.remove(x);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Slot
+	public static void slotHinzufuegen(ArrayList<Slot>slots, int id, String slot) {
+		// Slot hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Slot hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				slots.add(new Slot(id, slot));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+
+	public static void slotAendern(ArrayList<Slot>slots, int id, String slot) {
+		// Slot ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Slot ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Slot x : slots) {
+				if (id == x.getId()) {
+					if (x.aendern(slot)) {
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void slotLoeschen(ArrayList<Slot>slots, int id) {
+		// Slot löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Slot löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for (Slot x : slots) {
+					if (id == x.getId()) {
+						slots.remove(x);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Tag
+	public static void tagHinzufuegen(ArrayList<Tag>tage, int id, String tag) {
+		// Tag hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Tag hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				tage.add(new Tag(id, tag));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+
+	public static void tagAendern(ArrayList<Tag>tage, int id, String tag) {
+		// Tag ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Tag ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Tag x : tage) {
+				if (id == x.getId()) {
+					if (x.aendern(tag)) {
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void tagLoeschen(ArrayList<Tag>tage, int id) {
+		// Tag löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Tag löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for (Tag x : tage) {
+					if (id == x.getId()) {
+						tage.remove(x);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
+	
+	//Studiengang
+	public static void studiengangHinzufuegen(ArrayList<Tag>tage, int id, String tag) {
+		// Tag hinzufügen DB
+//		DB datenzugriff = null;
+		boolean dbEinfuegen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB einfügen erfolgreich
+//			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Tag hinzufügen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbEinfuegen=true) {
+			try {
+				tage.add(new Tag(id, tag));
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+			// Test ausgabe
+			for (Tag x : tage) {
+				if (id == x.getId()) {
+					System.out.println("Test Ausgabe Hinzufuegen H1:");
+					System.out.println(x);
+					break;
+				}
+			}
+		}
+	}
+
+	public static void studiengangAendern(ArrayList<Tag>tage, int id, String tag) {
+		// Tag ändern DB
+//		DB datenzugriff = null;
+		boolean dbAendern = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+		
+		// Tag ändern (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbAendern=true) {
+			for (Tag x : tage) {
+				if (id == x.getId()) {
+					if (x.aendern(tag)) {
+						System.out.println("Test Ausgabe Aendern H2:");
+						System.out.println(x);
+						break;
+					} else {
+						// TODO Fehler Meldung schreiben
+					}
+				}
+			}
+		}
+	}
+
+	public static void studiengangLoeschen(ArrayList<Tag>tage, int id) {
+		// Tag löschen DB
+//		DB datenzugriff = null;
+		boolean dbLoeschen = false;
+//		try{
+//			datenzugriff = new DB("studierendenverwaltung", "root", "");
+//			// boolean um zu testen ob DB ändern erfolgreich
+//			dbLoeschen = datenzugriff.deleteDozent(personalNr);
+//		}
+//		catch(Exception e){
+//			// TODO
+//		}
+//		finally{
+//			datenzugriff.datenzugriffSchließen();
+//			datenzugriff = null;
+//		}
+
+		// Tag löschen (java)
+		//TODO ändern (true setzen weg machen)
+		if (dbLoeschen=true) {
+			try {
+				for(Tag i: tage)
+					System.out.println(i);
+				for (Tag x : tage) {
+					if (id == x.getId()) {
+						tage.remove(x);
+						for(Tag i: tage)
+						System.out.println(i);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Fehler Meldung schreiben
+			}
+		}
+	}
 	//TODO weitere klassen
 	
 }

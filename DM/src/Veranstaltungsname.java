@@ -58,6 +58,6 @@ public class Veranstaltungsname {
 	
 	@Override
 	public String toString() {
-		return "Veranstaltungsname: " + name;
+		return "Veranstaltungsname: " + name + " Veranstaltungskuerzel: "+ kuerzel;
 	}
 }

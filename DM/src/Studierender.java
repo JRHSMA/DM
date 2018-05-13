@@ -62,6 +62,6 @@ public class Studierender {
 
 	@Override
 	public String toString() {
-		return ", Status: Student, MatrikelNr: " + matrikelNr + ", Semester: " + semester;
+		return "Status: Student, MatrikelNr: " + matrikelNr + ", Semester: " + semester;
 	}
 }
