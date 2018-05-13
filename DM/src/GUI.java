@@ -63,8 +63,6 @@ public class GUI implements ActionListener {
 	private boolean istEinfach = false;
 
 	@SuppressWarnings("rawtypes")
-	private JComboBox geschAuswahl;
-	@SuppressWarnings("rawtypes")
 	private JComboBox slotAuswahl;
 	@SuppressWarnings("rawtypes")
 	private JComboBox tagAuswahl;
@@ -74,6 +72,8 @@ public class GUI implements ActionListener {
 	private JComboBox fakultätAuswahl;
 	@SuppressWarnings("rawtypes")
 	private JComboBox studiengangAuswahl;
+	@SuppressWarnings("rawtypes")
+	private JComboBox genderAuswahl;
 	// Parameters-------------------
 	private int matrikelNr;
 	private int semester;
@@ -102,7 +102,7 @@ public class GUI implements ActionListener {
 	JPanel innerCenter2;
 
 	// ------------------------------
-
+	private int int2 = 0;
 	public GUI() {
 		LayoutGUI("test");
 	}
@@ -324,15 +324,7 @@ public class GUI implements ActionListener {
 				}
 			}
 		}
-		if (ev.getSource() == geschAuswahl) {
-			if (geschAuswahl.getSelectedItem() == "Männlich") {
-				istMännlich = true;
 
-			} else {
-				istMännlich = false;
-
-			}
-		}
 		if (ev.getSource() == slotAuswahl) {
 			if (slotAuswahl.getSelectedItem() == "1") {
 				slot = 1;
@@ -353,7 +345,17 @@ public class GUI implements ActionListener {
 				slot = 6;
 			}
 		}
+		
+		
+		String genderAuswahl = ev.getSource().toString();
+		if (genderAuswahl.contains("selectedItemReminder=Männlich")) {
+				istMännlich=true;
+		}
+		if(genderAuswahl.contains("selectedItemReminder=Weiblich")){
+				istMännlich=false;
+		}
 		if (ev.getSource() == semesterAuswahl) {
+			System.out.println("hier?");
 			if (semesterAuswahl.getSelectedItem() == "1") {
 				semester = 1;
 			}
@@ -382,6 +384,7 @@ public class GUI implements ActionListener {
 		if (ev.getSource() == studiengangAuswahl) {
 			studiengang = (String) studiengangAuswahl.getSelectedItem();
 		}
+	
 
 		if (abfrageSchicken == quelle) {
 			DB db = new DB("studierendenverwaltung", "root", "");
@@ -444,20 +447,17 @@ public class GUI implements ActionListener {
 						switch (einAbNr) {
 						case 2: // Abfrage 1
 							// Übergabeparameter
-							db.abfrageEinfach03(istMännlich,
-									studiengang);
+
+							db.abfrageEinfach03(istMännlich, studiengang);
 							break;
 						case 3:
-							db.abfrageEinfach04(istMännlich,
-									studiengang);
+							db.abfrageEinfach04(istMännlich, studiengang);
 							break;
 						case 5:
 							db.abfrageEinfach06(semester, vorlesungsKrzl);
 							break;
 						case 6:
-							db.abfrageEinfach07(
-									studiengang,
-									semester);
+							db.abfrageEinfach07(studiengang, semester);
 
 							break;
 						default:
@@ -825,7 +825,6 @@ public class GUI implements ActionListener {
 
 	}
 
-	
 	private void stringEingaben(int AbNr, int i, boolean istEinfach) {
 		if (istEinfach) {
 			if (m4Labels[AbNr][i] == allLabels[3]) {
@@ -930,29 +929,31 @@ public class GUI implements ActionListener {
 	}
 
 	private void allDropDrowns(int i, int j, boolean istEinfach) {
+		dropdownGender(i, j, istEinfach);
 		dropdownSemester(i, j, istEinfach);
 		dropdownStudiengang(i, j, istEinfach);
 		dropdownFakultät(i, j, istEinfach);
 		dropdownTag(i, j, istEinfach);
 		dropdownSlot(i, j, istEinfach);
-		dropdownGeschlecht(i, j, istEinfach);
-	}
 
+	}
+	//TODO
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void dropdownGeschlecht(int i, int j, boolean istEinfach) {
-		String geschListe[] = { "Männlich", "Weiblich" };
-		geschAuswahl = new JComboBox(geschListe);
-		geschAuswahl.addActionListener(this);
+	private void dropdownGender(int i, int j, boolean istEinfach) {
+		String semesterListe[] = { "Männlich","Weiblich" };
+		genderAuswahl = new JComboBox(semesterListe);
+		genderAuswahl.addActionListener(this);
 		if (istEinfach) {
 			if (m4Labels[i][j] == allLabels[11]) {
-				innerCenter.remove(m4Parameter[i][j]);
-				innerCenter.add(geschAuswahl);
-			}
 
+				innerCenter.remove(m4Parameter[i][j]);
+				innerCenter.add(genderAuswahl);
+			}
 		} else {
 			if (m5Labels[i][j] == allLabels[11]) {
+
 				innerCenter.remove(m5Parameter[i][j]);
-				innerCenter.add(geschAuswahl);
+				innerCenter.add(genderAuswahl);
 			}
 		}
 	}
@@ -1000,7 +1001,7 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownSemester(int i, int j, boolean istEinfach) {
-		String semesterListe[] = { "1", "2", "3", "4", "5", "6", "7" };
+		String semesterListe[] = { "1","2", "3", "4", "5", "6", "7" };
 		semesterAuswahl = new JComboBox(semesterListe);
 		semesterAuswahl.addActionListener(this);
 		if (istEinfach) {
