@@ -102,6 +102,45 @@ public class GUI implements ActionListener {
 	JPanel innerCenter2;
 
 	// ------------------------------
+	private String fakultätenListe[]={ "Biotechnologie", "Elektrotechnik",
+			"Gestaltung", "Informatik", "Informationstechnik",
+			"Maschinenbau", "Sozialwesen", "Verfahrens- und Chemietechnik",
+			"Wirtschaftsingenieurwesen" };;
+	private String studiengängeListe[] = {
+			"Biologische Chemie (Bachelor)",
+			"Biotechnology - Biomedical Science and Technology (Master)",
+			"Biotechnology - Bioprocess Development (Master)",
+			"Automation Technology (Bachelor)",
+			"Automatisierungs und Energiesysteme (Master)",
+			"Automatisierungstechnik (Bachelor)",
+			"Elektro und Informationstechnik für das höhere Lehramt (Bachelor)",
+			"Elektro und Informationstechnik für das höhere Lehramt (Master)",
+			"Elektro und Informationstechnik für das höhere Lehramt - Zweitfach Mathematik (Master)",
+			"Energietechnik und erneuerbare Energien (Bachelor)",
+			"Power Engineering and Renewable Energies (Bachelor)",
+			"Translation Studies for IT (Bachelor)",
+			"Informatik (Bachelor)", "Informatik (Master)",
+			"Informatik - Vertiefungsrichtung Medizin (Master)",
+			"Medizinische Informatik (Bachelor)",
+			"Unternehmens- und Wirtschaftsinformatik (Bachelor)",
+			"Maschinenbau (Bacheor)", "Maschinenbau (Master)",
+			"Maschinenbau / Konstruktion (Bachelor)",
+			"Maschinenbau / Produktion (Bachelor)",
+			"Informationstechnik (Master)",
+			"Informationstechnik / Elektronik (Bachelor)",
+			"Medizintechnik (Bachelor)", "Medizintechnik (Master)",
+			"Nachrichtentechnik / Elektronik (Bachelor)",
+			"Technische Informatik (Bachelor)",
+			"Soziale Arbeit (Bachelor)", "Soziale Arbeit (Master)",
+			"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)",
+			"Chemical Engineering French (Master)",
+			"Chemieingenieurwesen (Master)",
+			"Chemische Technik (Bachelor)", "Verfahrenstechnik (Bachelor)",
+			"Wirtschaftsingenieurwesen (Bachelor)",
+			"Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master)",
+			"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
+			"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
+			"Wirtschaftsingenieurwesen International (Bachelor)" };
 
 	public GUI() {
 		LayoutGUI("test");
@@ -325,70 +364,47 @@ public class GUI implements ActionListener {
 			}
 		}
 		String sourceToString = ev.getSource().toString();
+		//GENDERAUSWAHL
 		if (sourceToString.contains("selectedItemReminder=Männlich")) {
 				istMännlich=true;
 		}
 		if (sourceToString.contains("selectedItemReminder=Weiblich")) {
 			istMännlich=false;
 		}
-		
-		if (ev.getSource() == slotAuswahl) {
-			if (slotAuswahl.getSelectedItem() == "1. Slot") {
-				slot = 1;
-			}
-			if (slotAuswahl.getSelectedItem() == "2. Slot") {
-				slot = 2;
-			}
-			if (slotAuswahl.getSelectedItem() == "3. Slot") {
-				slot = 3;
-			}
-			if (slotAuswahl.getSelectedItem() == "4. Slot") {
-				slot = 4;
-			}
-			if (slotAuswahl.getSelectedItem() == "5. Slot") {
-				slot = 5;
-			}
-			if (slotAuswahl.getSelectedItem() == "6. Slot") {
-				slot = 6;
+		//SLOTAUSWAHL
+		for(int i=0;i<7;i++){
+			String testString = "selectedItemReminder=";
+			testString=testString+i+". Slot";
+			if(sourceToString.contains(testString)){
+				slot=i;
 			}
 		}
-		for(int i=0;i<7;i++){
+	
+		//SEMESTERAUSWAHL
+		for(int i=0;i<8;i++){
 			String testString = "selectedItemReminder=";
 			testString=testString+i+". Semester";
 			if(sourceToString.contains(testString)){
 				semester=i;
 			}
 		}
+		//STUDIENGANGAUSWAHL
+		for(int i=0;i<studiengängeListe.length;i++){
+			String testString = "selectedItemReminder=";
+			testString=testString+studiengängeListe[i];
+			if(sourceToString.contains(testString)){
+				studiengang=studiengängeListe[i];
+			}
+		}
+		//FAKULTÄTAUSWAHL
+		for(int i=0;i<fakultätenListe.length;i++){
+			String testString = "selectedItemReminder=";
+			testString=testString+fakultätenListe[i];
+			if(sourceToString.contains(testString)){
+				fakultät=fakultätenListe[i];
+			}
+		}
 		
-		if (ev.getSource() == semesterAuswahl) {
-			if (semesterAuswahl.getSelectedItem() == "1. Semester") {
-				semester = 1;
-			}
-			if (semesterAuswahl.getSelectedItem() == "2. Semester") {
-				semester = 2;
-			}
-			if (semesterAuswahl.getSelectedItem() == "3. Semester") {
-				semester = 3;
-			}
-			if (semesterAuswahl.getSelectedItem() == "4. Semester") {
-				semester = 4;
-			}
-			if (semesterAuswahl.getSelectedItem() == "5. Semester") {
-				semester = 5;
-			}
-			if (semesterAuswahl.getSelectedItem() == "6. Semester") {
-				semester = 6;
-			}
-			if (semesterAuswahl.getSelectedItem() == "7. Semester") {
-				semester = 7;
-			}
-		}
-		if (ev.getSource() == fakultätAuswahl) {
-			fakultät = (String) fakultätAuswahl.getSelectedItem();
-		}
-		if (ev.getSource() == studiengangAuswahl) {
-			studiengang = (String) studiengangAuswahl.getSelectedItem();
-		}
 
 		if (abfrageSchicken == quelle) {
 			DB db = new DB("studierendenverwaltung", "root", "");
@@ -609,6 +625,7 @@ public class GUI implements ActionListener {
 			db = null;
 
 		}
+		
 		if (ev.getSource() == computerRaum) {
 			istCompRaum = computerRaum.getModel().isSelected();
 		}
@@ -1027,10 +1044,6 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownFakultät(int i, int j, boolean istEinfach) {
-		String fakultätenListe[] = { "Biotechnologie", "Elektrotechnik",
-				"Gestaltung", "Informatik", "Informationstechnik",
-				"Maschinenbau", "Sozialwesen", "Verfahrens- und Chemietechnik",
-				"Wirtschaftsingenieurwesen" };
 		fakultätAuswahl = new JComboBox(fakultätenListe);
 		fakultätAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -1051,41 +1064,6 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownStudiengang(int i, int j, boolean istEinfach) {
-		String studiengängeListe[] = {
-				"Biologische Chemie (Bachelor)",
-				"Biotechnology - Biomedical Science and Technology (Master)",
-				"Biotechnology - Bioprocess Development (Master)",
-				"Automation Technology (Bachelor)",
-				"Automatisierungs und Energiesysteme (Master)",
-				"Automatisierungstechnik (Bachelor)",
-				"Elektro und Informationstechnik für das höhere Lehramt (Bachelor)",
-				"Elektro und Informationstechnik für das höhere Lehramt (Master)",
-				"Elektro und Informationstechnik für das höhere Lehramt - Zweitfach Mathematik (Master)",
-				"Energietechnik und erneuerbare Energien (Bachelor)",
-				"Power Engineering and Renewable Energies (Bachelor)",
-				"Translation Studies for IT (Bachelor)",
-				"Informatik (Bachelor)", "Informatik (Master)",
-				"Informatik - Vertiefungsrichtung Medizin (Master)",
-				"Medizinische Informatik (Bachelor)",
-				"Unternehmens- und Wirtschaftsinformatik (Bachelor)",
-				"Maschinenbau (Bacheor)", "Maschinenbau (Master)",
-				"Maschinenbau / Konstruktion (Bachelor)",
-				"Maschinenbau / Produktion (Bachelor)",
-				"Informationstechnik (Master)",
-				"Informationstechnik / Elektronik (Bachelor)",
-				"Medizintechnik (Bachelor)", "Medizintechnik (Master)",
-				"Nachrichtentechnik / Elektronik (Bachelor)",
-				"Technische Informatik (Bachelor)",
-				"Soziale Arbeit (Bachelor)", "Soziale Arbeit (Master)",
-				"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)",
-				"Chemical Engineering French (Master)",
-				"Chemieingenieurwesen (Master)",
-				"Chemische Technik (Bachelor)", "Verfahrenstechnik (Bachelor)",
-				"Wirtschaftsingenieurwesen (Bachelor)",
-				"Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master)",
-				"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
-				"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
-				"Wirtschaftsingenieurwesen International (Bachelor)" };
 		studiengangAuswahl = new JComboBox(studiengängeListe);
 		studiengangAuswahl.addActionListener(this);
 		if (istEinfach) {
