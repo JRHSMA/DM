@@ -301,6 +301,15 @@ public class GUI implements ActionListener {
 			fusszeile[5].setVisible(false);
 			menuT5();
 		}
+		if(mItem0==quelle){
+			fusszeile[1].setVisible(false);
+			fusszeile[2].setVisible(false);
+			fusszeile[3].setVisible(false);
+			fusszeile[4].setVisible(false);
+			fusszeile[5].setVisible(false);
+			menuT0();
+			//TODO
+		}
 		if (mItem1 == quelle) {
 			fusszeile[1].setVisible(false);
 			fusszeile[2].setVisible(false);
@@ -2276,6 +2285,38 @@ public class GUI implements ActionListener {
 			default:
 			}
 		}
+		if(allgDB==0){
+			cleanAndTitel();
+			switch(tabellenNummer){
+			//TODO ALLES ANZEIGEN
+			case 0:
+				//select personen
+				break;
+			case 1:
+				//select dozent
+				break;
+			case 2:
+				//select studenten
+				break;
+			case 3:
+				//select fakultäten
+				break;
+			case 4:
+				//select studiengang
+				break;
+			case 5:
+				//select veranstaltung
+				break;
+			case 6:
+				//select vorlesungsnamen
+				break;
+			case 7:
+				//Select raum
+				break;
+				default:
+			}
+			
+		}
 
 	}
 
@@ -2751,9 +2792,14 @@ public class GUI implements ActionListener {
 	private void menuT1() {
 		menuDB("hinzufügen");
 	}
-
+	private void menuT0(){
+		menuDB("anzeigen");
+	}
 	// db allgemein frame
 	private void menuDB(String db) {
+		if(db=="anzeigen"){
+			allgDB=0;
+		}
 		if (db == "hinzufügen")
 			allgDB = 1;
 		if (db == "ändern")
