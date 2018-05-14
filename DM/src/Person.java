@@ -106,7 +106,7 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "idPerson: " + id + ", Vorname: " + vorname + ", Nachname: " + nachname + ", Geburtsdatum: "
-				+ geburtsdatum + ", Männlich: " + maennlich;
+		return "idPerson: " + id + " Vorname: " + vorname + " Nachname: " + nachname + " Geburtsdatum: "
+				+ geburtsdatum + " Männlich: " + maennlich;
 	}
 }

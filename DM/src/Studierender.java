@@ -14,7 +14,7 @@ public class Studierender {
 		setStudiengang(studiengang);
 		setPerson(person);
 	}
-	
+
 	public boolean aendern(int semester, Studiengang studiengang, Person person) {
 		try {
 			setSemester(semester);
@@ -47,6 +47,7 @@ public class Studierender {
 	public Studiengang getStudiengang() {
 		return studiengang;
 	}
+
 	public String getStudiengangName() {
 		return studiengang.getName();
 	}
@@ -58,6 +59,7 @@ public class Studierender {
 	public Person getPerson() {
 		return person;
 	}
+
 	public int getPersonID() {
 		return person.getId();
 	}
@@ -68,6 +70,7 @@ public class Studierender {
 
 	@Override
 	public String toString() {
-		return "Status: Student, MatrikelNr: " + matrikelNr + ", Semester: " + semester;
+		return "MatrikelNr: " + matrikelNr + " Semester: " + semester + " Studiengang: " + studiengang.getId()
+				+ " Person: " + person.getId();
 	}
 }

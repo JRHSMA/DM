@@ -4,19 +4,16 @@ public class Slot {
 
 	private int id;
 	private String slot;
-	
-	public Slot(int id, String slot){
+
+	public Slot(int id, String slot) {
 		setId(id);
 		setSlot(slot);
 	}
-	
-	public Slot(LinkedHashMap<String, String> datensatz){
-		this(
-		Integer.parseInt(datensatz.get("id")),
-		datensatz.get("slot")
-		);
+
+	public Slot(LinkedHashMap<String, String> datensatz) {
+		this(Integer.parseInt(datensatz.get("id")), datensatz.get("slot"));
 	}
-	
+
 	public boolean aendern(String slot) {
 		try {
 			setSlot(slot);
@@ -41,9 +38,9 @@ public class Slot {
 	public void setSlot(String slot) {
 		this.slot = slot;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Slot: " + slot;
+		return "ID: " + id + " Slot: " + slot;
 	}
 }

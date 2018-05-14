@@ -14,7 +14,7 @@ public class Dozent {
 		setFakultaet(fakultaet);
 		setPerson(person);
 	}
-	
+
 	public boolean aendern(String kuerzel, Fakultaet fakultaet, Person person) {
 		try {
 			setKuerzel(kuerzel);
@@ -41,11 +41,11 @@ public class Dozent {
 	public String getKuerzel() {
 		return kuerzel;
 	}
-	
 
 	public Person getPerson() {
 		return person;
 	}
+
 	public int getPersonID() {
 		return person.getId();
 	}
@@ -57,14 +57,18 @@ public class Dozent {
 	public Fakultaet getFakultaet() {
 		return fakultaet;
 	}
-	public String getFakultaetName(){
+
+	public String getFakultaetName() {
 		return fakultaet.getName();
 	}
+
 	public void setFakultaet(Fakultaet fakultaet) {
 		this.fakultaet = fakultaet;
 	}
+
 	@Override
 	public String toString() {
-		return "Status: Dozent, PersonalNr: " + personalNr + " Kürzel: " + kuerzel +" Fakultät: "+ fakultaet +" Person: "+person;
+		return "PersonalNr: " + personalNr + " Kürzel: " + kuerzel + " Fakultät: " + fakultaet.getId() + " Person: "
+				+ person.getId();
 	}
 }

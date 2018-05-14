@@ -27,7 +27,7 @@ public class Hoert {
 	
 	@Override
 	public String toString() {
-		return "Studierender: " + studierender +" Veranstaltung: "+ veranstaltung;
+		return "MatrikelNr: " + studierender.getMatrikelNr() +" VeranstaltungID: "+ veranstaltung.getId();
 	}
 	
 }

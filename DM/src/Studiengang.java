@@ -1,15 +1,5 @@
 import java.util.LinkedHashMap;
 
-//public enum Studiengang {
-//	UNTERNEHMENS_UND_WIRTSCHAFSTINFORMATIK, 
-//	MASCHINENBAU, 
-//	INFORMATIK, 
-//	MEDIZINISCHE_INFORMATIK, 
-//	TRANSLATION_STUDIES_FOR_IT, 
-//	BIOLOGISCHE_CHEMIE, 
-//	DOZENTEN_NOTFALL_LÖSUNG;
-//}
-
 public class Studiengang {
 	private int id;
 	private String name;
@@ -22,7 +12,7 @@ public class Studiengang {
 	public Studiengang(LinkedHashMap<String, String> datensatz) {
 		this(Integer.parseInt(datensatz.get("id")), datensatz.get("name"));
 	}
-	
+
 	public boolean aendern(String name) {
 		try {
 			setName(name);
@@ -50,6 +40,6 @@ public class Studiengang {
 
 	@Override
 	public String toString() {
-		return "Studiengang: " + name;
+		return "StudiengangID: " + id + " Name: " + name;
 	}
 }

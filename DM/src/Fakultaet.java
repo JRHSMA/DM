@@ -1,17 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-//public enum Fakultaet {
-//	BIOECHNOLOGIE, 
-//	ELEKTROTECHNIK, 
-//	GESTALTUNG, 
-//	INFORMATIK, 
-//	INFORMATIONSTECHNIK, 
-//	MASCHINENBAU, 
-//	SOZIALWESEN, 
-//	VERFAHRENS_UND_CHEMIETECHNIK, 
-//	WIRTSCHAFTSINGENIEURSWESEN;
-//}
 
 public class Fakultaet{
 	private int id;
@@ -56,7 +45,7 @@ public class Fakultaet{
 	
 	@Override
 	public String toString(){
-		return "Fakultät: "+ name;
+		return "FakultätID: "+ id + " Name: "+ name;
 	}
 	
 }

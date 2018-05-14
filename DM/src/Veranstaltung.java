@@ -94,6 +94,6 @@ public class Veranstaltung {
 
 	@Override
 	public String toString() {
-		return "VeranstaltungsID: " + id + ", Semester: " + semester + ", Dauer: " + dauer;
+		return "VeranstaltungsID: " + id + " Semester: " + semester + " Dauer: " + dauer + " Dozent: " + dozent.getPersonalNr() +  " Stundenplan: "+ stundenplan.getId() +" Veranstaltungsname: " + veranstaltungsname.getId();
 	}
 }

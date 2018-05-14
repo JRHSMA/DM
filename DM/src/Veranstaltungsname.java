@@ -5,21 +5,17 @@ public class Veranstaltungsname {
 	private int id;
 	private String name;
 	private String kuerzel;
-	
-	public Veranstaltungsname(int id, String name, String kuerzel){
+
+	public Veranstaltungsname(int id, String name, String kuerzel) {
 		setId(id);
 		setName(name);
 		setKuerzel(kuerzel);
 	}
-	
-	public Veranstaltungsname(LinkedHashMap<String, String> datensatz){
-		this(
-		Integer.parseInt(datensatz.get("id")),
-		datensatz.get("name"),
-		datensatz.get("kuerzel")
-		);
+
+	public Veranstaltungsname(LinkedHashMap<String, String> datensatz) {
+		this(Integer.parseInt(datensatz.get("id")), datensatz.get("name"), datensatz.get("kuerzel"));
 	}
-	
+
 	public boolean aendern(String name, String kuerzel) {
 		try {
 			setName(name);
@@ -55,9 +51,9 @@ public class Veranstaltungsname {
 			throw new RuntimeException("Kürzel ungültig.");
 		this.kuerzel = kuerzel;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Veranstaltungsname: " + name + " Veranstaltungskuerzel: "+ kuerzel;
+		return "ID: " + id + "Veranstaltungsname: " + name + " Veranstaltungskuerzel: " + kuerzel;
 	}
 }
