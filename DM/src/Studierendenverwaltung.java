@@ -7,10 +7,6 @@ import javax.swing.JLabel;
 import db.DB;
 
 public class Studierendenverwaltung {
-
-		
-	
-	// TODO static wegmachen!
 	
 	private  ArrayList<Person> personen;
 	public ArrayList<Person> getPersonen() {
