@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.plaf.basic.BasicScrollPaneUI.VSBChangeListener;
 
 import db.DB;
 
@@ -34,6 +33,7 @@ public class GUI implements ActionListener {
 	private JMenu menuT2;
 	private JMenuItem m2Item1;
 	private JMenuItem m2Item2;
+	private JMenuItem mItem0;
 	private JMenuItem mItem1;
 	private JMenuItem mItem2;
 	private JMenuItem mItem3;
@@ -231,6 +231,9 @@ public class GUI implements ActionListener {
 	}
 
 	private void subMenuDB() {
+		mItem0 = new JMenuItem("Anzeigen");
+		mItem0.setFont(new Font("Serif", Font.PLAIN, 18));
+		mItem0.addActionListener(this);
 		mItem1 = new JMenuItem("Hinzufügen");
 		mItem1.setFont(new Font("Serif", Font.PLAIN, 18));
 		mItem1.addActionListener(this);
@@ -240,6 +243,7 @@ public class GUI implements ActionListener {
 		mItem3 = new JMenuItem("Löschen");
 		mItem3.setFont(new Font("Serif", Font.PLAIN, 18));
 		mItem3.addActionListener(this);
+		menuT1.add(mItem0);
 		menuT1.add(mItem1);
 		menuT1.add(mItem2);
 		menuT1.add(mItem3);
@@ -273,38 +277,139 @@ public class GUI implements ActionListener {
 			tabellenNummer = -1;
 			fusszeile[1].setVisible(false);
 			clear();
-		}// TODO WORK part 1
+		}// TODO geburtsdatum format testen??
 		if (fusszeile[1] == quelle) {
 			switch (tabellenNummer) {
 			case 0: // person funkt
 				boolean pIsMännlich = false;
+				boolean hatVorname;
+				boolean hatNachname=false;
+				boolean hatBday=false;
 				if (personEingabe[3].getText().equals("true")) {
 					pIsMännlich = true;
 				}
-				String pVorname = personEingabe[0].getText();
-				String pNachname = personEingabe[1].getText();
-				String pBday = personEingabe[2].getText();
-				sv.personHinzufuegen(pVorname, pNachname, pBday, pIsMännlich);
-			case 1:// dozent funkt
+				if(personEingabe[0].getText().equals("")||personEingabe==null){
+					hatVorname=false;
+				}else{
+					hatVorname=true;
+				}
+				if(personEingabe[1].getText().equals("")||personEingabe==null){
+					hatNachname=false;
+				}else{
+					hatNachname=true;
+				}
+				if(personEingabe[2].getText().equals("")||personEingabe==null){
+					hatBday=false;
+				}else{
+					hatBday=true;
+				}
+				if(hatVorname==false&&hatNachname==false){
+					if(hatBday==true){
+						JOptionPane.showMessageDialog(jf,
+								"Bitte einen Vornamen und Nachnamen eingeben","Keinen Vornamen und Nachnamen",
+								JOptionPane.ERROR_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(jf,
+								"Bitte Information eingeben","Keine Eingabe",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
+				if(hatVorname==true&&hatNachname==false){
+					if(hatBday==true){
+						JOptionPane.showMessageDialog(jf,
+								"Bitte einen Nachnamen eingeben","Keinen Nachnamen",
+								JOptionPane.ERROR_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(jf,
+								"Bitte Nachnamen und Geburtsdatum eingeben","Kein Nachname und Geburtsdatum",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
+				if(hatVorname==false&&hatNachname==true){
+					if(hatBday==true){
+						JOptionPane.showMessageDialog(jf,
+								"Bitte einen Vornamen eingeben","Keinen Vornamen",
+								JOptionPane.ERROR_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(jf,
+								"Bitte Vornamen und Geburtsdatum eingeben","Kein Vorname und Geburtsdatum",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
+				if(hatVorname==true&&hatNachname==true){
+					if(hatBday==false){
+						JOptionPane.showMessageDialog(jf,
+								"Bitte ein Geburtsdatum eingeben","Kein Geburtsdatum",
+								JOptionPane.ERROR_MESSAGE);
+					}	
+				}
+				if(hatVorname==true&&hatNachname==true&&hatBday==true){
+					String pVorname = personEingabe[0].getText();
+					String pNachname = personEingabe[1].getText();
+					String pBday = personEingabe[2].getText();
+					System.out.println(pVorname+" "+pNachname+" "+pBday+" "+pIsMännlich);
+					//TODO wenn alles ready dann syso weg und kommentar stattdessen
+					//sv.personHinzufuegen(pVorname, pNachname, pBday, pIsMännlich);
+					
+				}
+				
+				
+			
+				break;
+			case 1:// dozent funk
 				int helpInt=-1;
 				boolean istZahl=false;
+				boolean hatName=false;
 				try {
-					helpInt = Integer.parseInt(profEingabe[2].getText());
+					helpInt = Integer.parseInt(profEingabe[1].getText());
 					istZahl = true;
-				} catch (NumberFormatException e) {
+				} catch (Exception e) {
 					istZahl = false;
 				}
-				if (istZahl == false) {
+				if(profEingabe[0].getText().equals("")||profEingabe==null){
+					hatName=false;
+				}else{
+					hatName=true;
+				}
+				
+				if (istZahl == false&&hatName==false) {
 					JOptionPane.showMessageDialog(jf,
-							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							"Fehlende/Falsche Eingaben.\nBitte geben Sie eine Personen-ID und einen Professor/Dozent-Kürzel ein.", "Falsche Eingabe",
 							JOptionPane.ERROR_MESSAGE);
 							profEingabe[1].setText("");
-				}else{
-				String profKürzel = profEingabe[0].getText();
+				}
+				if (istZahl == true&&hatName==false) {
+					JOptionPane.showMessageDialog(jf,
+							"Bitte einen Professor/Dozent-Kürzel eingeben","Kein Professor/Dozent-Kürzel",
+							JOptionPane.ERROR_MESSAGE);
+	
+				}
+				if (istZahl == false&&hatName==true) {
+					JOptionPane.showMessageDialog(jf,
+							"Falsche Eingaben.\nBitte geben Sie eine Personen-ID ein.", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+							profEingabe[1].setText("");
+				}
 				
-				String profFakultät = fakultätenListe[Integer.parseInt(profEingabe[1].getText())];
-				int profPersonalID = helpInt;
-				// sv.dozentHinzufuegen(profKürzel, Fakultät, personalID);
+				if(istZahl==true&&hatName==true){
+					String profKürzel = profEingabe[0].getText();
+					int profPersonalID = helpInt;
+					String profFakultät;
+					if(profEingabe[1].getText()==null||profEingabe[2].getText().equals("")){
+						profFakultät="Biotechnologie";
+					}else{
+						int listenZahl = Integer.parseInt(profEingabe[2].getText());
+						profFakultät=fakultätenListe[listenZahl];
+					}
+					System.out.println(profKürzel+" "+profFakultät+" "+profPersonalID);
+					//TODO wenn alles ready dann syso weg und kommentar stattdessen
+					// sv.dozentHinzufuegen(profKürzel, profFakultät, profPersonalID);
+				
+				
+
 				}
 				break;
 				
@@ -319,21 +424,27 @@ public class GUI implements ActionListener {
 				} catch (NumberFormatException e) {
 					sIstZahl1 = false;
 				}
-				if (sIstZahl1 == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
-							JOptionPane.ERROR_MESSAGE);
-					studEingabe[0].setText("");
-				}
 				try {
 					sHelpInt2 = Integer.parseInt(studEingabe[1].getText());
 					sIstZahl2 = true;
 				} catch (NumberFormatException e) {
 					sIstZahl2 = false;
 				}
-				if (sIstZahl2 == false) {
+				if (sIstZahl1 == false&&sIstZahl2==false) {
 					JOptionPane.showMessageDialog(jf,
-							"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+							"Eingaben müssen Zahlen sein.\nBitte geben Sie eine Matrikelnummer und eine Personen-ID ein.", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+					studEingabe[0].setText("");
+				}
+				if (sIstZahl1 == false&sIstZahl2==true) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein.\nBitte geben Sie eine Matrikelnummer ein.", "Falsche Eingabe",
+							JOptionPane.ERROR_MESSAGE);
+					studEingabe[0].setText("");
+				}
+				if (sIstZahl2 == false&&sIstZahl1 == true) {
+					JOptionPane.showMessageDialog(jf,
+							"Eingabe muss eine Zahl sein.\nBitte geben Sie eine Personen-ID ein.", "Falsche Eingabe",
 							JOptionPane.ERROR_MESSAGE);
 					studEingabe[1].setText("");
 				}
@@ -353,17 +464,37 @@ public class GUI implements ActionListener {
 						sStudiengang=studiengängeListe[Integer.parseInt(studEingabe[2].getText())];
 					}
 					
-					//System.out.println(sMatrikelNr+" "+sSemester+" "+sStudiengang+" "+sPersonID);
+					System.out.println(sMatrikelNr+" "+sSemester+" "+sStudiengang+" "+sPersonID);
+					//TODO wenn alles ready dann syso weg und kommentar stattdessen
 					// sv.studierenderHinzufuegen(sMatrikelNr,sSemester, sStudiengang, sPersonID)	
 				}
 				break;
 			case 3:
-				String fakName = fakEingabe.getText();
-				//sv.fakultaetHinzufuegen(fakName)
+
+				if(fakEingabe.getText().equals("")||fakEingabe==null){
+					JOptionPane.showMessageDialog(jf,
+							"Bitte einen Studiengangname eingeben","Kein Studiengangname",
+							JOptionPane.ERROR_MESSAGE);
+				}else{
+					String fakName =fakEingabe.getText();
+					System.out.println(fakName);
+					//TODO wenn alles ready dann syso weg und kommentar stattdessen
+					//sv.fakultaetHinzufuegen(fakName)
+				}
 				break;
 			case 4:
-				String studiengangName =studiengangEingabe.getText();
-				//sv.studiengangHinzufuegen(studiengangName);
+				
+
+				if(studiengangEingabe.getText().equals("")||studiengangEingabe==null){
+					JOptionPane.showMessageDialog(jf,
+							"Bitte einen Studiengangname eingeben","Kein Studiengangname",
+							JOptionPane.ERROR_MESSAGE);
+				}else{
+					String studiengangName =studiengangEingabe.getText();
+					System.out.println(studiengangName);
+					//TODO wenn alles ready dann syso weg und kommentar stattdessen
+					//sv.studiengangHinzufuegen(studiengangName);
+				}
 				break;
 			case 5:
 				int vSemester;
@@ -415,25 +546,65 @@ public class GUI implements ActionListener {
 					}else{
 						vSemester=Integer.parseInt(veranstaltungEingabe[4].getText())+1;
 					}
-					int vDauer=Integer.parseInt(veranstaltungEingabe[1].getText());
-					int vPersonalNr=Integer.parseInt(veranstaltungEingabe[2].getText());
-					int vStundenplanNr=Integer.parseInt(veranstaltungEingabe[3].getText());
-					String vVorlesungsname=veranstaltungEingabe[0].getText();
-					System.out.println(vSemester+" "+vDauer+" "+vPersonalNr+" "+vStundenplanNr+" "+vVorlesungsname);
+					int vDauer=vHelpInt1;
+					int vPersonalNr=vHelpInt2;
+					int vStundenplanNr=vHelpInt3;
+					if(veranstaltungEingabe[0].getText().equals("")||veranstaltungEingabe[0]==null){
+						JOptionPane.showMessageDialog(jf,
+								"Bitte einen Veranstaltungsname eingeben","Kein Veranstaltungsname",
+								JOptionPane.ERROR_MESSAGE);
+					}else{
+						String vVorlesungsname=veranstaltungEingabe[0].getText();
+						System.out.println(vSemester+" "+vDauer+" "+vPersonalNr+" "+vStundenplanNr+" "+vVorlesungsname);
+						//TODO wenn alles ready dann syso weg und kommentar stattdessen
+						//veranstaltungHinzufuegen(vSemester,vDauer, vPersonalNr, vStundenplanNr,  vVorlesungsname)
+					}
+					
 				}
 				
-				//veranstaltungHinzufuegen(vSemester,vDauer, vPersonalNr, vStundenplanNr,  vVorlesungsname)
+
 				break;
 			case 6:
-				//TODO
-				String vnName = vNameEingabe[0].getText();
-				String vnKürzel = vNameEingabe[1].getText();
-				//veranstaltungsnameHinzufuegen(String name, String kuerzel)
+				boolean vnNameIN=false;
+				boolean vnKürzelIN=false;
+				if(vNameEingabe[0].getText().equals("")||vNameEingabe[0]==null){
+					JOptionPane.showMessageDialog(jf,
+							"Bitte einen Vorlesungsnamen eingeben","Kein Vorlesungsname",
+							JOptionPane.ERROR_MESSAGE);
+				}else{
+					vnNameIN=true;
+				}
+				if(vNameEingabe[1].getText().equals("")||vNameEingabe[1]==null){
+					JOptionPane.showMessageDialog(jf,
+							"Bitte einen Vorlesungsnamenkürzel eingeben","Kein Vorlesungsnamekürzel",
+							JOptionPane.ERROR_MESSAGE);
+				}else{
+					vnKürzelIN=true;
+				}
+				if(vnKürzelIN==true&&vnNameIN==true){
+					String vnName = vNameEingabe[0].getText();
+					String vnKürzel = vNameEingabe[1].getText();
+					System.out.println(vnName+" "+vnKürzel);
+					//TODO wenn alles ready dann syso weg und kommentar stattdessen
+					//veranstaltungsnameHinzufuegen(String name, String kuerzel)
+				}
+				
 				break;
 			case 7:
-				boolean isPcRaum=rIstPcRaum;
-				String rName = raumEingabe.getText();
-				//raumHinzufuegen(rName, isPcRaum)
+				
+				
+				if(raumEingabe.getText().equals("")||raumEingabe==null){
+					JOptionPane.showMessageDialog(jf,
+							"Bitte einen Raumnamen eingeben","Kein Raumnamen",
+							JOptionPane.ERROR_MESSAGE);
+				}else{
+					String rName = raumEingabe.getText();
+					boolean isPcRaum=rIstPcRaum;
+					System.out.println(rName+" "+isPcRaum);
+					//TODO wenn alles ready dann syso weg und kommentar stattdessen
+					//raumHinzufuegen(rName,isPcRaum)
+				}
+
 				break;
 			default:
 			}
@@ -941,7 +1112,7 @@ public class GUI implements ActionListener {
 				innerCenter2.add(istPMännlich);
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
-			case 1: // dozent// TODO more WORK
+			case 1: // dozent
 				cleanAndTitel();
 				JLabel profAttribute[] = new JLabel[3];
 				fakultätAuswahl2 = new JComboBox(fakultätenListe);
@@ -1094,7 +1265,7 @@ public class GUI implements ActionListener {
 				jpCenter.add(innerCenter2, BorderLayout.CENTER);
 				break;
 
-			case 6: // veranstaltungsname // TODO more WORK
+			case 6: // veranstaltungsname 
 				cleanAndTitel();
 				JLabel vNameAttribute[] = new JLabel[2];
 				for (int r = 0; r < vNameAttribute.length; r++) {
@@ -1565,7 +1736,6 @@ public class GUI implements ActionListener {
 
 	}
 
-	// TODO dbs
 	// db löschen
 	private void menuT3() {
 		menuDB("löschen");
