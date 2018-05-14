@@ -58,8 +58,6 @@ public class Studierendenverwaltung {
 			System.out.println(p);
 		}
 		// dozent hinzuf¸gen
-		Fakultaet fakultaet = new Fakultaet(1, "Biotechnologie");
-		Person person = new Person(1,"testtest", "test", "2018-01-01", true);
 		// TODO keine fehlermeldung etc. wenn kuerzel zu lang
 		s.dozentHinzufuegen("XXX", 1, 36);
 		for(Dozent d : dozenten){
@@ -541,7 +539,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -572,7 +570,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -603,7 +601,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -654,7 +652,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -700,7 +698,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -731,7 +729,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -765,7 +763,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -803,7 +801,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -836,7 +834,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -880,13 +878,13 @@ public class Studierendenverwaltung {
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einf¸gen erfolgreich
-			dbEinfuegen = datenzugriff.insertStudierender(semester, studiengang.getId(), person.getId());
+			dbEinfuegen = datenzugriff.insertStudierender(semester, idStudiengang, idPerson);
 		}
 		catch(Exception e){
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -923,13 +921,13 @@ public class Studierendenverwaltung {
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ‰ndern erfolgreich
-			dbAendern = datenzugriff.updateStudierender(semester, studiengang.getId(), person.getId(), matrikelNr);
+			dbAendern = datenzugriff.updateStudierender(semester, idStudiengang, idPerson, matrikelNr);
 		}
 		catch(Exception e){
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -960,7 +958,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -980,13 +978,28 @@ public class Studierendenverwaltung {
 	
 	//Veranstaltung
 	// TODO keine Objekte ¸bergeben!
-	public void veranstaltungHinzufuegen(int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+	public void veranstaltungHinzufuegen(int semester, int dauer, int personalNr, int idStundenplan, int idvName) {
 		// Dozenten-, Stundenplan- und Veranstaltungsnamenobjekt holen f¸r Konstruktor
-//		Dozent dozent = null;
-//		for(Dozent d : dozenten){
-//			if(d.getPersonalNr() == )
-//		}
+		Dozent dozent = null;
+		for(Dozent d : dozenten){
+			if(d.getPersonalNr() == personalNr){
+				dozent = d;
+			}
+		}
 		
+		Stundenplan stundenplan = null;
+		for(Stundenplan s : stundenplaene){
+			if(s.getId() == idStundenplan){
+				stundenplan = s;
+			}
+		}
+		
+		Veranstaltungsname veranstaltungsname = null;
+		for(Veranstaltungsname v : veranstaltungsnamen){
+			if(v.getId() == idvName){
+				veranstaltungsname = v;
+			}
+		}
 		
 		// Veranstaltung hinzuf¸gen DB
 		DB datenzugriff = null;
@@ -995,14 +1008,15 @@ public class Studierendenverwaltung {
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einf¸gen erfolgreich
-			dbEinfuegen = datenzugriff.insertVeranstaltung(semester, dauer, dozent.getPersonalNr(), stundenplan.getId(), veranstaltungsname.getId());
-			id = datenzugriff.getVeranstaltungId(semester, dauer, dozent.getPersonalNr(), stundenplan.getId(), veranstaltungsname.getId());
+			dbEinfuegen = datenzugriff.insertVeranstaltung(semester, dauer, personalNr, idStundenplan, idvName);
+			// TODO paramter mit getIDs austauschen
+			id = datenzugriff.getVeranstaltungId(semester, dauer, personalNr, idStundenplan, idvName);
 		}
 		catch(Exception e){
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1019,20 +1033,42 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void veranstaltungAendern(int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+	public void veranstaltungAendern(int id, int semester, int dauer, int personalNr, int idStundenplan, int idvName) {
+		// Dozenten-, Stundenplan- und Veranstaltungsnamenobjekt holen f¸r Konstruktor
+		Dozent dozent = null;
+		for(Dozent d : dozenten){
+			if(d.getPersonalNr() == personalNr){
+				dozent = d;
+			}
+		}
+		
+		Stundenplan stundenplan = null;
+		for(Stundenplan s : stundenplaene){
+			if(s.getId() == idStundenplan){
+				stundenplan = s;
+			}
+		}
+		
+		Veranstaltungsname veranstaltungsname = null;
+		for(Veranstaltungsname v : veranstaltungsnamen){
+			if(v.getId() == idvName){
+				veranstaltungsname = v;
+			}
+		}
+
 		// Veranstaltung ‰ndern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ‰ndern erfolgreich
-			dbAendern = datenzugriff.updateVeranstaltung(semester, dauer, dozent.getPersonalNr(), stundenplan.getId(), veranstaltungsname.getId(), id);
+			dbAendern = datenzugriff.updateVeranstaltung(semester, dauer, personalNr, idStundenplan, idvName, id);
 		}
 		catch(Exception e){
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -1063,7 +1099,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1097,7 +1133,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1127,7 +1163,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -1158,7 +1194,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1192,7 +1228,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1222,7 +1258,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -1253,7 +1289,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1287,7 +1323,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1317,7 +1353,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -1348,7 +1384,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1382,7 +1418,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1412,7 +1448,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -1443,7 +1479,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1477,7 +1513,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1507,7 +1543,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -1538,7 +1574,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1570,7 +1606,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1603,7 +1639,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 		
@@ -1634,7 +1670,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1666,7 +1702,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1693,7 +1729,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1725,7 +1761,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1752,7 +1788,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1784,7 +1820,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1817,7 +1853,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1849,7 +1885,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 
@@ -1876,7 +1912,7 @@ public class Studierendenverwaltung {
 			// TODO
 		}
 		finally{
-			datenzugriff.datenzugriffSchlieﬂen();
+			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
 

@@ -44,7 +44,7 @@ public class DB {
 		con = null;
 	}
 
-	public void datenzugriffSchlieﬂen() {
+	public void datenzugriffSchliessen() {
 		try {
 			this.close();
 		} catch (Exception e) {
