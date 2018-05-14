@@ -60,7 +60,8 @@ public class Studierendenverwaltung {
 		// dozent hinzufügen
 		Fakultaet fakultaet = new Fakultaet(1, "Biotechnologie");
 		Person person = new Person(1,"testtest", "test", "2018-01-01", true);
-		s.dozentHinzufuegen("BLA", fakultaet, person);
+		// TODO keine fehlermeldung etc. wenn kuerzel zu lang
+		s.dozentHinzufuegen("XXX", 1, 36);
 		for(Dozent d : dozenten){
 			System.out.println(d);
 		}
@@ -622,7 +623,23 @@ public class Studierendenverwaltung {
 	
 	//Dozent
 	// TODO keine Objekte übergeben!
-	public void dozentHinzufuegen(String kuerzel, Fakultaet fakultaet, Person person) {
+	public void dozentHinzufuegen(String kuerzel, int idFakultaet, int idPerson) {
+		// Fakultaets- und Personenobjekt holen für Konstruktor
+		Fakultaet fakultaet = null;
+		for (Fakultaet f : fakultaeten) {
+			if (f.getId() == idFakultaet) {
+				fakultaet = f;
+				break;
+			}
+		}
+		Person person = null;
+		for (Person p : personen) {
+			if (p.getId() == idPerson) {
+				person = p;
+				break;
+			}
+		}
+		
 		// Dozent hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -630,7 +647,7 @@ public class Studierendenverwaltung {
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
-			dbEinfuegen = datenzugriff.insertDozent(kuerzel, fakultaet.getId(), person.getId());
+			dbEinfuegen = datenzugriff.insertDozent(kuerzel, idFakultaet, idPerson);
 			personalNr = datenzugriff.getDozentPersonalNr(kuerzel);
 		}
 		catch(Exception e){
@@ -654,14 +671,30 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void dozentAendern(int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
+	public void dozentAendern(int personalNr, String kuerzel, int idFakultaet, int idPerson) {
+		// Fakultaets- und Personenobjekt holen für Konstruktor
+		Fakultaet fakultaet = null;
+		for (Fakultaet f : fakultaeten) {
+			if (f.getId() == idFakultaet) {
+				fakultaet = f;
+				break;
+			}
+		}
+		Person person = null;
+		for (Person p : personen) {
+			if (p.getId() == idPerson) {
+				person = p;
+				break;
+			}
+		}
+		
 		// Dozent ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
-			dbAendern = datenzugriff.updateDozent(kuerzel, fakultaet.getId(), person.getId(), personalNr);
+			dbAendern = datenzugriff.updateDozent(kuerzel, idFakultaet, idPerson, personalNr);
 		}
 		catch(Exception e){
 			// TODO
@@ -757,7 +790,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void fakultaetAendern( int id, String name) {
+	public void fakultaetAendern(int id, String name) {
 		// Fakultaet ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -824,7 +857,23 @@ public class Studierendenverwaltung {
 	}
 	
 	//Studierender
-	public void studierenderHinzufuegen(int matrikelNr, int semester, Studiengang studiengang, Person person) {
+	public void studierenderHinzufuegen(int matrikelNr, int semester, int idStudiengang, int idPerson) {
+		// Studiengangs- und Personenobjekt holen für Konstruktor
+		Studiengang studiengang = null;
+		for (Studiengang s : studiengaenge) {
+			if (s.getId() == idStudiengang) {
+				studiengang = s;
+				break;
+			}
+		}
+		Person person = null;
+		for (Person p : personen) {
+			if (p.getId() == idPerson) {
+				person = p;
+				break;
+			}
+		}
+		
 		// Studierender hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -851,7 +900,23 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void studierenderAendern(int matrikelNr, int semester, Studiengang studiengang, Person person) {
+	public void studierenderAendern(int matrikelNr, int semester, int idStudiengang, int idPerson) {
+		// Studiengangs- und Personenobjekt holen für Konstruktor
+		Studiengang studiengang = null;
+		for (Studiengang s : studiengaenge) {
+			if (s.getId() == idStudiengang) {
+				studiengang = s;
+				break;
+			}
+		}
+		Person person = null;
+		for (Person p : personen) {
+			if (p.getId() == idPerson) {
+				person = p;
+				break;
+			}
+		}
+		
 		// Studierender ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
@@ -882,7 +947,7 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void studierenderLoeschen( int matrikelNr) {
+	public void studierenderLoeschen(int matrikelNr) {
 		// Studierender löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
@@ -916,6 +981,13 @@ public class Studierendenverwaltung {
 	//Veranstaltung
 	// TODO keine Objekte übergeben!
 	public void veranstaltungHinzufuegen(int semester, int dauer, Dozent dozent, Stundenplan stundenplan, Veranstaltungsname veranstaltungsname) {
+		// Dozenten-, Stundenplan- und Veranstaltungsnamenobjekt holen für Konstruktor
+//		Dozent dozent = null;
+//		for(Dozent d : dozenten){
+//			if(d.getPersonalNr() == )
+//		}
+		
+		
 		// Veranstaltung hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
