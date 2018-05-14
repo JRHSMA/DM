@@ -10,7 +10,6 @@ public class Studierendenverwaltung {
 
 		
 	
-<<<<<<< HEAD
 	// TODO static wegmachen!
 	
 	private static ArrayList<Person> personen;
@@ -45,13 +44,8 @@ public class Studierendenverwaltung {
 	public ArrayList<Raum> getRaeume() {
 		return raeume;
 	}
-=======
-	private ArrayList<Fakultaet> fakultaeten;
-	private ArrayList<Person> personen;
-	private ArrayList<Dozent> dozenten;
-	private ArrayList<Studiengang> studiengaenge;
-	private ArrayList<Studierender> studierende;
->>>>>>> 02e8aa9e63e27dbd851b1141227f7dad11c52942
+
+
 	private ArrayList<Slot> slots;
 	private ArrayList<Tag> tage;
 	private ArrayList<Stundenplan> stundenplaene;
@@ -63,9 +57,6 @@ public class Studierendenverwaltung {
 	private ArrayList<Erhaelt> erhalten;
 	private DB datenzugriff = null;
 	
-	public ArrayList<Person> getPersonen() {
-		return personen;
-	}
 	
 	public Studierendenverwaltung(){
 		fakultaeten = new ArrayList<>();

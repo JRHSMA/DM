@@ -479,7 +479,9 @@ public class GUI implements ActionListener {
 					null, // do not use a custom Icon
 					options, // the titles of buttons
 					options[0]); // default button title
-			System.out.println(n);
+			if(n==1){
+//				sv.personLoeschen(id);
+			}
 		}
 
 		if (fusszeile[0] == quelle) {
