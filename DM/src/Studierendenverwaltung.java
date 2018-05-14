@@ -11,22 +11,45 @@ public class Studierendenverwaltung {
 	// }
 	
 	// TODO static wegmachen!
-	private ArrayList<Fakultaet> fakultaeten;
+	
+	private static ArrayList<Person> personen;
 	public ArrayList<Person> getPersonen() {
 		return personen;
 	}
-
-	private static ArrayList<Person> personen;
 	private static ArrayList<Dozent> dozenten;
-	private ArrayList<Studiengang> studiengaenge;
+	public ArrayList<Dozent> getDozenten() {
+		return dozenten;
+	}
 	private static ArrayList<Studierender> studierende;
+	public  ArrayList<Studierender> getStudierende() {
+		return studierende;
+	}
+	private ArrayList<Fakultaet> fakultaeten;
+	public ArrayList<Fakultaet> getFakultaeten() {
+		return fakultaeten;
+	}
+	private ArrayList<Studiengang> studiengaenge;
+	public ArrayList<Studiengang> getStudiengaenge() {
+		return studiengaenge;
+	}
+	private ArrayList<Veranstaltung> veranstaltungen;
+	public ArrayList<Veranstaltung> getVeranstaltungen() {
+		return veranstaltungen;
+	}
+	private ArrayList<Veranstaltungsname> veranstaltungsnamen;
+	public ArrayList<Veranstaltungsname> getVeranstaltungsnamen() {
+		return veranstaltungsnamen;
+	}
+	private ArrayList<Raum> raeume;
+	public ArrayList<Raum> getRaeume() {
+		return raeume;
+	}
 	private ArrayList<Slot> slots;
 	private ArrayList<Tag> tage;
 	private ArrayList<Stundenplan> stundenplaene;
-	private ArrayList<Veranstaltungsname> veranstaltungsnamen;
-	private ArrayList<Veranstaltung> veranstaltungen;
+	
 	private ArrayList<Hoert> hoeren;
-	private ArrayList<Raum> raeume;
+	
 	private ArrayList<Hat> hatten;
 	private ArrayList<Besitzt> besitzen;
 	private ArrayList<Erhaelt> erhalten;

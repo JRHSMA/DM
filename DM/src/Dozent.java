@@ -46,6 +46,9 @@ public class Dozent {
 	public Person getPerson() {
 		return person;
 	}
+	public int getPersonID() {
+		return person.getId();
+	}
 
 	public void setPerson(Person person) {
 		this.person = person;
@@ -53,6 +56,9 @@ public class Dozent {
 
 	public Fakultaet getFakultaet() {
 		return fakultaet;
+	}
+	public String getFakultaetName(){
+		return fakultaet.getName();
 	}
 	public void setFakultaet(Fakultaet fakultaet) {
 		this.fakultaet = fakultaet;

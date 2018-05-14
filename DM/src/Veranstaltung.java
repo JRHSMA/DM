@@ -62,6 +62,9 @@ public class Veranstaltung {
 	public Veranstaltungsname getVeranstaltungsname() {
 		return veranstaltungsname;
 	}
+	public String getVeranstaltungsnameID() {
+		return ""+veranstaltungsname.getId();
+	}
 
 	public void setVeranstaltungsname(Veranstaltungsname veranstaltungsname) {
 		this.veranstaltungsname = veranstaltungsname;
@@ -71,6 +74,9 @@ public class Veranstaltung {
 	public Dozent getDozent() {
 		return dozent;
 	}
+	public String getDozentPersoNr() {
+		return ""+dozent.getPersonalNr();
+	}
 
 	public void setDozent(Dozent dozent) {
 		this.dozent = dozent;
@@ -79,7 +85,9 @@ public class Veranstaltung {
 	public Stundenplan getStundenplan() {
 		return stundenplan;
 	}
-
+	public String getStundenplanID() {
+		return ""+stundenplan.getId();
+	}
 	public void setStundenplan(Stundenplan stundenplan) {
 		this.stundenplan = stundenplan;
 	}

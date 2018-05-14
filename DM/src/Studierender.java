@@ -47,6 +47,9 @@ public class Studierender {
 	public Studiengang getStudiengang() {
 		return studiengang;
 	}
+	public String getStudiengangName() {
+		return studiengang.getName();
+	}
 
 	public void setStudiengang(Studiengang studiengang) {
 		this.studiengang = studiengang;
@@ -54,6 +57,9 @@ public class Studierender {
 
 	public Person getPerson() {
 		return person;
+	}
+	public int getPersonID() {
+		return person.getId();
 	}
 
 	public void setPerson(Person person) {
