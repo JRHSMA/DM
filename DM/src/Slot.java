@@ -41,6 +41,6 @@ public class Slot {
 
 	@Override
 	public String toString() {
-		return "ID: " + id + " Slot: " + slot;
+		return "ID: " + id + ", Slot: " + slot;
 	}
 }

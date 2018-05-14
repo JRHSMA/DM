@@ -27,6 +27,6 @@ public class Erhaelt {
 	
 	@Override
 	public String toString() {
-		return "PersonalNr: "+ dozent.getPersonalNr() + " StundenplanID: "+ stundenplan.getId();
+		return "PersonalNr: "+ dozent.getPersonalNr() + ", StundenplanID: "+ stundenplan.getId();
 	}
 }

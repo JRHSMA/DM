@@ -2052,33 +2052,70 @@ public class GUI implements ActionListener {
 		}
 		if (allgDB == 0) {
 			cleanAndTitel();
+			
+			JTextArea t = new JTextArea();
+			jpCenter.add(t, BorderLayout.CENTER);
+			
 			switch (tabellenNummer) {
 			// TODO ALLES ANZEIGEN
 			case 0:
 				// select personen
+				ArrayList<Person> personen = sv.getPersonen();
+				for(Person p : personen){
+					t.setText(t.getText() + "\n" + p.toString());
+				}
+				
 				break;
 			case 1:
 				// select dozent
+				ArrayList<Dozent> dozenten = sv.getDozenten();
+				for(Dozent d: dozenten){
+					t.setText(t.getText() + "\n" + d.toString());
+				}
 				break;
 			case 2:
 				// select studenten
+				ArrayList<Studierender> studierende = sv.getStudierende();
+				for(Studierender stud : studierende){
+					t.setText(t.getText() + "\n" + stud.toString());
+				}
 				break;
 			case 3:
 				// select fakultäten
+				ArrayList<Fakultaet> fakultaeten = sv.getFakultaeten();
+				for(Fakultaet f : fakultaeten){
+					t.setText(t.getText() + "\n" + f.toString());
+				}
 				break;
 			case 4:
 				// select studiengang
+				ArrayList<Studiengang> studiengaenge = sv.getStudiengaenge();
+				for(Studiengang sg : studiengaenge){
+					t.setText(t.getText() + "\n" + sg.toString());
+				}
 				break;
 			case 5:
 				// select veranstaltung
+				ArrayList<Veranstaltung> veranstaltungen = sv.getVeranstaltungen();
+				for(Veranstaltung v : veranstaltungen){
+					t.setText(t.getText() + "\n" + v.toString());
+				}
 				break;
 			case 6:
 				// select vorlesungsnamen
+				ArrayList<Veranstaltungsname> veranstaltungsnamen = sv.getVeranstaltungsnamen();
+				for(Veranstaltungsname vn : veranstaltungsnamen){
+					t.setText(t.getText() + "\n" + vn.toString());
+				}
 				break;
 			case 7:
 				// Select raum
+				ArrayList<Raum> raeume = sv.getRaeume();
+				for(Raum r : raeume){
+					t.setText(t.getText() + "\n" + r.toString());
+				}
 				break;
-			default:
+			default: // TODO ?
 			}
 
 		}

@@ -70,7 +70,7 @@ public class Studierender {
 
 	@Override
 	public String toString() {
-		return "MatrikelNr: " + matrikelNr + " Semester: " + semester + " Studiengang: " + studiengang.getId()
-				+ " Person: " + person.getId();
+		return "MatrikelNr: " + matrikelNr + ", Semester: " + semester + ", StudiengangID: " + studiengang.getId()
+				+ ", PersonID: " + person.getId();
 	}
 }

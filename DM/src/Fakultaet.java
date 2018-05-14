@@ -45,7 +45,7 @@ public class Fakultaet{
 	
 	@Override
 	public String toString(){
-		return "FakultätID: "+ id + " Name: "+ name;
+		return "FakultätID: "+ id + ", Name: "+ name;
 	}
 	
 }

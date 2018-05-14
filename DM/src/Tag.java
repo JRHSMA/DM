@@ -40,6 +40,6 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "ID: " + id + " Tag: " + tag;
+		return "ID: " + id + ", Tag: " + tag;
 	}
 }

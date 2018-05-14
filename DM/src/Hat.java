@@ -27,6 +27,6 @@ public class Hat {
 	
 	@Override
 	public String toString() {
-		return "Raum: " + raum.getBezeichnung() +" StundenplanID: "+ stundenplan.getId();
+		return "Raum: " + raum.getBezeichnung() +", StundenplanID: "+ stundenplan.getId();
 	}
 }

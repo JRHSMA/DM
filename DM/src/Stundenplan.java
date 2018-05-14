@@ -69,7 +69,7 @@ public class Stundenplan {
 
 	@Override
 	public String toString() {
-		return "StundenplanID: " + id + studiengang + " Semester " + " Studiengang: " + studiengang.getId() + " Tag: "
-				+ tag.getId() + " Slot: " + slot.getId();
+		return "StundenplanID: " + id + ", Semester: " + semester + ", StudiengangID: " + studiengang.getId()
+				+ ", TagID: " + tag.getId() + ", Slot: " + slot.getId();
 	}
 }

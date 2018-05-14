@@ -40,6 +40,6 @@ public class Studiengang {
 
 	@Override
 	public String toString() {
-		return "StudiengangID: " + id + " Name: " + name;
+		return "StudiengangID: " + id + ", Name: " + name;
 	}
 }

@@ -68,7 +68,7 @@ public class Dozent {
 
 	@Override
 	public String toString() {
-		return "PersonalNr: " + personalNr + " Kürzel: " + kuerzel + " Fakultät: " + fakultaet.getId() + " Person: "
+		return "PersonalNr: " + personalNr + ", Kürzel: " + kuerzel + ", FakultätID: " + fakultaet.getId() + ", PersonID: "
 				+ person.getId();
 	}
 }

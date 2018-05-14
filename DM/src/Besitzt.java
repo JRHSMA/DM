@@ -27,6 +27,6 @@ public class Besitzt {
 	
 	@Override
 	public String toString() {
-		return "StundenplanID: "+ stundenplan.getId() + " MatrikelNr: "+ studierender.getMatrikelNr();
+		return "StundenplanID: "+ stundenplan.getId() + ", MatrikelNr: "+ studierender.getMatrikelNr();
 	}
 }
