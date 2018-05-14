@@ -15,7 +15,7 @@ public class Studierendenverwaltung {
 	private static ArrayList<Person> personen;
 	private static ArrayList<Dozent> dozenten;
 	private ArrayList<Studiengang> studiengaenge;
-	private ArrayList<Studierender> studierende;
+	private static ArrayList<Studierender> studierende;
 	private ArrayList<Slot> slots;
 	private ArrayList<Tag> tage;
 	private ArrayList<Stundenplan> stundenplaene;
@@ -62,6 +62,11 @@ public class Studierendenverwaltung {
 		s.dozentHinzufuegen("XXX", 1, 36);
 		for(Dozent d : dozenten){
 			System.out.println(d);
+		}
+		// studierender hinzufügen
+		s.studierenderHinzufuegen(3, 1, 33);
+		for(Studierender stud : studierende){
+			System.out.println(stud);
 		}
 	}
 
@@ -855,7 +860,7 @@ public class Studierendenverwaltung {
 	}
 	
 	//Studierender
-	public void studierenderHinzufuegen(int matrikelNr, int semester, int idStudiengang, int idPerson) {
+	public void studierenderHinzufuegen(int semester, int idStudiengang, int idPerson) {
 		// Studiengangs- und Personenobjekt holen für Konstruktor
 		Studiengang studiengang = null;
 		for (Studiengang s : studiengaenge) {
@@ -875,10 +880,12 @@ public class Studierendenverwaltung {
 		// Studierender hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
+		int matrikelNr = -1;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertStudierender(semester, idStudiengang, idPerson);
+			matrikelNr = datenzugriff.getStudierenderMatrikelNr(semester, idStudiengang, idPerson);
 		}
 		catch(Exception e){
 			// TODO
@@ -891,6 +898,9 @@ public class Studierendenverwaltung {
 		// Studierender hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
+				if(matrikelNr<1){
+					throw new RuntimeException("Ungültige matrikelNr");
+				}
 				studierende.add(new Studierender(matrikelNr, semester, studiengang, person));
 			} catch (Exception e) {
 				// TODO Fehler Meldung schreiben
@@ -1822,14 +1832,29 @@ public class Studierendenverwaltung {
 	}
 	
 	//Erhaelt
-	public void erhaeltHinzufuegen(Dozent dozent, Stundenplan stundenplan) {
+	public void erhaeltHinzufuegen(int personalNr, int idStundenplan) {
+		// Dozenten- und Stundenplanobjekt holen für Konstruktor
+		Dozent dozent = null;
+		for(Dozent d : dozenten){
+			if(d.getPersonalNr() == personalNr){
+				dozent = d;
+			}
+		}
+		
+		Stundenplan stundenplan = null;
+		for(Stundenplan s : stundenplaene){
+			if(s.getId() == idStundenplan){
+				stundenplan = s;
+			}
+		}
+		
 		// Erhaelt hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
-			dbEinfuegen = datenzugriff.insertErhaelt(dozent.getPersonalNr(), stundenplan.getId());
+			dbEinfuegen = datenzugriff.insertErhaelt(personalNr, idStundenplan);
 		}
 		catch(Exception e){
 			// TODO
@@ -1849,14 +1874,29 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void erhaeltLoeschen(Dozent dozent, Stundenplan stundenplan) {
+	public void erhaeltLoeschen(int personalNr, int idStundenplan) {
+		// Dozenten- und Stundenplanobjekt holen für Konstruktor
+		Dozent dozent = null;
+		for(Dozent d : dozenten){
+			if(d.getPersonalNr() == personalNr){
+				dozent = d;
+			}
+		}
+		
+		Stundenplan stundenplan = null;
+		for(Stundenplan s : stundenplaene){
+			if(s.getId() == idStundenplan){
+				stundenplan = s;
+			}
+		}
+		
 		// Erhaelt löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
-			dbLoeschen = datenzugriff.deleteErhaelt(dozent.getPersonalNr(), stundenplan.getId());
+			dbLoeschen = datenzugriff.deleteErhaelt(personalNr, idStundenplan);
 		}
 		catch(Exception e){
 			// TODO
@@ -1881,14 +1921,29 @@ public class Studierendenverwaltung {
 	}
 	
 	//Hoert
-	public void hoertHinzufuegen(Veranstaltung veranstaltung, Studierender studierender) {
+	public void hoertHinzufuegen(int idVeranstaltung, int matrikelNr) {
+		// Veranstaltungs- und Studierenderobjekt holen für Konstruktor
+		Veranstaltung veranstaltung = null;
+		for(Veranstaltung v : veranstaltungen){
+			if(v.getId() == idVeranstaltung){
+				veranstaltung = v;
+			}
+		}
+		
+		Studierender studierender = null;
+		for(Studierender s : studierende){
+			if(s.getMatrikelNr() == matrikelNr){
+				studierender = s;
+			}
+		}
+		
 		// Hoert hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
-			dbEinfuegen = datenzugriff.insertHoert(veranstaltung.getId(), studierender.getMatrikelNr());
+			dbEinfuegen = datenzugriff.insertHoert(idVeranstaltung, matrikelNr);
 		}
 		catch(Exception e){
 			// TODO
@@ -1914,14 +1969,29 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void hoertLoeschen( Veranstaltung veranstaltung, Studierender studierender) {
+	public void hoertLoeschen(int idVeranstaltung, int matrikelNr) {
+		// Veranstaltungs- und Studierenderobjekt holen für Konstruktor
+		Veranstaltung veranstaltung = null;
+		for(Veranstaltung v : veranstaltungen){
+			if(v.getId() == idVeranstaltung){
+				veranstaltung = v;
+			}
+		}
+		
+		Studierender studierender = null;
+		for(Studierender s : studierende){
+			if(s.getMatrikelNr() == matrikelNr){
+				studierender = s;
+			}
+		}
+		
 		// Hoert löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
-			dbLoeschen = datenzugriff.deleteHoert(veranstaltung.getId(), studierender.getMatrikelNr());
+			dbLoeschen = datenzugriff.deleteHoert(idVeranstaltung, matrikelNr);
 		}
 		catch(Exception e){
 			// TODO
@@ -1946,14 +2016,29 @@ public class Studierendenverwaltung {
 	}
 	
 	//Hat
-	public void hatHinzufuegen(Raum raum, Stundenplan stundenplan) {
+	public void hatHinzufuegen(String bezeichnung, int idStundenplan) {
+		// Raum- und Stundenplanobjekt holen für Konstruktor
+		Raum raum = null;
+		for(Raum r : raeume){
+			if(r.getBezeichnung().equals(bezeichnung)){
+				raum = r;
+			}
+		}
+		
+		Stundenplan stundenplan = null;
+		for(Stundenplan s : stundenplaene){
+			if(s.getId() == idStundenplan){
+				stundenplan = s;
+			}
+		}
+		
 		// Hat hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
-			dbEinfuegen = datenzugriff.insertHat(raum.getBezeichnung(), stundenplan.getId());
+			dbEinfuegen = datenzugriff.insertHat(bezeichnung, idStundenplan);
 		}
 		catch(Exception e){
 			// TODO
@@ -1973,14 +2058,29 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void hatLoeschen(Raum raum, Stundenplan stundenplan) {
+	public void hatLoeschen(String bezeichnung, int idStundenplan) {
+		// Raum- und Stundenplanobjekt holen für Konstruktor
+		Raum raum = null;
+		for(Raum r : raeume){
+			if(r.getBezeichnung().equals(bezeichnung)){
+				raum = r;
+			}
+		}
+		
+		Stundenplan stundenplan = null;
+		for(Stundenplan s : stundenplaene){
+			if(s.getId() == idStundenplan){
+				stundenplan = s;
+			}
+		}
+		
 		// Hat löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
-			dbLoeschen = datenzugriff.deleteHat(raum.getBezeichnung(), stundenplan.getId());
+			dbLoeschen = datenzugriff.deleteHat(bezeichnung, idStundenplan);
 		}
 		catch(Exception e){
 			// TODO
