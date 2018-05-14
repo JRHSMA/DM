@@ -12,15 +12,15 @@ public class Studierendenverwaltung {
 	
 	// TODO static wegmachen!
 	
-	private static ArrayList<Person> personen;
+	private  ArrayList<Person> personen;
 	public ArrayList<Person> getPersonen() {
 		return personen;
 	}
-	private static ArrayList<Dozent> dozenten;
+	private  ArrayList<Dozent> dozenten;
 	public ArrayList<Dozent> getDozenten() {
 		return dozenten;
 	}
-	private static ArrayList<Studierender> studierende;
+	private  ArrayList<Studierender> studierende;
 	public  ArrayList<Studierender> getStudierende() {
 		return studierende;
 	}
