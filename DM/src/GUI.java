@@ -153,14 +153,24 @@ public class GUI implements ActionListener {
 	private JTextField personEingabe[] = new JTextField[4];
 	private JTextField profEingabe[] = new JTextField[3];
 	private JTextField studEingabe[] = new JTextField[4];
-	JTextField veranstaltungEingabe[] = new JTextField[5];
-	JTextField vNameEingabe[] = new JTextField[2];
+	private JTextField veranstaltungEingabe[] = new JTextField[5];
+	private JTextField vNameEingabe[] = new JTextField[2];
 	private JTextField fakEingabe = new JTextField();
 	private JTextField studiengangEingabe = new JTextField();
 	private boolean rIstPcRaum=false;
 	private JCheckBox istPcRaum = new JCheckBox();
 	private JTextField raumEingabe = new JTextField();
-
+	//---------------
+	//ändern/löschen attributlabels
+	private JLabel personenLabels[];
+	private JLabel profLabels[];
+	private JLabel studentLabels[];
+	private JLabel fakultätLabel;
+	private JLabel studiengangLabel;
+	private JLabel veranstaltungLabels[];
+	private JLabel vorlesungsnameLabels[];
+	private JLabel raumLabels;
+	//------------------------
 	public GUI() {
 		sv = new Studierendenverwaltung();
 		LayoutGUI("test");
@@ -207,6 +217,7 @@ public class GUI implements ActionListener {
 		for (int i = 0; i < fusszeile.length; i++) {
 			jp2.add(fusszeile[i]);
 		}
+		alleAttribute();
 		allLabels();
 		primeKeyTab();
 		subMenuDB();
@@ -1060,18 +1071,96 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void allgTab(int i) {
-
+		alleAttribute();
+		JTextField personenParameter[];
+		JTextField profParameter[];
+		JTextField studentParameter[];
+		JTextField fakultätParameter;
+		JTextField studiengangParameter;
+		JTextField veranstaltungParameter[];
+		JTextField vorlesungsnameParameter;
+		JTextField raumParameter;
 		innerCenter2 = new JPanel();
-		innerCenter2.setLayout(new GridLayout(15, 1));
-		// 2 means ändern , 3 means löschen
-		if (allgDB == 2 || allgDB == 3) {
+		innerCenter2.setLayout(new GridLayout(15, 4));
+		// 3 means löschen //TODO WÖRK
+		if (allgDB == 3) {
 			cleanAndTitel();
-			inDieserTabelle.setText(tabellen[tabellenNummer].getText());
-			jpCenter.add(inDieserTabelle, BorderLayout.NORTH);
 			JLabel pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
 			pK.setFont(new Font("Serif", Font.PLAIN, 18));
-			jpCenter.add(pK, BorderLayout.NORTH);
 			JTextField iD = new JTextField();
+			switch(i){
+			case 0:
+				innerCenter2.setLayout(new GridLayout(15,4,5,5));
+				personenParameter=new JTextField[4];
+				initAllTFields(personenParameter,false);
+				ArrayList<Person> allepersonen=sv.getPersonen();
+				String istMännlich="nein";
+				for(Person p : allepersonen){
+					personenParameter[0].setText(p.getVorname());
+					personenParameter[1].setText(p.getNachname());
+					personenParameter[2].setText(p.getGeburtsdatum());
+					if(p.isMaennlich()==true){
+						istMännlich="ja";
+					}
+					personenParameter[3].setText(istMännlich);
+					for(int pPi=0;pPi<personenParameter.length;pPi++){
+						innerCenter2.add(personenLabels[pPi]);
+						innerCenter2.add(personenParameter[pPi]);
+					}
+				}
+				
+				
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			default:
+					
+			}
+			
+			innerCenter2.add(pK, BorderLayout.NORTH);
+			innerCenter2.add(iD);
+			jpCenter.add(innerCenter2, BorderLayout.CENTER);
+		}
+		// 2 means ändern
+		if (allgDB == 2) {
+			cleanAndTitel();
+			JLabel pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
+			pK.setFont(new Font("Serif", Font.PLAIN, 18));
+			JTextField iD = new JTextField();
+			switch(i){
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			default:
+					
+			}
+			
+			innerCenter2.add(pK, BorderLayout.NORTH);
 			innerCenter2.add(iD);
 			jpCenter.add(innerCenter2, BorderLayout.CENTER);
 		}
@@ -1310,6 +1399,71 @@ public class GUI implements ActionListener {
 		}
 
 	}
+
+	private void alleAttribute() {
+		 personenLabels=new JLabel[4];
+		 initAllLabels(personenLabels);
+		 profLabels=new JLabel[3];
+		 initAllLabels(profLabels);
+		 studentLabels=new JLabel[3];
+		 initAllLabels(studentLabels);
+		 fakultätLabel=new JLabel();
+		 studiengangLabel=new JLabel();
+		 veranstaltungLabels=new JLabel[5];
+		 initAllLabels(veranstaltungLabels);
+		 vorlesungsnameLabels=new JLabel[2];
+		 initAllLabels(vorlesungsnameLabels);
+		 raumLabels=new JLabel();
+		 
+		 
+		personenLabels[0].setText("Vorname:");
+		personenLabels[1].setText("Nachname:");
+		personenLabels[2].setText("Geburtsdatum:");
+		personenLabels[3].setText("Ist Männlich?");
+		
+		profLabels[0].setText("Kürzel:");
+		profLabels[1].setText("Fakultät:");
+		profLabels[2].setText("Person-ID:");
+		
+		studentLabels[0].setText("Semester:");
+		studentLabels[1].setText("Studiengang:");
+		studentLabels[2].setText("Person-ID:");
+		
+		fakultätLabel.setText("Fakultätsname:");
+
+		studiengangLabel.setText("Studiengangname:");
+		
+		veranstaltungLabels[0].setText("Semester:");
+		veranstaltungLabels[1].setText("Dauer:");
+		veranstaltungLabels[2].setText("Personal-Nummer:");
+		veranstaltungLabels[3].setText("Studenplan-ID:");
+		veranstaltungLabels[4].setText("Vorlesungsnamen-ID:");
+		
+		vorlesungsnameLabels[0].setText("Vorlesungsname:");
+		vorlesungsnameLabels[1].setText("Vorlesungskürzel:");
+		
+		raumLabels.setText("Ist PC-Raum?");
+		
+		
+	}
+
+	private void initAllLabels(JLabel[] Labels) {
+		for(int i=0;i<Labels.length;i++){
+			Labels[i]=new JLabel();
+			Labels[i].setFont(new Font("Serif", Font.PLAIN, 18));
+		}
+		
+	}
+	private void initAllTFields(JTextField[] TField,boolean editable) {
+		for(int i=0;i<TField.length;i++){
+			TField[i]=new JTextField();
+			TField[i].setFont(new Font("Serif", Font.PLAIN, 18));
+			TField[i].setEditable(editable);
+			
+		}
+		
+	}
+	
 
 	private void cleanAndTitel() {
 		clear();

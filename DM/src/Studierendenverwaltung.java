@@ -12,6 +12,10 @@ public class Studierendenverwaltung {
 	
 	// TODO static wegmachen!
 	private ArrayList<Fakultaet> fakultaeten;
+	public ArrayList<Person> getPersonen() {
+		return personen;
+	}
+
 	private static ArrayList<Person> personen;
 	private static ArrayList<Dozent> dozenten;
 	private ArrayList<Studiengang> studiengaenge;
