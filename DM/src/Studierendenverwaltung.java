@@ -1498,7 +1498,29 @@ public class Studierendenverwaltung {
 	}
 	
 	//Stundenplan
-	public void stundenplanHinzufuegen(int semester, Studiengang studiengang, Tag tag, Slot slot) {
+	public void stundenplanHinzufuegen(int semester, int idStudiengang, int idTag, int idSlot) {
+		// Studiengangs-, Tag- und Slotobjekt holen für Konstruktor
+		Studiengang studiengang = null;
+		for(Studiengang s : studiengaenge){
+			if(s.getId() == idStudiengang){
+				studiengang = s;
+			}
+		}
+		
+		Tag tag = null;
+		for(Tag t : tage){
+			if(t.getId() == idTag){
+				tag = t;
+			}
+		}
+		
+		Slot slot = null;
+		for(Slot sl : slots){
+			if(sl.getId() == idSlot){
+				slot = sl;
+			}
+		}
+			
 		// Stundenplan hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
@@ -1506,8 +1528,8 @@ public class Studierendenverwaltung {
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
-			dbEinfuegen = datenzugriff.insertStundenplan(semester, studiengang.getId(), tag.getId(), slot.getId());
-			id = datenzugriff.getStundenplanId(semester, studiengang.getId(), tag.getId(), slot.getId());
+			dbEinfuegen = datenzugriff.insertStundenplan(semester, idStudiengang, idTag, idSlot);
+			id = datenzugriff.getStundenplanId(semester, idStudiengang, idTag, idSlot);
 		}
 		catch(Exception e){
 			// TODO
@@ -1530,14 +1552,36 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void stundenplanAendern(int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
+	public void stundenplanAendern(int id, int semester, int idStudiengang, int idTag, int idSlot) {
+		// Studiengangs-, Tag- und Slotobjekt holen für Konstruktor
+		Studiengang studiengang = null;
+		for(Studiengang s : studiengaenge){
+			if(s.getId() == idStudiengang){
+				studiengang = s;
+			}
+		}
+		
+		Tag tag = null;
+		for(Tag t : tage){
+			if(t.getId() == idTag){
+				tag = t;
+			}
+		}
+		
+		Slot slot = null;
+		for(Slot sl : slots){
+			if(sl.getId() == idSlot){
+				slot = sl;
+			}
+		}
+		
 		// Stundenplan ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
-			dbAendern = datenzugriff.updateStundenplan(semester, studiengang.getId(), tag.getId(), slot.getId(), id);
+			dbAendern = datenzugriff.updateStundenplan(semester, idStudiengang, idTag, idSlot, id);
 		}
 		catch(Exception e){
 			// TODO
@@ -1689,14 +1733,29 @@ public class Studierendenverwaltung {
 	}
 	
 	//Besitzt
-	public void besitztHinzufuegen(Stundenplan stundenplan, Studierender studierender) {
+	public void besitztHinzufuegen(int idStundenplan, int matrikelNr) {
+		// Stundenplan- und Studierenderobjekt holen für Konstruktor
+		Stundenplan stundenplan = null;
+		for(Stundenplan sp : stundenplaene){
+			if(sp.getId() == idStundenplan){
+				stundenplan = sp;
+			}
+		}
+		
+		Studierender studierender = null;
+		for(Studierender stud : studierende){
+			if(stud.getMatrikelNr() == matrikelNr){
+				studierender = stud;
+			}
+		}
+				
 		// Besitzt hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
-			dbEinfuegen = datenzugriff.insertBesitzt(stundenplan.getId(), studierender.getMatrikelNr());
+			dbEinfuegen = datenzugriff.insertBesitzt(idStundenplan, matrikelNr);
 		}
 		catch(Exception e){
 			// TODO
@@ -1716,14 +1775,29 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void besitztLoeschen(Stundenplan stundenplan, Studierender studierender) {
+	public void besitztLoeschen(int idStundenplan, int matrikelNr) {
+		// Stundenplan- und Studierenderobjekt holen für Konstruktor
+		Stundenplan stundenplan = null;
+		for(Stundenplan sp : stundenplaene){
+			if(sp.getId() == idStundenplan){
+				stundenplan = sp;
+			}
+		}
+		
+		Studierender studierender = null;
+		for(Studierender stud : studierende){
+			if(stud.getMatrikelNr() == matrikelNr){
+				studierender = stud;
+			}
+		}
+				
 		// Besitzt löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
 		try{
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
-			dbLoeschen = datenzugriff.deleteBesitzt(stundenplan.getId(), studierender.getMatrikelNr());
+			dbLoeschen = datenzugriff.deleteBesitzt(idStundenplan, matrikelNr);
 		}
 		catch(Exception e){
 			// TODO
