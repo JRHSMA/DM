@@ -161,9 +161,6 @@ public class DB {
 	/**
 	 * Einfache Abfragen Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	 */
-
-	// TODO Datenbank verbindung schließen (offen noch wo genau)
-
 	// Ausgabe mit AS Studiengang (führt iwie zu fehlern)
 	public void abfrageEinfach01(int matrikelnr) {
 		try {
@@ -227,7 +224,6 @@ public class DB {
 
 	public void abfrageEinfach05(String vKuerzel) {
 		try {
-			System.out.println("C1: " + vKuerzel);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT s.MatrikelNr, s.Semester,sg.Name, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, vn.Name, vn.Kuerzel "
 							+ "FROM studierender s " + "INNER JOIN person p ON s.idPerson = p.ID "
@@ -280,7 +276,6 @@ public class DB {
 
 	public void abfrageEinfach08(String fakultaet) {
 		try {
-			System.out.println("B1: " + fakultaet);
 			ps = con.prepareStatement(
 					"SELECT p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, d.PersonalNr, d.Kuerzel, f.Name "
 							+ "FROM dozent d " + "INNER JOIN person p ON d.idPerson = p.ID "
@@ -331,12 +326,8 @@ public class DB {
 	/**
 	 * Komplexe Abfragen
 	 */
-
-	// TODO Datenbank verbindung schließen (offen noch wo genau)
-
 	public void abfrageKomplex01(String veranstaltungsname, String raum) {
 		try {
-			System.out.println("KA1: " + veranstaltungsname + " " + raum);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT d.PersonalNr,p.Vorname, p.Nachname,d.Kuerzel, p.Geburtsdatum, p.Maennlich, f.Name "
 							+ "FROM dozent d " + "INNER JOIN person p ON d.idPerson = p.ID "
@@ -358,7 +349,6 @@ public class DB {
 
 	public void abfrageKomplex02(int matrikelnr, String raum) {
 		try {
-			System.out.println("KA2: " + matrikelnr + " " + raum);
 			ps = con.prepareStatement("SELECT DISTINCT vn.Name, vn.Kuerzel " + "FROM veranstaltungsname vn "
 					+ "INNER JOIN veranstaltung v ON vn.ID = v.idvName " + "INNER JOIN hoert h ON v.ID = h.ID "
 					+ "INNER JOIN studierender s ON h.MatrikelNr = s.MatrikelNr "
@@ -376,7 +366,6 @@ public class DB {
 
 	public void abfrageKomplex03(String studiengang, String tag) {
 		try {
-			System.out.println("KA3: " + studiengang + " " + tag);
 			ps = con.prepareStatement("SELECT DISTINCT vn.Name, v.Semester " + "FROM veranstaltung v "
 					+ "INNER JOIN veranstaltungsname vn ON v.idvName = vn.ID "
 					+ "INNER JOIN stundenplan sp ON v.idStundenplan = sp.ID "
@@ -393,7 +382,6 @@ public class DB {
 
 	public void abfrageKomplex04(int personalnr) {
 		try {
-			System.out.println("KA4: " + personalnr);
 			ps = con.prepareStatement("SELECT DISTINCT r.Bezeichnung " + "FROM raum r "
 					+ "INNER JOIN hat ON r.Bezeichnung = hat.Bezeichnung "
 					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID "
@@ -409,7 +397,6 @@ public class DB {
 
 	public void abfrageKomplex05(String vKuerzel, String tag, int slot) {
 		try {
-			System.out.println("KA5: " + vKuerzel + " " + tag + " " + slot);
 			ps = con.prepareStatement("SELECT d.PersonalNr, p.Vorname, p.Nachname, f.Name " + "FROM person p "
 					+ "INNER JOIN dozent d On p.ID = d.idPerson " + "INNER JOIN fakultaet f ON d.idFakultaet = f.ID "
 					+ "INNER JOIN veranstaltung v ON d.PersonalNr = v.PersonalNr "
@@ -428,7 +415,6 @@ public class DB {
 
 	public void abfrageKomplex06(String vName, int matrikelnr) {
 		try {
-			System.out.println("KA6: " + vName + " " + matrikelnr);
 			ps = con.prepareStatement("SELECT tag.Tag, sl.Slot, vn.Name, vn.Kuerzel " + "FROM dozent d "
 					+ "INNER JOIN erhaelt e ON d.PersonalNr = e.PersonalNr "
 					+ "INNER JOIN stundenplan sp ON e.ID= sp.ID " + "INNER JOIN tag ON sp.idTag = tag.ID "
@@ -451,13 +437,15 @@ public class DB {
 
 	public void abfrageKomplex07(String nachname, int slot, String tag) {
 		try {
-			System.out.println("KA7: " + nachname + " " + slot + " " + tag);
-			ps = con.prepareStatement("SELECT r.Bezeichnung " + "FROM raum r "
+			ps = con.prepareStatement("SELECT r.Bezeichnung FROM raum r "
 					+ "INNER JOIN hat ON r.Bezeichnung = hat.Bezeichnung "
-					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID " + "INNER JOIN slot s ON sp.idSlot = s.ID "
-					+ "INNER JOIN tag ON sp.ID = tag.id " + "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
+					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID "
+					+ "INNER JOIN slot s ON sp.idSlot = s.ID "
+					+ "Inner JOIN tag t ON sp.idTag = t.id "
+					+ "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
 					+ "INNER JOIN dozent d ON v.PersonalNr = d.PersonalNr "
-					+ "INNER JOIN person p ON d.idPerson = p.ID " + "WHERE p.Nachname=? AND s.Slot=? AND tag =? ;");
+					+ "INNER JOIN person p ON d.idPerson = p.ID "
+					+ "WHERE p.Nachname=? AND s.Slot=? AND t.tag=?;");
 			ps.setString(1, nachname);
 			ps.setInt(2, slot);
 			ps.setString(3, tag);
@@ -470,13 +458,16 @@ public class DB {
 
 	public void abfrageKomplex08(String nachname, String tag) {
 		try {
-			System.out.println("KA8: " + nachname + " " + tag);
-			ps = con.prepareStatement("SELECT r.Bezeichnung, s.Slot " + "FROM raum r "
+			ps = con.prepareStatement("SELECT r.Bezeichnung, s.Slot "
+					+ "FROM raum r "
 					+ "INNER JOIN hat ON r.Bezeichnung = hat.Bezeichnung "
-					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID " + "INNER JOIN slot s ON sp.idSlot = s.ID "
-					+ "INNER JOIN tag ON sp.ID = tag.id " + "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
+					+ "INNER JOIN stundenplan sp ON hat.ID = sp.ID "
+					+ "INNER JOIN slot s ON sp.idSlot = s.ID "
+					+ "Inner JOIN tag t ON sp.idTag = t.id "
+					+ "INNER JOIN veranstaltung v ON sp.ID = v.idStundenplan "
 					+ "INNER JOIN dozent d ON v.PersonalNr = d.PersonalNr "
-					+ "INNER JOIN person p ON d.idPerson = p.ID " + "WHERE p.Nachname=? AND tag =?;");
+					+ "INNER JOIN person p ON d.idPerson = p.ID "
+					+ "WHERE p.Nachname=? AND t.tag=?;");
 			ps.setString(1, nachname);
 			ps.setString(2, tag);
 			ps.execute();
@@ -488,7 +479,6 @@ public class DB {
 
 	public void abfrageKomplex09(boolean cRaum, String tag) {
 		try {
-			System.out.println("KA9: " + cRaum + " " + tag);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT s.MatrikelNr, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, sg.Name "
 							+ "FROM studierender s " + "INNER JOIN person p ON s.idPerson = p.ID "
@@ -511,7 +501,6 @@ public class DB {
 
 	public void abfrageKomplex10(boolean maennlich, String vName, String raum) {
 		try {
-			System.out.println("KA10: " + maennlich + " " + vName + " " + raum);
 			ps = con.prepareStatement(
 					"SELECT s.MatrikelNr, p.Vorname, p.Nachname, p.Geburtsdatum, p.Maennlich, sg.Name "
 							+ "FROM studierender s " + "INNER JOIN person p ON s.idPerson = p.ID "
@@ -535,7 +524,6 @@ public class DB {
 
 	public void abfrageKomplex11(String vKuerzel, String studiengang, String nachname) {
 		try {
-			System.out.println("KA11: " + vKuerzel + " " + studiengang + " " + nachname);
 			ps = con.prepareStatement(
 					"SELECT DISTINCT t.Tag " + "FROM Tag t " + "INNER JOIN stundenplan sp ON t.ID = sp.idTag "
 							+ "INNER JOIN studiengang sg ON sp.idStudiengang = sg.ID "
@@ -556,7 +544,6 @@ public class DB {
 
 	public void abfrageKomplex12(String vName, String nachname, String raum) {
 		try {
-			System.out.println("KA12: " + vName + " " + nachname + " " + raum);
 			ps = con.prepareStatement("SELECT s.MatrikelNr " + "FROM studierender s "
 					+ "INNER JOIN hoert h ON s.MatrikelNr = h.MatrikelNr "
 					+ "INNER JOIN veranstaltung v ON h.ID = v.ID "
@@ -578,12 +565,15 @@ public class DB {
 
 	public void abfrageKomplex13(String tag, boolean cRaum, String fakultaet) {
 		try {
-			System.out.println("KA13: " + tag + " " + cRaum + " " + fakultaet);
-			ps = con.prepareStatement("SELECT DISTINCT p.Vorname, p.Nachname, d.Kuerzel, f.Name " + "FROM dozent d "
-					+ "INNER JOIN person p ON d.idPerson = p.ID " + "INNER JOIN fakultaet f ON d.idFakultaet = f.ID "
+			ps = con.prepareStatement("SELECT DISTINCT p.Vorname, p.Nachname, d.Kuerzel, f.Name "
+					+ "FROM dozent d "
+					+ "INNER JOIN person p ON d.idPerson = p.ID "
+					+ "INNER JOIN fakultaet f ON d.idFakultaet = f.ID "
 					+ "INNER JOIN veranstaltung v ON d.PersonalNr = v.PersonalNr "
-					+ "INNER JOIN stundenplan sp ON v.idStundenplan = sp.ID " + "INNER JOIN tag t ON sp.idTag= t.ID "
-					+ "INNER JOIN hat ON sp.ID = hat.ID " + "INNER JOIN raum r ON hat.Bezeichnung = r.Bezeichnung "
+					+ "INNER JOIN stundenplan sp ON v.idStundenplan = sp.ID "
+					+ "INNER JOIN tag t ON sp.idTag= t.ID "
+					+ "INNER JOIN hat ON sp.ID = hat.ID "
+					+ "INNER JOIN raum r ON hat.Bezeichnung = r.Bezeichnung "
 					+ "WHERE t.Tag =? AND r.Computerraum=? AND f.name=?;");
 			ps.setString(1, tag);
 			ps.setBoolean(2, cRaum);
@@ -597,7 +587,6 @@ public class DB {
 
 	public void abfrageKomplex14(String dKuerzel, String tag) {
 		try {
-			System.out.println("KA14: " + dKuerzel + " " + tag);
 			ps = con.prepareStatement("SELECT DISTINCT vn.Name " + "FROM veranstaltungsname vn "
 					+ "INNER JOIN veranstaltung v ON vn.ID = v.idvName "
 					+ "INNER JOIN dozent d ON v.PersonalNr = d.PersonalNr "
@@ -614,7 +603,6 @@ public class DB {
 
 	public void abfrageKomplex15(String tag, int slot) {
 		try {
-			System.out.println("KA15: " + tag + " " + slot);
 			ps = con.prepareStatement("SELECT p.Vorname, p.Nachname, f.Name " + "FROM person p "
 					+ "INNER JOIN dozent d ON p.ID = d.idPerson " + "INNER JOIN fakultaet f ON d.idFakultaet = f.ID "
 					+ "INNER JOIN veranstaltung v ON d.PersonalNr = v.PersonalNr "
