@@ -104,47 +104,30 @@ public class GUI implements ActionListener {
 	private JLabel überschrift;
 	private JButton tabellen[] = new JButton[8];
 	JPanel innerCenter2;
-	private String semesterListe[] = { "1. Semester", "2. Semester",
-			"3. Semester", "4. Semester", "5. Semester", "6. Semester",
-			"7. Semester" };
-	private String tageListe[] = { "Montag", "Dienstag", "Mittwoch",
-			"Donnerstag", "Freitag" };
-	private String fakultätenListe[] = { "Biotechnologie", "Elektrotechnik",
-			"Gestaltung", "Informatik", "Informationstechnik", "Maschinenbau",
-			"Sozialwesen", "Verfahrens- und Chemietechnik",
+	private String semesterListe[] = { "1. Semester", "2. Semester", "3. Semester", "4. Semester", "5. Semester",
+			"6. Semester", "7. Semester" };
+	private String tageListe[] = { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag" };
+	private String fakultätenListe[] = { "Biotechnologie", "Elektrotechnik", "Gestaltung", "Informatik",
+			"Informationstechnik", "Maschinenbau", "Sozialwesen", "Verfahrens- und Chemietechnik",
 			"Wirtschaftsingenieurwesen" };;
-	private String studiengängeListe[] = {
-			"Biologische Chemie (Bachelor)",
+	private String studiengängeListe[] = { "Biologische Chemie (Bachelor)",
 			"Biotechnology - Biomedical Science and Technology (Master)",
-			"Biotechnology - Bioprocess Development (Master)",
-			"Automation Technology (Bachelor)",
-			"Automatisierungs und Energiesysteme (Master)",
-			"Automatisierungstechnik (Bachelor)",
+			"Biotechnology - Bioprocess Development (Master)", "Automation Technology (Bachelor)",
+			"Automatisierungs und Energiesysteme (Master)", "Automatisierungstechnik (Bachelor)",
 			"Elektro und Informationstechnik für das höhere Lehramt (Bachelor)",
 			"Elektro und Informationstechnik für das höhere Lehramt (Master)",
 			"Elektro und Informationstechnik für das höhere Lehramt - Zweitfach Mathematik (Master)",
-			"Energietechnik und erneuerbare Energien (Bachelor)",
-			"Power Engineering and Renewable Energies (Bachelor)",
-			"Translation Studies for IT (Bachelor)", "Informatik (Bachelor)",
-			"Informatik (Master)",
-			"Informatik - Vertiefungsrichtung Medizin (Master)",
-			"Medizinische Informatik (Bachelor)",
-			"Unternehmens- und Wirtschaftsinformatik (Bachelor)",
-			"Maschinenbau (Bacheor)", "Maschinenbau (Master)",
-			"Maschinenbau / Konstruktion (Bachelor)",
-			"Maschinenbau / Produktion (Bachelor)",
-			"Informationstechnik (Master)",
-			"Informationstechnik / Elektronik (Bachelor)",
-			"Medizintechnik (Bachelor)", "Medizintechnik (Master)",
-			"Nachrichtentechnik / Elektronik (Bachelor)",
-			"Technische Informatik (Bachelor)", "Soziale Arbeit (Bachelor)",
-			"Soziale Arbeit (Master)",
-			"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)",
-			"Chemical Engineering French (Master)",
-			"Chemieingenieurwesen (Master)", "Chemische Technik (Bachelor)",
-			"Verfahrenstechnik (Bachelor)",
-			"Wirtschaftsingenieurwesen (Bachelor)",
-			"Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master)",
+			"Energietechnik und erneuerbare Energien (Bachelor)", "Power Engineering and Renewable Energies (Bachelor)",
+			"Translation Studies for IT (Bachelor)", "Informatik (Bachelor)", "Informatik (Master)",
+			"Informatik - Vertiefungsrichtung Medizin (Master)", "Medizinische Informatik (Bachelor)",
+			"Unternehmens- und Wirtschaftsinformatik (Bachelor)", "Maschinenbau (Bacheor)", "Maschinenbau (Master)",
+			"Maschinenbau / Konstruktion (Bachelor)", "Maschinenbau / Produktion (Bachelor)",
+			"Informationstechnik (Master)", "Informationstechnik / Elektronik (Bachelor)", "Medizintechnik (Bachelor)",
+			"Medizintechnik (Master)", "Nachrichtentechnik / Elektronik (Bachelor)", "Technische Informatik (Bachelor)",
+			"Soziale Arbeit (Bachelor)", "Soziale Arbeit (Master)",
+			"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)", "Chemical Engineering French (Master)",
+			"Chemieingenieurwesen (Master)", "Chemische Technik (Bachelor)", "Verfahrenstechnik (Bachelor)",
+			"Wirtschaftsingenieurwesen (Bachelor)", "Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
 			"Wirtschaftsingenieurwesen International (Bachelor)" };
@@ -301,14 +284,14 @@ public class GUI implements ActionListener {
 			fusszeile[5].setVisible(false);
 			menuT5();
 		}
-		if(mItem0==quelle){
+		if (mItem0 == quelle) {
 			fusszeile[1].setVisible(false);
 			fusszeile[2].setVisible(false);
 			fusszeile[3].setVisible(false);
 			fusszeile[4].setVisible(false);
 			fusszeile[5].setVisible(false);
 			menuT0();
-			//TODO
+			// TODO
 		}
 		if (mItem1 == quelle) {
 			fusszeile[1].setVisible(false);
@@ -357,16 +340,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Person pAll : allepersonen) {
 					counter++;
-					if (pAll.getId() == Integer.parseInt(userInputID.getText())
-							&& firstHit == false) {
+					if (pAll.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();// TODO helper
 					globalIndex = index;
@@ -395,16 +376,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Dozent prof : alleprofs) {
 					counter++;
-					if (prof.getPersonalNr() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (prof.getPersonalNr() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -429,16 +408,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Studierender student : allestudenten) {
 					counter++;
-					if (student.getMatrikelNr() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (student.getMatrikelNr() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -464,16 +441,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Fakultaet fak : allefakultäten) {
 					counter++;
-					if (fak.getId() == Integer.parseInt(userInputID.getText())
-							&& firstHit == false) {
+					if (fak.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -495,16 +470,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Studiengang studiengang : allestudiengänge) {
 					counter++;
-					if (studiengang.getId() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (studiengang.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -519,8 +492,7 @@ public class GUI implements ActionListener {
 			case 5:
 				veranstaltungParameter = new JTextField[5];
 				initAllTFields(veranstaltungParameter, true);
-				ArrayList<Veranstaltung> alleveranstaltungen = sv
-						.getVeranstaltungen();
+				ArrayList<Veranstaltung> alleveranstaltungen = sv.getVeranstaltungen();
 
 				counter = -1;
 				index = 0;
@@ -528,31 +500,23 @@ public class GUI implements ActionListener {
 
 				for (Veranstaltung veranstaltung : alleveranstaltungen) {
 					counter++;
-					if (veranstaltung.getId() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (veranstaltung.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
-					Veranstaltung veranstaltung = alleveranstaltungen
-							.get(index);
-					veranstaltungParameter[0].setText(""
-							+ veranstaltung.getSemester());
-					veranstaltungParameter[1].setText(""
-							+ veranstaltung.getDauer());
-					veranstaltungParameter[2].setText(veranstaltung
-							.getDozentPersoNr());
-					veranstaltungParameter[3].setText(veranstaltung
-							.getStundenplanID());
-					veranstaltungParameter[4].setText(veranstaltung
-							.getVeranstaltungsnameID());
+					Veranstaltung veranstaltung = alleveranstaltungen.get(index);
+					veranstaltungParameter[0].setText("" + veranstaltung.getSemester());
+					veranstaltungParameter[1].setText("" + veranstaltung.getDauer());
+					veranstaltungParameter[2].setText(veranstaltung.getDozentPersoNr());
+					veranstaltungParameter[3].setText(veranstaltung.getStundenplanID());
+					veranstaltungParameter[4].setText(veranstaltung.getVeranstaltungsnameID());
 
 					for (int para = 0; para < veranstaltungParameter.length; para++) {
 						innerCenter3.add(veranstaltungLabels[para]);
@@ -565,25 +529,21 @@ public class GUI implements ActionListener {
 			case 6:
 				vorlesungsnameParameter = new JTextField[2];
 				initAllTFields(vorlesungsnameParameter, true);
-				ArrayList<Veranstaltungsname> allevNamen = sv
-						.getVeranstaltungsnamen();
+				ArrayList<Veranstaltungsname> allevNamen = sv.getVeranstaltungsnamen();
 				counter = -1;
 				index = 0;
 				firstHit = false;
 
 				for (Veranstaltungsname vName : allevNamen) {
 					counter++;
-					if (vName.getId() == Integer
-							.parseInt(userInputID.getText())
-							&& firstHit == false) {
+					if (vName.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -610,16 +570,14 @@ public class GUI implements ActionListener {
 
 				for (Raum raum : alleraume) {
 					counter++;
-					if (raum.getBezeichnung() == userInputID.getText()
-							&& firstHit == false) {
+					if (raum.getBezeichnung().equals(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -664,16 +622,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Person pAll : allepersonen) {
 					counter++;
-					if (pAll.getId() == Integer.parseInt(userInputID.getText())
-							&& firstHit == false) {
+					if (pAll.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -702,16 +658,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Dozent prof : alleprofs) {
 					counter++;
-					if (prof.getPersonalNr() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (prof.getPersonalNr() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -736,16 +690,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Studierender student : allestudenten) {
 					counter++;
-					if (student.getMatrikelNr() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (student.getMatrikelNr() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -771,16 +723,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Fakultaet fak : allefakultäten) {
 					counter++;
-					if (fak.getId() == Integer.parseInt(userInputID.getText())
-							&& firstHit == false) {
+					if (fak.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -802,16 +752,14 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Studiengang studiengang : allestudiengänge) {
 					counter++;
-					if (studiengang.getId() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (studiengang.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -826,8 +774,7 @@ public class GUI implements ActionListener {
 			case 5:
 				veranstaltungParameter = new JTextField[5];
 				initAllTFields(veranstaltungParameter, false);
-				ArrayList<Veranstaltung> alleveranstaltungen = sv
-						.getVeranstaltungen();
+				ArrayList<Veranstaltung> alleveranstaltungen = sv.getVeranstaltungen();
 
 				counter = -1;
 				index = 0;
@@ -835,31 +782,23 @@ public class GUI implements ActionListener {
 
 				for (Veranstaltung veranstaltung : alleveranstaltungen) {
 					counter++;
-					if (veranstaltung.getId() == Integer.parseInt(userInputID
-							.getText()) && firstHit == false) {
+					if (veranstaltung.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
-					Veranstaltung veranstaltung = alleveranstaltungen
-							.get(index);
-					veranstaltungParameter[0].setText(""
-							+ veranstaltung.getSemester());
-					veranstaltungParameter[1].setText(""
-							+ veranstaltung.getDauer());
-					veranstaltungParameter[2].setText(veranstaltung
-							.getDozentPersoNr());
-					veranstaltungParameter[3].setText(veranstaltung
-							.getStundenplanID());
-					veranstaltungParameter[4].setText(veranstaltung
-							.getVeranstaltungsnameID());
+					Veranstaltung veranstaltung = alleveranstaltungen.get(index);
+					veranstaltungParameter[0].setText("" + veranstaltung.getSemester());
+					veranstaltungParameter[1].setText("" + veranstaltung.getDauer());
+					veranstaltungParameter[2].setText(veranstaltung.getDozentPersoNr());
+					veranstaltungParameter[3].setText(veranstaltung.getStundenplanID());
+					veranstaltungParameter[4].setText(veranstaltung.getVeranstaltungsnameID());
 
 					for (int para = 0; para < veranstaltungParameter.length; para++) {
 						innerCenter3.add(veranstaltungLabels[para]);
@@ -872,25 +811,21 @@ public class GUI implements ActionListener {
 			case 6:
 				vorlesungsnameParameter = new JTextField[2];
 				initAllTFields(vorlesungsnameParameter, false);
-				ArrayList<Veranstaltungsname> allevNamen = sv
-						.getVeranstaltungsnamen();
+				ArrayList<Veranstaltungsname> allevNamen = sv.getVeranstaltungsnamen();
 				counter = -1;
 				index = 0;
 				firstHit = false;
 
 				for (Veranstaltungsname vName : allevNamen) {
 					counter++;
-					if (vName.getId() == Integer
-							.parseInt(userInputID.getText())
-							&& firstHit == false) {
+					if (vName.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					globalIndex = index;
@@ -917,16 +852,14 @@ public class GUI implements ActionListener {
 
 				for (Raum raum : alleraume) {
 					counter++;
-					if (raum.getBezeichnung() == userInputID.getText()
-							&& firstHit == false) {
+					if (raum.getBezeichnung().equals( userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
-					JOptionPane.showMessageDialog(jf,
-							"Kein Treffer. Bitte andere ID eingeben",
-							"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
 					Raum raum = alleraume.get(index);
@@ -950,15 +883,10 @@ public class GUI implements ActionListener {
 		}
 		if (fusszeile[4] == quelle) {
 			Object[] options = { "Abbrechen", "Trotzdem löschen" };
-			int n = JOptionPane
-					.showOptionDialog(
-							jf,
-							"Wenn Sie dieses Datentupel löschen, können Sie dieses nicht wiederherstellen...",
-							"A Silly Question", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE, null, // do not use a
-																// custom Icon
-							options, // the titles of buttons
-							options[0]); // default button title
+			int n = JOptionPane.showOptionDialog(jf,
+					"Wenn Sie dieses Datentupel löschen, können Sie dieses nicht wiederherstellen...",
+					"A Silly Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
+					options[0]);
 			if (n == 1) {
 				// TODO delete
 				switch (tabellenNummer) {
@@ -968,35 +896,27 @@ public class GUI implements ActionListener {
 					break;
 				case 1:
 					ArrayList<Dozent> alleDozenten = sv.getDozenten();
-					sv.dozentLoeschen(alleDozenten.get(globalIndex)
-							.getPersonalNr());
+					sv.dozentLoeschen(alleDozenten.get(globalIndex).getPersonalNr());
 					break;
 				case 2:
 					ArrayList<Studierender> alleStudenten = sv.getStudierende();
-					sv.studierenderLoeschen(alleStudenten.get(globalIndex)
-							.getMatrikelNr());
+					sv.studierenderLoeschen(alleStudenten.get(globalIndex).getMatrikelNr());
 					break;
 				case 3:
 					ArrayList<Fakultaet> alleFak = sv.getFakultaeten();
 					sv.fakultaetLoeschen(alleFak.get(globalIndex).getId());
 					break;
 				case 4:
-					ArrayList<Studiengang> alleStudiengänge = sv
-							.getStudiengaenge();
-					sv.studiengangLoeschen(alleStudiengänge.get(globalIndex)
-							.getId());
+					ArrayList<Studiengang> alleStudiengänge = sv.getStudiengaenge();
+					sv.studiengangLoeschen(alleStudiengänge.get(globalIndex).getId());
 					break;
 				case 5:
-					ArrayList<Veranstaltung> alleVeranstaltungen = sv
-							.getVeranstaltungen();
-					sv.veranstaltungLoeschen(alleVeranstaltungen.get(
-							globalIndex).getId());
+					ArrayList<Veranstaltung> alleVeranstaltungen = sv.getVeranstaltungen();
+					sv.veranstaltungLoeschen(alleVeranstaltungen.get(globalIndex).getId());
 					break;
 				case 6:
-					ArrayList<Veranstaltungsname> allevNamen = sv
-							.getVeranstaltungsnamen();
-					sv.veranstaltungsnameLoeschen(allevNamen.get(globalIndex)
-							.getId());
+					ArrayList<Veranstaltungsname> allevNamen = sv.getVeranstaltungsnamen();
+					sv.veranstaltungsnameLoeschen(allevNamen.get(globalIndex).getId());
 					break;
 				case 7:
 					ArrayList<Raum> alleräume = sv.getRaeume();
@@ -1007,13 +927,9 @@ public class GUI implements ActionListener {
 		}
 		if (fusszeile[5] == quelle) {
 			Object[] options = { "Nein", "Ja" };
-			int n = JOptionPane.showOptionDialog(jf,
-					"Wollen Sie dieses Datentupel wirklich ändern?",
-					"A Silly Question", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, // do not use a
-														// custom Icon
-					options, // the titles of buttons
-					options[0]); // default button title
+			int n = JOptionPane.showOptionDialog(jf, "Wollen Sie dieses Datentupel wirklich ändern?",
+					"A Silly Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
+					options[0]);
 			if (n == 1) {
 
 				switch (tabellenNummer) {
@@ -1023,10 +939,11 @@ public class GUI implements ActionListener {
 					if (personenParameter[3].getText().equals("ja")) {
 						male = true;
 					}
-					sv.personAendern(allePersonen.get(globalIndex).getId(),
-							personenParameter[0].getText(),
-							personenParameter[1].getText(),
-							personenParameter[2].getText(), male);
+					sv.personAendern(allePersonen.get(globalIndex).getId(), personenParameter[0].getText(),
+							personenParameter[1].getText(), personenParameter[2].getText(), male);
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case 1:
 					ArrayList<Dozent> alleDozenten = sv.getDozenten();
@@ -1036,54 +953,67 @@ public class GUI implements ActionListener {
 							fakId = fakId + i;
 						}
 					}
-					sv.dozentAendern(alleDozenten.get(globalIndex)
-							.getPersonalNr(), profParameter[0].getText(),
-							fakId, Integer.parseInt(profParameter[2].getText()));
+					sv.dozentAendern(alleDozenten.get(globalIndex).getPersonalNr(), profParameter[0].getText(), fakId,
+							Integer.parseInt(profParameter[2].getText()));
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case 2:// TODO HIER ÄNDERUNG
 					ArrayList<Studierender> alleStudenten = sv.getStudierende();
-					sv.studierenderAendern(alleStudenten.get(globalIndex)
-							.getMatrikelNr(), Integer
-							.parseInt(studentParameter[0].getText()), Integer
-							.parseInt(studentParameter[1].getText()), Integer
-							.parseInt(studentParameter[2].getText()));
+					sv.studierenderAendern(alleStudenten.get(globalIndex).getMatrikelNr(),
+							Integer.parseInt(studentParameter[0].getText()),
+							Integer.parseInt(studentParameter[1].getText()),
+							Integer.parseInt(studentParameter[2].getText()));
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case 3:
 					ArrayList<Fakultaet> alleFak = sv.getFakultaeten();
-					sv.fakultaetAendern(alleFak.get(globalIndex).getId(),
-							fakultätParameter.getText());
+					sv.fakultaetAendern(alleFak.get(globalIndex).getId(), fakultätParameter.getText());
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case 4:
-					ArrayList<Studiengang> alleStudiengänge = sv
-							.getStudiengaenge();
-					sv.studiengangAendern(alleStudiengänge.get(globalIndex)
-							.getId(), studiengangParameter.getText());
+					ArrayList<Studiengang> alleStudiengänge = sv.getStudiengaenge();
+					sv.studiengangAendern(alleStudiengänge.get(globalIndex).getId(), studiengangParameter.getText());
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case 5:
-					ArrayList<Veranstaltung> alleVeranstaltungen = sv
-							.getVeranstaltungen();
-					sv.veranstaltungAendern(alleVeranstaltungen
-							.get(globalIndex).getId(), Integer
-							.parseInt(veranstaltungParameter[0].getText()),
-							Integer.parseInt(veranstaltungParameter[0]
-									.getText()), Integer
-									.parseInt(veranstaltungParameter[0]
-											.getText()), Integer
-									.parseInt(veranstaltungParameter[0]
-											.getText()), Integer
-									.parseInt(veranstaltungParameter[0]
-											.getText()));
+					ArrayList<Veranstaltung> alleVeranstaltungen = sv.getVeranstaltungen();
+					sv.veranstaltungAendern(alleVeranstaltungen.get(globalIndex).getId(),
+							Integer.parseInt(veranstaltungParameter[0].getText()),
+							Integer.parseInt(veranstaltungParameter[0].getText()),
+							Integer.parseInt(veranstaltungParameter[0].getText()),
+							Integer.parseInt(veranstaltungParameter[0].getText()),
+							Integer.parseInt(veranstaltungParameter[0].getText()));
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case 6:
-					ArrayList<Veranstaltungsname> allevNamen = sv
-							.getVeranstaltungsnamen();
-					sv.veranstaltungsnameAendern(allevNamen.get(globalIndex)
-							.getId(),vorlesungsnameParameter[0].getText(),vorlesungsnameParameter[1].getText());
+					ArrayList<Veranstaltungsname> allevNamen = sv.getVeranstaltungsnamen();
+					sv.veranstaltungsnameAendern(allevNamen.get(globalIndex).getId(),
+							vorlesungsnameParameter[0].getText(), vorlesungsnameParameter[1].getText());
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case 7:
 					ArrayList<Raum> alleräume = sv.getRaeume();
-					System.out.println(raumParameter.getText());
-					//sv.raumAendern(alleräume.get(globalIndex).getBezeichnung());
+					boolean raumHatPc=false;
+					if(raumParameter.equals("ja")||raumParameter.equals("ja ")){
+						raumHatPc=true;
+						System.out.println("bin hier");
+					}
+					sv.raumAendern(alleräume.get(globalIndex).getBezeichnung(),raumHatPc);
+					clear();
+					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+							JOptionPane.INFORMATION_MESSAGE);
 					break;
 				}
 			}
@@ -1261,8 +1191,7 @@ public class GUI implements ActionListener {
 			if (istEinfach) {
 				switch (einAnfparameterAnzahl[einAbNr]) {
 				case 1:
-					if (m4Labels[einAbNr][0] == allLabels[0]
-							|| m4Labels[kompAbNr][0] == allLabels[10]) {
+					if (m4Labels[einAbNr][0] == allLabels[0] || m4Labels[kompAbNr][0] == allLabels[10]) {
 						istPersOderMatNr(einAbNr, 0, true, true);
 					} else {
 						stringEingaben(einAbNr, 0, true);
@@ -1296,15 +1225,13 @@ public class GUI implements ActionListener {
 
 					break;
 				case 2:
-					if (m4Labels[einAbNr][0] == allLabels[0]
-							|| m4Labels[kompAbNr][0] == allLabels[10]) {
+					if (m4Labels[einAbNr][0] == allLabels[0] || m4Labels[kompAbNr][0] == allLabels[10]) {
 						istPersOderMatNr(einAbNr, 0, true, true);
 					} else {
 						stringEingaben(einAbNr, 0, true);
 					}
 
-					if (m4Labels[einAbNr][1] == allLabels[0]
-							|| m4Labels[kompAbNr][1] == allLabels[10]) {
+					if (m4Labels[einAbNr][1] == allLabels[0] || m4Labels[kompAbNr][1] == allLabels[10]) {
 						istPersOderMatNr(einAbNr, 1, true, true);
 					} else {
 						stringEingaben(einAbNr, 1, true);
@@ -1337,8 +1264,7 @@ public class GUI implements ActionListener {
 			} else {
 				switch (kompAnfparameterAnzahl[kompAbNr]) {
 				case 1:
-					if (m5Labels[kompAbNr][0] == allLabels[0]
-							|| m5Labels[kompAbNr][0] == allLabels[10]) {
+					if (m5Labels[kompAbNr][0] == allLabels[0] || m5Labels[kompAbNr][0] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 0, false, true);
 					} else {
 						stringEingaben(kompAbNr, 0, false);
@@ -1357,14 +1283,12 @@ public class GUI implements ActionListener {
 
 					break;
 				case 2:
-					if (m5Labels[kompAbNr][0] == allLabels[0]
-							|| m5Labels[kompAbNr][0] == allLabels[10]) {
+					if (m5Labels[kompAbNr][0] == allLabels[0] || m5Labels[kompAbNr][0] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 0, false, true);
 					} else {
 						stringEingaben(kompAbNr, 0, false);
 					}
-					if (m5Labels[kompAbNr][1] == allLabels[0]
-							|| m5Labels[kompAbNr][1] == allLabels[10]) {
+					if (m5Labels[kompAbNr][1] == allLabels[0] || m5Labels[kompAbNr][1] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 1, false, true);
 					} else {
 						stringEingaben(kompAbNr, 1, false);
@@ -1424,8 +1348,7 @@ public class GUI implements ActionListener {
 
 					break;
 				case 3:
-					if (m5Labels[kompAbNr][0] == allLabels[0]
-							|| m5Labels[kompAbNr][0] == allLabels[10]) {
+					if (m5Labels[kompAbNr][0] == allLabels[0] || m5Labels[kompAbNr][0] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 0, false, true);
 
 					} else {
@@ -1433,16 +1356,14 @@ public class GUI implements ActionListener {
 
 					}
 
-					if (m5Labels[kompAbNr][1] == allLabels[0]
-							|| m5Labels[kompAbNr][1] == allLabels[10]) {
+					if (m5Labels[kompAbNr][1] == allLabels[0] || m5Labels[kompAbNr][1] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 1, false, true);
 
 					} else {
 						stringEingaben(kompAbNr, 1, false);
 
 					}
-					if (m5Labels[kompAbNr][2] == allLabels[0]
-							|| m5Labels[kompAbNr][2] == allLabels[10]) {
+					if (m5Labels[kompAbNr][2] == allLabels[0] || m5Labels[kompAbNr][2] == allLabels[10]) {
 						istPersOderMatNr(kompAbNr, 2, false, true);
 
 					} else {
@@ -1473,19 +1394,16 @@ public class GUI implements ActionListener {
 						db.abfrageKomplex07(profName, slot, tag);
 						break;
 					case 9:
-						db.abfrageKomplex10(istMännlich, veranstaltungsname,
-								raumName);
+						db.abfrageKomplex10(istMännlich, veranstaltungsname, raumName);
 						break;
 					case 10:
 						if (studiengang == null) {
 							studiengang = "Biologische Chemie (Bachelor)";
 						}
-						db.abfrageKomplex11(vorlesungsKrzl, studiengang,
-								profName);
+						db.abfrageKomplex11(vorlesungsKrzl, studiengang, profName);
 						break;
 					case 11:
-						db.abfrageKomplex12(veranstaltungsname, profName,
-								raumName);
+						db.abfrageKomplex12(veranstaltungsname, profName, raumName);
 						break;
 					case 12:
 						if (tag == null) {
@@ -1507,8 +1425,7 @@ public class GUI implements ActionListener {
 
 			daten = db.lesenjava();
 			for (LinkedHashMap<String, String> datensatz : daten) {
-				bspTextArea.setText(bspTextArea.getText() + "\n"
-						+ datensatz.toString());
+				bspTextArea.setText(bspTextArea.getText() + "\n" + datensatz.toString());
 				System.out.println(datensatz);
 			}
 			try {
@@ -1600,102 +1517,62 @@ public class GUI implements ActionListener {
 								if (personEingabe[3].getText().equals("true")) {
 									pIsMännlich = true;
 								}
-								if (personEingabe[0].getText().equals("")
-										|| personEingabe == null) {
+								if (personEingabe[0].getText().equals("") || personEingabe == null) {
 									hatVorname = false;
 								} else {
 									hatVorname = true;
 								}
-								if (personEingabe[1].getText().equals("")
-										|| personEingabe == null) {
+								if (personEingabe[1].getText().equals("") || personEingabe == null) {
 									hatNachname = false;
 								} else {
 									hatNachname = true;
 								}
-								if (personEingabe[2].getText().equals("")
-										|| personEingabe == null) {
+								if (personEingabe[2].getText().equals("") || personEingabe == null) {
 									hatBday = false;
 								} else {
 									hatBday = true;
 								}
 								if (hatVorname == false && hatNachname == false) {
 									if (hatBday == true) {
-										JOptionPane
-												.showMessageDialog(
-														jf,
-														"Bitte einen Vornamen und Nachnamen eingeben",
-														"Keinen Vornamen und Nachnamen",
-														JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Bitte einen Vornamen und Nachnamen eingeben",
+												"Keinen Vornamen und Nachnamen", JOptionPane.ERROR_MESSAGE);
 									} else {
-										JOptionPane.showMessageDialog(jf,
-												"Bitte Information eingeben",
-												"Keine Eingabe",
+										JOptionPane.showMessageDialog(jf, "Bitte Information eingeben", "Keine Eingabe",
 												JOptionPane.ERROR_MESSAGE);
 									}
 
 								}
 								if (hatVorname == true && hatNachname == false) {
 									if (hatBday == true) {
-										JOptionPane
-												.showMessageDialog(
-														jf,
-														"Bitte einen Nachnamen eingeben",
-														"Keinen Nachnamen",
-														JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Bitte einen Nachnamen eingeben",
+												"Keinen Nachnamen", JOptionPane.ERROR_MESSAGE);
 									} else {
-										JOptionPane
-												.showMessageDialog(
-														jf,
-														"Bitte Nachnamen und Geburtsdatum eingeben",
-														"Kein Nachname und Geburtsdatum",
-														JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Bitte Nachnamen und Geburtsdatum eingeben",
+												"Kein Nachname und Geburtsdatum", JOptionPane.ERROR_MESSAGE);
 									}
 
 								}
 								if (hatVorname == false && hatNachname == true) {
 									if (hatBday == true) {
-										JOptionPane
-												.showMessageDialog(
-														jf,
-														"Bitte einen Vornamen eingeben",
-														"Keinen Vornamen",
-														JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Bitte einen Vornamen eingeben",
+												"Keinen Vornamen", JOptionPane.ERROR_MESSAGE);
 									} else {
-										JOptionPane
-												.showMessageDialog(
-														jf,
-														"Bitte Vornamen und Geburtsdatum eingeben",
-														"Kein Vorname und Geburtsdatum",
-														JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Bitte Vornamen und Geburtsdatum eingeben",
+												"Kein Vorname und Geburtsdatum", JOptionPane.ERROR_MESSAGE);
 									}
 
 								}
 								if (hatVorname == true && hatNachname == true) {
 									if (hatBday == false) {
-										JOptionPane
-												.showMessageDialog(
-														jf,
-														"Bitte ein Geburtsdatum eingeben",
-														"Kein Geburtsdatum",
-														JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Bitte ein Geburtsdatum eingeben",
+												"Kein Geburtsdatum", JOptionPane.ERROR_MESSAGE);
 									}
 								}
-								if (hatVorname == true && hatNachname == true
-										&& hatBday == true) {
-									String pVorname = personEingabe[0]
-											.getText();
-									String pNachname = personEingabe[1]
-											.getText();
+								if (hatVorname == true && hatNachname == true && hatBday == true) {
+									String pVorname = personEingabe[0].getText();
+									String pNachname = personEingabe[1].getText();
 									String pBday = personEingabe[2].getText();
-									System.out.println(pVorname + " "
-											+ pNachname + " " + pBday + " "
-											+ pIsMännlich);
-									// TODO wenn alles ready dann syso weg und
-									// kommentar
-									// stattdessen
-									// sv.personHinzufuegen(pVorname, pNachname,
-									// pBday,
-									// pIsMännlich);
+									sv.personHinzufuegen(pVorname, pNachname, pBday, pIsMännlich);
 
 								}
 
@@ -1705,71 +1582,52 @@ public class GUI implements ActionListener {
 								boolean istZahl = false;
 								boolean hatName = false;
 								try {
-									helpInt = Integer.parseInt(profEingabe[1]
-											.getText());
+									helpInt = Integer.parseInt(profEingabe[1].getText());
 									istZahl = true;
 								} catch (Exception e) {
 									istZahl = false;
 								}
-								if (profEingabe[0].getText().equals("")
-										|| profEingabe == null) {
+								if (profEingabe[0].getText().equals("") || profEingabe == null) {
 									hatName = false;
 								} else {
 									hatName = true;
 								}
 
 								if (istZahl == false && hatName == false) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Fehlende/Falsche Eingaben.\nBitte geben Sie eine Personen-ID und einen Professor/Dozent-Kürzel ein.",
-													"Falsche Eingabe",
-													JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(jf,
+											"Fehlende/Falsche Eingaben.\nBitte geben Sie eine Personal-ID und einen Professor/Dozent-Kürzel ein.",
+											"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 									profEingabe[1].setText("");
 								}
 								if (istZahl == true && hatName == false) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Bitte einen Professor/Dozent-Kürzel eingeben",
-													"Kein Professor/Dozent-Kürzel",
-													JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(jf, "Bitte einen Professor/Dozent-Kürzel eingeben",
+											"Kein Professor/Dozent-Kürzel", JOptionPane.ERROR_MESSAGE);
 
 								}
 								if (istZahl == false && hatName == true) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Falsche Eingaben.\nBitte geben Sie eine Personen-ID ein.",
-													"Falsche Eingabe",
-													JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(jf,
+											"Falsche Eingaben.\nBitte geben Sie eine Personal-ID ein.",
+											"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 									profEingabe[1].setText("");
 								}
 
 								if (istZahl == true && hatName == true) {
-									String profKürzel = profEingabe[0]
-											.getText();
+									String profKürzel = profEingabe[0].getText();
 									int profPersonalID = helpInt;
 									String profFakultät;
-									if (profEingabe[1].getText() == null
-											|| profEingabe[2].getText().equals(
-													"")) {
+									if (profEingabe[1].getText() == null || profEingabe[2].getText().equals("")) {
 										profFakultät = "Biotechnologie";
 									} else {
-										int listenZahl = Integer
-												.parseInt(profEingabe[2]
-														.getText());
+										int listenZahl = Integer.parseInt(profEingabe[2].getText());
 										profFakultät = fakultätenListe[listenZahl];
 									}
-									System.out.println(profKürzel + " "
-											+ profFakultät + " "
-											+ profPersonalID);
-									// TODO wenn alles ready dann syso weg und
-									// kommentar
-									// stattdessen
-									// sv.dozentHinzufuegen(profKürzel,
-									// profFakultät,
-									// profPersonalID);
+									int fakID = 1;
+									for (int i = 0; i < fakultätenListe.length; i++) {
+										if (profFakultät == fakultätenListe[i]) {
+											fakID = fakID + i;
+										}
+									}
+									sv.dozentHinzufuegen(profKürzel, fakID, profPersonalID);
 
 								}
 								break;
@@ -1780,44 +1638,33 @@ public class GUI implements ActionListener {
 								int sHelpInt2 = -1;
 								boolean sIstZahl2 = false;
 								try {
-									sHelpInt1 = Integer.parseInt(studEingabe[0]
-											.getText());
+									sHelpInt1 = Integer.parseInt(studEingabe[0].getText());
 									sIstZahl1 = true;
 								} catch (NumberFormatException e) {
 									sIstZahl1 = false;
 								}
 								try {
-									sHelpInt2 = Integer.parseInt(studEingabe[1]
-											.getText());
+									sHelpInt2 = Integer.parseInt(studEingabe[1].getText());
 									sIstZahl2 = true;
 								} catch (NumberFormatException e) {
 									sIstZahl2 = false;
 								}
 								if (sIstZahl1 == false && sIstZahl2 == false) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Eingaben müssen Zahlen sein.\nBitte geben Sie eine Matrikelnummer und eine Personen-ID ein.",
-													"Falsche Eingabe",
-													JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(jf,
+											"Eingaben müssen Zahlen sein.\nBitte geben Sie eine Matrikelnummer und eine Personen-ID ein.",
+											"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 									studEingabe[0].setText("");
 								}
 								if (sIstZahl1 == false & sIstZahl2 == true) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Eingabe muss eine Zahl sein.\nBitte geben Sie eine Matrikelnummer ein.",
-													"Falsche Eingabe",
-													JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(jf,
+											"Eingabe muss eine Zahl sein.\nBitte geben Sie eine Matrikelnummer ein.",
+											"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 									studEingabe[0].setText("");
 								}
 								if (sIstZahl2 == false && sIstZahl1 == true) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Eingabe muss eine Zahl sein.\nBitte geben Sie eine Personen-ID ein.",
-													"Falsche Eingabe",
-													JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(jf,
+											"Eingabe muss eine Zahl sein.\nBitte geben Sie eine Personen-ID ein.",
+											"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 									studEingabe[1].setText("");
 								}
 								if (sIstZahl1 == true && sIstZahl2 == true) {
@@ -1825,71 +1672,47 @@ public class GUI implements ActionListener {
 									int sPersonID = sHelpInt2;
 									int sSemester;
 									String sStudiengang;
-									if (studEingabe[3].getText().equals("")
-											|| studEingabe[3].getText() == null) {
+									if (studEingabe[3].getText().equals("") || studEingabe[3].getText() == null) {
 										sSemester = 1;
 									} else {
-										sSemester = Integer
-												.parseInt(studEingabe[3]
-														.getText()) + 1;
+										sSemester = Integer.parseInt(studEingabe[3].getText()) + 1;
 									}
-									if (studEingabe[2].getText() == null
-											|| studEingabe[2].getText().equals(
-													"")) {
+									if (studEingabe[2].getText() == null || studEingabe[2].getText().equals("")) {
 										sStudiengang = "Biologische Chemie (Bachelor)";
 									} else {
-										sStudiengang = studiengängeListe[Integer
-												.parseInt(studEingabe[2]
-														.getText())];
+										sStudiengang = studiengängeListe[Integer.parseInt(studEingabe[2].getText())];
 									}
 
-									System.out.println(sMatrikelNr + " "
-											+ sSemester + " " + sStudiengang
-											+ " " + sPersonID);
-									// TODO wenn alles ready dann syso weg und
-									// kommentar
-									// stattdessen
-									// sv.studierenderHinzufuegen(sMatrikelNr,sSemester,
-									// sStudiengang, sPersonID)
+									System.out.println(
+											sMatrikelNr + " " + sSemester + " " + sStudiengang + " " + sPersonID);
+									int studiengangID = 1;
+									for (int i = 0; i < studiengängeListe.length; i++) {
+										if (sStudiengang == studiengängeListe[i]) {
+											studiengangID = studiengangID + i;
+										}
+									}
+									sv.studierenderHinzufuegen(sSemester, studiengangID, sPersonID);
 								}
 								break;
 							case 3:
 
-								if (fakEingabe.getText().equals("")
-										|| fakEingabe == null) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Bitte einen Studiengangname eingeben",
-													"Kein Studiengangname",
-													JOptionPane.ERROR_MESSAGE);
+								if (fakEingabe.getText().equals("") || fakEingabe == null) {
+									JOptionPane.showMessageDialog(jf, "Bitte einen Studiengangname eingeben",
+											"Kein Studiengangname", JOptionPane.ERROR_MESSAGE);
 								} else {
 									String fakName = fakEingabe.getText();
-									System.out.println(fakName);
-									// TODO wenn alles ready dann syso weg und
-									// kommentar
-									// stattdessen
-									// sv.fakultaetHinzufuegen(fakName)
+									sv.fakultaetHinzufuegen(fakName);
 								}
 								break;
 							case 4:
 
-								if (studiengangEingabe.getText().equals("")
-										|| studiengangEingabe == null) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Bitte einen Studiengangname eingeben",
-													"Kein Studiengangname",
-													JOptionPane.ERROR_MESSAGE);
+								if (studiengangEingabe.getText().equals("") || studiengangEingabe == null) {
+									JOptionPane.showMessageDialog(jf, "Bitte einen Studiengangname eingeben",
+											"Kein Studiengangname", JOptionPane.ERROR_MESSAGE);
 								} else {
-									String studiengangName = studiengangEingabe
-											.getText();
+									String studiengangName = studiengangEingabe.getText();
 									System.out.println(studiengangName);
-									// TODO wenn alles ready dann syso weg und
-									// kommentar
-									// stattdessen
-									// sv.studiengangHinzufuegen(studiengangName);
+									sv.studiengangHinzufuegen(studiengangName);
 								}
 								break;
 							case 5:
@@ -1901,88 +1724,61 @@ public class GUI implements ActionListener {
 								int vHelpInt3 = -1;
 								boolean vIstZahl3 = false;
 								try {
-									vHelpInt1 = Integer
-											.parseInt(veranstaltungEingabe[1]
-													.getText());
+									vHelpInt1 = Integer.parseInt(veranstaltungEingabe[1].getText());
 									vIstZahl1 = true;
 								} catch (NumberFormatException e) {
 									vIstZahl1 = false;
 								}
 								if (vIstZahl1 == false) {
-									JOptionPane.showMessageDialog(jf,
-											"Eingabe muss eine Zahl sein",
-											"Falsche Eingabe",
+									JOptionPane.showMessageDialog(jf, "Eingabe muss eine Zahl sein", "Falsche Eingabe",
 											JOptionPane.ERROR_MESSAGE);
 									veranstaltungEingabe[1].setText("");
 								}
 								try {
-									vHelpInt2 = Integer
-											.parseInt(veranstaltungEingabe[2]
-													.getText());
+									vHelpInt2 = Integer.parseInt(veranstaltungEingabe[2].getText());
 									vIstZahl2 = true;
 								} catch (Exception e) {
 									vIstZahl2 = false;
 								}
 								if (vIstZahl2 == false) {
-									JOptionPane.showMessageDialog(jf,
-											"Eingabe muss eine Zahl sein",
-											"Falsche Eingabe",
+									JOptionPane.showMessageDialog(jf, "Eingabe muss eine Zahl sein", "Falsche Eingabe",
 											JOptionPane.ERROR_MESSAGE);
 									veranstaltungEingabe[2].setText("");
 								}
 								try {
-									vHelpInt3 = Integer
-											.parseInt(veranstaltungEingabe[3]
-													.getText());
+									vHelpInt3 = Integer.parseInt(veranstaltungEingabe[3].getText());
 									vIstZahl3 = true;
 								} catch (NumberFormatException e) {
 									vIstZahl3 = false;
 								}
 								if (vIstZahl3 == false) {
-									JOptionPane.showMessageDialog(jf,
-											"Eingabe muss eine Zahl sein",
-											"Falsche Eingabe",
+									JOptionPane.showMessageDialog(jf, "Eingabe muss eine Zahl sein", "Falsche Eingabe",
 											JOptionPane.ERROR_MESSAGE);
 									veranstaltungEingabe[3].setText("");
 								}
-								if (vIstZahl1 == true && vIstZahl2 == true
-										&& vIstZahl3 == true) {
-									if (veranstaltungEingabe[4].getText()
-											.equals("")
-											|| veranstaltungEingabe[4]
-													.getText() == null) {
+								if (vIstZahl1 == true && vIstZahl2 == true && vIstZahl3 == true) {
+									if (veranstaltungEingabe[4].getText().equals("")
+											|| veranstaltungEingabe[4].getText() == null) {
 										vSemester = 1;
 									} else {
-										vSemester = Integer
-												.parseInt(veranstaltungEingabe[4]
-														.getText()) + 1;
+										vSemester = Integer.parseInt(veranstaltungEingabe[4].getText()) + 1;
 									}
 									int vDauer = vHelpInt1;
 									int vPersonalNr = vHelpInt2;
 									int vStundenplanNr = vHelpInt3;
-									if (veranstaltungEingabe[0].getText()
-											.equals("")
+									if (veranstaltungEingabe[0].getText().equals("")
 											|| veranstaltungEingabe[0] == null) {
-										JOptionPane
-												.showMessageDialog(
-														jf,
-														"Bitte einen Veranstaltungsname eingeben",
-														"Kein Veranstaltungsname",
-														JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Bitte einen Veranstaltungsname eingeben",
+												"Kein Veranstaltungsname", JOptionPane.ERROR_MESSAGE);
 									} else {
-										String vVorlesungsname = veranstaltungEingabe[0]
-												.getText();
-										System.out.println(vSemester + " "
-												+ vDauer + " " + vPersonalNr
-												+ " " + vStundenplanNr + " "
-												+ vVorlesungsname);
-										// TODO wenn alles ready dann syso weg
-										// und
-										// kommentar
-										// stattdessen
+										String vVorlesungsname = veranstaltungEingabe[0].getText();
+										System.out.println(vSemester + " " + vDauer + " " + vPersonalNr + " "
+												+ vStundenplanNr + " " + vVorlesungsname);
+										// TODO hier noch minor fixes
+										// sv.
 										// veranstaltungHinzufuegen(vSemester,vDauer,
 										// vPersonalNr, vStundenplanNr,
-										// vVorlesungsname)
+										// vVorlesungsname);
 									}
 
 								}
@@ -1991,25 +1787,15 @@ public class GUI implements ActionListener {
 							case 6:
 								boolean vnNameIN = false;
 								boolean vnKürzelIN = false;
-								if (vNameEingabe[0].getText().equals("")
-										|| vNameEingabe[0] == null) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Bitte einen Vorlesungsnamen eingeben",
-													"Kein Vorlesungsname",
-													JOptionPane.ERROR_MESSAGE);
+								if (vNameEingabe[0].getText().equals("") || vNameEingabe[0] == null) {
+									JOptionPane.showMessageDialog(jf, "Bitte einen Vorlesungsnamen eingeben",
+											"Kein Vorlesungsname", JOptionPane.ERROR_MESSAGE);
 								} else {
 									vnNameIN = true;
 								}
-								if (vNameEingabe[1].getText().equals("")
-										|| vNameEingabe[1] == null) {
-									JOptionPane
-											.showMessageDialog(
-													jf,
-													"Bitte einen Vorlesungsnamenkürzel eingeben",
-													"Kein Vorlesungsnamekürzel",
-													JOptionPane.ERROR_MESSAGE);
+								if (vNameEingabe[1].getText().equals("") || vNameEingabe[1] == null) {
+									JOptionPane.showMessageDialog(jf, "Bitte einen Vorlesungsnamenkürzel eingeben",
+											"Kein Vorlesungsnamekürzel", JOptionPane.ERROR_MESSAGE);
 								} else {
 									vnKürzelIN = true;
 								}
@@ -2017,32 +1803,19 @@ public class GUI implements ActionListener {
 									String vnName = vNameEingabe[0].getText();
 									String vnKürzel = vNameEingabe[1].getText();
 									System.out.println(vnName + " " + vnKürzel);
-									// TODO wenn alles ready dann syso weg und
-									// kommentar
-									// stattdessen
-									// veranstaltungsnameHinzufuegen(String
-									// name,
-									// String
-									// kuerzel)
+									sv.veranstaltungsnameHinzufuegen(vnName, vnKürzel);
 								}
 
 								break;
 							case 7:
 
-								if (raumEingabe.getText().equals("")
-										|| raumEingabe == null) {
-									JOptionPane.showMessageDialog(jf,
-											"Bitte einen Raumnamen eingeben",
-											"Kein Raumnamen",
-											JOptionPane.ERROR_MESSAGE);
+								if (raumEingabe.getText().equals("") || raumEingabe == null) {
+									JOptionPane.showMessageDialog(jf, "Bitte einen Raumnamen eingeben",
+											"Kein Raumnamen", JOptionPane.ERROR_MESSAGE);
 								} else {
 									String rName = raumEingabe.getText();
 									boolean isPcRaum = rIstPcRaum;
-									System.out.println(rName + " " + isPcRaum);
-									// TODO wenn alles ready dann syso weg und
-									// kommentar
-									// stattdessen
-									// raumHinzufuegen(rName,isPcRaum)
+									sv.raumHinzufuegen(rName, isPcRaum);
 								}
 
 								break;
@@ -2061,8 +1834,7 @@ public class GUI implements ActionListener {
 				for (int j = 0; j < personenAttribute.length; j++) {
 					personenAttribute[j] = new JLabel();
 					personEingabe[j] = new JTextField();
-					personenAttribute[j].setFont(new Font("Serif", Font.PLAIN,
-							18));
+					personenAttribute[j].setFont(new Font("Serif", Font.PLAIN, 18));
 				}
 				JCheckBox istPMännlich = new JCheckBox();
 				istPMännlich.addActionListener(new ActionListener() {
@@ -2113,10 +1885,9 @@ public class GUI implements ActionListener {
 					profEingabe[m] = new JTextField();
 					profAttribute[m].setFont(new Font("Serif", Font.PLAIN, 18));
 				}
-				profAttribute[0]
-						.setText("Bitte Professor/Dozent-Kürzel eingeben.");
+				profAttribute[0].setText("Bitte Professor/Dozent-Kürzel eingeben.");
 				profAttribute[2].setText("Bitte Fakultät auswählen.");
-				profAttribute[1].setText("Bitte Personen-ID eingeben");
+				profAttribute[1].setText("Bitte Personal-Nummer eingeben");
 				for (int n = 0; n < profAttribute.length; n++) {
 					innerCenter2.add(profAttribute[n]);
 					innerCenter2.add(profEingabe[n]);
@@ -2202,8 +1973,7 @@ public class GUI implements ActionListener {
 				JLabel veranstaltungAttribute[] = new JLabel[5];
 				for (int j = 0; j < veranstaltungAttribute.length; j++) {
 					veranstaltungAttribute[j] = new JLabel();
-					veranstaltungAttribute[j].setFont(new Font("Serif",
-							Font.PLAIN, 18));
+					veranstaltungAttribute[j].setFont(new Font("Serif", Font.PLAIN, 18));
 					veranstaltungEingabe[j] = new JTextField();
 				}
 				semesterAuswahl2 = new JComboBox(semesterListe);
@@ -2225,14 +1995,10 @@ public class GUI implements ActionListener {
 				innerCenter2.add(veranstaltungAttribute[0]);
 				innerCenter2.add(semesterAuswahl2);
 
-				veranstaltungAttribute[1]
-						.setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
-				veranstaltungAttribute[2]
-						.setText("Bitte Personal-Nr. des Professors/Dozenten eingeben.");
-				veranstaltungAttribute[3]
-						.setText("Bitte Studenplan-ID eingeben.");
-				veranstaltungAttribute[0]
-						.setText("Bitte Vorlesungsnamen eingeben.");
+				veranstaltungAttribute[1].setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
+				veranstaltungAttribute[2].setText("Bitte Personal-Nummer des Professors/Dozenten eingeben.");
+				veranstaltungAttribute[3].setText("Bitte Studenplan-ID eingeben.");
+				veranstaltungAttribute[0].setText("Bitte Vorlesungsnamen eingeben.");
 				for (int h = 0; h < veranstaltungAttribute.length; h++) {
 					innerCenter2.add(veranstaltungAttribute[h]);
 					innerCenter2.add(veranstaltungEingabe[h]);
@@ -2247,8 +2013,7 @@ public class GUI implements ActionListener {
 				JLabel vNameAttribute[] = new JLabel[2];
 				for (int r = 0; r < vNameAttribute.length; r++) {
 					vNameAttribute[r] = new JLabel();
-					vNameAttribute[r]
-							.setFont(new Font("Serif", Font.PLAIN, 18));
+					vNameAttribute[r].setFont(new Font("Serif", Font.PLAIN, 18));
 					vNameEingabe[r] = new JTextField();
 				}
 				vNameAttribute[0].setText("Bitte Vorlesungs-Name eingeben.");
@@ -2285,37 +2050,37 @@ public class GUI implements ActionListener {
 			default:
 			}
 		}
-		if(allgDB==0){
+		if (allgDB == 0) {
 			cleanAndTitel();
-			switch(tabellenNummer){
-			//TODO ALLES ANZEIGEN
+			switch (tabellenNummer) {
+			// TODO ALLES ANZEIGEN
 			case 0:
-				//select personen
+				// select personen
 				break;
 			case 1:
-				//select dozent
+				// select dozent
 				break;
 			case 2:
-				//select studenten
+				// select studenten
 				break;
 			case 3:
-				//select fakultäten
+				// select fakultäten
 				break;
 			case 4:
-				//select studiengang
+				// select studiengang
 				break;
 			case 5:
-				//select veranstaltung
+				// select veranstaltung
 				break;
 			case 6:
-				//select vorlesungsnamen
+				// select vorlesungsnamen
 				break;
 			case 7:
-				//Select raum
+				// Select raum
 				break;
-				default:
+			default:
 			}
-			
+
 		}
 
 	}
@@ -2385,8 +2150,7 @@ public class GUI implements ActionListener {
 
 	private void cleanAndTitel() {
 		clear();
-		inDieserTabelle.setText("In der Tabelle: "
-				+ tabellen[tabellenNummer].getText() + "   ");
+		inDieserTabelle.setText("In der Tabelle: " + tabellen[tabellenNummer].getText() + "   ");
 		inDieserTabelle.setFont(new Font("Serif", Font.PLAIN, 15));
 		inDieserTabelle.setHorizontalAlignment(SwingConstants.RIGHT);
 		jpCenter.add(inDieserTabelle, BorderLayout.NORTH);
@@ -2431,19 +2195,16 @@ public class GUI implements ActionListener {
 
 	}
 
-	private void istPersOderMatNr(int AbNr, int i, boolean istEinfach,
-			boolean istAbfrage) {
+	private void istPersOderMatNr(int AbNr, int i, boolean istEinfach, boolean istAbfrage) {
 		boolean ist0oder10 = false;
 
 		if (istEinfach) {
-			if (m4Labels[AbNr][i] == allLabels[0]
-					|| m4Labels[AbNr][i] == allLabels[10]) {
+			if (m4Labels[AbNr][i] == allLabels[0] || m4Labels[AbNr][i] == allLabels[10]) {
 				ist0oder10 = true;
 			}
 		}
 		if (!istEinfach) {
-			if (m5Labels[AbNr][i] == allLabels[0]
-					|| m5Labels[AbNr][i] == allLabels[10]) {
+			if (m5Labels[AbNr][i] == allLabels[0] || m5Labels[AbNr][i] == allLabels[10]) {
 				ist0oder10 = true;
 			}
 		}
@@ -2464,8 +2225,7 @@ public class GUI implements ActionListener {
 				istZahl = false;
 			}
 			if (istZahl == false) {
-				JOptionPane.showMessageDialog(jf,
-						"Eingabe muss eine Zahl sein", "Falsche Eingabe",
+				JOptionPane.showMessageDialog(jf, "Eingabe muss eine Zahl sein", "Falsche Eingabe",
 						JOptionPane.ERROR_MESSAGE);
 				if (istEinfach) {
 					m4Parameter[AbNr][0].setText("");
@@ -2475,8 +2235,7 @@ public class GUI implements ActionListener {
 
 			}
 
-			if (m4Labels[AbNr][i] == allLabels[0]
-					|| m5Labels[AbNr][i] == allLabels[0]) {
+			if (m4Labels[AbNr][i] == allLabels[0] || m5Labels[AbNr][i] == allLabels[0]) {
 				matrikelNr = helpInt;
 			} else {
 				persoNr = helpInt;
@@ -2516,8 +2275,7 @@ public class GUI implements ActionListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void dropdownSlot(int i, int j, boolean istEinfach) {
-		String slotListe[] = { "1. Slot", "2. Slot", "3. Slot", "4. Slot",
-				"5. Slot", "6. Slot" };
+		String slotListe[] = { "1. Slot", "2. Slot", "3. Slot", "4. Slot", "5. Slot", "6. Slot" };
 		slotAuswahl = new JComboBox(slotListe);
 		slotAuswahl.addActionListener(this);
 		if (istEinfach) {
@@ -2683,36 +2441,32 @@ public class GUI implements ActionListener {
 			m5Text[i].setLineWrap(true);
 			m5Text[i].setWrapStyleWord(true);
 		}
-		m5Text[0]
-				.setText("Zeige den Dozenten, der die Veranstaltung |_____| im Raum |_____| hält.	");
-		m5Text[1]
-				.setText("Zeige alle Veranstaltungen von dem Studierenden mit der MatrikelNr |_____| , die im Raum |_____| stattfinden.");
-		m5Text[2]
-				.setText("Zeige alle Veranstaltungen der Studierenden vom Studiengang |_____|, die am |_____|(Tag) stattfinden.");
-		m5Text[3]
-				.setText("Zeige die Bezeichnung aller Räume in denen Veranstaltungen vom Dozenten mit der Personalnummer |_____| stattfinden.");
-		m5Text[4]
-				.setText("Zeige den Namen des Dozenten, der die Veranstaltung mit dem Veranstaltungskuerzel |_____| am |_____|(Tag) im Slot |_____| hält.");
-		m5Text[5]
-				.setText("Zeige den Stundenplan des Dozenten, den der Student mit der MatrikelNr |_____| in der Veranstaltung |_____| hat.");
-		m5Text[6]
-				.setText("Zeige den Raum, in der die Veranstaltung vom Dozenten/Professor |_____| am |_____|(Tag) im Slot |_____| gehalten wird.");
-		m5Text[7]
-				.setText("Zeige alle Räume, die durch den Dozent/Professor |_____| am |_____|(Tag) belegt sind.");
-		m5Text[8]
-				.setText("Zeige alle Studierenden, die am |_____|(Tag) eine Veranstaltung in einem Computerraum haben/nicht haben.");
-		m5Text[9]
-				.setText("Zeige alle |_____| Studierenden, die die Veranstaltung |_____| im Raum |_____| besuchen.");
-		m5Text[10]
-				.setText("Zeige die Tage an denen die Veranstaltung mit dem Veranstaltungskuerzel |_____|, die im Studiengang |_____| vom Dozenten/Professor |_____| gehalten wird, stattfindet.");
-		m5Text[11]
-				.setText("Zeige die Matrikelnummer aller Studierenden, die die Veranstaltung |_____| beim Dozenten/Professor |_____| im Raum |_____| besuchen.");
-		m5Text[12]
-				.setText("Zeige alle Dozenten der Fakultät |_____|, die eine Veranstaltung am |_____| halten und einen Computerraum belegen/nicht belegen.");
-		m5Text[13]
-				.setText("Zeige alle Vorlesungen, die am |_____|(Tag) von dem Dozenten/Professor mit dem Kuerzel |_____| gehalten werden.");
-		m5Text[14]
-				.setText("Zeige alle Dozenten, die am |_____|(Tag) im Slot |_____| eine Veranstaltung halten.");
+		m5Text[0].setText("Zeige den Dozenten, der die Veranstaltung |_____| im Raum |_____| hält.	");
+		m5Text[1].setText(
+				"Zeige alle Veranstaltungen von dem Studierenden mit der MatrikelNr |_____| , die im Raum |_____| stattfinden.");
+		m5Text[2].setText(
+				"Zeige alle Veranstaltungen der Studierenden vom Studiengang |_____|, die am |_____|(Tag) stattfinden.");
+		m5Text[3].setText(
+				"Zeige die Bezeichnung aller Räume in denen Veranstaltungen vom Dozenten mit der Personalnummer |_____| stattfinden.");
+		m5Text[4].setText(
+				"Zeige den Namen des Dozenten, der die Veranstaltung mit dem Veranstaltungskuerzel |_____| am |_____|(Tag) im Slot |_____| hält.");
+		m5Text[5].setText(
+				"Zeige den Stundenplan des Dozenten, den der Student mit der MatrikelNr |_____| in der Veranstaltung |_____| hat.");
+		m5Text[6].setText(
+				"Zeige den Raum, in der die Veranstaltung vom Dozenten/Professor |_____| am |_____|(Tag) im Slot |_____| gehalten wird.");
+		m5Text[7].setText("Zeige alle Räume, die durch den Dozent/Professor |_____| am |_____|(Tag) belegt sind.");
+		m5Text[8].setText(
+				"Zeige alle Studierenden, die am |_____|(Tag) eine Veranstaltung in einem Computerraum haben/nicht haben.");
+		m5Text[9].setText("Zeige alle |_____| Studierenden, die die Veranstaltung |_____| im Raum |_____| besuchen.");
+		m5Text[10].setText(
+				"Zeige die Tage an denen die Veranstaltung mit dem Veranstaltungskuerzel |_____|, die im Studiengang |_____| vom Dozenten/Professor |_____| gehalten wird, stattfindet.");
+		m5Text[11].setText(
+				"Zeige die Matrikelnummer aller Studierenden, die die Veranstaltung |_____| beim Dozenten/Professor |_____| im Raum |_____| besuchen.");
+		m5Text[12].setText(
+				"Zeige alle Dozenten der Fakultät |_____|, die eine Veranstaltung am |_____| halten und einen Computerraum belegen/nicht belegen.");
+		m5Text[13].setText(
+				"Zeige alle Vorlesungen, die am |_____|(Tag) von dem Dozenten/Professor mit dem Kuerzel |_____| gehalten werden.");
+		m5Text[14].setText("Zeige alle Dozenten, die am |_____|(Tag) im Slot |_____| eine Veranstaltung halten.");
 		giveRightLabels();
 		for (int i = 0; i < m5Buttons.length; i++) {
 			int c = i + 1;
@@ -2747,24 +2501,17 @@ public class GUI implements ActionListener {
 			m4Text[i].setLineWrap(true);
 			m4Text[i].setWrapStyleWord(true);
 		}
-		m4Text[0]
-				.setText("Zeige den Studiereden mit der Matrikelnummer |_____|.");
+		m4Text[0].setText("Zeige den Studiereden mit der Matrikelnummer |_____|.");
 		m4Text[1].setText("Zeige alle Studierenden aus dem |_____| Semester.");
-		m4Text[2]
-				.setText("Zeige alle |_____|Studierenden aus dem Studiengang |_____|.");
-		m4Text[3]
-				.setText("Zeige alle |_____| Studierenden aus dem Studiengang |_____|.");
-		m4Text[4]
-				.setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[5]
-				.setText("Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
-		m4Text[6]
-				.setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
+		m4Text[2].setText("Zeige alle |_____|Studierenden aus dem Studiengang |_____|.");
+		m4Text[3].setText("Zeige alle |_____| Studierenden aus dem Studiengang |_____|.");
+		m4Text[4].setText("Zeige alle Studierenden, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[5].setText(
+				"Zeige alle Studierenden aus dem |_____| Semester, die die Vorlesung mit dem Kürzel |_____| besuchen.");
+		m4Text[6].setText("Zeige den Studenplan der Studierenden vom Studiengang |_____| im |_____| Semester.");
 		m4Text[7].setText("Zeige alle Dozenten der Fakultät |_____|.");
-		m4Text[8]
-				.setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
-		m4Text[9]
-				.setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
+		m4Text[8].setText("Zeige alle Studierenden mit dem Dozenten Prof. |_____|.");
+		m4Text[9].setText("Zeige alle Studierenden die eine Veranstaltung aus dem |_____| Semester besuchen.");
 		giveRightLabels();
 
 		for (int i = 0; i < m4Buttons.length; i++) {
@@ -2792,13 +2539,15 @@ public class GUI implements ActionListener {
 	private void menuT1() {
 		menuDB("hinzufügen");
 	}
-	private void menuT0(){
+
+	private void menuT0() {
 		menuDB("anzeigen");
 	}
+
 	// db allgemein frame
 	private void menuDB(String db) {
-		if(db=="anzeigen"){
-			allgDB=0;
+		if (db == "anzeigen") {
+			allgDB = 0;
 		}
 		if (db == "hinzufügen")
 			allgDB = 1;
