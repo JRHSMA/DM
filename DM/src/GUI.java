@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -135,7 +136,7 @@ public class GUI implements ActionListener {
 			"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
 			"Wirtschaftsingenieurwesen International (Bachelor)" };
-	private String beziehungsListe[] = { "hat", "hört", "erhält", "besitzt" };
+//	private String beziehungsListe[] = { "hat", "hört", "erhält", "besitzt" };
 
 	// ----------------------------
 	// neue Daten hinzufügen
@@ -174,7 +175,7 @@ public class GUI implements ActionListener {
 	private JTextField raumParameter;
 	private JCheckBox isRaumPC;
 	// ------------------------
-	// beziehungen //TODO
+	// beziehungen
 	private JTextField beziehungsID1;
 	private JTextField beziehungsID2;
 	private boolean fusszeile6HatAL = false;
@@ -975,9 +976,9 @@ public class GUI implements ActionListener {
 			}
 		}
 		if (fusszeile[5] == quelle) {
-			Object[] options = { "Nein", "Ja" };// TODO steal this
+			Object[] options = { "Nein", "Ja" };
 			int n = JOptionPane.showOptionDialog(jf, "Wollen Sie dieses Datentupel wirklich ändern?",
-					"A Silly Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
+					"Datentupel löschen?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
 					options[0]);
 			if (n == 1) {
 
@@ -998,7 +999,7 @@ public class GUI implements ActionListener {
 					fusszeile[5].setVisible(false);
 					fusszeile[6].setVisible(false);
 					fusszeile[7].setVisible(false);
-					// TODO steal this too
+
 					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -1482,9 +1483,15 @@ public class GUI implements ActionListener {
 			}
 
 			daten = db.lesenjava();
+			boolean geht = false;
 			for (LinkedHashMap<String, String> datensatz : daten) {
+				geht = true;
 				bspTextArea.setText(bspTextArea.getText() + "\n" + datensatz.toString());
-				System.out.println(datensatz);
+
+			}
+			if (geht == false) {
+				JOptionPane.showMessageDialog(jf, "Keine passenden Daten gefunden", "Kein Treffer",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 			try {
 				db.close();
@@ -1681,7 +1688,7 @@ public class GUI implements ActionListener {
 				});
 			}
 		}
-		if (allgDB == 0) {// TODO
+		if (allgDB == 0) {
 			cleanAndBezTitel();
 
 			t = new JTextArea();
@@ -2092,11 +2099,8 @@ public class GUI implements ActionListener {
 										String vVorlesungsname = veranstaltungEingabe[0].getText();
 										System.out.println(vSemester + " " + vDauer + " " + vPersonalNr + " "
 												+ vStundenplanNr + " " + vVorlesungsname);
-										// TODO hier noch minor fixes
-										// sv.
-										// veranstaltungHinzufuegen(vSemester,vDauer,
-										// vPersonalNr, vStundenplanNr,
-										// vVorlesungsname);
+										sv.veranstaltungHinzufuegen(vSemester, vDauer, vPersonalNr, vStundenplanNr,
+												Integer.parseInt(vVorlesungsname));
 										clear();
 										JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert",
 												"Daten gespeichert", JOptionPane.INFORMATION_MESSAGE);
