@@ -902,10 +902,8 @@ public class DB {
 		}
 	}
 
-	public boolean deleteHoert(int id, int matrikelNr) {
+	public boolean deleteHoert(int matrikelNr,int id) {
 		try {
-			System.out.println(id);
-			System.out.println(matrikelNr);
 			ps = con.prepareStatement("DELETE FROM hoert WHERE id =? AND matrikelNr =?;");
 			ps.setInt(1, id);
 			ps.setInt(2, matrikelNr);

@@ -1707,7 +1707,6 @@ public class GUI implements ActionListener {
 			case 0:
 				ArrayList<Hat> hatten = sv.getHatten();
 				for (Hat hat : hatten) {
-					System.out.println(hat.toString());
 					t.setText(t.getText() + "\n" + hat.toString());
 				}
 				break;
