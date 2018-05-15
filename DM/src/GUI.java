@@ -1587,7 +1587,10 @@ public class GUI implements ActionListener {
 								beziehungsID1.setText("");
 							}
 							if (id1 == true && id2 == true) {
-								//TODO bestätigung
+								clear();
+								JOptionPane.showMessageDialog(jf,
+										" Daten wurden hinzugefügt.", " Daten hinzugefügt.",
+										JOptionPane.INFORMATION_MESSAGE);
 								switch (beziehungsNummer) {
 								case 0:
 									sv.hatHinzufuegen(beziehungsID1.getText(),
@@ -1660,7 +1663,10 @@ public class GUI implements ActionListener {
 								beziehungsID1.setText("");
 							}
 							if (id1 == true && id2 == true) {
-								System.out.println("hier drin?");
+								clear();
+								JOptionPane.showMessageDialog(jf,
+										" Daten wurden gelöscht.", " Daten gelöscht.",
+										JOptionPane.INFORMATION_MESSAGE);
 								switch (beziehungsNummer) {
 								case 0:
 									sv.hatLoeschen(beziehungsID1.getText(), Integer.parseInt(beziehungsID2.getText()));
@@ -1754,7 +1760,7 @@ public class GUI implements ActionListener {
 		String id2 = "";
 		switch (i) {
 		case 0:
-			id1 = "Raum-Beziehung";
+			id1 = "Raum-Bezeichnung";
 			id2 = "Studenplan-ID";
 			break;
 		case 1:
