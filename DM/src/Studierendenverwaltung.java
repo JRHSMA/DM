@@ -61,9 +61,25 @@ public class Studierendenverwaltung {
 	private ArrayList<Tag> tage;
 	private ArrayList<Stundenplan> stundenplaene;
 	private ArrayList<Hoert> hoeren;
+	public ArrayList<Hoert> getHoeren() {
+		return hoeren;
+	}
+
 	private ArrayList<Hat> hatten;
+	public ArrayList<Hat> getHatten() {
+		return hatten;
+	}
+
 	private ArrayList<Besitzt> besitzen;
+	public ArrayList<Besitzt> getBesitzen() {
+		return besitzen;
+	}
+
 	private ArrayList<Erhaelt> erhalten;
+	public ArrayList<Erhaelt> getErhalten() {
+		return erhalten;
+	}
+
 	private DB datenzugriff = null;
 
 	public Studierendenverwaltung() {
