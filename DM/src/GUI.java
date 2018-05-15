@@ -17,6 +17,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -166,6 +167,7 @@ public class GUI implements ActionListener {
 	private JTextField veranstaltungParameter[];
 	private JTextField[] vorlesungsnameParameter;
 	private JTextField raumParameter;
+	private JCheckBox isRaumPC;
 
 	// ------------------------
 	public GUI() {
@@ -187,7 +189,6 @@ public class GUI implements ActionListener {
 		jpCenter = new JPanel();
 		jpCenter.setLayout(new BorderLayout());
 		jp.add(jpCenter, BorderLayout.CENTER);
-		//TODO anpassen
 		fusszeile[0] = new JButton("Abbrechen");
 		fusszeile[0].addActionListener(this);
 		fusszeile[1] = new JButton("Hinzufügen");//hinzufügen button
@@ -318,7 +319,7 @@ public class GUI implements ActionListener {
 			menuT3();
 		}
 		if (fusszeile[2] == quelle) {
-			//hier ist ändern //TODO reagiert falsch
+			//hier ist ändern 
 			fusszeile[1].setVisible(false);
 			fusszeile[3].setVisible(false);
 			fusszeile[4].setVisible(false);
@@ -560,7 +561,6 @@ public class GUI implements ActionListener {
 				jpCenter.add(innerCenter3, BorderLayout.CENTER);
 				break;
 			case 7:
-				String raumIsPc;
 				raumParameter = new JTextField();
 				raumParameter.setEditable(true);
 				ArrayList<Raum> alleraume = sv.getRaeume();
@@ -582,15 +582,31 @@ public class GUI implements ActionListener {
 					clearandÄnderungbuttons();
 					globalIndex = index;
 					Raum raum = alleraume.get(index);
+					 isRaumPC = new JCheckBox("ist PC-Raum");
+					 boolean isRaumPChatAL = false;
+					 if(isRaumPChatAL==false){
+						 isRaumPC.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								if(isRaumPC==e.getSource()){
+									if(isRaumPC.isSelected()==true){
+										raumParameter.setText("ja");
+									}else{
+										raumParameter.setText("nein");
+									}
+								}
+								
+							}
+						});
+					 }
 					if (raum.isComputerraum() == true) {
-						raumIsPc = "ja";
+						isRaumPC.setSelected(true);
 					} else {
-						raumIsPc = "nein";
+						isRaumPC.setSelected(false);
 					}
-					raumParameter.setText(raumIsPc);
-
 					innerCenter3.add(raumLabels);
-					innerCenter3.add(raumParameter);
+					innerCenter3.add(isRaumPC);
 				}
 
 				jpCenter.add(innerCenter3, BorderLayout.CENTER);
@@ -600,7 +616,6 @@ public class GUI implements ActionListener {
 			}
 		}
 		if (fusszeile[3] == quelle) {
-			//TODO
 			fusszeile[1].setVisible(false);
 			fusszeile[2].setVisible(false);
 			fusszeile[3].setVisible(false);
@@ -1018,7 +1033,8 @@ public class GUI implements ActionListener {
 				case 7:
 					ArrayList<Raum> alleräume = sv.getRaeume();
 					boolean raumHatPc=false;
-					if(raumParameter.equals("ja")||raumParameter.equals("ja ")){
+				
+					if(raumParameter.equals("ja")){
 						raumHatPc=true;
 		
 					}
@@ -1487,7 +1503,7 @@ public class GUI implements ActionListener {
 		innerCenter2 = new JPanel();
 		innerCenter2.setLayout(new GridLayout(15, 4));
 		// 3 means löschen
-		if (allgDB == 3) {//TODO 
+		if (allgDB == 3) { 
 
 			cleanAndTitel();
 			pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
@@ -1658,12 +1674,10 @@ public class GUI implements ActionListener {
 								break;
 
 							case 2: // Studierender funkt
-								int sHelpInt1 = -1;
 								boolean sIstZahl1 = false;
 								int sHelpInt2 = -1;
 								boolean sIstZahl2 = false;
 								try {
-									sHelpInt1 = Integer.parseInt(studEingabe[0].getText());
 									sIstZahl1 = true;
 								} catch (NumberFormatException e) {
 									sIstZahl1 = false;
@@ -1693,7 +1707,6 @@ public class GUI implements ActionListener {
 									studEingabe[1].setText("");
 								}
 								if (sIstZahl1 == true && sIstZahl2 == true) {
-									int sMatrikelNr = sHelpInt1;
 									int sPersonID = sHelpInt2;
 									int sSemester;
 									String sStudiengang;
@@ -2095,10 +2108,10 @@ public class GUI implements ActionListener {
 			cleanAndTitel();
 			
 			JTextArea t = new JTextArea();
-			jpCenter.add(t, BorderLayout.CENTER);
+			JScrollPane sp = new JScrollPane(t);
+			jpCenter.add(sp, BorderLayout.CENTER);
 			
 			switch (tabellenNummer) {
-			// TODO ALLES ANZEIGEN
 			case 0:
 				// select personen
 				ArrayList<Person> personen = sv.getPersonen();
