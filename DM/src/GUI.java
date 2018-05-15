@@ -27,7 +27,7 @@ import db.DB;
 public class GUI implements ActionListener {
 
 	private JFrame jf;
-	private JButton[] fusszeile = new JButton[6];
+	private JButton[] fusszeile = new JButton[8];
 	private JButton abfrageSchicken;
 	private JMenuBar menuBar;
 	private JMenu menuT1;
@@ -95,6 +95,7 @@ public class GUI implements ActionListener {
 	private boolean istCompRaum = false;
 
 	private int tabellenNummer = -1;
+	private int beziehungsNummer = -1;
 	// -----------------------------
 	// DB bearbeiten variablen -----
 	private Studierendenverwaltung sv;
@@ -104,6 +105,8 @@ public class GUI implements ActionListener {
 	private String pKListe[] = new String[8];
 	private JLabel überschrift;
 	private JButton tabellen[] = new JButton[8];
+	private JButton beziehungsTab[] = new JButton[4];
+	private JLabel beziehungen;
 	JPanel innerCenter2;
 	private String semesterListe[] = { "1. Semester", "2. Semester", "3. Semester", "4. Semester", "5. Semester",
 			"6. Semester", "7. Semester" };
@@ -132,6 +135,7 @@ public class GUI implements ActionListener {
 			"Wirtschaftsingenieurwesen - Vorqualifikation ING (Master)",
 			"Wirtschaftsingenieurwesen - Vorqualifikation WI (Master)",
 			"Wirtschaftsingenieurwesen International (Bachelor)" };
+	private String beziehungsListe[] = { "hat", "hört", "erhält", "besitzt" };
 
 	// ----------------------------
 	// neue Daten hinzufügen
@@ -168,8 +172,11 @@ public class GUI implements ActionListener {
 	private JTextField[] vorlesungsnameParameter;
 	private JTextField raumParameter;
 	private JCheckBox isRaumPC;
-
 	// ------------------------
+	// beziehungen //TODO
+	private JTextField beziehungsID1;
+	private JTextField beziehungsID2;
+
 	public GUI() {
 		sv = new Studierendenverwaltung();
 		LayoutGUI("test");
@@ -191,20 +198,25 @@ public class GUI implements ActionListener {
 		jp.add(jpCenter, BorderLayout.CENTER);
 		fusszeile[0] = new JButton("Abbrechen");
 		fusszeile[0].addActionListener(this);
-		fusszeile[1] = new JButton("Hinzufügen");//hinzufügen button
+		fusszeile[1] = new JButton("Hinzufügen");// hinzufügen button
 		fusszeile[1].setVisible(false);
-		fusszeile[2] = new JButton("Weiter");//weiter button bei Änderung
+		fusszeile[2] = new JButton("Weiter");// weiter button bei Änderung
 		fusszeile[2].setVisible(false);
 		fusszeile[2].addActionListener(this);
-		fusszeile[3] = new JButton("Weiter");//weiter button bei löschen
+		fusszeile[3] = new JButton("Weiter");// weiter button bei löschen
 		fusszeile[3].setVisible(false);
 		fusszeile[3].addActionListener(this);
 		fusszeile[4] = new JButton("Löschen");
 		fusszeile[4].setVisible(false);
 		fusszeile[4].addActionListener(this);
-		fusszeile[5] = new JButton("Änderung Speichern");//Änderung wird in Db gespeichert
+		fusszeile[5] = new JButton("Änderung speichern");// Änderung wird in Db
+															// gespeichert
 		fusszeile[5].setVisible(false);
 		fusszeile[5].addActionListener(this);
+		fusszeile[6] = new JButton("Beziehung speichern");
+		fusszeile[6].setVisible(false);
+		fusszeile[7] = new JButton("Beziehung löschen");
+		fusszeile[7].setVisible(false);
 		menuBar = new JMenuBar();
 
 		menuT1 = new JMenu("DatenBank bearbeiten");
@@ -270,60 +282,51 @@ public class GUI implements ActionListener {
 	public void actionPerformed(ActionEvent ev) {
 		Object quelle = ev.getSource();
 		if (m2Item1 == quelle) {
-			fusszeile[1].setVisible(false);
-			fusszeile[2].setVisible(false);
-			fusszeile[3].setVisible(false);
-			fusszeile[4].setVisible(false);
-			fusszeile[5].setVisible(false);
+			for(int i=1;i<fusszeile.length;i++){
+				fusszeile[i].setVisible(false);
+			}
+			
 			menuT4();
 		}
 		if (m2Item2 == quelle) {
-			fusszeile[1].setVisible(false);
-			fusszeile[2].setVisible(false);
-			fusszeile[3].setVisible(false);
-			fusszeile[4].setVisible(false);
-			fusszeile[5].setVisible(false);
+			for(int i=1;i<fusszeile.length;i++){
+				fusszeile[i].setVisible(false);
+			}
 			menuT5();
 		}
 		if (mItem0 == quelle) {
-			fusszeile[1].setVisible(false);
-			fusszeile[2].setVisible(false);
-			fusszeile[3].setVisible(false);
-			fusszeile[4].setVisible(false);
-			fusszeile[5].setVisible(false);
+			for(int i=1;i<fusszeile.length;i++){
+				fusszeile[i].setVisible(false);
+			}
 			menuT0();
-			
+
 		}
 		if (mItem1 == quelle) {
-			fusszeile[1].setVisible(false);
-			fusszeile[2].setVisible(false);
-			fusszeile[3].setVisible(false);
-			fusszeile[4].setVisible(false);
-			fusszeile[5].setVisible(false);
+			for(int i=1;i<fusszeile.length;i++){
+				fusszeile[i].setVisible(false);
+			}
 			menuT1();
 		}
 		if (mItem2 == quelle) {
-			fusszeile[1].setVisible(false);
-			fusszeile[2].setVisible(false);
-			fusszeile[3].setVisible(false);
-			fusszeile[4].setVisible(false);
-			fusszeile[5].setVisible(false);
+			for(int i=1;i<fusszeile.length;i++){
+				fusszeile[i].setVisible(false);
+			}
 			menuT2();
 		}
 		if (mItem3 == quelle) {
-			fusszeile[1].setVisible(false);
-			fusszeile[2].setVisible(false);
-			fusszeile[3].setVisible(false);
-			fusszeile[4].setVisible(false);
-			fusszeile[5].setVisible(false);
+			for(int i=1;i<fusszeile.length;i++){
+				fusszeile[i].setVisible(false);
+			}
 			menuT3();
 		}
 		if (fusszeile[2] == quelle) {
-			//hier ist ändern 
+			// hier ist ändern
 			fusszeile[1].setVisible(false);
 			fusszeile[3].setVisible(false);
 			fusszeile[4].setVisible(false);
 			fusszeile[5].setVisible(false);
+			fusszeile[6].setVisible(false);
+			fusszeile[7].setVisible(false);
 			JPanel innerCenter3 = new JPanel();
 			int counter;
 			int index;
@@ -350,7 +353,7 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clearandÄnderungbuttons();
-					
+
 					globalIndex = index;
 					Person p = allepersonen.get(index);
 					personenParameter[0].setText(p.getVorname());
@@ -582,24 +585,24 @@ public class GUI implements ActionListener {
 					clearandÄnderungbuttons();
 					globalIndex = index;
 					Raum raum = alleraume.get(index);
-					 isRaumPC = new JCheckBox("ist PC-Raum");
-					 boolean isRaumPChatAL = false;
-					 if(isRaumPChatAL==false){
-						 isRaumPC.addActionListener(new ActionListener() {
-							
+					isRaumPC = new JCheckBox("ist PC-Raum");
+					boolean isRaumPChatAL = false;
+					if (isRaumPChatAL == false) {
+						isRaumPC.addActionListener(new ActionListener() {
+
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								if(isRaumPC==e.getSource()){
-									if(isRaumPC.isSelected()==true){
+								if (isRaumPC == e.getSource()) {
+									if (isRaumPC.isSelected() == true) {
 										raumParameter.setText("ja");
-									}else{
+									} else {
 										raumParameter.setText("nein");
 									}
 								}
-								
+
 							}
 						});
-					 }
+					}
 					if (raum.isComputerraum() == true) {
 						isRaumPC.setSelected(true);
 					} else {
@@ -621,6 +624,8 @@ public class GUI implements ActionListener {
 			fusszeile[3].setVisible(false);
 			fusszeile[4].setVisible(true);
 			fusszeile[5].setVisible(false);
+			fusszeile[6].setVisible(false);
+			fusszeile[7].setVisible(false);
 			JPanel innerCenter3 = new JPanel();
 			int counter;
 			int index;
@@ -867,12 +872,13 @@ public class GUI implements ActionListener {
 
 				for (Raum raum : alleraume) {
 					counter++;
-					if (raum.getBezeichnung().equals( userInputID.getText()) && firstHit == false) {
+					if (raum.getBezeichnung().equals(userInputID.getText()) && firstHit == false) {
 						index = counter;
 						firstHit = true;
 					}
 				}
 				if (firstHit == false) {
+					//TODO steal this first
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
@@ -948,7 +954,7 @@ public class GUI implements ActionListener {
 			}
 		}
 		if (fusszeile[5] == quelle) {
-			Object[] options = { "Nein", "Ja" };
+			Object[] options = { "Nein", "Ja" };//TODO steal this
 			int n = JOptionPane.showOptionDialog(jf, "Wollen Sie dieses Datentupel wirklich ändern?",
 					"A Silly Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
 					options[0]);
@@ -969,6 +975,9 @@ public class GUI implements ActionListener {
 					fusszeile[3].setVisible(false);
 					fusszeile[4].setVisible(false);
 					fusszeile[5].setVisible(false);
+					fusszeile[6].setVisible(false);
+					fusszeile[7].setVisible(false);
+					//TODO steal this too
 					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -1032,13 +1041,13 @@ public class GUI implements ActionListener {
 					break;
 				case 7:
 					ArrayList<Raum> alleräume = sv.getRaeume();
-					boolean raumHatPc=false;
-				
-					if(raumParameter.equals("ja")){
-						raumHatPc=true;
-		
+					boolean raumHatPc = false;
+
+					if (raumParameter.equals("ja")) {
+						raumHatPc = true;
+
 					}
-					sv.raumAendern(alleräume.get(globalIndex).getBezeichnung(),raumHatPc);
+					sv.raumAendern(alleräume.get(globalIndex).getBezeichnung(), raumHatPc);
 					clear();
 					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -1306,7 +1315,7 @@ public class GUI implements ActionListener {
 						db.abfrageKomplex04(persoNr);
 						break;
 					default:
-//						
+						//
 					}
 
 					break;
@@ -1473,6 +1482,13 @@ public class GUI implements ActionListener {
 				allgTab(i);
 
 			}
+
+		}
+		for (int i = 0; i < beziehungsTab.length; i++) {
+			if (beziehungsTab[i] == quelle) {
+				beziehungsNummer = i;
+				allgBeziehung(i);
+			}
 		}
 
 	}
@@ -1483,7 +1499,8 @@ public class GUI implements ActionListener {
 		fusszeile[2].setVisible(false);
 		fusszeile[3].setVisible(false);
 		fusszeile[4].setVisible(false);
-		fusszeile[5].setVisible(true);	}
+		fusszeile[5].setVisible(true);
+	}
 
 	private void primeKeyTab() {
 		pKListe[0] = "Personen-ID";
@@ -1496,6 +1513,113 @@ public class GUI implements ActionListener {
 		pKListe[7] = "Raum-Bezeichnung";
 	}
 
+	private void allgBeziehung(int i) {
+		if (allgDB == 1) {
+			fusszeile[6].setVisible(true);
+			fusszeile[7].setVisible(false);
+			fusszeile[6].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(fusszeile[6]==e.getSource()){
+						boolean id1=true;
+						boolean id2=true;
+						boolean id1gibts=true;
+						boolean id2gibts=true;
+						JLabel alleLabels[]=richtigeIDLabels(i);
+						if(checkIfNum(beziehungsID1.getText())==false){
+							id1=false;
+						}
+						if(checkIfNum(beziehungsID2.getText())==false){
+							id2=false;
+						}
+						if(id1==false&&id2==false){
+							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n"+alleLabels[0].getText()+" ändern.\n"+alleLabels[1].getText()+" ändern.", "Kein Treffer",
+									JOptionPane.ERROR_MESSAGE);
+							beziehungsID1.setText("");
+							beziehungsID2.setText("");
+						}
+						if(id1==true&&id2==false){
+							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n"+alleLabels[1].getText()+" ändern.", "Kein Treffer",
+									JOptionPane.ERROR_MESSAGE);
+							beziehungsID2.setText("");
+						}
+						if(id1==false&&id2==true){
+							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n"+alleLabels[0].getText()+" ändern.", "Kein Treffer",
+									JOptionPane.ERROR_MESSAGE);
+							beziehungsID1.setText("");
+						}
+						if(id1==true&&id2==true){
+							
+							//Testen ob id vorhanden  bzw gibts die?
+							//methode beziehung speichern/hinzufügen
+						}
+
+					}
+
+				}
+			});
+		}
+		if (allgDB == 3) {
+			fusszeile[6].setVisible(false);
+			fusszeile[7].setVisible(true);
+			fusszeile[7].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+		}
+
+		// TODO
+		cleanAndBezTitel();
+		innerCenter.setLayout(new GridLayout(15, 1, 3, 3));
+		JLabel richtigeIDs[] = richtigeIDLabels(i);
+		beziehungsID1 = new JTextField();
+		beziehungsID2 = new JTextField();
+		richtigeIDs[0].setText(richtigeIDs[0].getText()+" eingeben.");
+		richtigeIDs[1].setText(richtigeIDs[1].getText()+" eingeben.");
+			innerCenter.add(richtigeIDs[0]);
+			innerCenter.add(beziehungsID1);
+			innerCenter.add(richtigeIDs[1]);
+			innerCenter.add(beziehungsID2);
+			jpCenter.add(innerCenter);
+		
+	}
+
+	private JLabel[] richtigeIDLabels(int i) {
+		JLabel iDs[] = new JLabel[2];
+		iDs[0] = new JLabel();
+		iDs[1] = new JLabel();
+		iDs[0].setFont(new Font("Serif", Font.PLAIN, 18));
+		iDs[1].setFont(new Font("Serif", Font.PLAIN, 18));
+		String id1 = "";
+		String id2 = "";
+		switch (i) {
+		case 0:
+			id1 = "Raum-Beziehung";
+			id2 = "Studenplan-ID";
+			break;
+		case 1:
+			id1 = "Matrikel-Nummer";
+			id2 = "Veranstaltungs-ID";
+			break;
+		case 2:
+			id1 = "Personal-Nummer";
+			id2 = "Studenplan-ID";
+			break;
+		case 3:
+			id1 = "Matrikel-Nummer";
+			id2 = "Studenplan-ID";
+			break;
+		default:
+
+		}
+		iDs[0].setText("Bitte " + id1);
+		iDs[1].setText("Bitte " + id2);
+		return iDs;
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void allgTab(int i) {
 		alleAttribute();
@@ -1503,7 +1627,7 @@ public class GUI implements ActionListener {
 		innerCenter2 = new JPanel();
 		innerCenter2.setLayout(new GridLayout(15, 4));
 		// 3 means löschen
-		if (allgDB == 3) { 
+		if (allgDB == 3) {
 
 			cleanAndTitel();
 			pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
@@ -1539,13 +1663,13 @@ public class GUI implements ActionListener {
 			if (!hatAL) {
 				hatAL = true;
 				fusszeile[1].addActionListener(new ActionListener() {
-			
+
 					@Override
 					public void actionPerformed(ActionEvent eve) {
 						Object quelle = eve.getSource();
 						if (fusszeile[1] == quelle) {
 							switch (tabellenNummer) {
-							
+
 							case 0: // person funkt
 								boolean pIsMännlich = false;
 								boolean hatVorname;
@@ -1721,7 +1845,6 @@ public class GUI implements ActionListener {
 										sStudiengang = studiengängeListe[Integer.parseInt(studEingabe[2].getText())];
 									}
 
-									
 									int studiengangID = 1;
 									for (int i = 0; i < studiengängeListe.length; i++) {
 										if (sStudiengang == studiengängeListe[i]) {
@@ -1741,7 +1864,8 @@ public class GUI implements ActionListener {
 											"Kein Studiengangname", JOptionPane.ERROR_MESSAGE);
 								} else {
 									String fakName = fakEingabe.getText();
-									sv.fakultaetHinzufuegen(fakName);clear();
+									sv.fakultaetHinzufuegen(fakName);
+									clear();
 									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
 											JOptionPane.INFORMATION_MESSAGE);
 								}
@@ -1753,7 +1877,7 @@ public class GUI implements ActionListener {
 											"Kein Studiengangname", JOptionPane.ERROR_MESSAGE);
 								} else {
 									String studiengangName = studiengangEingabe.getText();
-									
+
 									sv.studiengangHinzufuegen(studiengangName);
 									clear();
 									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
@@ -1825,8 +1949,8 @@ public class GUI implements ActionListener {
 										// vPersonalNr, vStundenplanNr,
 										// vVorlesungsname);
 										clear();
-										JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
-												JOptionPane.INFORMATION_MESSAGE);
+										JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert",
+												"Daten gespeichert", JOptionPane.INFORMATION_MESSAGE);
 									}
 
 								}
@@ -1850,7 +1974,7 @@ public class GUI implements ActionListener {
 								if (vnKürzelIN == true && vnNameIN == true) {
 									String vnName = vNameEingabe[0].getText();
 									String vnKürzel = vNameEingabe[1].getText();
-									
+
 									sv.veranstaltungsnameHinzufuegen(vnName, vnKürzel);
 									clear();
 									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
@@ -2106,66 +2230,66 @@ public class GUI implements ActionListener {
 		}
 		if (allgDB == 0) {
 			cleanAndTitel();
-			
+
 			JTextArea t = new JTextArea();
 			JScrollPane sp = new JScrollPane(t);
 			jpCenter.add(sp, BorderLayout.CENTER);
-			
+
 			switch (tabellenNummer) {
 			case 0:
 				// select personen
 				ArrayList<Person> personen = sv.getPersonen();
-				for(Person p : personen){
+				for (Person p : personen) {
 					t.setText(t.getText() + "\n" + p.toString());
 				}
-				
+
 				break;
 			case 1:
 				// select dozent
 				ArrayList<Dozent> dozenten = sv.getDozenten();
-				for(Dozent d: dozenten){
+				for (Dozent d : dozenten) {
 					t.setText(t.getText() + "\n" + d.toString());
 				}
 				break;
 			case 2:
 				// select studenten
 				ArrayList<Studierender> studierende = sv.getStudierende();
-				for(Studierender stud : studierende){
+				for (Studierender stud : studierende) {
 					t.setText(t.getText() + "\n" + stud.toString());
 				}
 				break;
 			case 3:
 				// select fakultäten
 				ArrayList<Fakultaet> fakultaeten = sv.getFakultaeten();
-				for(Fakultaet f : fakultaeten){
+				for (Fakultaet f : fakultaeten) {
 					t.setText(t.getText() + "\n" + f.toString());
 				}
 				break;
 			case 4:
 				// select studiengang
 				ArrayList<Studiengang> studiengaenge = sv.getStudiengaenge();
-				for(Studiengang sg : studiengaenge){
+				for (Studiengang sg : studiengaenge) {
 					t.setText(t.getText() + "\n" + sg.toString());
 				}
 				break;
 			case 5:
 				// select veranstaltung
 				ArrayList<Veranstaltung> veranstaltungen = sv.getVeranstaltungen();
-				for(Veranstaltung v : veranstaltungen){
+				for (Veranstaltung v : veranstaltungen) {
 					t.setText(t.getText() + "\n" + v.toString());
 				}
 				break;
 			case 6:
 				// select vorlesungsnamen
 				ArrayList<Veranstaltungsname> veranstaltungsnamen = sv.getVeranstaltungsnamen();
-				for(Veranstaltungsname vn : veranstaltungsnamen){
+				for (Veranstaltungsname vn : veranstaltungsnamen) {
 					t.setText(t.getText() + "\n" + vn.toString());
 				}
 				break;
 			case 7:
 				// Select raum
 				ArrayList<Raum> raeume = sv.getRaeume();
-				for(Raum r : raeume){
+				for (Raum r : raeume) {
 					t.setText(t.getText() + "\n" + r.toString());
 				}
 				break;
@@ -2175,18 +2299,19 @@ public class GUI implements ActionListener {
 		}
 
 	}
-	private boolean checkIfNum(String testThis){
-		boolean funkt = true;
-		try{
-			int i=Integer.parseInt(testThis);
-		}catch(Exception e){
-			funkt =false;
-			
-		}
-			
-		return funkt;
-		
-	}
+
+	 private boolean checkIfNum(String testThis) {
+	 boolean funkt = true;
+	 try {
+		 Integer.parseInt(testThis);
+	 } catch (Exception e) {
+	 funkt = false;
+	
+	 }
+	
+	 return funkt;
+	
+	 }
 
 	private void alleAttribute() {
 		personenLabels = new JLabel[4];
@@ -2254,6 +2379,19 @@ public class GUI implements ActionListener {
 	private void cleanAndTitel() {
 		clear();
 		inDieserTabelle.setText("In der Tabelle: " + tabellen[tabellenNummer].getText() + "   ");
+		inDieserTabelle.setFont(new Font("Serif", Font.PLAIN, 15));
+		inDieserTabelle.setHorizontalAlignment(SwingConstants.RIGHT);
+		jpCenter.add(inDieserTabelle, BorderLayout.NORTH);
+
+	}
+
+	private void cleanAndBezTitel() {
+		clear();
+		innerCenter.removeAll();
+		innerCenter.revalidate();
+		innerCenter.repaint();
+		System.out.println("ich bin da");
+		inDieserTabelle.setText("Beziehung: " + beziehungsTab[beziehungsNummer].getText() + "   ");
 		inDieserTabelle.setFont(new Font("Serif", Font.PLAIN, 15));
 		inDieserTabelle.setHorizontalAlignment(SwingConstants.RIGHT);
 		jpCenter.add(inDieserTabelle, BorderLayout.NORTH);
@@ -2663,12 +2801,34 @@ public class GUI implements ActionListener {
 		überschrift.setFont(new Font("Serif", Font.PLAIN, 18));
 		innerCenter = new JPanel();
 		jpCenter.add(innerCenter, BorderLayout.CENTER);
-		innerCenter.setLayout(new GridLayout(8, 1));
 		for (int i = 0; i < tabellen.length; i++) {
 			tabellen[i] = new JButton();
 			tabellen[i].addActionListener(this);
+			tabellen[i].addActionListener(this);
 			innerCenter.add(tabellen[i]);
+
 		}
+		if (allgDB == 0 || allgDB == 2) {
+			innerCenter.setLayout(new GridLayout(8, 1, 1, 1));
+		}
+		if (allgDB == 3 || allgDB == 1) {
+			innerCenter.setLayout(new GridLayout(13, 1, 1, 1));
+			beziehungen = new JLabel("Beziehungen");
+			beziehungen.setFont(new Font("Serif", Font.PLAIN, 18));
+			innerCenter.add(beziehungen);
+			for (int i = 0; i < beziehungsTab.length; i++) {
+				beziehungsTab[i] = new JButton();
+				beziehungsTab[i].addActionListener(this);
+				innerCenter.add(beziehungsTab[i]);
+			}
+			// Beziehungen
+			beziehungsTab[0].setText("hat-Beziehungen");
+			beziehungsTab[1].setText("hört-Beziehungen");
+			beziehungsTab[2].setText("erhält-Beziehungen");
+			beziehungsTab[3].setText("besitzt-Beziehungen");
+
+		}
+		// Tabellen
 		tabellen[0].setText("Person");
 		tabellen[1].setText("Dozent");
 		tabellen[2].setText("Studierender");
