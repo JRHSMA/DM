@@ -726,7 +726,7 @@ public class DB {
 		}
 	}
 
-	public boolean insertHoert(int id, int matrikelNr) {
+	public boolean insertHoert(int matrikelNr, int id) {
 		try {
 			ps = con.prepareStatement("INSERT INTO hoert (id, matrikelNr) " + "VALUES (?,?);");
 			ps.setInt(1, id);
@@ -750,7 +750,7 @@ public class DB {
 		}
 	}
 
-	public boolean insertErhaelt(int personalNr, int id) {
+	public boolean insertErhaelt(int personalNr, int id ) {
 		try {
 			ps = con.prepareStatement("INSERT INTO erhaelt (personalNr, id) " + "VALUES (?,?);");
 			ps.setInt(1, personalNr);
@@ -762,7 +762,7 @@ public class DB {
 		}
 	}
 
-	public boolean insertBesitzt(int id, int matrikelNr) {
+	public boolean insertBesitzt(int matrikelNr, int id) {
 		try {
 			ps = con.prepareStatement("INSERT INTO besitzt (id, matrikelNr) " + "VALUES (?,?);");
 			ps.setInt(1, id);

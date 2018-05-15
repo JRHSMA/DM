@@ -2018,6 +2018,9 @@ public class Studierendenverwaltung {
 	// Hoert
 	public void hoertHinzufuegen(int idVeranstaltung, int matrikelNr) {
 		// Veranstaltungs- und Studierenderobjekt holen für Konstruktor
+		
+		System.out.println(idVeranstaltung);
+		System.out.println(matrikelNr);
 		Veranstaltung veranstaltung = null;
 		for (Veranstaltung v : veranstaltungen) {
 			if (v.getId() == idVeranstaltung) {
