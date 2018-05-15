@@ -1,5 +1,3 @@
-import java.sql.Date; // oder java.util.Date ?
-import java.util.LinkedHashMap;
 
 public class Studierender {
 

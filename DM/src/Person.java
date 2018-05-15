@@ -1,5 +1,3 @@
-import java.sql.Date; // oder java.util.Date ?
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class Person {
@@ -54,7 +52,7 @@ public class Person {
 
 	public void setVorname(String vorname) {
 		if (vorname.length() < 2) {
-			throw new RuntimeException("Der Vorname muss mindestens drei Buchstaben besitzen");
+			throw new RuntimeException("Der Vorname muss mindestens zwei Buchstaben besitzen");
 		}
 		if (vorname.length() > 50) {
 			throw new RuntimeException("Der Vorname darf nicht mehr als 50 Buchstaben besitzen");
@@ -72,7 +70,7 @@ public class Person {
 
 	public void setNachname(String nachname) {
 		if (nachname.length() < 2) {
-			throw new RuntimeException("Der Nachname muss mindestens drei Buchstaben besitzen");
+			throw new RuntimeException("Der Nachname muss mindestens zwei Buchstaben besitzen");
 		}
 		if (nachname.length() > 50) {
 			throw new RuntimeException("Der Nachname darf nicht mehr als 50 Buchstaben besitzen");

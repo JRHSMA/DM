@@ -47,7 +47,7 @@ public class Veranstaltungsname {
 	}
 
 	public void setKuerzel(String kuerzel) {
-		if (kuerzel.length() < 2 || kuerzel.length() > 4) // TODO stimmt?
+		if (kuerzel.length() < 2 || kuerzel.length() > 5) 
 			throw new RuntimeException("Kürzel ungültig.");
 		this.kuerzel = kuerzel;
 	}

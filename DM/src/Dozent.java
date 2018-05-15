@@ -1,5 +1,3 @@
-import java.sql.Date;
-import java.util.LinkedHashMap;
 
 public class Dozent {
 

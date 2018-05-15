@@ -171,8 +171,6 @@ public class Studierendenverwaltung {
 
 			datenzugriff.setSQL("SELECT * FROM dozent;");
 			daten = datenzugriff.lesenjava();
-			for (LinkedHashMap<String, String> datensatz : daten) {
-			}
 		} catch (Exception e) {
 			System.err.println(e.getClass() + ":" + e.getMessage());
 		} finally {
@@ -189,12 +187,6 @@ public class Studierendenverwaltung {
 			for (LinkedHashMap<String, String> datensatz : daten) {
 				studiengaenge.add(new Studiengang(datensatz));
 			}
-
-			// Person
-			ArrayList<LinkedHashMap<String, String>> daten1 = null;
-			datenzugriff = new DB("studierendenverwaltung", "root", "");
-			datenzugriff.setSQL("SELECT * FROM person;");
-			daten1 = datenzugriff.lesenjava();
 
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			datenzugriff.setSQL("SELECT * FROM studierender;");
@@ -485,10 +477,8 @@ public class Studierendenverwaltung {
 						break;
 					}
 				}
-
 				erhalten.add(new Erhaelt(dozent, stundenplan));
 			}
-
 			datenzugriff.setSQL("SELECT * FROM erhaelt;");
 			daten = datenzugriff.lesenjava();
 		} catch (Exception e) {
@@ -507,6 +497,11 @@ public class Studierendenverwaltung {
 		int id = -1;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (vorname.matches(".*[0-9].*") || vorname.length() < 2 || vorname.length() > 50
+					|| nachname.matches(".*[0-9].*") || nachname.length() < 2 || nachname.length() > 50
+					|| nachname == null || vorname == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertPerson(vorname, nachname, geburtsdatum, maennlich);
 			// id aus DB holen
@@ -595,7 +590,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Person> it = personen.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()== id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -629,6 +624,9 @@ public class Studierendenverwaltung {
 		int personalNr = -1;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (kuerzel.matches(".*[0-9].*") || kuerzel.length() > 3 || kuerzel == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertDozent(kuerzel, idFakultaet, idPerson);
 			personalNr = datenzugriff.getDozentPersonalNr(kuerzel);
@@ -732,7 +730,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Dozent> it = dozenten.iterator();
 				while (it.hasNext()) {
-					if (it.next().getPersonalNr()== personalNr) {
+					if (it.next().getPersonalNr() == personalNr) {
 						it.remove();
 					}
 				}
@@ -750,6 +748,9 @@ public class Studierendenverwaltung {
 		int id = -1;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (name.matches(".*[0-9].*") || name.length() < 2 || name.length() > 50 || name == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertFakultaet(name);
 			id = datenzugriff.getFakultaetId(name);
@@ -837,7 +838,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Fakultaet> it = fakultaeten.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()==id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -974,7 +975,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Studierender> it = studierende.iterator();
 				while (it.hasNext()) {
-					if (it.next().getMatrikelNr()== matrikelNr) {
+					if (it.next().getMatrikelNr() == matrikelNr) {
 						it.remove();
 					}
 				}
@@ -1125,7 +1126,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Veranstaltung> it = veranstaltungen.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()== id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -1143,6 +1144,10 @@ public class Studierendenverwaltung {
 		int id = -1;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (name.length() > 50 || name.length() < 2 || kuerzel.length() < 2 || kuerzel.length() > 5
+					|| kuerzel == null || name == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertVeranstaltungsname(name, kuerzel);
 			id = datenzugriff.getVeranstaltungnameId(name, kuerzel);
@@ -1230,7 +1235,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Veranstaltungsname> it = veranstaltungsnamen.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()== id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -1248,6 +1253,9 @@ public class Studierendenverwaltung {
 		int id = -1;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (Integer.parseInt(slot) < 1 || slot == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertSlot(Integer.parseInt(slot));
 			id = datenzugriff.getSlotId(slot);
@@ -1335,7 +1343,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Slot> it = slots.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()== id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -1353,6 +1361,10 @@ public class Studierendenverwaltung {
 		int id = -1;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (!(tag.equals("Montag") || tag.equals("Dienstag") || tag.equals("Mittwoch") || tag.equals("Donnerstag")
+					|| tag.equals("Freitag") || tag.equals("Samstag") || tag.equals("Sonntag")) || tag == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertTag(tag);
 			id = datenzugriff.getTagId(tag);
@@ -1440,7 +1452,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Tag> it = tage.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()== id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -1458,6 +1470,9 @@ public class Studierendenverwaltung {
 		int id = -1;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (name.matches(".*[0-9].*") || name.length() > 100 || name.length() < 2 || name == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertStudiengang(name);
 			id = datenzugriff.getStudiengangId(name);
@@ -1545,7 +1560,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Studiengang> it = studiengaenge.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()== id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -1694,7 +1709,7 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Stundenplan> it = stundenplaene.iterator();
 				while (it.hasNext()) {
-					if (it.next().getId()== id) {
+					if (it.next().getId() == id) {
 						it.remove();
 					}
 				}
@@ -1711,6 +1726,9 @@ public class Studierendenverwaltung {
 		boolean dbEinfuegen = false;
 		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
+			if (bezeichnung.length() > 5 || bezeichnung == null) {
+				throw new RuntimeException("");
+			}
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertRaum(bezeichnung, computerraum);
 		} catch (Exception e) {
@@ -1890,7 +1908,8 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Besitzt> it = besitzen.iterator();
 				while (it.hasNext()) {
-					if (it.next().getStundenplan().equals(stundenplan) && it.next().getStudierender().equals(studierender)) {
+					if (it.next().getStundenplan().equals(stundenplan)
+							&& it.next().getStudierender().equals(studierender)) {
 						it.remove();
 					}
 				}
@@ -2082,7 +2101,8 @@ public class Studierendenverwaltung {
 			try {
 				Iterator<Hoert> it = hoeren.iterator();
 				while (it.hasNext()) {
-					if (it.next().getVeranstaltung().equals(veranstaltung) && it.next().getStudierender().equals(studierender)) {
+					if (it.next().getVeranstaltung().equals(veranstaltung)
+							&& it.next().getStudierender().equals(studierender)) {
 						it.remove();
 					}
 				}
