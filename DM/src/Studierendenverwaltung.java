@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import javax.swing.JDialog;
@@ -7,54 +8,65 @@ import javax.swing.JLabel;
 import db.DB;
 
 public class Studierendenverwaltung {
-	
-	private  ArrayList<Person> personen;
+
+	private ArrayList<Person> personen;
+
 	public ArrayList<Person> getPersonen() {
 		return personen;
 	}
-	private  ArrayList<Dozent> dozenten;
+
+	private ArrayList<Dozent> dozenten;
+
 	public ArrayList<Dozent> getDozenten() {
 		return dozenten;
 	}
-	private  ArrayList<Studierender> studierende;
-	public  ArrayList<Studierender> getStudierende() {
+
+	private ArrayList<Studierender> studierende;
+
+	public ArrayList<Studierender> getStudierende() {
 		return studierende;
 	}
+
 	private ArrayList<Fakultaet> fakultaeten;
+
 	public ArrayList<Fakultaet> getFakultaeten() {
 		return fakultaeten;
 	}
+
 	private ArrayList<Studiengang> studiengaenge;
+
 	public ArrayList<Studiengang> getStudiengaenge() {
 		return studiengaenge;
 	}
+
 	private ArrayList<Veranstaltung> veranstaltungen;
+
 	public ArrayList<Veranstaltung> getVeranstaltungen() {
 		return veranstaltungen;
 	}
+
 	private ArrayList<Veranstaltungsname> veranstaltungsnamen;
+
 	public ArrayList<Veranstaltungsname> getVeranstaltungsnamen() {
 		return veranstaltungsnamen;
 	}
+
 	private ArrayList<Raum> raeume;
+
 	public ArrayList<Raum> getRaeume() {
 		return raeume;
 	}
 
-
 	private ArrayList<Slot> slots;
 	private ArrayList<Tag> tage;
 	private ArrayList<Stundenplan> stundenplaene;
-	
 	private ArrayList<Hoert> hoeren;
-	
 	private ArrayList<Hat> hatten;
 	private ArrayList<Besitzt> besitzen;
 	private ArrayList<Erhaelt> erhalten;
 	private DB datenzugriff = null;
-	
-	
-	public Studierendenverwaltung(){
+
+	public Studierendenverwaltung() {
 		fakultaeten = new ArrayList<>();
 		personen = new ArrayList<>();
 		dozenten = new ArrayList<>();
@@ -70,32 +82,46 @@ public class Studierendenverwaltung {
 		hatten = new ArrayList<>();
 		besitzen = new ArrayList<>();
 		erhalten = new ArrayList<>();
-		
+
 		DatenAusDbEinlesen();
 	}
 
 	// Test Main für die Entwickler
-//	public static void main(String[] args) {
-//		Studierendenverwaltung s = new Studierendenverwaltung();
-//		//person hinzufügen
-//		System.out.println("-----------------------------------------------------------------");
-//		s.personHinzufuegen("testtest", "test01", "2018-01-01", true);
-//		for(Person p : personen){
-//			System.out.println(p);
-//		}
-//		// dozent hinzufügen
-//		s.dozentHinzufuegen("XXXXX", 1, 36);
-//		for(Dozent d : dozenten){
-//			System.out.println(d);
-//		}
-//		// studierender hinzufügen
-//		s.studierenderHinzufuegen(3, 1, 33);
-//		for(Studierender stud : studierende){
-//			System.out.println(stud);
-//		}
-//	}
+	// public static void main(String[] args) {
+	// Studierendenverwaltung s = new Studierendenverwaltung();
+	// //person hinzufügen
+	// System.out.println("-----------------------------------------------------------------");
+	// s.personHinzufuegen("testtest", "test01", "2018-01-01", true);
+	// for(Person p : personen){
+	// System.out.println(p);
+	// }
+	// // dozent hinzufügen
+	// s.dozentHinzufuegen("XXXXX", 1, 36);
+	// for(Dozent d : dozenten){
+	// System.out.println(d);
+	// }
+	// // studierender hinzufügen
+	// s.studierenderHinzufuegen(3, 1, 33);
+	// for(Studierender stud : studierende){
+	// System.out.println(stud);
+	// }
+	// }
 
 	public void DatenAusDbEinlesen() {
+		personen.clear();
+		dozenten.clear();
+		studiengaenge.clear();
+		studierende.clear();
+		slots.clear();
+		tage.clear();
+		stundenplaene.clear();
+		veranstaltungsnamen.clear();
+		veranstaltungen.clear();
+		hoeren.clear();
+		raeume.clear();
+		hatten.clear();
+		besitzen.clear();
+		erhalten.clear();
 
 		try {
 			// referenzielle Integrität Dozent
@@ -202,7 +228,7 @@ public class Studierendenverwaltung {
 		} finally {
 			datenzugriff.close();
 		}
-		
+
 		try {
 			// referenzielle Integrität Stundenplan
 			// Slot
@@ -268,7 +294,7 @@ public class Studierendenverwaltung {
 		} finally {
 			datenzugriff.close();
 		}
-		
+
 		try {
 			// referenzielle Integrität Veranstaltung
 			// Veranstaltungsname
@@ -326,7 +352,7 @@ public class Studierendenverwaltung {
 		} finally {
 			datenzugriff.close();
 		}
-		
+
 		// Hoert
 		try {
 			ArrayList<LinkedHashMap<String, String>> daten = null;
@@ -427,7 +453,7 @@ public class Studierendenverwaltung {
 				}
 				besitzen.add(new Besitzt(stundenplan, studierender));
 			}
-			
+
 			datenzugriff.setSQL("SELECT * FROM besitzt;");
 			daten = datenzugriff.lesenjava();
 		} catch (Exception e) {
@@ -473,36 +499,34 @@ public class Studierendenverwaltung {
 
 	}
 
-	//person
+	// person
 	public void personHinzufuegen(String vorname, String nachname, String geburtsdatum, boolean maennlich) {
 		// Person hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertPerson(vorname, nachname, geburtsdatum, maennlich);
 			// id aus DB holen
 			id = datenzugriff.getPersonId(vorname, nachname, geburtsdatum, maennlich);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Person hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
 				personen.add(new Person(id, vorname, nachname, geburtsdatum, maennlich));
@@ -512,29 +536,26 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	public void personAendern( int id, String vorname, String nachname,
-			String geburtsdatum, boolean maennlich) {
+	public void personAendern(int id, String vorname, String nachname, String geburtsdatum, boolean maennlich) {
 		// Person ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updatePerson(vorname, nachname, geburtsdatum, maennlich, id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Person ändern (java)
 		if (dbAendern) {
 			for (Person x : personen) {
@@ -550,33 +571,32 @@ public class Studierendenverwaltung {
 	}
 
 	public void personLoeschen(int id) {
-		// Person ändern DB
+		// Person löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deletePerson(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
-		// Person ändern (java)
+
+		// Person löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Person x : personen) {
-					if (id == x.getId()) {
-						personen.remove(x);
+				Iterator<Person> it = personen.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()== id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -584,8 +604,8 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Dozent
+
+	// Dozent
 	public void dozentHinzufuegen(String kuerzel, int idFakultaet, int idPerson) {
 		// Fakultaets- und Personenobjekt holen für Konstruktor
 		Fakultaet fakultaet = null;
@@ -602,26 +622,24 @@ public class Studierendenverwaltung {
 				break;
 			}
 		}
-		
+
 		// Dozent hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int personalNr = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertDozent(kuerzel, idFakultaet, idPerson);
 			personalNr = datenzugriff.getDozentPersonalNr(kuerzel);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -629,7 +647,7 @@ public class Studierendenverwaltung {
 		// Dozent hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(personalNr<1){
+				if (personalNr < 1) {
 					throw new RuntimeException("Ungültige personalNr");
 				}
 				dozenten.add(new Dozent(personalNr, kuerzel, fakultaet, person));
@@ -655,28 +673,26 @@ public class Studierendenverwaltung {
 				break;
 			}
 		}
-		
+
 		// Dozent ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateDozent(kuerzel, idFakultaet, idPerson, personalNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Dozent ändern (java)
 		if (dbAendern) {
 			for (Dozent x : dozenten) {
@@ -695,20 +711,18 @@ public class Studierendenverwaltung {
 		// Dozent löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbLoeschen = datenzugriff.deleteDozent(personalNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -716,9 +730,10 @@ public class Studierendenverwaltung {
 		// Dozent löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Dozent x : dozenten) {
-					if (personalNr == x.getPersonalNr()) {
-						dozenten.remove(x);
+				Iterator<Dozent> it = dozenten.iterator();
+				while (it.hasNext()) {
+					if (it.next().getPersonalNr()== personalNr) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -726,28 +741,26 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Fakultaet
+
+	// Fakultaet
 	public void fakultaetHinzufuegen(String name) {
 		// Fakultaet hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertFakultaet(name);
 			id = datenzugriff.getFakultaetId(name);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -755,7 +768,7 @@ public class Studierendenverwaltung {
 		// Fakultaet hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
 				fakultaeten.add(new Fakultaet(id, name));
@@ -769,24 +782,22 @@ public class Studierendenverwaltung {
 		// Fakultaet ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateFakultaet(name, id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Fakultaet ändern (java)
 		if (dbAendern) {
 			for (Fakultaet x : fakultaeten) {
@@ -805,20 +816,18 @@ public class Studierendenverwaltung {
 		// Fakultaet löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteFakultaet(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -826,9 +835,10 @@ public class Studierendenverwaltung {
 		// Fakultaet löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Fakultaet x : fakultaeten) {
-					if (id == x.getId()) {
-						fakultaeten.remove(x);
+				Iterator<Fakultaet> it = fakultaeten.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()==id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -836,8 +846,8 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Studierender
+
+	// Studierender
 	public void studierenderHinzufuegen(int semester, int idStudiengang, int idPerson) {
 		// Studiengangs- und Personenobjekt holen für Konstruktor
 		Studiengang studiengang = null;
@@ -854,26 +864,24 @@ public class Studierendenverwaltung {
 				break;
 			}
 		}
-		
+
 		// Studierender hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int matrikelNr = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertStudierender(semester, idStudiengang, idPerson);
 			matrikelNr = datenzugriff.getStudierenderMatrikelNr(semester, idStudiengang, idPerson);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -881,7 +889,7 @@ public class Studierendenverwaltung {
 		// Studierender hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(matrikelNr<1){
+				if (matrikelNr < 1) {
 					throw new RuntimeException("Ungültige matrikelNr");
 				}
 				studierende.add(new Studierender(matrikelNr, semester, studiengang, person));
@@ -907,28 +915,26 @@ public class Studierendenverwaltung {
 				break;
 			}
 		}
-		
+
 		// Studierender ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateStudierender(semester, idStudiengang, idPerson, matrikelNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Studierender ändern (java)
 		if (dbAendern) {
 			for (Studierender x : studierende) {
@@ -947,20 +953,18 @@ public class Studierendenverwaltung {
 		// Studierender löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteStudierender(matrikelNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -968,9 +972,10 @@ public class Studierendenverwaltung {
 		// Studierender löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Studierender x : studierende) {
-					if (matrikelNr == x.getMatrikelNr()) {
-						studierende.remove(x);
+				Iterator<Studierender> it = studierende.iterator();
+				while (it.hasNext()) {
+					if (it.next().getMatrikelNr()== matrikelNr) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -978,50 +983,49 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Veranstaltung
+
+	// Veranstaltung
 	public void veranstaltungHinzufuegen(int semester, int dauer, int personalNr, int idStundenplan, int idvName) {
-		// Dozenten-, Stundenplan- und Veranstaltungsnamenobjekt holen für Konstruktor
+		// Dozenten-, Stundenplan- und Veranstaltungsnamenobjekt holen für
+		// Konstruktor
 		Dozent dozent = null;
-		for(Dozent d : dozenten){
-			if(d.getPersonalNr() == personalNr){
+		for (Dozent d : dozenten) {
+			if (d.getPersonalNr() == personalNr) {
 				dozent = d;
 			}
 		}
-		
+
 		Stundenplan stundenplan = null;
-		for(Stundenplan s : stundenplaene){
-			if(s.getId() == idStundenplan){
+		for (Stundenplan s : stundenplaene) {
+			if (s.getId() == idStundenplan) {
 				stundenplan = s;
 			}
 		}
-		
+
 		Veranstaltungsname veranstaltungsname = null;
-		for(Veranstaltungsname v : veranstaltungsnamen){
-			if(v.getId() == idvName){
+		for (Veranstaltungsname v : veranstaltungsnamen) {
+			if (v.getId() == idvName) {
 				veranstaltungsname = v;
 			}
 		}
-		
+
 		// Veranstaltung hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertVeranstaltung(semester, dauer, personalNr, idStundenplan, idvName);
 			id = datenzugriff.getVeranstaltungId(semester, dauer, personalNr, idStundenplan, idvName);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1029,10 +1033,10 @@ public class Studierendenverwaltung {
 		// Veranstaltung hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
-				veranstaltungen.add(new Veranstaltung(id, semester,dauer, dozent, stundenplan, veranstaltungsname));
+				veranstaltungen.add(new Veranstaltung(id, semester, dauer, dozent, stundenplan, veranstaltungsname));
 			} catch (Exception e) {
 				DatenAusDbEinlesen();
 			}
@@ -1040,24 +1044,25 @@ public class Studierendenverwaltung {
 	}
 
 	public void veranstaltungAendern(int id, int semester, int dauer, int personalNr, int idStundenplan, int idvName) {
-		// Dozenten-, Stundenplan- und Veranstaltungsnamenobjekt holen für Konstruktor
+		// Dozenten-, Stundenplan- und Veranstaltungsnamenobjekt holen für
+		// Konstruktor
 		Dozent dozent = null;
-		for(Dozent d : dozenten){
-			if(d.getPersonalNr() == personalNr){
+		for (Dozent d : dozenten) {
+			if (d.getPersonalNr() == personalNr) {
 				dozent = d;
 			}
 		}
-		
+
 		Stundenplan stundenplan = null;
-		for(Stundenplan s : stundenplaene){
-			if(s.getId() == idStundenplan){
+		for (Stundenplan s : stundenplaene) {
+			if (s.getId() == idStundenplan) {
 				stundenplan = s;
 			}
 		}
-		
+
 		Veranstaltungsname veranstaltungsname = null;
-		for(Veranstaltungsname v : veranstaltungsnamen){
-			if(v.getId() == idvName){
+		for (Veranstaltungsname v : veranstaltungsnamen) {
+			if (v.getId() == idvName) {
 				veranstaltungsname = v;
 			}
 		}
@@ -1065,24 +1070,22 @@ public class Studierendenverwaltung {
 		// Veranstaltung ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateVeranstaltung(semester, dauer, personalNr, idStundenplan, idvName, id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Veranstaltung ändern (java)
 		if (dbAendern) {
 			for (Veranstaltung x : veranstaltungen) {
@@ -1101,20 +1104,18 @@ public class Studierendenverwaltung {
 		// Veranstaltung löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteVeranstaltung(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1122,9 +1123,10 @@ public class Studierendenverwaltung {
 		// Veranstaltung löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Veranstaltung x : veranstaltungen) {
-					if (id == x.getId()) {
-						veranstaltungen.remove(x);
+				Iterator<Veranstaltung> it = veranstaltungen.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()== id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1132,28 +1134,26 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Veranstaltungsname
+
+	// Veranstaltungsname
 	public void veranstaltungsnameHinzufuegen(String name, String kuerzel) {
 		// Veranstaltungsname hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertVeranstaltungsname(name, kuerzel);
 			id = datenzugriff.getVeranstaltungnameId(name, kuerzel);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1161,7 +1161,7 @@ public class Studierendenverwaltung {
 		// Veranstaltungsname hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
 				veranstaltungsnamen.add(new Veranstaltungsname(id, name, kuerzel));
@@ -1175,24 +1175,22 @@ public class Studierendenverwaltung {
 		// Veranstaltungsname ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateVeranstaltungsname(name, kuerzel, id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Veranstaltungsname ändern (java)
 		if (dbAendern) {
 			for (Veranstaltungsname x : veranstaltungsnamen) {
@@ -1211,20 +1209,18 @@ public class Studierendenverwaltung {
 		// Veranstaltungsname löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteVeranstaltungsname(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1232,9 +1228,10 @@ public class Studierendenverwaltung {
 		// Veranstaltungsname löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Veranstaltungsname x : veranstaltungsnamen) {
-					if (id == x.getId()) {
-						veranstaltungsnamen.remove(x);
+				Iterator<Veranstaltungsname> it = veranstaltungsnamen.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()== id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1242,28 +1239,26 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Slot
+
+	// Slot
 	public void slotHinzufuegen(String slot) {
 		// Slot hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertSlot(Integer.parseInt(slot));
 			id = datenzugriff.getSlotId(slot);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1271,7 +1266,7 @@ public class Studierendenverwaltung {
 		// Slot hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
 				slots.add(new Slot(id, slot));
@@ -1285,24 +1280,22 @@ public class Studierendenverwaltung {
 		// Slot ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateSlot(Integer.parseInt(slot), id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Slot ändern (java)
 		if (dbAendern) {
 			for (Slot x : slots) {
@@ -1321,20 +1314,18 @@ public class Studierendenverwaltung {
 		// Slot löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteSlot(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1342,9 +1333,10 @@ public class Studierendenverwaltung {
 		// Slot löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Slot x : slots) {
-					if (id == x.getId()) {
-						slots.remove(x);
+				Iterator<Slot> it = slots.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()== id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1352,28 +1344,26 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Tag
+
+	// Tag
 	public void tagHinzufuegen(String tag) {
 		// Tag hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertTag(tag);
 			id = datenzugriff.getTagId(tag);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1381,7 +1371,7 @@ public class Studierendenverwaltung {
 		// Tag hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
 				tage.add(new Tag(id, tag));
@@ -1395,24 +1385,22 @@ public class Studierendenverwaltung {
 		// Tag ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateTag(tag, id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Tag ändern (java)
 		if (dbAendern) {
 			for (Tag x : tage) {
@@ -1431,20 +1419,18 @@ public class Studierendenverwaltung {
 		// Tag löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteTag(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1452,9 +1438,10 @@ public class Studierendenverwaltung {
 		// Tag löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Tag x : tage) {
-					if (id == x.getId()) {
-						tage.remove(x);
+				Iterator<Tag> it = tage.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()== id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1462,28 +1449,26 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Studiengang
+
+	// Studiengang
 	public void studiengangHinzufuegen(String name) {
 		// Studiengang hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertStudiengang(name);
 			id = datenzugriff.getStudiengangId(name);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1491,7 +1476,7 @@ public class Studierendenverwaltung {
 		// Studiengang hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
 				studiengaenge.add(new Studiengang(id, name));
@@ -1505,24 +1490,22 @@ public class Studierendenverwaltung {
 		// Studiengang ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateStudiengang(name, id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Studiengang ändern (java)
 		if (dbAendern) {
 			for (Studiengang x : studiengaenge) {
@@ -1541,20 +1524,18 @@ public class Studierendenverwaltung {
 		// Studiengang löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteStudiengang(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1562,9 +1543,10 @@ public class Studierendenverwaltung {
 		// Studiengang löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Studiengang x : studiengaenge) {
-					if (id == x.getId()) {
-						studiengaenge.remove(x);
+				Iterator<Studiengang> it = studiengaenge.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()== id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1572,50 +1554,48 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Stundenplan
+
+	// Stundenplan
 	public void stundenplanHinzufuegen(int semester, int idStudiengang, int idTag, int idSlot) {
 		// Studiengangs-, Tag- und Slotobjekt holen für Konstruktor
 		Studiengang studiengang = null;
-		for(Studiengang s : studiengaenge){
-			if(s.getId() == idStudiengang){
+		for (Studiengang s : studiengaenge) {
+			if (s.getId() == idStudiengang) {
 				studiengang = s;
 			}
 		}
-		
+
 		Tag tag = null;
-		for(Tag t : tage){
-			if(t.getId() == idTag){
+		for (Tag t : tage) {
+			if (t.getId() == idTag) {
 				tag = t;
 			}
 		}
-		
+
 		Slot slot = null;
-		for(Slot sl : slots){
-			if(sl.getId() == idSlot){
+		for (Slot sl : slots) {
+			if (sl.getId() == idSlot) {
 				slot = sl;
 			}
 		}
-			
+
 		// Stundenplan hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
 		int id = -1;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertStundenplan(semester, idStudiengang, idTag, idSlot);
 			id = datenzugriff.getStundenplanId(semester, idStudiengang, idTag, idSlot);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1623,7 +1603,7 @@ public class Studierendenverwaltung {
 		// Stundenplan hinzufügen (java)
 		if (dbEinfuegen) {
 			try {
-				if(id<1){
+				if (id < 1) {
 					throw new RuntimeException("Ungültige id");
 				}
 				stundenplaene.add(new Stundenplan(id, semester, studiengang, tag, slot));
@@ -1636,47 +1616,45 @@ public class Studierendenverwaltung {
 	public void stundenplanAendern(int id, int semester, int idStudiengang, int idTag, int idSlot) {
 		// Studiengangs-, Tag- und Slotobjekt holen für Konstruktor
 		Studiengang studiengang = null;
-		for(Studiengang s : studiengaenge){
-			if(s.getId() == idStudiengang){
+		for (Studiengang s : studiengaenge) {
+			if (s.getId() == idStudiengang) {
 				studiengang = s;
 			}
 		}
-		
+
 		Tag tag = null;
-		for(Tag t : tage){
-			if(t.getId() == idTag){
+		for (Tag t : tage) {
+			if (t.getId() == idTag) {
 				tag = t;
 			}
 		}
-		
+
 		Slot slot = null;
-		for(Slot sl : slots){
-			if(sl.getId() == idSlot){
+		for (Slot sl : slots) {
+			if (sl.getId() == idSlot) {
 				slot = sl;
 			}
 		}
-		
+
 		// Stundenplan ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateStundenplan(semester, idStudiengang, idTag, idSlot, id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Stundenplan ändern (java)
 		if (dbAendern) {
 			for (Stundenplan x : stundenplaene) {
@@ -1695,20 +1673,18 @@ public class Studierendenverwaltung {
 		// Stundenplan löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteStundenplan(id);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1716,9 +1692,10 @@ public class Studierendenverwaltung {
 		// Stundenplan löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Stundenplan x : stundenplaene) {
-					if (id == x.getId()) {
-						stundenplaene.remove(x);
+				Iterator<Stundenplan> it = stundenplaene.iterator();
+				while (it.hasNext()) {
+					if (it.next().getId()== id) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1726,26 +1703,24 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Raum
+
+	// Raum
 	public void raumHinzufuegen(String bezeichnung, boolean computerraum) {
 		// Raum hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertRaum(bezeichnung, computerraum);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1757,12 +1732,6 @@ public class Studierendenverwaltung {
 			} catch (Exception e) {
 				DatenAusDbEinlesen();
 			}
-			// Test ausgabe
-			for (Raum x : raeume) {
-				if (bezeichnung.equals(x.getBezeichnung())) {
-					break;
-				}
-			}
 		}
 	}
 
@@ -1770,24 +1739,22 @@ public class Studierendenverwaltung {
 		// Raum ändern DB
 		DB datenzugriff = null;
 		boolean dbAendern = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB ändern erfolgreich
 			dbAendern = datenzugriff.updateRaum(computerraum, bezeichnung);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Ändern nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
-		
+
 		// Raum ändern (java)
 		if (dbAendern) {
 			for (Raum x : raeume) {
@@ -1806,20 +1773,18 @@ public class Studierendenverwaltung {
 		// Raum löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteRaum(bezeichnung);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1827,9 +1792,10 @@ public class Studierendenverwaltung {
 		// Raum löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Raum x : raeume) {
-					if (x.getBezeichnung().equals(bezeichnung)) {
-						raeume.remove(x);
+				Iterator<Raum> it = raeume.iterator();
+				while (it.hasNext()) {
+					if (it.next().getBezeichnung().equals(bezeichnung)) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1837,41 +1803,39 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Besitzt
+
+	// Besitzt
 	public void besitztHinzufuegen(int idStundenplan, int matrikelNr) {
 		// Stundenplan- und Studierenderobjekt holen für Konstruktor
 		Stundenplan stundenplan = null;
-		for(Stundenplan sp : stundenplaene){
-			if(sp.getId() == idStundenplan){
+		for (Stundenplan sp : stundenplaene) {
+			if (sp.getId() == idStundenplan) {
 				stundenplan = sp;
 			}
 		}
-		
+
 		Studierender studierender = null;
-		for(Studierender stud : studierende){
-			if(stud.getMatrikelNr() == matrikelNr){
+		for (Studierender stud : studierende) {
+			if (stud.getMatrikelNr() == matrikelNr) {
 				studierender = stud;
 			}
 		}
-				
+
 		// Besitzt hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertBesitzt(idStundenplan, matrikelNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1889,36 +1853,34 @@ public class Studierendenverwaltung {
 	public void besitztLoeschen(int idStundenplan, int matrikelNr) {
 		// Stundenplan- und Studierenderobjekt holen für Konstruktor
 		Stundenplan stundenplan = null;
-		for(Stundenplan sp : stundenplaene){
-			if(sp.getId() == idStundenplan){
+		for (Stundenplan sp : stundenplaene) {
+			if (sp.getId() == idStundenplan) {
 				stundenplan = sp;
 			}
 		}
-		
+
 		Studierender studierender = null;
-		for(Studierender stud : studierende){
-			if(stud.getMatrikelNr() == matrikelNr){
+		for (Studierender stud : studierende) {
+			if (stud.getMatrikelNr() == matrikelNr) {
 				studierender = stud;
 			}
 		}
-				
+
 		// Besitzt löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteBesitzt(idStundenplan, matrikelNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1926,9 +1888,10 @@ public class Studierendenverwaltung {
 		// Besitzt löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Besitzt x : besitzen) {
-					if (x.getStundenplan().equals(stundenplan) && x.getStudierender().equals(studierender)) {
-						besitzen.remove(x);
+				Iterator<Besitzt> it = besitzen.iterator();
+				while (it.hasNext()) {
+					if (it.next().getStundenplan().equals(stundenplan) && it.next().getStudierender().equals(studierender)) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -1936,41 +1899,39 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Erhaelt
+
+	// Erhaelt
 	public void erhaeltHinzufuegen(int personalNr, int idStundenplan) {
 		// Dozenten- und Stundenplanobjekt holen für Konstruktor
 		Dozent dozent = null;
-		for(Dozent d : dozenten){
-			if(d.getPersonalNr() == personalNr){
+		for (Dozent d : dozenten) {
+			if (d.getPersonalNr() == personalNr) {
 				dozent = d;
 			}
 		}
-		
+
 		Stundenplan stundenplan = null;
-		for(Stundenplan s : stundenplaene){
-			if(s.getId() == idStundenplan){
+		for (Stundenplan s : stundenplaene) {
+			if (s.getId() == idStundenplan) {
 				stundenplan = s;
 			}
 		}
-		
+
 		// Erhaelt hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertErhaelt(personalNr, idStundenplan);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -1988,36 +1949,34 @@ public class Studierendenverwaltung {
 	public void erhaeltLoeschen(int personalNr, int idStundenplan) {
 		// Dozenten- und Stundenplanobjekt holen für Konstruktor
 		Dozent dozent = null;
-		for(Dozent d : dozenten){
-			if(d.getPersonalNr() == personalNr){
+		for (Dozent d : dozenten) {
+			if (d.getPersonalNr() == personalNr) {
 				dozent = d;
 			}
 		}
-		
+
 		Stundenplan stundenplan = null;
-		for(Stundenplan s : stundenplaene){
-			if(s.getId() == idStundenplan){
+		for (Stundenplan s : stundenplaene) {
+			if (s.getId() == idStundenplan) {
 				stundenplan = s;
 			}
 		}
-		
+
 		// Erhaelt löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteErhaelt(personalNr, idStundenplan);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -2025,9 +1984,10 @@ public class Studierendenverwaltung {
 		// Erhaelt löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Erhaelt x : erhalten) {
-					if (x.getDozent().equals(dozent) && x.getStundenplan().equals(stundenplan)) {
-						erhalten.remove(x);
+				Iterator<Erhaelt> it = erhalten.iterator();
+				while (it.hasNext()) {
+					if (it.next().getDozent().equals(dozent) && it.next().getStundenplan().equals(stundenplan)) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -2035,41 +1995,39 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Hoert
+
+	// Hoert
 	public void hoertHinzufuegen(int idVeranstaltung, int matrikelNr) {
 		// Veranstaltungs- und Studierenderobjekt holen für Konstruktor
 		Veranstaltung veranstaltung = null;
-		for(Veranstaltung v : veranstaltungen){
-			if(v.getId() == idVeranstaltung){
+		for (Veranstaltung v : veranstaltungen) {
+			if (v.getId() == idVeranstaltung) {
 				veranstaltung = v;
 			}
 		}
-		
+
 		Studierender studierender = null;
-		for(Studierender s : studierende){
-			if(s.getMatrikelNr() == matrikelNr){
+		for (Studierender s : studierende) {
+			if (s.getMatrikelNr() == matrikelNr) {
 				studierender = s;
 			}
 		}
-		
+
 		// Hoert hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertHoert(idVeranstaltung, matrikelNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -2087,36 +2045,34 @@ public class Studierendenverwaltung {
 	public void hoertLoeschen(int idVeranstaltung, int matrikelNr) {
 		// Veranstaltungs- und Studierenderobjekt holen für Konstruktor
 		Veranstaltung veranstaltung = null;
-		for(Veranstaltung v : veranstaltungen){
-			if(v.getId() == idVeranstaltung){
+		for (Veranstaltung v : veranstaltungen) {
+			if (v.getId() == idVeranstaltung) {
 				veranstaltung = v;
 			}
 		}
-		
+
 		Studierender studierender = null;
-		for(Studierender s : studierende){
-			if(s.getMatrikelNr() == matrikelNr){
+		for (Studierender s : studierende) {
+			if (s.getMatrikelNr() == matrikelNr) {
 				studierender = s;
 			}
 		}
-		
+
 		// Hoert löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteHoert(idVeranstaltung, matrikelNr);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -2124,9 +2080,10 @@ public class Studierendenverwaltung {
 		// Hoert löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Hoert x : hoeren) {
-					if (x.getVeranstaltung().equals(veranstaltung) && x.getStudierender().equals(studierender)) {
-						hoeren.remove(x);
+				Iterator<Hoert> it = hoeren.iterator();
+				while (it.hasNext()) {
+					if (it.next().getVeranstaltung().equals(veranstaltung) && it.next().getStudierender().equals(studierender)) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -2134,41 +2091,39 @@ public class Studierendenverwaltung {
 			}
 		}
 	}
-	
-	//Hat
+
+	// Hat
 	public void hatHinzufuegen(String bezeichnung, int idStundenplan) {
 		// Raum- und Stundenplanobjekt holen für Konstruktor
 		Raum raum = null;
-		for(Raum r : raeume){
-			if(r.getBezeichnung().equals(bezeichnung)){
+		for (Raum r : raeume) {
+			if (r.getBezeichnung().equals(bezeichnung)) {
 				raum = r;
 			}
 		}
-		
+
 		Stundenplan stundenplan = null;
-		for(Stundenplan s : stundenplaene){
-			if(s.getId() == idStundenplan){
+		for (Stundenplan s : stundenplaene) {
+			if (s.getId() == idStundenplan) {
 				stundenplan = s;
 			}
 		}
-		
+
 		// Hat hinzufügen DB
 		DB datenzugriff = null;
 		boolean dbEinfuegen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB einfügen erfolgreich
 			dbEinfuegen = datenzugriff.insertHat(bezeichnung, idStundenplan);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Einfügen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -2186,36 +2141,34 @@ public class Studierendenverwaltung {
 	public void hatLoeschen(String bezeichnung, int idStundenplan) {
 		// Raum- und Stundenplanobjekt holen für Konstruktor
 		Raum raum = null;
-		for(Raum r : raeume){
-			if(r.getBezeichnung().equals(bezeichnung)){
+		for (Raum r : raeume) {
+			if (r.getBezeichnung().equals(bezeichnung)) {
 				raum = r;
 			}
 		}
-		
+
 		Stundenplan stundenplan = null;
-		for(Stundenplan s : stundenplaene){
-			if(s.getId() == idStundenplan){
+		for (Stundenplan s : stundenplaene) {
+			if (s.getId() == idStundenplan) {
 				stundenplan = s;
 			}
 		}
-		
+
 		// Hat löschen DB
 		DB datenzugriff = null;
 		boolean dbLoeschen = false;
-		try{
+		try {
 			datenzugriff = new DB("studierendenverwaltung", "root", "");
 			// boolean um zu testen ob DB löschen erfolgreich
 			dbLoeschen = datenzugriff.deleteHat(bezeichnung, idStundenplan);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			JDialog meinJDialog = new JDialog();
-	        meinJDialog.setTitle("Datenbank");
-	        meinJDialog.setSize(300,200);
-	        meinJDialog.setModal(true);
-	        meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
+			meinJDialog.setTitle("Datenbank");
+			meinJDialog.setSize(300, 200);
+			meinJDialog.setModal(true);
+			meinJDialog.add(new JLabel("Löschen nicht erfolgreich!"));
 			meinJDialog.setVisible(true);
-		}
-		finally{
+		} finally {
 			datenzugriff.datenzugriffSchliessen();
 			datenzugriff = null;
 		}
@@ -2223,9 +2176,10 @@ public class Studierendenverwaltung {
 		// Hat löschen (java)
 		if (dbLoeschen) {
 			try {
-				for (Hat x : hatten) {
-					if (x.getRaum().equals(raum) && x.getStundenplan().equals(stundenplan)) {
-						hatten.remove(x);
+				Iterator<Hat> it = hatten.iterator();
+				while (it.hasNext()) {
+					if (it.next().getRaum().equals(raum) && it.next().getStundenplan().equals(stundenplan)) {
+						it.remove();
 					}
 				}
 			} catch (Exception e) {
@@ -2234,5 +2188,4 @@ public class Studierendenverwaltung {
 		}
 	}
 
-	
 }
