@@ -95,7 +95,7 @@ public class GUI implements ActionListener {
 
 	private int tabellenNummer = -1;
 	// -----------------------------
-	// TODO DB bearbeiten variablen -----
+	// DB bearbeiten variablen -----
 	private Studierendenverwaltung sv;
 	// variablen db
 	private int allgDB;
@@ -133,7 +133,7 @@ public class GUI implements ActionListener {
 			"Wirtschaftsingenieurwesen International (Bachelor)" };
 
 	// ----------------------------
-	// neue Daten hinzufügen //TODO hier parameter
+	// neue Daten hinzufügen
 	private JTextField personEingabe[] = new JTextField[4];
 	private JTextField profEingabe[] = new JTextField[3];
 	private JTextField studEingabe[] = new JTextField[4];
@@ -187,21 +187,21 @@ public class GUI implements ActionListener {
 		jpCenter = new JPanel();
 		jpCenter.setLayout(new BorderLayout());
 		jp.add(jpCenter, BorderLayout.CENTER);
-
+		//TODO anpassen
 		fusszeile[0] = new JButton("Abbrechen");
 		fusszeile[0].addActionListener(this);
-		fusszeile[1] = new JButton("Senden");
+		fusszeile[1] = new JButton("Hinzufügen");//hinzufügen button
 		fusszeile[1].setVisible(false);
-		fusszeile[2] = new JButton("Senden");
+		fusszeile[2] = new JButton("Weiter");//weiter button bei Änderung
 		fusszeile[2].setVisible(false);
 		fusszeile[2].addActionListener(this);
-		fusszeile[3] = new JButton("Senden");
+		fusszeile[3] = new JButton("Weiter");//weiter button bei löschen
 		fusszeile[3].setVisible(false);
 		fusszeile[3].addActionListener(this);
 		fusszeile[4] = new JButton("Löschen");
 		fusszeile[4].setVisible(false);
 		fusszeile[4].addActionListener(this);
-		fusszeile[5] = new JButton("Senden");
+		fusszeile[5] = new JButton("Änderung Speichern");//Änderung wird in Db gespeichert
 		fusszeile[5].setVisible(false);
 		fusszeile[5].addActionListener(this);
 		menuBar = new JMenuBar();
@@ -291,7 +291,7 @@ public class GUI implements ActionListener {
 			fusszeile[4].setVisible(false);
 			fusszeile[5].setVisible(false);
 			menuT0();
-			// TODO
+			
 		}
 		if (mItem1 == quelle) {
 			fusszeile[1].setVisible(false);
@@ -318,12 +318,11 @@ public class GUI implements ActionListener {
 			menuT3();
 		}
 		if (fusszeile[2] == quelle) {
-
+			//hier ist ändern //TODO reagiert falsch
 			fusszeile[1].setVisible(false);
-			fusszeile[2].setVisible(false);
 			fusszeile[3].setVisible(false);
 			fusszeile[4].setVisible(false);
-			fusszeile[5].setVisible(true);
+			fusszeile[5].setVisible(false);
 			JPanel innerCenter3 = new JPanel();
 			int counter;
 			int index;
@@ -349,7 +348,8 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();// TODO helper
+					clearandÄnderungbuttons();
+					
 					globalIndex = index;
 					Person p = allepersonen.get(index);
 					personenParameter[0].setText(p.getVorname());
@@ -385,7 +385,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();
+					clearandÄnderungbuttons();
 					globalIndex = index;
 					Dozent prof = alleprofs.get(index);
 					profParameter[0].setText(prof.getKuerzel());
@@ -417,7 +417,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();
+					clearandÄnderungbuttons();
 					globalIndex = index;
 					Studierender student = allestudenten.get(index);
 
@@ -450,7 +450,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();
+					clearandÄnderungbuttons();
 					globalIndex = index;
 					Fakultaet fak = allefakultäten.get(index);
 					fakultätParameter.setText(fak.getName());
@@ -479,7 +479,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();
+					clearandÄnderungbuttons();
 					globalIndex = index;
 					Studiengang studiengang = allestudiengänge.get(index);
 					studiengangParameter.setText(studiengang.getName());
@@ -509,7 +509,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();
+					clearandÄnderungbuttons();
 					globalIndex = index;
 					Veranstaltung veranstaltung = alleveranstaltungen.get(index);
 					veranstaltungParameter[0].setText("" + veranstaltung.getSemester());
@@ -545,7 +545,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();
+					clearandÄnderungbuttons();
 					globalIndex = index;
 					Veranstaltungsname vName = allevNamen.get(1);
 					vorlesungsnameParameter[0].setText(vName.getName());
@@ -579,7 +579,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					clear();
+					clearandÄnderungbuttons();
 					globalIndex = index;
 					Raum raum = alleraume.get(index);
 					if (raum.isComputerraum() == true) {
@@ -600,7 +600,7 @@ public class GUI implements ActionListener {
 			}
 		}
 		if (fusszeile[3] == quelle) {
-
+			//TODO
 			fusszeile[1].setVisible(false);
 			fusszeile[2].setVisible(false);
 			fusszeile[3].setVisible(false);
@@ -888,7 +888,14 @@ public class GUI implements ActionListener {
 					"A Silly Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
 					options[0]);
 			if (n == 1) {
-				// TODO delete
+				JOptionPane.showMessageDialog(jf, "Daten wurden geändert", "Daten geändert",
+						JOptionPane.INFORMATION_MESSAGE);
+				fusszeile[1].setVisible(false);
+				fusszeile[2].setVisible(false);
+				fusszeile[3].setVisible(false);
+				fusszeile[4].setVisible(false);
+				fusszeile[5].setVisible(false);
+				clear();
 				switch (tabellenNummer) {
 				case 0:
 					ArrayList<Person> allePersonen = sv.getPersonen();
@@ -942,6 +949,11 @@ public class GUI implements ActionListener {
 					sv.personAendern(allePersonen.get(globalIndex).getId(), personenParameter[0].getText(),
 							personenParameter[1].getText(), personenParameter[2].getText(), male);
 					clear();
+					fusszeile[1].setVisible(false);
+					fusszeile[2].setVisible(false);
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(false);
+					fusszeile[5].setVisible(false);
 					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -959,7 +971,7 @@ public class GUI implements ActionListener {
 					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
-				case 2:// TODO HIER ÄNDERUNG
+				case 2:
 					ArrayList<Studierender> alleStudenten = sv.getStudierende();
 					sv.studierenderAendern(alleStudenten.get(globalIndex).getMatrikelNr(),
 							Integer.parseInt(studentParameter[0].getText()),
@@ -1008,7 +1020,7 @@ public class GUI implements ActionListener {
 					boolean raumHatPc=false;
 					if(raumParameter.equals("ja")||raumParameter.equals("ja ")){
 						raumHatPc=true;
-						System.out.println("bin hier");
+		
 					}
 					sv.raumAendern(alleräume.get(globalIndex).getBezeichnung(),raumHatPc);
 					clear();
@@ -1278,7 +1290,7 @@ public class GUI implements ActionListener {
 						db.abfrageKomplex04(persoNr);
 						break;
 					default:
-						System.out.println(kompAbNr);
+//						
 					}
 
 					break;
@@ -1449,6 +1461,14 @@ public class GUI implements ActionListener {
 
 	}
 
+	private void clearandÄnderungbuttons() {
+		clear();
+		fusszeile[1].setVisible(false);
+		fusszeile[2].setVisible(false);
+		fusszeile[3].setVisible(false);
+		fusszeile[4].setVisible(false);
+		fusszeile[5].setVisible(true);	}
+
 	private void primeKeyTab() {
 		pKListe[0] = "Personen-ID";
 		pKListe[1] = "PersonalNr";
@@ -1467,7 +1487,7 @@ public class GUI implements ActionListener {
 		innerCenter2 = new JPanel();
 		innerCenter2.setLayout(new GridLayout(15, 4));
 		// 3 means löschen
-		if (allgDB == 3) {
+		if (allgDB == 3) {//TODO 
 
 			cleanAndTitel();
 			pK = new JLabel("Bitte " + pKListe[i] + " eingeben");
@@ -1503,12 +1523,13 @@ public class GUI implements ActionListener {
 			if (!hatAL) {
 				hatAL = true;
 				fusszeile[1].addActionListener(new ActionListener() {
-
+			
 					@Override
 					public void actionPerformed(ActionEvent eve) {
 						Object quelle = eve.getSource();
 						if (fusszeile[1] == quelle) {
 							switch (tabellenNummer) {
+							
 							case 0: // person funkt
 								boolean pIsMännlich = false;
 								boolean hatVorname;
@@ -1573,7 +1594,9 @@ public class GUI implements ActionListener {
 									String pNachname = personEingabe[1].getText();
 									String pBday = personEingabe[2].getText();
 									sv.personHinzufuegen(pVorname, pNachname, pBday, pIsMännlich);
-
+									clear();
+									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 
 								break;
@@ -1595,7 +1618,7 @@ public class GUI implements ActionListener {
 
 								if (istZahl == false && hatName == false) {
 									JOptionPane.showMessageDialog(jf,
-											"Fehlende/Falsche Eingaben.\nBitte geben Sie eine Personal-ID und einen Professor/Dozent-Kürzel ein.",
+											"Fehlende/Falsche Eingaben.\nBitte geben Sie eine Personen-ID und einen Professor/Dozent-Kürzel ein.",
 											"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 									profEingabe[1].setText("");
 								}
@@ -1606,7 +1629,7 @@ public class GUI implements ActionListener {
 								}
 								if (istZahl == false && hatName == true) {
 									JOptionPane.showMessageDialog(jf,
-											"Falsche Eingaben.\nBitte geben Sie eine Personal-ID ein.",
+											"Falsche Eingaben.\nBitte geben Sie eine Personen-ID ein.",
 											"Falsche Eingabe", JOptionPane.ERROR_MESSAGE);
 									profEingabe[1].setText("");
 								}
@@ -1628,7 +1651,9 @@ public class GUI implements ActionListener {
 										}
 									}
 									sv.dozentHinzufuegen(profKürzel, fakID, profPersonalID);
-
+									clear();
+									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 								break;
 
@@ -1683,8 +1708,7 @@ public class GUI implements ActionListener {
 										sStudiengang = studiengängeListe[Integer.parseInt(studEingabe[2].getText())];
 									}
 
-									System.out.println(
-											sMatrikelNr + " " + sSemester + " " + sStudiengang + " " + sPersonID);
+									
 									int studiengangID = 1;
 									for (int i = 0; i < studiengängeListe.length; i++) {
 										if (sStudiengang == studiengängeListe[i]) {
@@ -1692,6 +1716,9 @@ public class GUI implements ActionListener {
 										}
 									}
 									sv.studierenderHinzufuegen(sSemester, studiengangID, sPersonID);
+									clear();
+									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 								break;
 							case 3:
@@ -1701,7 +1728,9 @@ public class GUI implements ActionListener {
 											"Kein Studiengangname", JOptionPane.ERROR_MESSAGE);
 								} else {
 									String fakName = fakEingabe.getText();
-									sv.fakultaetHinzufuegen(fakName);
+									sv.fakultaetHinzufuegen(fakName);clear();
+									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 								break;
 							case 4:
@@ -1711,8 +1740,11 @@ public class GUI implements ActionListener {
 											"Kein Studiengangname", JOptionPane.ERROR_MESSAGE);
 								} else {
 									String studiengangName = studiengangEingabe.getText();
-									System.out.println(studiengangName);
+									
 									sv.studiengangHinzufuegen(studiengangName);
+									clear();
+									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 								break;
 							case 5:
@@ -1779,6 +1811,9 @@ public class GUI implements ActionListener {
 										// veranstaltungHinzufuegen(vSemester,vDauer,
 										// vPersonalNr, vStundenplanNr,
 										// vVorlesungsname);
+										clear();
+										JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+												JOptionPane.INFORMATION_MESSAGE);
 									}
 
 								}
@@ -1802,8 +1837,11 @@ public class GUI implements ActionListener {
 								if (vnKürzelIN == true && vnNameIN == true) {
 									String vnName = vNameEingabe[0].getText();
 									String vnKürzel = vNameEingabe[1].getText();
-									System.out.println(vnName + " " + vnKürzel);
+									
 									sv.veranstaltungsnameHinzufuegen(vnName, vnKürzel);
+									clear();
+									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 
 								break;
@@ -1816,6 +1854,9 @@ public class GUI implements ActionListener {
 									String rName = raumEingabe.getText();
 									boolean isPcRaum = rIstPcRaum;
 									sv.raumHinzufuegen(rName, isPcRaum);
+									clear();
+									JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 
 								break;
@@ -1887,7 +1928,7 @@ public class GUI implements ActionListener {
 				}
 				profAttribute[0].setText("Bitte Professor/Dozent-Kürzel eingeben.");
 				profAttribute[2].setText("Bitte Fakultät auswählen.");
-				profAttribute[1].setText("Bitte Personal-Nummer eingeben");
+				profAttribute[1].setText("Bitte Personen-ID eingeben");
 				for (int n = 0; n < profAttribute.length; n++) {
 					innerCenter2.add(profAttribute[n]);
 					innerCenter2.add(profEingabe[n]);
@@ -1998,7 +2039,7 @@ public class GUI implements ActionListener {
 				veranstaltungAttribute[1].setText("Bitte Vorlesungsdauer eingeben (in Minuten).");
 				veranstaltungAttribute[2].setText("Bitte Personal-Nummer des Professors/Dozenten eingeben.");
 				veranstaltungAttribute[3].setText("Bitte Studenplan-ID eingeben.");
-				veranstaltungAttribute[0].setText("Bitte Vorlesungsnamen eingeben.");
+				veranstaltungAttribute[0].setText("Bitte Vorlesungsnamen-ID eingeben.");
 				for (int h = 0; h < veranstaltungAttribute.length; h++) {
 					innerCenter2.add(veranstaltungAttribute[h]);
 					innerCenter2.add(veranstaltungEingabe[h]);
@@ -2120,6 +2161,18 @@ public class GUI implements ActionListener {
 
 		}
 
+	}
+	private boolean checkIfNum(String testThis){
+		boolean funkt = true;
+		try{
+			int i=Integer.parseInt(testThis);
+		}catch(Exception e){
+			funkt =false;
+			
+		}
+			
+		return funkt;
+		
 	}
 
 	private void alleAttribute() {
