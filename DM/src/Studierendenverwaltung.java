@@ -1885,6 +1885,8 @@ public class Studierendenverwaltung {
 	}
 
 	public void besitztLoeschen(int idStundenplan, int matrikelNr) {
+		System.out.println(idStundenplan);
+		System.out.println(matrikelNr);
 		// Stundenplan- und Studierenderobjekt holen für Konstruktor
 		Stundenplan stundenplan = null;
 		for (Stundenplan sp : stundenplaene) {
@@ -1982,6 +1984,8 @@ public class Studierendenverwaltung {
 	}
 
 	public void erhaeltLoeschen(int personalNr, int idStundenplan) {
+		System.out.println(personalNr);
+		System.out.println(idStundenplan);
 		// Dozenten- und Stundenplanobjekt holen für Konstruktor
 		Dozent dozent = null;
 		for (Dozent d : dozenten) {
@@ -2082,6 +2086,8 @@ public class Studierendenverwaltung {
 
 	public void hoertLoeschen(int idVeranstaltung, int matrikelNr) {
 		// Veranstaltungs- und Studierenderobjekt holen für Konstruktor
+		System.out.println(idVeranstaltung);
+		System.out.println(matrikelNr);
 		Veranstaltung veranstaltung = null;
 		for (Veranstaltung v : veranstaltungen) {
 			if (v.getId() == idVeranstaltung) {
@@ -2178,6 +2184,8 @@ public class Studierendenverwaltung {
 	}
 
 	public void hatLoeschen(String bezeichnung, int idStundenplan) {
+		System.out.println(bezeichnung);
+		System.out.println(idStundenplan);
 		// Raum- und Stundenplanobjekt holen für Konstruktor
 		Raum raum = null;
 		for (Raum r : raeume) {
