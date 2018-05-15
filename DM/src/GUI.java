@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-
+import java.util.concurrent.SynchronousQueue;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -1587,6 +1587,7 @@ public class GUI implements ActionListener {
 								beziehungsID1.setText("");
 							}
 							if (id1 == true && id2 == true) {
+								//TODO bestätigung
 								switch (beziehungsNummer) {
 								case 0:
 									sv.hatHinzufuegen(beziehungsID1.getText(),
@@ -1624,7 +1625,7 @@ public class GUI implements ActionListener {
 				fusszeile[7].addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (fusszeile[6] == e.getSource()) {
+						if (fusszeile[7] == e.getSource()) {
 							boolean id1 = true;
 							boolean id2 = true;
 
@@ -1659,9 +1660,9 @@ public class GUI implements ActionListener {
 								beziehungsID1.setText("");
 							}
 							if (id1 == true && id2 == true) {
+								System.out.println("hier drin?");
 								switch (beziehungsNummer) {
 								case 0:
-									System.out.println("uno");
 									sv.hatLoeschen(beziehungsID1.getText(), Integer.parseInt(beziehungsID2.getText()));
 									break;
 								case 1:
