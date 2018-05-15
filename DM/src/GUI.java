@@ -149,6 +149,7 @@ public class GUI implements ActionListener {
 	private boolean rIstPcRaum = false;
 	private JCheckBox istPcRaum = new JCheckBox();
 	private JTextField raumEingabe = new JTextField();
+	private JTextArea t;
 	// ---------------
 	// ändern/löschen attributlabels
 	private JLabel personenLabels[];
@@ -176,6 +177,8 @@ public class GUI implements ActionListener {
 	// beziehungen //TODO
 	private JTextField beziehungsID1;
 	private JTextField beziehungsID2;
+	private boolean fusszeile6HatAL = false;
+	private boolean fusszeile7HatAL = false;
 
 	public GUI() {
 		sv = new Studierendenverwaltung();
@@ -621,8 +624,7 @@ public class GUI implements ActionListener {
 		if (fusszeile[3] == quelle) {
 			fusszeile[1].setVisible(false);
 			fusszeile[2].setVisible(false);
-			fusszeile[3].setVisible(false);
-			fusszeile[4].setVisible(true);
+			fusszeile[4].setVisible(false);
 			fusszeile[5].setVisible(false);
 			fusszeile[6].setVisible(false);
 			fusszeile[7].setVisible(false);
@@ -652,6 +654,8 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					globalIndex = index;
 					Person p = allepersonen.get(index);
 					personenParameter[0].setText(p.getVorname());
@@ -688,6 +692,8 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					globalIndex = index;
 					Dozent prof = alleprofs.get(index);
 					profParameter[0].setText(prof.getKuerzel());
@@ -720,6 +726,8 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					globalIndex = index;
 					Studierender student = allestudenten.get(index);
 
@@ -753,6 +761,8 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					globalIndex = index;
 					Fakultaet fak = allefakultäten.get(index);
 					fakultätParameter.setText(fak.getName());
@@ -772,9 +782,13 @@ public class GUI implements ActionListener {
 				firstHit = false;
 				for (Studiengang studiengang : allestudiengänge) {
 					counter++;
-					if (studiengang.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
-						index = counter;
-						firstHit = true;
+					if (userInputID.getText().equals("")) {
+
+					} else {
+						if (studiengang.getId() == Integer.parseInt(userInputID.getText()) && firstHit == false) {
+							index = counter;
+							firstHit = true;
+						}
 					}
 				}
 				if (firstHit == false) {
@@ -782,6 +796,8 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					globalIndex = index;
 					Studiengang studiengang = allestudiengänge.get(index);
 					studiengangParameter.setText(studiengang.getName());
@@ -812,6 +828,8 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					globalIndex = index;
 					Veranstaltung veranstaltung = alleveranstaltungen.get(index);
 					veranstaltungParameter[0].setText("" + veranstaltung.getSemester());
@@ -848,6 +866,8 @@ public class GUI implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					globalIndex = index;
 					Veranstaltungsname vName = allevNamen.get(1);
 					vorlesungsnameParameter[0].setText(vName.getName());
@@ -878,11 +898,12 @@ public class GUI implements ActionListener {
 					}
 				}
 				if (firstHit == false) {
-					// TODO steal this first
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					clear();
+					fusszeile[3].setVisible(false);
+					fusszeile[4].setVisible(true);
 					Raum raum = alleraume.get(index);
 					globalIndex = index;
 					if (raum.isComputerraum() == true) {
@@ -1486,8 +1507,10 @@ public class GUI implements ActionListener {
 		}
 		for (int i = 0; i < beziehungsTab.length; i++) {
 			if (beziehungsTab[i] == quelle) {
+
 				beziehungsNummer = i;
 				allgBeziehung(i);
+
 			}
 		}
 
@@ -1515,149 +1538,202 @@ public class GUI implements ActionListener {
 
 	private void allgBeziehung(int i) {
 		if (allgDB == 1) {
+
 			fusszeile[6].setVisible(true);
 			fusszeile[7].setVisible(false);
-			fusszeile[6].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (fusszeile[6] == e.getSource()) {
-						boolean id1 = true;
-						boolean id2 = true;
-						boolean id1gibts = true;
-						boolean id2gibts = true;
-						JLabel alleLabels[] = richtigeIDLabels(i);
-						if (checkIfNum(beziehungsID1.getText()) == false) {
-							id1 = false;
-						}
-						if (checkIfNum(beziehungsID2.getText()) == false) {
-							id2 = false;
-						}
-						if (id1 == false && id2 == false) {
-							JOptionPane.showMessageDialog(
-									jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.\n"
-											+ alleLabels[1].getText() + " ändern.",
-									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
-							beziehungsID1.setText("");
-							beziehungsID2.setText("");
-						}
-						if (id1 == true && id2 == false) {
-							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[1].getText() + " ändern.",
-									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
-							beziehungsID2.setText("");
-						}
-						if (id1 == false && id2 == true) {
-							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.",
-									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
-							beziehungsID1.setText("");
-						}
-						if (id1 == true && id2 == true) {
-							switch (beziehungsNummer) {
-							case 0:
-								sv.hatHinzufuegen(beziehungsID1.getText(), Integer.parseInt(beziehungsID2.getText()));
-								break;
-							case 1:
-								System.out.println(Integer.parseInt(beziehungsID1.getText())+" "+
-										Integer.parseInt(beziehungsID2.getText()));
-								sv.hoertHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
-										Integer.parseInt(beziehungsID2.getText()));
-								break;
-							case 2:
-								sv.erhaeltHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
-										Integer.parseInt(beziehungsID2.getText()));
-								break;
-							case 3:
-								sv.besitztHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
-										Integer.parseInt(beziehungsID2.getText()));
-								break;
-							default:
+			if (fusszeile6HatAL == false) {
+				fusszeile6HatAL = true;
+				fusszeile[6].addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (fusszeile[6] == e.getSource()) {
+							boolean id1 = true;
+							boolean id2 = true;
+							JLabel alleLabels[] = richtigeIDLabels(i);
+							if (checkIfNum(beziehungsID1.getText()) == false) {
+								id1 = false;
+							}
+							if (beziehungsNummer == 0) {
+								id1 = true;
+							}
+							if (checkIfNum(beziehungsID2.getText()) == false) {
+								id2 = false;
+							}
+							if (id1 == false && id2 == false) {
+								JOptionPane.showMessageDialog(jf,
+										"Kein Treffer.\n" + alleLabels[0].getText() + " ändern.\n"
+												+ alleLabels[1].getText() + " ändern.",
+										"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+								beziehungsID1.setText("");
+								beziehungsID2.setText("");
+							}
+							if (id1 == true && id2 == false) {
+								JOptionPane.showMessageDialog(jf,
+										"Kein Treffer.\n" + alleLabels[1].getText() + " ändern.", "Kein Treffer",
+										JOptionPane.ERROR_MESSAGE);
+								beziehungsID2.setText("");
+							}
+							if (id1 == false && id2 == true) {
+								JOptionPane.showMessageDialog(jf,
+										"Kein Treffer.\n" + alleLabels[0].getText() + " ändern.", "Kein Treffer",
+										JOptionPane.ERROR_MESSAGE);
+								beziehungsID1.setText("");
+							}
+							if (id1 == true && id2 == true) {
+								switch (beziehungsNummer) {
+								case 0:
+									sv.hatHinzufuegen(beziehungsID1.getText(),
+											Integer.parseInt(beziehungsID2.getText()));
+									break;
+								case 1:
+									sv.hoertHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
+											Integer.parseInt(beziehungsID2.getText()));
+									break;
+								case 2:
+									sv.erhaeltHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
+											Integer.parseInt(beziehungsID2.getText()));
+									break;
+								case 3:
+									sv.besitztHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
+											Integer.parseInt(beziehungsID2.getText()));
+									break;
+								default:
+								}
+
 							}
 
 						}
 
 					}
-
-				}
-			});
+				});
+			}
 		}
+
 		if (allgDB == 3) {
 			fusszeile[6].setVisible(false);
 			fusszeile[7].setVisible(true);
-			fusszeile[7].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (fusszeile[6] == e.getSource()) {
-						boolean id1 = true;
-						boolean id2 = true;
-						boolean id1gibts = true;
-						boolean id2gibts = true;
-						JLabel alleLabels[] = richtigeIDLabels(i);
-						if (checkIfNum(beziehungsID1.getText()) == false) {
-							id1 = false;
-						}
-						if (checkIfNum(beziehungsID2.getText()) == false) {
-							id2 = false;
-						}
-						if (id1 == false && id2 == false) {
-							JOptionPane.showMessageDialog(
-									jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.\n"
-											+ alleLabels[1].getText() + " ändern.",
-									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
-							beziehungsID1.setText("");
-							beziehungsID2.setText("");
-						}
-						if (id1 == true && id2 == false) {
-							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[1].getText() + " ändern.",
-									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
-							beziehungsID2.setText("");
-						}
-						if (id1 == false && id2 == true) {
-							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.",
-									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
-							beziehungsID1.setText("");
-						}
-						if (id1 == true && id2 == true) {
-							switch (beziehungsNummer) {
-							case 0:
-								sv.hatLoeschen(beziehungsID1.getText(), Integer.parseInt(beziehungsID2.getText()));
-								break;
-							case 1:
-								sv.hoertLoeschen(Integer.parseInt(beziehungsID1.getText()),
-										Integer.parseInt(beziehungsID2.getText()));
-								break;
-							case 2:
-								sv.erhaeltLoeschen(Integer.parseInt(beziehungsID1.getText()),
-										Integer.parseInt(beziehungsID2.getText()));
-								break;
-							case 3:
-								sv.besitztLoeschen(Integer.parseInt(beziehungsID1.getText()),
-										Integer.parseInt(beziehungsID2.getText()));
-								break;
-							default:
+			if (fusszeile7HatAL == false) {
+				fusszeile7HatAL = true;
+				fusszeile[7].addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (fusszeile[6] == e.getSource()) {
+							boolean id1 = true;
+							boolean id2 = true;
+
+							JLabel alleLabels[] = richtigeIDLabels(i);
+							if (checkIfNum(beziehungsID1.getText()) == false) {
+								id1 = false;
+							}
+							if (beziehungsNummer == 0) {
+								id1 = true;
+							}
+							if (checkIfNum(beziehungsID2.getText()) == false) {
+								id2 = false;
+							}
+							if (id1 == false && id2 == false) {
+								JOptionPane.showMessageDialog(jf,
+										"Kein Treffer.\n" + alleLabels[0].getText() + " ändern.\n"
+												+ alleLabels[1].getText() + " ändern.",
+										"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+								beziehungsID1.setText("");
+								beziehungsID2.setText("");
+							}
+							if (id1 == true && id2 == false) {
+								JOptionPane.showMessageDialog(jf,
+										"Kein Treffer.\n" + alleLabels[1].getText() + " ändern.", "Kein Treffer",
+										JOptionPane.ERROR_MESSAGE);
+								beziehungsID2.setText("");
+							}
+							if (id1 == false && id2 == true) {
+								JOptionPane.showMessageDialog(jf,
+										"Kein Treffer.\n" + alleLabels[0].getText() + " ändern.", "Kein Treffer",
+										JOptionPane.ERROR_MESSAGE);
+								beziehungsID1.setText("");
+							}
+							if (id1 == true && id2 == true) {
+								switch (beziehungsNummer) {
+								case 0:
+									System.out.println("uno");
+									sv.hatLoeschen(beziehungsID1.getText(), Integer.parseInt(beziehungsID2.getText()));
+									break;
+								case 1:
+									sv.hoertLoeschen(Integer.parseInt(beziehungsID1.getText()),
+											Integer.parseInt(beziehungsID2.getText()));
+									break;
+								case 2:
+									sv.erhaeltLoeschen(Integer.parseInt(beziehungsID1.getText()),
+											Integer.parseInt(beziehungsID2.getText()));
+									break;
+								case 3:
+									sv.besitztLoeschen(Integer.parseInt(beziehungsID1.getText()),
+											Integer.parseInt(beziehungsID2.getText()));
+									break;
+								default:
+								}
+
 							}
 
 						}
 
 					}
 
-				}
-
-			});
+				});
+			}
 		}
+		if (allgDB == 0) {// TODO
+			cleanAndBezTitel();
 
-		// TODO
-		cleanAndBezTitel();
-		innerCenter.setLayout(new GridLayout(15, 1, 3, 3));
-		JLabel richtigeIDs[] = richtigeIDLabels(i);
-		beziehungsID1 = new JTextField();
-		beziehungsID2 = new JTextField();
-		richtigeIDs[0].setText(richtigeIDs[0].getText() + " eingeben.");
-		richtigeIDs[1].setText(richtigeIDs[1].getText() + " eingeben.");
-		innerCenter.add(richtigeIDs[0]);
-		innerCenter.add(beziehungsID1);
-		innerCenter.add(richtigeIDs[1]);
-		innerCenter.add(beziehungsID2);
-		jpCenter.add(innerCenter);
+			t = new JTextArea();
+			t.setText("");
 
+			JScrollPane sp = new JScrollPane(t);
+			jpCenter.add(sp, BorderLayout.CENTER);
+			switch (i) {
+			case 0:
+				ArrayList<Hat> hatten = sv.getHatten();
+				for (Hat hat : hatten) {
+					System.out.println(hat.toString());
+					t.setText(t.getText() + "\n" + hat.toString());
+				}
+				break;
+			case 1:
+				ArrayList<Hoert> hoeren = sv.getHoeren();
+				for (Hoert hort : hoeren) {
+					t.setText(t.getText() + "\n" + hort.toString());
+				}
+				break;
+			case 2:
+				ArrayList<Erhaelt> erhalten = sv.getErhalten();
+				for (Erhaelt erhalt : erhalten) {
+					t.setText(t.getText() + "\n" + erhalt.toString());
+				}
+				break;
+			case 3:
+				ArrayList<Besitzt> besitzen = sv.getBesitzen();
+				for (Besitzt besitzt : besitzen) {
+					t.setText(t.getText() + "\n" + besitzt.toString());
+				}
+				break;
+			default:
+
+			}
+		} else {
+
+			cleanAndBezTitel();
+			innerCenter.setLayout(new GridLayout(15, 1, 3, 3));
+			JLabel richtigeIDs[] = richtigeIDLabels(i);
+			beziehungsID1 = new JTextField();
+			beziehungsID2 = new JTextField();
+			richtigeIDs[0].setText(richtigeIDs[0].getText() + " eingeben.");
+			richtigeIDs[1].setText(richtigeIDs[1].getText() + " eingeben.");
+			innerCenter.add(richtigeIDs[0]);
+			innerCenter.add(beziehungsID1);
+			innerCenter.add(richtigeIDs[1]);
+			innerCenter.add(beziehungsID2);
+			jpCenter.add(innerCenter);
+
+		}
 	}
 
 	private JLabel[] richtigeIDLabels(int i) {
@@ -2304,7 +2380,7 @@ public class GUI implements ActionListener {
 		if (allgDB == 0) {
 			cleanAndTitel();
 
-			JTextArea t = new JTextArea();
+			t = new JTextArea();
 			JScrollPane sp = new JScrollPane(t);
 			jpCenter.add(sp, BorderLayout.CENTER);
 
@@ -2366,7 +2442,7 @@ public class GUI implements ActionListener {
 					t.setText(t.getText() + "\n" + r.toString());
 				}
 				break;
-			default: // TODO ?
+			default:
 			}
 
 		}
@@ -2463,7 +2539,6 @@ public class GUI implements ActionListener {
 		innerCenter.removeAll();
 		innerCenter.revalidate();
 		innerCenter.repaint();
-		System.out.println("ich bin da");
 		inDieserTabelle.setText("Beziehung: " + beziehungsTab[beziehungsNummer].getText() + "   ");
 		inDieserTabelle.setFont(new Font("Serif", Font.PLAIN, 15));
 		inDieserTabelle.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -2881,10 +2956,10 @@ public class GUI implements ActionListener {
 			innerCenter.add(tabellen[i]);
 
 		}
-		if (allgDB == 0 || allgDB == 2) {
+		if (allgDB == 2) {
 			innerCenter.setLayout(new GridLayout(8, 1, 1, 1));
 		}
-		if (allgDB == 3 || allgDB == 1) {
+		if (allgDB == 0 || allgDB == 3 || allgDB == 1) {
 			innerCenter.setLayout(new GridLayout(13, 1, 1, 1));
 			beziehungen = new JLabel("Beziehungen");
 			beziehungen.setFont(new Font("Serif", Font.PLAIN, 18));
