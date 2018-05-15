@@ -282,39 +282,39 @@ public class GUI implements ActionListener {
 	public void actionPerformed(ActionEvent ev) {
 		Object quelle = ev.getSource();
 		if (m2Item1 == quelle) {
-			for(int i=1;i<fusszeile.length;i++){
+			for (int i = 1; i < fusszeile.length; i++) {
 				fusszeile[i].setVisible(false);
 			}
-			
+
 			menuT4();
 		}
 		if (m2Item2 == quelle) {
-			for(int i=1;i<fusszeile.length;i++){
+			for (int i = 1; i < fusszeile.length; i++) {
 				fusszeile[i].setVisible(false);
 			}
 			menuT5();
 		}
 		if (mItem0 == quelle) {
-			for(int i=1;i<fusszeile.length;i++){
+			for (int i = 1; i < fusszeile.length; i++) {
 				fusszeile[i].setVisible(false);
 			}
 			menuT0();
 
 		}
 		if (mItem1 == quelle) {
-			for(int i=1;i<fusszeile.length;i++){
+			for (int i = 1; i < fusszeile.length; i++) {
 				fusszeile[i].setVisible(false);
 			}
 			menuT1();
 		}
 		if (mItem2 == quelle) {
-			for(int i=1;i<fusszeile.length;i++){
+			for (int i = 1; i < fusszeile.length; i++) {
 				fusszeile[i].setVisible(false);
 			}
 			menuT2();
 		}
 		if (mItem3 == quelle) {
-			for(int i=1;i<fusszeile.length;i++){
+			for (int i = 1; i < fusszeile.length; i++) {
 				fusszeile[i].setVisible(false);
 			}
 			menuT3();
@@ -878,7 +878,7 @@ public class GUI implements ActionListener {
 					}
 				}
 				if (firstHit == false) {
-					//TODO steal this first
+					// TODO steal this first
 					JOptionPane.showMessageDialog(jf, "Kein Treffer. Bitte andere ID eingeben", "Kein Treffer",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
@@ -954,7 +954,7 @@ public class GUI implements ActionListener {
 			}
 		}
 		if (fusszeile[5] == quelle) {
-			Object[] options = { "Nein", "Ja" };//TODO steal this
+			Object[] options = { "Nein", "Ja" };// TODO steal this
 			int n = JOptionPane.showOptionDialog(jf, "Wollen Sie dieses Datentupel wirklich ändern?",
 					"A Silly Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
 					options[0]);
@@ -977,7 +977,7 @@ public class GUI implements ActionListener {
 					fusszeile[5].setVisible(false);
 					fusszeile[6].setVisible(false);
 					fusszeile[7].setVisible(false);
-					//TODO steal this too
+					// TODO steal this too
 					JOptionPane.showMessageDialog(jf, "Daten wurden gespeichert", "Daten gespeichert",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -1520,38 +1520,58 @@ public class GUI implements ActionListener {
 			fusszeile[6].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(fusszeile[6]==e.getSource()){
-						boolean id1=true;
-						boolean id2=true;
-						boolean id1gibts=true;
-						boolean id2gibts=true;
-						JLabel alleLabels[]=richtigeIDLabels(i);
-						if(checkIfNum(beziehungsID1.getText())==false){
-							id1=false;
+					if (fusszeile[6] == e.getSource()) {
+						boolean id1 = true;
+						boolean id2 = true;
+						boolean id1gibts = true;
+						boolean id2gibts = true;
+						JLabel alleLabels[] = richtigeIDLabels(i);
+						if (checkIfNum(beziehungsID1.getText()) == false) {
+							id1 = false;
 						}
-						if(checkIfNum(beziehungsID2.getText())==false){
-							id2=false;
+						if (checkIfNum(beziehungsID2.getText()) == false) {
+							id2 = false;
 						}
-						if(id1==false&&id2==false){
-							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n"+alleLabels[0].getText()+" ändern.\n"+alleLabels[1].getText()+" ändern.", "Kein Treffer",
-									JOptionPane.ERROR_MESSAGE);
+						if (id1 == false && id2 == false) {
+							JOptionPane.showMessageDialog(
+									jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.\n"
+											+ alleLabels[1].getText() + " ändern.",
+									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
 							beziehungsID1.setText("");
 							beziehungsID2.setText("");
 						}
-						if(id1==true&&id2==false){
-							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n"+alleLabels[1].getText()+" ändern.", "Kein Treffer",
-									JOptionPane.ERROR_MESSAGE);
+						if (id1 == true && id2 == false) {
+							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[1].getText() + " ändern.",
+									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
 							beziehungsID2.setText("");
 						}
-						if(id1==false&&id2==true){
-							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n"+alleLabels[0].getText()+" ändern.", "Kein Treffer",
-									JOptionPane.ERROR_MESSAGE);
+						if (id1 == false && id2 == true) {
+							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.",
+									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
 							beziehungsID1.setText("");
 						}
-						if(id1==true&&id2==true){
-							
-							//Testen ob id vorhanden  bzw gibts die?
-							//methode beziehung speichern/hinzufügen
+						if (id1 == true && id2 == true) {
+							switch (beziehungsNummer) {
+							case 0:
+								sv.hatHinzufuegen(beziehungsID1.getText(), Integer.parseInt(beziehungsID2.getText()));
+								break;
+							case 1:
+								System.out.println(Integer.parseInt(beziehungsID1.getText())+" "+
+										Integer.parseInt(beziehungsID2.getText()));
+								sv.hoertHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
+										Integer.parseInt(beziehungsID2.getText()));
+								break;
+							case 2:
+								sv.erhaeltHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
+										Integer.parseInt(beziehungsID2.getText()));
+								break;
+							case 3:
+								sv.besitztHinzufuegen(Integer.parseInt(beziehungsID1.getText()),
+										Integer.parseInt(beziehungsID2.getText()));
+								break;
+							default:
+							}
+
 						}
 
 					}
@@ -1565,9 +1585,62 @@ public class GUI implements ActionListener {
 			fusszeile[7].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
+					if (fusszeile[6] == e.getSource()) {
+						boolean id1 = true;
+						boolean id2 = true;
+						boolean id1gibts = true;
+						boolean id2gibts = true;
+						JLabel alleLabels[] = richtigeIDLabels(i);
+						if (checkIfNum(beziehungsID1.getText()) == false) {
+							id1 = false;
+						}
+						if (checkIfNum(beziehungsID2.getText()) == false) {
+							id2 = false;
+						}
+						if (id1 == false && id2 == false) {
+							JOptionPane.showMessageDialog(
+									jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.\n"
+											+ alleLabels[1].getText() + " ändern.",
+									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+							beziehungsID1.setText("");
+							beziehungsID2.setText("");
+						}
+						if (id1 == true && id2 == false) {
+							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[1].getText() + " ändern.",
+									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+							beziehungsID2.setText("");
+						}
+						if (id1 == false && id2 == true) {
+							JOptionPane.showMessageDialog(jf, "Kein Treffer.\n" + alleLabels[0].getText() + " ändern.",
+									"Kein Treffer", JOptionPane.ERROR_MESSAGE);
+							beziehungsID1.setText("");
+						}
+						if (id1 == true && id2 == true) {
+							switch (beziehungsNummer) {
+							case 0:
+								sv.hatLoeschen(beziehungsID1.getText(), Integer.parseInt(beziehungsID2.getText()));
+								break;
+							case 1:
+								sv.hoertLoeschen(Integer.parseInt(beziehungsID1.getText()),
+										Integer.parseInt(beziehungsID2.getText()));
+								break;
+							case 2:
+								sv.erhaeltLoeschen(Integer.parseInt(beziehungsID1.getText()),
+										Integer.parseInt(beziehungsID2.getText()));
+								break;
+							case 3:
+								sv.besitztLoeschen(Integer.parseInt(beziehungsID1.getText()),
+										Integer.parseInt(beziehungsID2.getText()));
+								break;
+							default:
+							}
+
+						}
+
+					}
 
 				}
+
 			});
 		}
 
@@ -1577,14 +1650,14 @@ public class GUI implements ActionListener {
 		JLabel richtigeIDs[] = richtigeIDLabels(i);
 		beziehungsID1 = new JTextField();
 		beziehungsID2 = new JTextField();
-		richtigeIDs[0].setText(richtigeIDs[0].getText()+" eingeben.");
-		richtigeIDs[1].setText(richtigeIDs[1].getText()+" eingeben.");
-			innerCenter.add(richtigeIDs[0]);
-			innerCenter.add(beziehungsID1);
-			innerCenter.add(richtigeIDs[1]);
-			innerCenter.add(beziehungsID2);
-			jpCenter.add(innerCenter);
-		
+		richtigeIDs[0].setText(richtigeIDs[0].getText() + " eingeben.");
+		richtigeIDs[1].setText(richtigeIDs[1].getText() + " eingeben.");
+		innerCenter.add(richtigeIDs[0]);
+		innerCenter.add(beziehungsID1);
+		innerCenter.add(richtigeIDs[1]);
+		innerCenter.add(beziehungsID2);
+		jpCenter.add(innerCenter);
+
 	}
 
 	private JLabel[] richtigeIDLabels(int i) {
@@ -2300,18 +2373,18 @@ public class GUI implements ActionListener {
 
 	}
 
-	 private boolean checkIfNum(String testThis) {
-	 boolean funkt = true;
-	 try {
-		 Integer.parseInt(testThis);
-	 } catch (Exception e) {
-	 funkt = false;
-	
-	 }
-	
-	 return funkt;
-	
-	 }
+	private boolean checkIfNum(String testThis) {
+		boolean funkt = true;
+		try {
+			Integer.parseInt(testThis);
+		} catch (Exception e) {
+			funkt = false;
+
+		}
+
+		return funkt;
+
+	}
 
 	private void alleAttribute() {
 		personenLabels = new JLabel[4];
