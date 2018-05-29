@@ -7,6 +7,7 @@ public class Veranstaltung {
 	private Veranstaltungsname veranstaltungsname;
 	private Dozent dozent;
 	private Stundenplan stundenplan;
+	
 
 	public Veranstaltung(int id, int semester, int dauer, Dozent dozent, Stundenplan stundenplan,
 			Veranstaltungsname veranstaltungsname) {
@@ -16,6 +17,8 @@ public class Veranstaltung {
 		setDozent(dozent);
 		setStundenplan(stundenplan);
 		setVeranstaltungsname(veranstaltungsname);
+		dozent.setVeranstaltung(this);
+		stundenplan.setVeranstaltung(this);
 	}
 
 	public boolean aendern(int semester, int dauer, Dozent dozent, Stundenplan stundenplan,

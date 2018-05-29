@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Stundenplan {
 
@@ -6,6 +7,8 @@ public class Stundenplan {
 	private Studiengang studiengang;
 	private Tag tag;
 	private Slot slot;
+	private ArrayList<Veranstaltung> veranstaltung = new ArrayList<>();
+	private ArrayList<Raum> raum = new ArrayList<>();
 
 	public Stundenplan(int id, int semester, Studiengang studiengang, Tag tag, Slot slot) {
 		setId(id);
@@ -65,6 +68,22 @@ public class Stundenplan {
 
 	public void setSlot(Slot slot) {
 		this.slot = slot;
+	}
+	
+	public ArrayList<Veranstaltung> getVeranstaltung() {
+		return veranstaltung;
+	}
+
+	public void setVeranstaltung(Veranstaltung veranstaltung) {
+		this.veranstaltung.add(veranstaltung);
+	}
+	
+	public ArrayList<Raum> getRaum() {
+		return raum;
+	}
+
+	public void setRaum(Raum raum) {
+		this.raum.add(raum);
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Dozent {
 
@@ -5,6 +6,8 @@ public class Dozent {
 	private String kuerzel;
 	private Person person;
 	private Fakultaet fakultaet;
+	private ArrayList<Veranstaltung> veranstaltung = new ArrayList<>();
+	private ArrayList<Stundenplan> stundenplan = new ArrayList<>();
 
 	public Dozent(int personalNr, String kuerzel, Fakultaet fakultaet, Person person) {
 		setPersonalNr(personalNr);
@@ -62,6 +65,22 @@ public class Dozent {
 
 	public void setFakultaet(Fakultaet fakultaet) {
 		this.fakultaet = fakultaet;
+	}
+	
+	public ArrayList<Veranstaltung> getVeranstaltung() {
+		return veranstaltung;
+	}
+
+	public void setVeranstaltung(Veranstaltung veranstaltung) {
+		this.veranstaltung.add(veranstaltung);
+	}
+	
+	public ArrayList<Stundenplan> getStundenplan() {
+		return stundenplan;
+	}
+
+	public void setStundenplan(Stundenplan stundenplan) {
+		this.stundenplan.add(stundenplan);
 	}
 
 	@Override

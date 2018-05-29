@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Studierender {
 
@@ -5,6 +6,8 @@ public class Studierender {
 	private int semester;
 	private Studiengang studiengang;
 	private Person person;
+	private ArrayList<Veranstaltung> veranstaltung = new ArrayList<>();
+	private ArrayList<Stundenplan> stundenplan = new ArrayList<>();
 
 	public Studierender(int matrikelNr, int semester, Studiengang studiengang, Person person) {
 		setMatrikelNr(matrikelNr);
@@ -64,6 +67,22 @@ public class Studierender {
 
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+
+	public ArrayList<Veranstaltung> getVeranstaltung() {
+		return veranstaltung;
+	}
+
+	public void setVeranstaltung(Veranstaltung veranstaltung) {
+		this.veranstaltung.add(veranstaltung);
+	}
+	
+	public ArrayList<Stundenplan> getStundenplan() {
+		return stundenplan;
+	}
+
+	public void setStundenplan(Stundenplan stundenplan) {
+		this.stundenplan.add(stundenplan);
 	}
 
 	@Override
