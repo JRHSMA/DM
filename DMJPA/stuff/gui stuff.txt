@@ -1,0 +1,286 @@
+allLabels[0].setText("Bitte die Matrikelnummer eingeben");
+allLabels[1].setText("Bitte das Semester eingeben");			dropdown
+allLabels[2].setText("Bitte den Studiengang auswählen");		dropdown
+allLabels[3].setText("Bitte den Vorlesungskürzel eingeben");
+allLabels[4].setText("Bitte die Fakultät eingeben");			dropdown
+allLabels[5].setText("Bitte Nachname des Professors/Dozenten eingeben");
+allLabels[6].setText("Bitte Professor/Dozent Kürzel eingeben");
+allLabels[7].setText("Bitte Raumnummer eingeben");
+allLabels[8].setText("Bitte den Tag eingeben");				dropdown
+allLabels[9].setText("Bitte den Slot eingeben");			dropdown
+allLabels[10].setText("Bitte die Personalnummer eingeben");
+allLabels[11].setText("Bitte das Geschlecht angeben");			dropdown
+allLabels[12].setText("Bitte den Veranstaltungsname eingeben");
+allLabels[13].setText("");						checkbox
+
+text : 3 , 5 , 6 , 7  , 12
+			
+X	private int matrikelNr;			
+X	private int semester;			
+X	private String studiengang;		
+	private String vorlesungsKrzl;		
+X	private String fakultät;		
+	private String profName;
+	private String profKrzl;
+	private String raumName;
+X	private String tag;
+X	private int slot;
+X	private int persoNr;
+X	private boolean istMännlich;
+	private String veranstaltungsname;
+X	private boolean istCompRaum;
+
+
+allLabels[13].setText("");
+------------------------------------------------
+STUDIENGÄNGE
+1"Biologische Chemie (Bachelor)",
+2"Biotechnology - Biomedical Science and Technology (Master)",
+3"Biotechnology - Bioprocess Development (Master)",
+
+4"Automation Technology (Bachelor)",
+5"Automatisierungs und Energiesysteme (Master)",
+6"Automatisierungstechnik (Bachelor)",
+
+7"Elektro und Informationstechnik für das höhere Lehramt (Bachelor)",
+8"Elektro und Informationstechnik für das höhere Lehramt (Master)",
+9"Elektro und Informationstechnik für das höhere Lehramt - Zweitfach Mathematik (Master)",
+
+
+10"Energietechnik und erneuerbare Energien (Bachelor)",
+
+11"Power Engineering and Renewable Energies (Bachelor)",
+12"Translation Studies for IT (Bachelor)",
+13"Informatik (Bachelor)",
+
+14"Informatik (Master)",
+15"Informatik - Vertiefungsrichtung Medizin (Master)",
+16"Medizinische Informatik (Bachelor)",
+
+17"Unternehmens- und Wirtschaftsinformatik (Bachelor)",
+18"Maschinenbau (Bacheor)",
+19"Maschinenbau (Master)",
+
+20"Maschinenbau / Konstruktion (Bachelor)",
+
+21"Maschinenbau / Produktion (Bachelor)",
+22"Informationstechnik (Master)",
+23"Informationstechnik / Elektronik (Bachelor)",
+
+24"Medizintechnik (Bachelor)",
+25"Medizintechnik (Master)",
+26"Nachrichtentechnik / Elektronik (Bachelor)",
+
+27"Technische Informatik (Bachelor)",
+28"Soziale Arbeit (Bachelor)",
+29"Soziale Arbeit (Master)",
+
+30"Mechatronik - fakultätsübergreifend E,I,M,N (Bachelor)",
+
+31"Chemical Engineering French (Master)",
+32"Chemieingenieurwesen (Master)",
+33"Chemische Technik (Bachelor)",
+
+34"Verfahrenstechnik (Bachelor)",
+35Wirtschaftsingenieurwesen (Bachelor),
+36Wirtschaftsingenieurwesen - Vorqualifikation BWL (Master),
+
+37Wirtschaftsingenieurwesen - Vorqualifikation ING (Master),
+38Wirtschaftsingenieurwesen - Vorqualifikation WI (Master),
+39Wirtschaftsingenieurwesen International (Bachelor),
+-----------------------------
+help
+----
+0 JComboBox geschAuswahl	boolean
+1 JComboBox slotAuswahl		int
+2 JComboBox tagAuswahl		sting
+3 JComboBox semesterAuswahl 	int
+4 JComboBox fakultätAuswahl 	string
+5 JComboBox studiengangAuswahl 	string
+
+private int matrikelNr;
+	private int semester;
+	private String studiengang;
+	private String vorlesungsKrzl;
+	private String fakultät;
+	private String profName;
+	private String profKrzl;
+	private String raumName;
+	private String tag;
+	private int slot;
+	private int persoNr;
+	private boolean istMännlich;
+	private String veranstaltungsname;
+	private boolean istCompRaum;
+
+----
+FAKULTÄTEN
+--------------------------------------
+
+"Fakultät für Biotechnologie",
+"Fakultät für Elektrotechnik",
+"Fakultät für Gestaltung",
+"Fakultät für Informatik",
+"Fakultät für Informationstechnik",
+"Fakultät für Maschinenbau",
+"Fakultät für Sozialwesen",
+"Fakultät für Verfahrens- und Chemietechnik",
+"Fakultät für Wirtschaftsingenieurwesen"
+-----------------------------
+
+
+erreichbare Tabellen
+------------------
+dozent X   kuerzel fakultät-id person-id
+person X vorname nachname geb. männlich ja nein
+fakuktät   name 
+raum	bezeichnung computerraum ja nein
+studiengang  name 
+veranstaltungsname name kürzel
+veranstaltung semester dauer personalnr stundenplan id vName id
+studierender X semester studiengang-id person-id
+
+stundenplan
+
+------------------
+allgDB
+hinzufügen 1
+ändern 2
+löschen 3
+
+tabellen[0].setText("Person");
+tabellen[1].setText("Dozent");
+tabellen[2].setText("Studierender");
+tabellen[3].setText("Fakuktät");
+tabellen[4].setText("Studiengang");
+tabellen[5].setText("Veranstaltung");
+tabellen[6].setText("Veranstaltungsname");
+tabellen[7].setText("Raum");
+
+
+-----------------
+ab1	1
+ab2	1
+	ab3	2
+	ab4	2
+ab5	1	
+	ab6	2
+	ab7	2
+ab8	1
+ab9	1
+ab10	1
+
+
+
+-----------------
+
+
+pKListe[0]="Personen-ID";
+		pKListe[1]="PersonalNr";
+		pKListe[2]="MatrikelNr";
+		pKListe[3]="Fakultät-ID";
+		pKListe[4]="Studiengang-ID";
+		pKListe[5]="Veranstaltung-ID";
+		pKListe[6]="Veranstaltungsname-ID";
+		pKListe[7]="Raum-Bezeichnung";
+
+
+-----------------
+KOMPLEXE ABFRAGEN - WAS GEHT
+15	X
+14	X
+13	X
+12	X
+11	X
+10	X
+9	X
+8	X
+7	X
+6	X	
+5	X
+4	X
+3	X
+2	X
+1	X
+----------------------
+TABELLEN + NUMMER + PARAMETER (P)
+0 Person 			4p
+	Vorname
+	Nachname
+	Geburtsdatum
+	IstMännlich
+1 Dozent 			3p
+	Kürzel
+	Fakultät
+	Person ID
+2 Studierender 			3p
+	Matrikelnr
+	Personen ID
+	Studiengang
+	Semester 
+3 Fakultät 			1p
+	Name
+4 Studiengang 			1p
+	Name 
+5 Veranstaltung 		5p
+	Semester
+	Dauer
+	Personal-Nr.
+	Studenplan ID
+	Vorlesungsname
+6 Vorlesungs-Name 		2p
+	Name
+	Kürzel
+7 Raum				2p
+	Bezeichnung
+	IstPCRaum
+-----------------------
+
+
+		0personenLabels[0].setText("Vorname:");
+		personenLabels[1].setText("Nachname:");
+		personenLabels[2].setText("Geburtsdatum:");
+		personenLabels[3].setText("Ist Männlich?");
+		
+		1profLabels[0].setText("Kürzel:");
+		profLabels[1].setText("Fakultät:");
+		profLabels[2].setText("Person-ID:");
+		
+		2studentLabels[0].setText("Semester:");
+		studentLabels[1].setText("Studiengang:");
+		studentLabels[2].setText("Person-ID:");
+		
+		3fakultätLabel.setText("Fakultätsname:");
+
+		4studiengangLabel.setText("Studiengangname:");
+		
+		5veranstaltungLabels[0].setText("Semester:");
+		veranstaltungLabels[1].setText("Dauer:");
+		veranstaltungLabels[2].setText("Personal-Nummer:");
+		veranstaltungLabels[3].setText("Studenplan-ID:");
+		veranstaltungLabels[4].setText("Vorlesungsnamen-ID:");
+		
+		6vorlesungsnameLabels[0].setText("Vorlesungsname:");
+		vorlesungsnameLabels[1].setText("Vorlesungskürzel:");
+		
+		7raumLabels.setText("Ist PC-Raum?");
+		
+		JTextField veranstaltungParameter[];
+		JTextField vorlesungsnameParameter;
+		JTextField raumParameter;
+		
+		private JLabel veranstaltungLabels[];
+		private JLabel vorlesungsnameLabels[];
+		private JLabel raumLabels;
+
+
+
+	private JTextField personenParameter[];
+	private JTextField profParameter[];
+	private JTextField studentParameter[];
+	private JTextField fakultätParameter;
+	private JTextField studiengangParameter;
+	private JTextField veranstaltungParameter[];
+	private JTextField[] vorlesungsnameParameter;
+	private JTextField raumParameter;
+
